@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use Auth;
 use Uuid;
+use DB;
 use App\Http\Controllers\Controller;
 
 use App\Models\SetPustaka;
@@ -23,10 +24,28 @@ class UjianController extends Controller
     }
 
     public function openSoal($idAttempt) {
-        $attempt = Attempt::findOrFail($idAttempt);
+        $attempt = Attempt::where('id_user', Auth::id())
+                        ->where('id', $idAttempt)
+                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                        ->first();
+        if($attempt == null) return redirect()->route('member.ujian.soal');
         $soal = Ujian::findOrFail($attempt->id_ujian);
         return view('member.ujian.soal')->with([
-            'soal' => $soal
+            'soal' => $soal,
+            'attempt' => $attempt
+        ]);
+    }
+
+    public function finish($idAttempt) {
+        $attempt = Attempt::where('id_user', Auth::id())
+                        ->where('id', $idAttempt)
+                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                        ->first();
+        if($attempt == null) return redirect()->route('member.ujian.soal');
+        $attempt->end_attempt = date("Y-m-d H:i:s");
+        $attempt->save();
+        return view('member.ujian.finish')->with([
+            'attempt' => $attempt
         ]);
     }
 
@@ -34,7 +53,7 @@ class UjianController extends Controller
         $ujian = Ujian::findOrFail($id);
         $attemptOnGoing = Attempt::where('id_user', Auth::id())
                                     ->where('id_ujian', $id)
-                                    ->whereDate('end_attempt', '<', date('Y-m-d H:i:s'))
+                                    ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                                     ->first();
         if($attemptOnGoing != null) return redirect()->route('member.ujian.soal.open', $attemptOnGoing->id);
 
@@ -58,7 +77,7 @@ class UjianController extends Controller
                             ->firstOrFail();
         $attemptOnGoing = Attempt::where('id_user', Auth::id())
                                     ->where('id_ujian', $id)
-                                    ->whereDate('end_attempt', '<', date('Y-m-d H:i:s'))
+                                    ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                                     ->first();
         if($attemptOnGoing != null) return redirect()->route('member.ujian.soal.open', $attemptOnGoing->id);
 
@@ -115,7 +134,7 @@ class UjianController extends Controller
         $ujian = Ujian::findOrFail($id);
         $attemptOnGoing = Attempt::where('id_user', Auth::id())
                         ->where('id_ujian', $id)
-                        ->whereDate('end_attempt', '<', date('Y-m-d H:i:s'))
+                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                         ->first();
         return view('member.ujian.preattempt')->with([
             'ujian' => $ujian,
@@ -130,7 +149,7 @@ class UjianController extends Controller
                             ->firstOrFail();
         $attemptOnGoing = Attempt::where('id_user', Auth::id())
                                     ->where('id_ujian', $id)
-                                    ->whereDate('end_attempt', '<', date('Y-m-d H:i:s'))
+                                    ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                                     ->first();
         if($attemptOnGoing != null) return redirect()->route('member.ujian.soal.open', $attemptOnGoing->id);
 
@@ -184,6 +203,35 @@ class UjianController extends Controller
         ]);
     }
 
+    public function listSoalDibeli() {
+        $mapelSelect = null;
+        $idUjian = isset($_GET['idUjian']) && $_GET['idUjian'] != null ? $_GET['idUjian'] : null;
+        $idSekolah = isset($_GET['idSekolah']) && $_GET['idSekolah'] != null ? $_GET['idSekolah'] : null;
+        $idKelas = isset($_GET['idKelas']) && $_GET['idKelas'] != null ? $_GET['idKelas'] : null;
+        $idMataPelajaran = isset($_GET['idMataPelajaran']) && $_GET['idMataPelajaran'] != null ? $_GET['idMataPelajaran'] : null;
+        $idJenisUjian = isset($_GET['idJenisUjian']) && $_GET['idJenisUjian'] != null ? $_GET['idJenisUjian'] : null;
+
+        $pembelianUjian = PembelianUjian::select("id_ujian")->where('id_user', Auth::id())->get();
+
+        $ujian = Ujian::where('is_published', 1)->whereIn('id', $pembelianUjian);
+        if($idKelas != null)
+        $ujian = $ujian->where('id_tingkat_kelas', $idKelas);
+        if($idMataPelajaran != null) {
+            $ujian = $ujian->where('id_mata_pelajaran', $idMataPelajaran);
+            $mapelSelect = SetPustaka::find($idMataPelajaran);
+        }
+        $ujian = $ujian->get();
+        $kategori = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran, $idJenisUjian])->get();
+        $mapel = $this->getMapel($idSekolah, $idJenisUjian);
+
+        return view('member.ujian.list')->with([
+            'ujian' => $ujian,
+            'filter' => $kategori,
+            'mapel' => $mapel,
+            'mapelSelect' => $mapelSelect
+        ]);
+    }
+
     public function getMapel($idSekolah, $idJenisUjian) {
         $idSekolah = null;
         $idJenisUjian = null;
@@ -204,5 +252,45 @@ class UjianController extends Controller
             $mapel = SetPustaka::whereIn('id', [1504, 1505, 1506])->get();
         }
         return $mapel;
+    }
+
+    public function history($idAttempt = null) {
+        $history = Attempt::where('id_user', Auth::id())
+                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
+                            ->get();
+        if($idAttempt == null)
+        return view('member.ujian.history')->with([
+            'history' => $history
+        ]);
+
+        $attempt = Attempt::findOrFail($idAttempt);
+        $idUjian = $attempt->id_ujian;
+        $soal = collect(DB::select("
+                SELECT
+                soal.id,
+                soal.soal,
+                soal.a,
+                soal.b,
+                soal.c,
+                soal.d,
+                soal.e,
+                soal.jawaban as kunci,
+                correct.jawaban,
+                correct.is_correct
+                FROM
+                tbl_attempt_correction as correct
+                RIGHT JOIN tbl_soal as soal ON
+                correct.id_soal=soal.id AND
+                soal.id_ujian='" . $idUjian. "' AND
+                correct.id_attempt='" . $idAttempt . "'
+                WHERE
+                soal.id_ujian='" . $idUjian . "' &&
+                soal.deleted_at IS NULL &&
+                correct.deleted_at IS NULL
+                ORDER BY soal.created_at ASC"));
+        return view('member.ujian.preview')->with([
+            'attempt' => $attempt,
+            'soal' => $soal
+        ]);
     }
 }

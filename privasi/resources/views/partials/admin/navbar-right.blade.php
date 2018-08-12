@@ -24,6 +24,12 @@
                     </div>
                 </li>
                 <hr>
+                <li>
+                    <div class="user-info-second" style="background: #FFF; margin-bottom: 0; padding-top: 0;">
+                        Saldo: <span class="text-success text-bold">{{ formatUang(Auth::user()->saldo) }}</span>
+                    </div>
+                </li>
+                <hr>
                 <li><a href="{{ route('member.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
                 @endif
                 @if(Auth::user()->id_role == 1001 || Auth::user()->id_role == 1002 || Auth::user()->id_role == 1003)

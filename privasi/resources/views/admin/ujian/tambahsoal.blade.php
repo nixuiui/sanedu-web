@@ -32,6 +32,8 @@ $(document).ready(function() {
         <form class="panel panel-default" action="{{ route('admin.ujian.soal.form.soal.post', $ujian->id) }}" method="post">
         @endif
             <div class="panel-body">
+            <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
+            <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Soal Nomor {{ $ujian->soal->count() + 2 }}</button>
                 @csrf
                 <div class="form-group">
                     <label><strong>SOAL</strong></label>
@@ -103,11 +105,11 @@ $(document).ready(function() {
                     <label><strong>KUNCI JAWABAN</strong></label>
                     <select class="form-control input-sm" name="jawaban" required>
                         <option value="a">Pilih Jawaban</option>
-                        <option value="a" {{ $soal->jawaban == 'a' ? "selected" : "" }}>A</option>
-                        <option value="b" {{ $soal->jawaban == 'b' ? "selected" : "" }}>B</option>
-                        <option value="c" {{ $soal->jawaban == 'c' ? "selected" : "" }}>C</option>
-                        <option value="d" {{ $soal->jawaban == 'd' ? "selected" : "" }}>D</option>
-                        <option value="e" {{ $soal->jawaban == 'e' ? "selected" : "" }}>E</option>
+                        <option value="a" {{ isset($soal) && $soal->jawaban == 'a' ? "selected" : "" }}>A</option>
+                        <option value="b" {{ isset($soal) && $soal->jawaban == 'b' ? "selected" : "" }}>B</option>
+                        <option value="c" {{ isset($soal) && $soal->jawaban == 'c' ? "selected" : "" }}>C</option>
+                        <option value="d" {{ isset($soal) && $soal->jawaban == 'd' ? "selected" : "" }}>D</option>
+                        <option value="e" {{ isset($soal) && $soal->jawaban == 'e' ? "selected" : "" }}>E</option>
                     </select>
                     @if($errors->has('e'))
                     <span class="help-block">
@@ -115,7 +117,8 @@ $(document).ready(function() {
                     </span>
                     @endif
                 </div>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
+                <button type="submit"  class="btn btn-default btn-fill btn-md" name="simpan" value="simpan">Simpan</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md" name="simpan" value="simpanandnext">Simpan dan Lanjut Soal Nomor {{ $ujian->soal->count() + 2 }}</button>
             </div>
         </form>
     </div>

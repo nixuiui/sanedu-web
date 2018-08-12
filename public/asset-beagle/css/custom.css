@@ -8,9 +8,23 @@ select.input-sm, .input-sm { height: 36px; }
 .btn-group-xs>.btn, .btn-xs { padding: 2px 8px; border-radius: 2px; }
 .btn.btn-icon i.mdi, .label.label-icon i.mdi { margin-right: 5px; }
 .btn-soal-group { width: 100%; display: table; width: 100%; table-layout: fixed; border-collapse: separate;}
-.btn-soal { width: 35px; height: 35px; border-radius: 0; display: table-cell;; padding: 0; margin-right: 5px; margin-bottom:  5px;}
+.btn-soal { width: 35px; height: 35px; display: table-cell; font-weight: 400; padding: 0; margin-right: 5px; margin-bottom:  5px;}
 .btn-soal .flex { width: 100%; height: 100%; display: flex; align-items: center; }
 .btn-soal .flex span { text-align: center; display: block; width: 100%; }
+.btn-select, .btn-select:active, .btn-select:focus { border: 2px solid #fbbc05; font-weight: 800 }
+.font-soal { font-size: 12px; }
+
+.jawaban { position: relative; }
+.jawaban #jawabanNull { display: none; }
+.jawaban input[name="jawaban"] { display: none; }
+.jawaban label { background: #FFF; padding: 10px 35px 10px 50px; border-radius: 5px; border: 1px solid #efefef; display: block; font-weight: 400; }
+.jawaban label strong { position: absolute; left: 20px; }
+.jawaban label:hover { cursor: pointer; background: #efefef; }
+.jawaban label.hapus-jawaban { display: normal; background: #FFF; text-align: right; padding: 15px 0 0; border: none; font-weight: 400; }
+.jawaban label.hapus-jawaban:hover { font-weight: 600 }
+.jawaban input:checked + label { background: #87CB16; color: #FFF; }
+.jawaban input:checked ~ label.hapus-jawaban { display: block; }
+.jawaban #jawabanNull:checked + .hapus-jawaban { display: none; }
 
 img { max-width: 100%; }
 
@@ -25,6 +39,9 @@ img { max-width: 100%; }
     opacity: 0;
     transform: translateY(30px);
 }
+.text-nilai-announcement { font-size: 60px; font-weight: 600; color: #34a853}
+.panel-big .panel-heading h2 { margin: 0; padding: 0; }
+.panel-big { padding: 30px; }
 .panel-footer, .panel-body {
     padding: 20px;
 }
@@ -182,12 +199,19 @@ div.dataTables_wrapper div.dataTables_filter input {
     text-overflow: ellipsis;
 }
 
-.card {
+.tooltip .tooltip-inner { z-index: 999; }
+
+.card, .card-info {
     background: #FFF;
     border-radius: 5px;
     overflow: hidden;
     margin-bottom: 2.154rem;
     border-bottom: 1px solid #e6e6e6;
+}
+.card-info {
+    padding: 15px;
+    border: 1px solid #d4d4d4;
+    box-shadow: 0.5px 0.9px 0 rgba(0,0,0,.07);
 }
 .card .card-img-top {
     width: 100%;
@@ -260,7 +284,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 
 @media (min-width: 576px) {
-
+    .font-soal { font-size: 15px; }
 }
 
 @media (min-width: 768px) {

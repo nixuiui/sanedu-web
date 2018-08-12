@@ -37,6 +37,9 @@ class Ujian extends Model {
   	public function soal() {
   		return $this->hasMany('App\Models\Soal', 'id_ujian');
   	}
+  	public function attempt() {
+  		return $this->hasMany('App\Models\Attempt', 'id_ujian');
+  	}
   	public function diBeliOleh() {
   		return $this->belongsToMany('App\Models\User', 'tbl_pembelian_ujian', 'id_ujian', 'id_user')
                     ->withPivot('id', 'harga', 'created_at');

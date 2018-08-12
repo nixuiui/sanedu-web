@@ -82,7 +82,11 @@
 .mobilenav li {
     font-size: 16px;
     color: #EFEFEF;
+}
+.mobilenav li a {
     padding: 10px 0;
+    width: 100%;
+    display: block;
 }
 .mobilenav li:hover {
     background: #347eb3;

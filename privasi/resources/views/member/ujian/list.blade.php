@@ -5,6 +5,7 @@ Ujian
 @endsection
 
 @section('content')
+@if($filter->count() > 0)
 <div class="btn-group btn-hspace btn-space">
     <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">
         {{ $mapelSelect == null ? "Pilih Mata Pelajaran" : $mapelSelect->nama }} <span class="icon-dropdown mdi mdi-chevron-down"></span>
@@ -36,6 +37,7 @@ Ujian
         @endforeach
     </div>
 </div>
+@endif
 <div class="row row-ujian">
     @if($ujian->count() <= 0)
     <div class="col-md-4">
@@ -50,10 +52,10 @@ Ujian
     </div>
     @else
     @foreach($ujian as $data)
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-lg-3 col-md-4 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
-                <span class="card-label-ujian bg-primary">{{ $data->mataPelajaran->nama }}</span>
+                <span class="card-label-ujian bg-primary">{{ $data->mataPelajaran->nama . ": " . $data->tingkatSekolah->nama }} {{ $data->id_tingkat_kelas == null ? "" : "Kelas " . $data->tingkatKelas->nama }}</span>
                 <span class="card-label-ujian-bottom bg-primary">
                     {{ $data->judul }} <br>
                     Soal: {{ $data->jumlah_soal }}
@@ -75,7 +77,7 @@ Ujian
             <div class="card-body row vertical-align">
                 <div class="col-xs-8">
                     <div class="text-info">
-                        Nilai Anda: - <br>
+                        Nilai Anda: <strong>{{ $data->attempt->count() > 0 ? round(($data->attempt->first()->jumlah_benar / $data->soal->count())*100, 2) : "-" }}</strong> <br>
                         <a href="#" class="text-link"><i class="mdi mdi-download mr-2"></i>Download Pembahasan</a>
                     </div>
                 </div>

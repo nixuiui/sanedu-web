@@ -83,7 +83,7 @@ class RegisterController extends Controller
             return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP tidak tersedia']);
         $tiket = $tiket->where('id_user', null);
         if($tiket->first() == null)
-            return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP sudah dipakai']);
+            return view('auth.register')->with(['step' => 1, 'danger' => 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran']);
         return view('auth.register')->with('step', 2);
     }
 
@@ -101,7 +101,7 @@ class RegisterController extends Controller
             return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
         $tiket = $tiket->where('id_user', null);
         if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Nomor PIN dan KAP sudah dipakai');
+            return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
         $tiket = $tiket->first();
         $user = new User;
         $user->id = Uuid::generate();

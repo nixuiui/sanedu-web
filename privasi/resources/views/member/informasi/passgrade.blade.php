@@ -45,8 +45,6 @@ Passing Grade
                             <th class="text-center">Peminat</th>
                             <th class="text-center">Pass Grade</th>
                             <th class="text-center">Akreditasi</th>
-                            <th class="text-center">Soshum</th>
-                            <th class="text-center">Saintek</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -57,8 +55,6 @@ Passing Grade
                             <th class="text-center">Peminat</th>
                             <th class="text-center">Pass Grade</th>
                             <th class="text-center">Akreditasi</th>
-                            <th class="text-center">Soshum</th>
-                            <th class="text-center">Saintek</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -70,8 +66,6 @@ Passing Grade
                             <td class="text-center">{{ $w->peminat }}</td>
                             <td class="text-center">{{ $w->passing_grade }}</td>
                             <td class="text-center">{{ $w->akreditasi }}</td>
-                            <td class="text-center">{!! $w->soshum == 1 ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
-                            <td class="text-center">{!! $w->saintek == 1 ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
                         </tr>
                         @endforeach
                     </tbody>

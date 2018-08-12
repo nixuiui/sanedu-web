@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
 
-class Attempt extends Model {
+
+class Ujian extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_attempt';
+    protected $table        = 'tbl_riwayat_saldo';
     protected $primaryKey   = 'id';
     protected $keyType      = 'string';
     public $incrementing    = false;
@@ -19,19 +19,16 @@ class Attempt extends Model {
         static::deleting(function($data) {
             // $data->tiket()->delete();
         });
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('start_attempt', 'asc');
-        });
     }
 
     //RELATION table
+  	public function kategori() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori');
+  	}
   	public function ujian() {
-  		return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+  		return $this->belongsTo('App\Models\Ujian', 'id_object');
   	}
   	public function user() {
   		return $this->belongsTo('App\Models\User', 'id_user');
-  	}
-  	public function correction() {
-  		return $this->hasMany('App\Models\AttemptCorrection', 'id_attempt');
   	}
 }

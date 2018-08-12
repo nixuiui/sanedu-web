@@ -45,5 +45,4 @@
     </div>
 </div>
 <div class="progress-widget">
-    <span class="text-muted" style="font-size: 11px;">Powered by Capung Technology</span>
 </div>

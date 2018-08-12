@@ -89,16 +89,21 @@ Daftar
                 <span>{{ $errors->first('tempat_lahir') }}</span>
             </span>
             @endif
-            <input type="text" class="fadeIn eight" name="username" placeholder="Gunakan huruf, angka tanpa spasi" value="{{ old('username') }}" required>
-            @if($errors->has('username'))
-            <span class="help-block">
-                <span>{{ $errors->first('username') }}</span>
-            </span>
-            @endif
             <input type="text" class="fadeIn eight" name="email" placeholder="EMAIL" value="{{ old('email') }}" required>
             @if($errors->has('email'))
             <span class="help-block">
                 <span>{{ $errors->first('email') }}</span>
+            </span>
+            @endif
+            <hr>
+            <div class="padd">
+                Username dan Password digunakan untuk melakukan login ke Sanedu. Silahkan diingat untuk username dan password.
+            </div>
+            <input type="text" class="fadeIn eight" name="username" placeholder="Username" value="{{ old('username') }}" required>
+            <small class="label">Username: Gunakan huruf, angka tanpa spasi</small>
+            @if($errors->has('username'))
+            <span class="help-block">
+                <span>{{ $errors->first('username') }}</span>
             </span>
             @endif
             <input type="password" class="fadeIn nineth" name="password" placeholder="Password" required>

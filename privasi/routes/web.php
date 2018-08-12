@@ -190,11 +190,18 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
         Route::get('/',                     'Member\UjianController@index')->name('member.ujian.soal');
         Route::get('/sbmptn/passgrade/{id}','Member\UjianController@sbmptnPassGrade')->name('member.ujian.soal.sbmptn.passgrade');
         Route::post('/sbmptn/passgrade/{id}','Member\UjianController@sbmptnPassGradePost')->name('member.ujian.soal.sbmptn.passgrade.post');
-        Route::get('/opensoal/{idAttempt}', 'Member\UjianController@openSoal')->name('member.ujian.soal.open');
         Route::get('/preattempt/{idSoal}',  'Member\UjianController@preAttempt')->name('member.ujian.soal.preattempt');
         Route::get('/attempt/{idSoal}',     'Member\UjianController@attempt')->name('member.ujian.soal.attempt');
         Route::get('/listsoal',             'Member\UjianController@listSoal')->name('member.ujian.soal.list');
+        Route::get('/soalsudahdibeli',      'Member\UjianController@listSoalDibeli')->name('member.ujian.soal.list.dibeli');
         Route::get('/belisoal/{id}',        'Member\UjianController@beliSoal')->name('member.ujian.soal.beli');
+        Route::get('/opensoal/{idAttempt}', 'Member\UjianController@openSoal')->name('member.ujian.soal.open');
+        Route::get('/finish/{idAttempt}',   'Member\UjianController@finish')->name('member.ujian.soal.finish');
+        Route::get('/history/{idAttempt?}', 'Member\UjianController@history')->name('member.ujian.soal.history');
+    });
+    Route::group(['prefix' => 'attempt'], function(){
+        Route::get('/reqsoal/{idUjian}',    'Member\AttemptController@reqSoal')->name('member.ujian.attempt.request.soal');
+        Route::post('/sendjawaban',         'Member\AttemptController@sendJawaban')->name('member.ujian.attempt.sendJawaban');
     });
 
 });

@@ -58,6 +58,22 @@ h2.active {
     color: #0d0d0d;
     border-bottom: 2px solid #5fbae9;
 }
+.padd {
+    width: 85%;
+    margin: 5px;
+    padding: 15px 32px;
+    display: inline-block;
+    font-size: 14px;
+}
+.label {
+    text-align: left;
+    display: inline-block;
+    width: 85%;
+    margin-bottom: 15px;
+    font-style: italic;
+    font-size: 13px;
+    color: #888;
+}
 input[type=button], input[type=submit], input[type=reset]  {
     background-color: #56baed;
     border: none;

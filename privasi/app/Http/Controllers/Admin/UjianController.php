@@ -133,7 +133,9 @@ class UjianController extends Controller
         $soal->jawaban = $input->jawaban;
         $soal->id_ujian = $ujian->id;
         $soal->save();
+        if($input->simpan == "simpan")
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
+        return redirect()->route('admin.ujian.soal.form.soal', $ujian->id)->with('success', 'Berhasil menambah butir soal');
     }
 
     public function deleteSoal($id, $idSoal) {

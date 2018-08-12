@@ -7,6 +7,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a href="{{ route('guest.home') }}" class="navbar-brand" style="background: none;"></a>
+                    <a href="#" class="be-toggle-left-sidebar"><span class="icon mdi mdi-menu"></span></a>
                 </div>
                 @include('partials.admin.navbar-right')
             </div>

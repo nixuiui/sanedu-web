@@ -50,4 +50,7 @@ class User extends Authenticatable {
   		return $this->belongsToMany('App\Models\Ujian', 'tbl_pembelian_ujian', 'id_user', 'id_ujian')
                     ->withPivot('id', 'harga', 'created_at');
   	}
+    public function riwayatSaldo() {
+      return $this->hasMany('App\Model\RiwayatSaldo', 'id_user');
+    }
 }

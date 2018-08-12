@@ -34,4 +34,14 @@ class Controller extends BaseController
             return $result;
         }
     }
+
+    public function error($message) {
+        return response()->json(["success" => false, "message" => $message]);
+    }
+
+    public function success($data = null) {
+        if($data == null)
+        return response()->json(["success" => true]);
+        return response()->json(["success" => true, "data" => $data]);
+    }
 }

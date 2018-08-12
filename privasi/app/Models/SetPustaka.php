@@ -48,6 +48,11 @@ class SetPustaka extends Model {
         if($id != null) $query = $query->where("id", $id)->first();
         return $query;
     }
+    public function scopeKategoriRiwayatSaldo($query, $id = null) {
+        $query = $query->where("id_kategori", 18)->get();
+        if($id != null) $query = $query->where("id", $id)->first();
+        return $query;
+    }
 
     //RELATION table
   	public function kategori() {
@@ -73,5 +78,8 @@ class SetPustaka extends Model {
   	}
   	public function informasi() {
   		return $this->hasMany('App\Models\Informasi', 'id_kategori');
+  	}
+  	public function riwayatSaldo() {
+  		return $this->hasMany('App\Models\RiwayatSaldo', 'id_kategori');
   	}
 }
