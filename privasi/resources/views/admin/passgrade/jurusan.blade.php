@@ -13,7 +13,7 @@ Passing Grade
             <div class="panel-heading">
                 Passing Grade {{ $universitas->nama }}
             </div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive noSwipe">
                 <table id="datatables" class="table table-striped">
                     <thead>
                         <tr>

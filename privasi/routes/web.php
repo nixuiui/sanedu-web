@@ -82,19 +82,23 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
     Route::get('/', 'Admin\HomeController@index')->name('admin');
 
     Route::group(['prefix' => 'ujian'], function(){
-        Route::get('/',                 'Admin\UjianController@index')->name('admin.ujian.soal');
-        Route::get('/soal/tambah',      'Admin\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
-        Route::post('/soal/tambah',     'Admin\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
-        Route::post('/soal/edit/{id}',  'Admin\UjianController@prosesEditUjian')->name('admin.ujian.soal.edit.post');
-        Route::get('/soal/delete/{id}', 'Admin\UjianController@deleteUjian')->name('admin.ujian.soal.delete');
-        Route::get('/soal/kelola/{id}', 'Admin\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
-        Route::get('/soal/kelola/{id}/publish',                 'Admin\UjianController@publish')->name('admin.ujian.soal.publish');
-        Route::get('/soal/kelola/{id}/formperaturan',           'Admin\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
-        Route::post('/soal/kelola/{id}/formperaturan',          'Admin\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
-        Route::get('/soal/kelola/{id}/formsoal/{idSoal?}',      'Admin\UjianController@formSoal')->name('admin.ujian.soal.form.soal');
-        Route::post('/soal/kelola/{id}/tambahsoal/{idSoal?}',   'Admin\UjianController@prosesTambahSoal')->name('admin.ujian.soal.form.soal.post');
-        Route::get('/soal/kelola/{id}/deletesoal/{idSoal}',     'Admin\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
-        Route::get('/soal/kelola/{id}/lihatsoal/{idSoal}',      'Admin\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
+        Route::get('/',                     'Admin\UjianController@index')->name('admin.ujian.soal');
+        Route::get('/soal/tambah',          'Admin\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
+        Route::post('/soal/tambah',         'Admin\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
+        Route::post('/soal/edit/{id}',      'Admin\UjianController@prosesEditUjian')->name('admin.ujian.soal.edit.post');
+        Route::get('/soal/delete/{id}',     'Admin\UjianController@deleteUjian')->name('admin.ujian.soal.delete');
+        Route::get('/soal/pembeli/{id}',    'Admin\UjianController@pembeli')->name('admin.ujian.soal.pembeli');
+        Route::get('/soal/history/{id}/{idAttempt?}',   'Admin\UjianController@history')->name('admin.ujian.soal.history');
+        Route::group(['prefix' => 'soal/kelola'], function(){
+            Route::get('/{id}',                         'Admin\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
+            Route::get('/{id}/publish',                 'Admin\UjianController@publish')->name('admin.ujian.soal.publish');
+            Route::get('/{id}/formperaturan',           'Admin\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
+            Route::post('/{id}/formperaturan',          'Admin\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
+            Route::get('/{id}/formsoal/{idSoal?}',      'Admin\UjianController@formSoal')->name('admin.ujian.soal.form.soal');
+            Route::post('/{id}/tambahsoal/{idSoal?}',   'Admin\UjianController@prosesTambahSoal')->name('admin.ujian.soal.form.soal.post');
+            Route::get('/{id}/deletesoal/{idSoal}',     'Admin\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
+            Route::get('/{id}/lihatsoal/{idSoal}',      'Admin\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
+        });
     });
 
     Route::group(['prefix' => 'grupchat'], function(){
@@ -120,6 +124,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/formuniv/{id?}',                   'Admin\PassingGradeController@formUniv')->name('admin.passgrade.form.univ');
         Route::post('/saveuniv/{id?}',                  'Admin\PassingGradeController@saveUniv')->name('admin.passgrade.save.univ');
         Route::get('/openuniv/{id}',                    'Admin\PassingGradeController@openUniv')->name('admin.passgrade.open.univ');
+        Route::get('/deluniv/{id}',                     'Admin\PassingGradeController@deleteUniv')->name('admin.passgrade.delete.univ');
         Route::get('/openuniv/{id}/deljur/{idJur}',     'Admin\PassingGradeController@deleteJurusan')->name('admin.passgrade.delete.jurusan');
         Route::get('/openuniv/{id}/formjur/{idJur?}',   'Admin\PassingGradeController@formJurusan')->name('admin.passgrade.form.jurusan');
         Route::post('/openuniv/{id}/savejur/{idJur?}',  'Admin\PassingGradeController@saveJurusan')->name('admin.passgrade.save.jurusan');
@@ -197,7 +202,7 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
         Route::get('/belisoal/{id}',        'Member\UjianController@beliSoal')->name('member.ujian.soal.beli');
         Route::get('/opensoal/{idAttempt}', 'Member\UjianController@openSoal')->name('member.ujian.soal.open');
         Route::get('/finish/{idAttempt}',   'Member\UjianController@finish')->name('member.ujian.soal.finish');
-        Route::get('/history/{idAttempt?}', 'Member\UjianController@history')->name('member.ujian.soal.history');
+        Route::get('/history/{idAttempt?}', 'Member\UjianController@history')->name('member.ujian.history');
     });
     Route::group(['prefix' => 'attempt'], function(){
         Route::get('/reqsoal/{idUjian}',    'Member\AttemptController@reqSoal')->name('member.ujian.attempt.request.soal');

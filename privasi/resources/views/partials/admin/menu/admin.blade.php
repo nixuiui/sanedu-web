@@ -23,12 +23,8 @@
                 <li class="{{ active(['admin.passgrade', 'admin.passgrade.*']) }}">
                     <a href="{{ route('admin.passgrade') }}"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
                 </li>
-                <li class="parent">
-                    <a href="#"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
-                    <ul class="sub-menu">
-                        <li class="{{ active(['admin.ujian.soal', 'admin.ujian.soal.*']) }}"><a href="{{ route('admin.ujian.soal') }}">Soal Ujian</a></li>
-                        <li class=""><a href="#">History</a></li>
-                    </ul>
+                <li class="{{ active(['admin.ujian.soal', 'admin.ujian.soal.*']) }}">
+                    <a href="{{ route('admin.ujian.soal') }}"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
                 </li>
             </ul>
         </div>

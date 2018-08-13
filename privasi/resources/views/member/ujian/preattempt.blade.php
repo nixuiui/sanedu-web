@@ -104,7 +104,7 @@ Ujian
     <div class="col-md-7">
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
-                History
+                Riwayat Pengerjaan {{ $ujian->judul }}
             </div>
             <div class="panel-body">
                 <table id="datatables" class="table datatables table-striped">
@@ -113,6 +113,7 @@ Ujian
                             <th>No</th>
                             <th>Ujian</th>
                             <th>Soal</th>
+                            <th class="text-center">Nilai</th>
                             <th class="text-center">Benar</th>
                             <th class="text-center">Salah</th>
                             <th>Waktu</th>
@@ -124,6 +125,7 @@ Ujian
                             <th>No</th>
                             <th>Ujian</th>
                             <th>Soal</th>
+                            <th class="text-center">Nilai</th>
                             <th class="text-center">Benar</th>
                             <th class="text-center">Salah</th>
                             <th>Waktu</th>
@@ -140,7 +142,7 @@ Ujian
                             <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-center">{{ $data->jumlah_salah }}</td>
                             <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
-                            <td><a href="{{ route('member.ujian.soal.history', $data->id) }}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></td>
+                            <td><a href="{{ route('member.ujian.history', $data->id) }}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -17,7 +17,7 @@
                     <ul class="sub-menu">
                         <li class="{{ active(['member.ujian.soal', 'member.ujian.soal.*']) }}"><a href="{{ route('member.ujian.soal') }}">Soal</a></li>
                         <li class="{{ active(['member.ujian.soal.list.dibeli', 'member.ujian.soal.list.dibeli*']) }}"><a href="{{ route('member.ujian.soal.list.dibeli') }}">Soal Yang Anda Beli</a></li>
-                        <li class="{{ active(['member.ujian.soal.history', 'member.ujian.soal.history.*']) }}"><a href="{{ route('member.ujian.soal.history') }}">History</a></li>
+                        <li class="{{ active(['member.ujian.history', 'member.ujian.history.*']) }}"><a href="{{ route('member.ujian.history') }}">History</a></li>
                     </ul>
                 </li>
                 <li class="parent {{ active(['member.informasi', 'member.informasi.*'], "active open") }}" title="Informasi">

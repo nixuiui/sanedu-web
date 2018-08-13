@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Uuid;
-
+use DB;
 use App\Models\SetPustaka;
 use App\Models\Ujian;
 use App\Models\Soal;
+use App\Models\Attempt;
 
 class UjianController extends Controller
 {
@@ -148,6 +149,56 @@ class UjianController extends Controller
         $soal = Soal::find($idSoal);
         return view('admin.ujian.lihatsoal')->with([
             'soal' => $soal
+        ]);
+    }
+
+    public function history($id, $idAttempt = null) {
+        $ujian = Ujian::findOrFail($id);
+        $history = Attempt::where('id_ujian', $id)
+                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
+                            ->get();
+        if($idAttempt == null)
+        return view('admin.ujian.history')->with([
+            'history' => $history,
+            'ujian' => $ujian
+        ]);
+
+        $attempt = Attempt::findOrFail($idAttempt);
+        $idUjian = $attempt->id_ujian;
+        $soal = collect(DB::select("
+                SELECT
+                soal.id,
+                soal.soal,
+                soal.a,
+                soal.b,
+                soal.c,
+                soal.d,
+                soal.e,
+                soal.jawaban as kunci,
+                correct.jawaban,
+                correct.is_correct
+                FROM
+                tbl_attempt_correction as correct
+                RIGHT JOIN tbl_soal as soal ON
+                correct.id_soal=soal.id AND
+                soal.id_ujian='" . $idUjian. "' AND
+                correct.id_attempt='" . $idAttempt . "'
+                WHERE
+                soal.id_ujian='" . $idUjian . "' &&
+                soal.deleted_at IS NULL &&
+                correct.deleted_at IS NULL
+                ORDER BY soal.created_at ASC"));
+        return view('admin.ujian.preview')->with([
+            'attempt' => $attempt,
+            'soal' => $soal,
+            'ujian' => $ujian
+        ]);
+    }
+
+    public function pembeli($id) {
+        $ujian = Ujian::findOrFail($id);
+        return view('admin.ujian.pembeli')->with([
+            'ujian' => $ujian
         ]);
     }
 

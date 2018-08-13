@@ -29,6 +29,12 @@ class PassingGradeController extends Controller
         ]);
     }
 
+    public function deleteUniv($idUnive) {
+        $univ = Universitas::findOrFail($idUnive);
+        $univ->delete();
+        return redirect()->back()->with("success", "Berhasil dihapus");
+    }
+
     public function formUniv($id=null) {
         if($id==null)
         return view('admin.passgrade.formuniv');
@@ -55,17 +61,17 @@ class PassingGradeController extends Controller
             })->get();
             if(!empty($data) && $data->count()){
                 foreach ($data as $key => $value) {
-                    if( $value->jurusan == null ||
-                        $value->kuota == null ||
-                        $value->peminat == null ||
-                        $value->passing_grade == null ||
+                    if( $value->jurusan == null &&
+                        $value->daya_tampung == null &&
+                        $value->peminat == null &&
+                        $value->passing_grade == null &&
                         $value->akreditasi == null)
                     continue;
                     $passGrade                  = new Jurusan;
                     $passGrade->id              = Uuid::generate();
                     $passGrade->id_universitas  = $universitas->id;
                     $passGrade->jurusan         = $value->jurusan;
-                    $passGrade->kuota           = $value->kuota;
+                    $passGrade->kuota           = $value->daya_tampung;
                     $passGrade->peminat         = $value->peminat;
                     $passGrade->passing_grade   = $value->passing_grade;
                     $passGrade->akreditasi      = $value->akreditasi;

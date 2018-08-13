@@ -10,8 +10,19 @@ Kelola Soal Ujian
     <div class="message">
         <strong>{{ $ujian->is_published ? "Soal Sudah di Publish" : "Publish Soal Ujian!" }}</strong>
         <p>Soal Ujian yang sudah di publish sudah tidak bisa lagi untuk menambah, mengubah, atau menghapus butir soal.</p>
+        @if( $ujian->diBeliOleh->count() > 0)
+        <hr>
+        <p>Soal ini sudah dibeli oleh <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">{{ $ujian->diBeliOleh->count() }}x</a></strong> oleh member, <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">Lihat Member yang membeli</a></strong></p>
+        @else
+        <p class="">Soal belum ada yang membeli. :(</p>
+        @endif
         @if(!$ujian->is_published)
         <a href="{{ route('admin.ujian.soal.publish', $ujian->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
+        @endif
+        @if( $ujian->attempt->count() > 0)
+        <p>Soal ini sudah dikerjakan <strong><a href="{{ route('admin.ujian.soal.history', $ujian->id) }}">{{ $ujian->attempt->count() }}x</a></strong> oleh member, <strong><a href="{{ route('admin.ujian.soal.history', $ujian->id) }}">Lihat history</a></strong></p>
+        @else
+        <p class="">Soal belum ada yang mengerjakan.</p>
         @endif
     </div>
 </div>
