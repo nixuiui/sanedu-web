@@ -18,7 +18,7 @@ select.input-sm, .input-sm { height: 36px; }
 .jawaban #jawabanNull { display: none; }
 .jawaban input[name="jawaban"] { display: none; }
 .jawaban label { background: #FFF; padding: 10px 35px 10px 50px; border-radius: 5px; border: 1px solid #efefef; display: block; font-weight: 400; }
-.jawaban label strong { position: absolute; left: 20px; }
+.jawaban label .label-pilihan { position: absolute; left: 20px; }
 .jawaban label:hover { cursor: pointer; background: #efefef; }
 .jawaban label.hapus-jawaban { display: normal; background: #FFF; text-align: right; padding: 15px 0 0; border: none; font-weight: 400; }
 .jawaban label.hapus-jawaban:hover { font-weight: 600 }

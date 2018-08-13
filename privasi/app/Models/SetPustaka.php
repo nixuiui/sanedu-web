@@ -3,9 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class SetPustaka extends Model {
     protected $table = 'set_pustaka';
+
+    protected static function boot() {
+        parent::boot();
+        static::deleting(function($data) {
+            // $data->tiket()->delete();
+        });
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('nama', 'asc');
+        });
+    }
 
     //SCOPE
     public function scopeRole($query, $id = null) {

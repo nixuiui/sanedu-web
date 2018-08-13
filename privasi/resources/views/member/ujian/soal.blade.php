@@ -22,15 +22,15 @@ Ujian Matematika
     <div class="panel-body font-soal">
         <div class="jawaban mb-5">
             <input id="jawabanA" type="radio" value="a" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanA"><strong>A.</strong> @{{ soal.a }}</label>
+            <label for="jawabanA"><strong class="label-pilihan">A.</strong> <div v-html="soal.a"> </div></label>
             <input id="jawabanB" type="radio" value="b" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanB"><strong>B.</strong> @{{ soal.b }}</label>
+            <label for="jawabanB"><strong class="label-pilihan">B.</strong> <div v-html="soal.b"> </div></label>
             <input id="jawabanC" type="radio" value="c" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanC"><strong>C.</strong> @{{ soal.c }}</label>
+            <label for="jawabanC"><strong class="label-pilihan">C.</strong> <div v-html="soal.c"> </div></label>
             <input id="jawabanD" type="radio" value="d" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanD"><strong>D.</strong> @{{ soal.d }}</label>
+            <label for="jawabanD"><strong class="label-pilihan">D.</strong> <div v-html="soal.d"> </div></label>
             <input id="jawabanE" type="radio" value="e" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanE"><strong>E.</strong> @{{ soal.e }}</label>
+            <label for="jawabanE"><strong class="label-pilihan">E.</strong> <div v-html="soal.e"> </div></label>
         </div>
         <button type="button" id="btnNext" @click="nextSoal" class="btn btn-primary btn-sm btn-icon" name="button"><i class="mdi mdi-arrow-right"></i>Lanjutkan</button>
         <button type="button" @click="hapusJawaban" class="btn btn-default btn-sm btn-icon pull-right" v-bind:class="{'disabled': soal.jawaban == null}" name="button"><i class="mdi mdi-close"></i>Hapus Jawaban</button>

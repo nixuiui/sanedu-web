@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\AdminUjian;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,14 +15,14 @@ class UjianController extends Controller
 {
     public function index() {
         $ujian = Ujian::orderby('created_at', 'desc')->get();
-        return view('admin.ujian.index')->with([
+        return view('adminujian.ujian.index')->with([
             'ujian' => $ujian
         ]);
     }
 
     public function formTambahUjian() {
-        $sekolah = SetPustaka::tingkatSekolah();
-        return view('admin.ujian.tambah')->with([
+        $sekolah = SetPustaka::where('id_kategori', 13)->orderBy('id', 'asc')->get();
+        return view('adminujian.ujian.tambah')->with([
             'sekolah' => $sekolah
         ]);
     }
@@ -34,6 +34,7 @@ class UjianController extends Controller
             'id_kelas'          => 'nullable|exists:set_pustaka,id',
             'id_mata_pelajaran' => 'nullable|exists:set_pustaka,id',
             'judul'             => 'required|string',
+            'durasi'            => 'required|numeric',
             'harga'             => 'required|numeric',
         ]);
         $ujian = new Ujian;
@@ -44,6 +45,7 @@ class UjianController extends Controller
         $ujian->id_mata_pelajaran = $input->id_mata_pelajaran;
         $ujian->judul = $input->judul;
         $ujian->harga = $input->harga;
+        $ujian->durasi = $input->durasi;
         $ujian->save();
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil membuat soal ujian baru');
     }
@@ -80,7 +82,7 @@ class UjianController extends Controller
     public function kelolaSoal($id) {
         $ujian = Ujian::find($id);
         $soal = Soal::where('id_ujian', $ujian->id)->orderBy('created_at', 'ASC')->get();
-        return view('admin.ujian.kelola')->with([
+        return view('adminujian.ujian.kelola')->with([
             'ujian' => $ujian,
             'soal' => $soal
         ]);
@@ -88,7 +90,7 @@ class UjianController extends Controller
 
     public function formPeraturan($id, $idSoal = null) {
         $ujian = Ujian::findOrFail($id);
-        return view('admin.ujian.formperaturan')->with([
+        return view('adminujian.ujian.formperaturan')->with([
             'ujian' => $ujian
         ]);
     }
@@ -103,12 +105,12 @@ class UjianController extends Controller
     public function formSoal($id, $idSoal = null) {
         $ujian = Ujian::findOrFail($id);
         if($idSoal == null)
-        return view('admin.ujian.tambahsoal')->with([
+        return view('adminujian.ujian.tambahsoal')->with([
             'ujian' => $ujian
         ]);
 
         $soal = Soal::find($idSoal);
-        return view('admin.ujian.tambahsoal')->with([
+        return view('adminujian.ujian.tambahsoal')->with([
             'ujian' => $ujian,
             'soal' => $soal
         ]);
@@ -147,7 +149,7 @@ class UjianController extends Controller
 
     public function viewSoal($id, $idSoal) {
         $soal = Soal::find($idSoal);
-        return view('admin.ujian.lihatsoal')->with([
+        return view('adminujian.ujian.lihatsoal')->with([
             'soal' => $soal
         ]);
     }
@@ -158,7 +160,7 @@ class UjianController extends Controller
                             ->where('end_attempt', '<', date('Y-m-d H:i:s'))
                             ->get();
         if($idAttempt == null)
-        return view('admin.ujian.history')->with([
+        return view('adminujian.ujian.history')->with([
             'history' => $history,
             'ujian' => $ujian
         ]);
@@ -188,7 +190,7 @@ class UjianController extends Controller
                 soal.deleted_at IS NULL &&
                 correct.deleted_at IS NULL
                 ORDER BY soal.created_at ASC"));
-        return view('admin.ujian.preview')->with([
+        return view('adminujian.ujian.preview')->with([
             'attempt' => $attempt,
             'soal' => $soal,
             'ujian' => $ujian
@@ -197,7 +199,7 @@ class UjianController extends Controller
 
     public function pembeli($id) {
         $ujian = Ujian::findOrFail($id);
-        return view('admin.ujian.pembeli')->with([
+        return view('adminujian.ujian.pembeli')->with([
             'ujian' => $ujian
         ]);
     }

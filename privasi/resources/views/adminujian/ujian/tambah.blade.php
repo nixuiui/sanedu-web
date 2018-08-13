@@ -67,7 +67,7 @@ Buat Ujian Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Judul Ujian</label>
                             <input type="text" class="form-control input-sm" placeholder="Ujian Nasional SMA Matematika" name="judul"  value="{{ old('judul') }}" required>
@@ -78,7 +78,18 @@ Buat Ujian Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Durasi (menit)</label>
+                            <input type="number" class="form-control input-sm" placeholder="60" name="durasi"  value="{{ old('durasi') }}" required>
+                            @if($errors->has('durasi'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('durasi') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label>Harga (Rp)</label>
                             <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ 0 | old('harga') }}" required>
