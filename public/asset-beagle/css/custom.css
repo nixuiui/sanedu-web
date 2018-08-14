@@ -11,7 +11,8 @@ select.input-sm, .input-sm { height: 36px; }
 .btn-soal { width: 35px; height: 35px; display: table-cell; font-weight: 400; padding: 0; margin-right: 5px; margin-bottom:  5px;}
 .btn-soal .flex { width: 100%; height: 100%; display: flex; align-items: center; }
 .btn-soal .flex span { text-align: center; display: block; width: 100%; }
-.btn-select, .btn-select:active, .btn-select:focus { border: 2px solid #fbbc05; font-weight: 800 }
+.btn-select, .btn-select:active, .btn-select:focus { border: 2px solid #dea604; font-weight: 800 }
+.btn-select.btn-filled { background: #dea604; border-color: #dea604; }
 .font-soal { font-size: 12px; }
 
 .jawaban { position: relative; }

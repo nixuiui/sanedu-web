@@ -12,28 +12,60 @@ Ujian Matematika
         @{{ errorMessage }}
     </div>
 </div>
-<span class="label label-default label-md label-space font-soal">SOAL NO: @{{ noSoal }}</span>
+<span class="label label-default label-md label-space font-soal">
+    <span v-if="!isFinish && isMounted">SOAL NO: @{{ noSoal }}</span>
+    <span v-if="isFinish && isMounted">SELESAI UJIAN</span>
+    <span v-if="!isMounted">Loading Soal...</span>
+</span>
 <span class="label label-default label-md pull-right label-icon font-soal"><i class="mdi mdi-time-countdown"></i><span id="timer"></span></span>
 <btn class="btn btn-default btn-md pull-right font-soal btn-space btn-icon text-success" data-toggle="modal" data-target="#modalPeraturan"><i class="mdi mdi-settings"></i>Peraturan</btn>
-<div class="panel panel-default">
-    <div class="panel-body font-soal" v-html="soal.soal"></div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-body font-soal">
-        <div class="jawaban mb-5">
-            <input id="jawabanA" type="radio" value="a" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanA"><strong class="label-pilihan">A.</strong> <div v-html="soal.a"> </div></label>
-            <input id="jawabanB" type="radio" value="b" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanB"><strong class="label-pilihan">B.</strong> <div v-html="soal.b"> </div></label>
-            <input id="jawabanC" type="radio" value="c" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanC"><strong class="label-pilihan">C.</strong> <div v-html="soal.c"> </div></label>
-            <input id="jawabanD" type="radio" value="d" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanD"><strong class="label-pilihan">D.</strong> <div v-html="soal.d"> </div></label>
-            <input id="jawabanE" type="radio" value="e" name="jawaban" v-model="soal.jawaban">
-            <label for="jawabanE"><strong class="label-pilihan">E.</strong> <div v-html="soal.e"> </div></label>
+<div class="" v-show="!isFinish && isMounted">
+    <div class="panel panel-default">
+        <div class="panel-body font-soal" v-html="soal.soal"></div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-body font-soal">
+            <div class="jawaban mb-5">
+                <input id="jawabanA" type="radio" value="a" name="jawaban" v-model="soal.jawaban">
+                <label for="jawabanA"><strong class="label-pilihan">A.</strong> <div v-html="soal.a"> </div></label>
+                <input id="jawabanB" type="radio" value="b" name="jawaban" v-model="soal.jawaban">
+                <label for="jawabanB"><strong class="label-pilihan">B.</strong> <div v-html="soal.b"> </div></label>
+                <input id="jawabanC" type="radio" value="c" name="jawaban" v-model="soal.jawaban">
+                <label for="jawabanC"><strong class="label-pilihan">C.</strong> <div v-html="soal.c"> </div></label>
+                <input id="jawabanD" type="radio" value="d" name="jawaban" v-model="soal.jawaban">
+                <label for="jawabanD"><strong class="label-pilihan">D.</strong> <div v-html="soal.d"> </div></label>
+                <input id="jawabanE" type="radio" value="e" name="jawaban" v-model="soal.jawaban">
+                <label for="jawabanE"><strong class="label-pilihan">E.</strong> <div v-html="soal.e"> </div></label>
+            </div>
+            <button type="button" id="btnNext" @click="nextSoal" class="btn btn-primary btn-sm btn-icon" name="button"><i class="mdi mdi-arrow-right"></i>Lanjutkan</button>
+            <button type="button" id="btnHapus" @click="hapusJawaban" class="btn btn-default btn-sm btn-icon pull-right" v-bind:class="{'disabled': soal.jawaban == null}" name="button"><i class="mdi mdi-close"></i>Hapus Jawaban</button>
         </div>
-        <button type="button" id="btnNext" @click="nextSoal" class="btn btn-primary btn-sm btn-icon" name="button"><i class="mdi mdi-arrow-right"></i>Lanjutkan</button>
-        <button type="button" @click="hapusJawaban" class="btn btn-default btn-sm btn-icon pull-right" v-bind:class="{'disabled': soal.jawaban == null}" name="button"><i class="mdi mdi-close"></i>Hapus Jawaban</button>
+    </div>
+</div>
+<div class="" v-show="isFinish && isMounted">
+    <div class="panel panel-default">
+        <div class="panel-body text-center">
+            <h3>Apakah Anda ingin menyelesaikan ujian?</h3>
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <table class="table table-condensed table-hover table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th width="5px" class="text-center">No</th>
+                                <th class="text-center">Jawaban</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(soal, index) in soals">
+                                <td>@{{ index+1 }}</td>
+                                <td>@{{ soal.jawaban == null ? "-" : soal.jawaban }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-primary">SELESAIKAN SEKARANG</a>
+        </div>
     </div>
 </div>
 <div class="modal fade" id="modalPeraturan" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel" style="display: none;">
@@ -56,12 +88,15 @@ Ujian Matematika
 
 @section('content-side')
 <div class="row">
-    <div class="col-md-12 mb-3">
-        <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success btn-block">SELESAI</a>
+    <div class="col-md-12">
+        <p class="text" v-if="!isMounted">Sedang Load Soal...</p>
     </div>
-    <div class="col-md-12 mb-3">
+    <div class="col-md-12 mb-3" v-if="isMounted">
+        <button type="button" @click="finish" class="btn btn-success btn-block">SELESAI</button>
+    </div>
+    <div class="col-md-12 mb-3" v-if="isMounted">
         <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
-            <button href="#" class="btn btn-sm btn-soal" v-bind:class="[{'btn-select': (index*5)+no == noSoal-1}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning']" v-bind:class="" v-for="(soal, no) in soals.slice(index, index == jumlahBarisNomor-1 ? index+(jumlahSoal%5) : index+5)">
+            <button href="#" class="btn btn-sm btn-soal" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="" v-for="(soal, no) in soals.slice(index, index == jumlahBarisNomor-1 ? index+(jumlahSoal%5) : index+5)">
                 <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
             </button>
         </div>
@@ -87,9 +122,14 @@ var app = new Vue({
         jumlahSoal: 0,
         jawaban: null,
         isErrorExist: false,
-        errorMessage: null
+        errorMessage: null,
+        isFinish: false,
+        isMounted: false
     },
     methods: {
+        finish: function() {
+            this.isFinish = true;
+        },
         clearError: function(){
             this.isErrorExist = false;
             this.errorMessage = null;
@@ -102,8 +142,14 @@ var app = new Vue({
                 self.indexSoal = index;
                 self.jawaban = self.soal.jawaban;
             }
+            $("#btnNext").attr("disabled", false);
+            $("#btnHapus").attr("disabled", false);
         },
         nextSoal: function() {
+            $("#btnNext").attr("disabled", true);
+            if(this.indexSoal+1 == this.jumlahSoal){
+                this.isFinish = true;
+            }
             if(this.soal.jawaban != null) {
                 this.sendJawaban();
             }
@@ -112,15 +158,19 @@ var app = new Vue({
             }
         },
         hapusJawaban: function() {
+            $("#btnHapus").attr("disabled", true);
+            var index = this.indexSoal+1;
+            if(this.indexSoal+1 == this.jumlahSoal) index = 0;
             if(this.jawaban == null)
-                this.changeSoal(this.indexSoal+1);
+                this.changeSoal(index);
             else {
                 this.soal.jawaban = null;
                 this.sendJawaban();
             }
         },
         changeSoal: function(index) {
-            this.soal.jawaban = this.jawaban;
+            if(!this.isFinish) this.soal.jawaban = this.jawaban;
+            this.isFinish = false;
             this.getSoal(index);
         },
         sendJawaban: function(){
@@ -145,6 +195,8 @@ var app = new Vue({
                 else {
                     self.isErrorExist = true;
                     self.errorMessage = data.message;
+                    $("#btnNext").attr("disabled", false);
+                    $("#btnHapus").attr("disabled", false);
                 }
             })
             .catch(function(error) {
@@ -164,6 +216,7 @@ var app = new Vue({
             })
             .then(function(response) {
                 if(response.data.success){
+                    self.isMounted = true;
                     self.soals = response.data.data;
                     self.soal = self.soals[0];
                     self.noSoal = 1;
