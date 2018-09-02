@@ -92,7 +92,7 @@
         <p class="text" v-if="!isMounted">Sedang Load Soal...</p>
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
-        <button type="button" @click="finish" class="btn btn-success btn-block">SELESAI</button>
+        <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success btn-block selesai-ujian">SELESAIKAN SEKARANG</a>
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
         <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
@@ -257,5 +257,24 @@ var x = setInterval(function() {
         document.getElementById("timer").innerHTML = "EXPIRED";
     }
 }, 1000);
+
+$(document).on("click", ".selesai-ujian", function(e) {
+    var link = $(this).attr("href");
+    e.preventDefault();
+    swal({
+        title: "Ingin Selesaikan Ujian?",
+        text: "Anda yakin ingin menyelesaikan ujian sekarang?",
+        type: "success",
+        showCancelButton: true,
+        confirmButtonClass: "btn btn-danger btn-fill",
+        confirmButtonText: "Ya!",
+        cancelButtonClass: "btn btn-danger btn-fill",
+        cancelButtonText: "Tidak!"
+    }).then((result) => {
+        if (result.value) {
+            document.location.href = link;
+        }
+    });
+});
 </script>
 @endsection

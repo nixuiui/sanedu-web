@@ -108,15 +108,14 @@ Ujian
                 Riwayat Pengerjaan {{ $ujian->judul }}
             </div>
             <div class="panel-body">
-                <table id="datatables" class="table datatables table-striped">
+                <div class="table-responsive">
+                    <table id="datatables" class="table datatables table-striped">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Ujian</th>
                             <th>Soal</th>
                             <th class="text-center">Nilai</th>
-                            <th class="text-center">Benar</th>
-                            <th class="text-center">Salah</th>
                             <th>Waktu</th>
                             <th></th>
                         </tr>
@@ -127,8 +126,6 @@ Ujian
                             <th>Ujian</th>
                             <th>Soal</th>
                             <th class="text-center">Nilai</th>
-                            <th class="text-center">Benar</th>
-                            <th class="text-center">Salah</th>
                             <th>Waktu</th>
                             <th></th>
                         </tr>
@@ -140,14 +137,13 @@ Ujian
                             <td>{{ $data->ujian->jenisUjian->nama }}</td>
                             <td>{{ $data->ujian->judul }}</td>
                             <td class="text-center">{{ $data->jumlah_benar }}</td>
-                            <td class="text-center">{{ $data->jumlah_benar }}</td>
-                            <td class="text-center">{{ $data->jumlah_salah }}</td>
                             <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
                             <td><a href="{{ route('member.ujian.history', $data->id) }}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
