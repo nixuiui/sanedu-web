@@ -16,7 +16,7 @@ Ujian Selesai
             </div>
             <div class="panel-body text-center">
                 <div class="text-nilai-announcement mb-5">
-                    {{ round(($attempt->jumlah_benar / $attempt->ujian->soal->count())*100, 2) }}
+                    {{ $attempt->jumlah_benar }}
                 </div>
                 <p>Nilai tertinggi adalah 100</p>
             </div>
