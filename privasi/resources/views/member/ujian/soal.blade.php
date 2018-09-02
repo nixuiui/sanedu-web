@@ -1,7 +1,7 @@
 @extends('layouts.adminaside')
 
 @section('title')
-Ujian Matematika
+{{ $soal->judul }}
 @endsection
 
 @section('content')
@@ -96,7 +96,7 @@ Ujian Matematika
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
         <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
-            <button href="#" class="btn btn-sm btn-soal" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="" v-for="(soal, no) in soals.slice(index, index == jumlahBarisNomor-1 ? index+(jumlahSoal%5) : index+5)">
+            <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
                 <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
             </button>
         </div>
@@ -135,6 +135,7 @@ var app = new Vue({
             this.errorMessage = null;
         },
         getSoal: function(index) {
+            window.scrollTo(0, 0);
             if(index < this.soals.length) {
                 var self = this;
                 self.soal = self.soals[index];
@@ -249,7 +250,7 @@ var x = setInterval(function() {
     var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = "WAKTU TERSISA " +  hours + ":" + minutes + ":" + seconds;
+    document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
     if (distance < 0) {
         location.reload();
         clearInterval(x);

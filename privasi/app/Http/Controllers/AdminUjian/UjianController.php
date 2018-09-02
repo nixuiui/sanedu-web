@@ -66,6 +66,13 @@ class UjianController extends Controller
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menyimpan perubahan');
     }
 
+    public function upUjian($id) {
+        $ujian = Ujian::find($id);
+        $ujian->created_at = date("Y-m-d H:i:s");
+        $ujian->save();
+        return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menyimpan perubahan');
+    }
+
     public function deleteUjian($id) {
         $ujian = Ujian::find($id);
         $ujian->delete();

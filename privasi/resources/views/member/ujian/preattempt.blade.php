@@ -47,11 +47,11 @@ Ujian
                     </tr>
                     <tr>
                         <th>Harga</th>
-                        <td class="text-success text-bold">{{ formatUang($ujian->harga) }}</td>
+                        <td>{{ formatUang($ujian->harga) }}</td>
                     </tr>
                     <tr>
                         <th>Nilai Percobaan Pertama</th>
-                        <td class="text-success text-bold">{{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</td>
+                        <td>{{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</td>
                     </tr>
                     <tr>
                         <th>Pembahasan</th>
@@ -72,7 +72,7 @@ Ujian
                     </tr>
                     @if($attempt)
                     <tr>
-                        <th colspan="2" class="text-info">ANDA SEDANG UJIAN</th>
+                        <th colspan="2">ANDA SEDANG UJIAN</th>
                     </tr>
                     <tr>
                         <th>Berakhir Pada</th>
@@ -86,11 +86,12 @@ Ujian
                     @else
                     <tr>
                         <td colspan="2">
-                            @if($ujian->id_jenis_ujian == 1404)
+                            <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
+                            <!-- @if($ujian->id_jenis_ujian == 1404)
                             <a href="{{ route('member.ujian.soal.sbmptn.passgrade', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
                             @else
                             <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
-                            @endif
+                            @endif -->
                         </td>
                     </tr>
                     @endif
@@ -138,7 +139,7 @@ Ujian
                             <td>{{ $i+1 }}</td>
                             <td>{{ $data->ujian->jenisUjian->nama }}</td>
                             <td>{{ $data->ujian->judul }}</td>
-                            <td>{{ round(($data->jumlah_benar / $data->ujian->soal->count())*100, 2) }}</td>
+                            <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-center">{{ $data->jumlah_salah }}</td>
                             <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>

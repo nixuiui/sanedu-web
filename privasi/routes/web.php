@@ -123,6 +123,7 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
         Route::get('/soal/tambah',          'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
         Route::post('/soal/tambah',         'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
         Route::post('/soal/edit/{id}',      'AdminUjian\UjianController@prosesEditUjian')->name('admin.ujian.soal.edit.post');
+        Route::get('/soal/up/{id}',         'AdminUjian\UjianController@upUjian')->name('admin.ujian.soal.up');
         Route::get('/soal/delete/{id}',     'AdminUjian\UjianController@deleteUjian')->name('admin.ujian.soal.delete');
         Route::get('/soal/pembeli/{id}',    'AdminUjian\UjianController@pembeli')->name('admin.ujian.soal.pembeli');
         Route::get('/soal/history/{id}/{idAttempt?}',   'AdminUjian\UjianController@history')->name('admin.ujian.soal.history');

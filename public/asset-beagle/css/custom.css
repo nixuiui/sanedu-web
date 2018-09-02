@@ -1,6 +1,7 @@
 body {
     background: url("../img/bg-pattern-grey.png");
 }
+.be-top-header .navbar-header { width: auto; }
 .btn-sm { padding: 6px 8px; }
 .btn-space, .label-space { margin-right: 18px; margin-bottom: 18px; display: inline-block; }
 .label-md { padding: 6px 8px; }
@@ -285,21 +286,6 @@ div.dataTables_wrapper div.dataTables_filter input {
     font-weight: 600;
 }
 
-@media (min-width: 576px) {
-    .font-soal { font-size: 15px; }
-}
-
-@media (min-width: 768px) {
-
-}
-
-@media (min-width: 992px) {
-
-}
-
-@media (min-width: 1200px) {
-
-}
 
 .nav-informasi {
     background: #FFF;
@@ -310,11 +296,31 @@ div.dataTables_wrapper div.dataTables_filter input {
 .nav-informasi li a {
     border-radius: 0;
     padding: 15px;
-    font-weight: 600;
+    font-weight: 400;
     text-transform: uppercase;
     margin-bottom: 0;
+    color: #333;
 }
 .nav-informasi li {
     display: table-cell;
     font-size: 10px;
+}
+
+
+@media (min-width: 576px) {
+    .font-soal { font-size: 15px; }
+    .nav-informasi li a { font-size: 13px; }
+}
+
+@media (min-width: 768px) {
+    .nav-informasi li a { font-size: 16px; }
+    .page-aside { left: 60px; }
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
 }

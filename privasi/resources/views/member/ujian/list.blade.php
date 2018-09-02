@@ -5,7 +5,34 @@ Ujian
 @endsection
 
 @section('content')
+@include('member.ujian.tombolatas')
 @if($filter->count() > 0)
+@if(isset($_GET['idSekolah']) && $_GET['idSekolah'] == 1303 && isset($_GET['idJenisUjian']) && ($_GET['idJenisUjian'] == 1401 || $_GET['idJenisUjian'] == 1402 || $_GET['idJenisUjian'] == 1403))
+<div class="btn-group btn-hspace btn-space">
+    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">
+        {{ isset($_GET['jurusan']) && $_GET['jurusan'] != null ? $_GET['jurusan'] : "Pilih Jurusan SMA" }} <span class="icon-dropdown mdi mdi-chevron-down"></span>
+    </button>
+    <ul role="menu" class="dropdown-menu">
+        <li><a href="{{ route('member.ujian.soal.list', [
+            'idSekolah' => isset($_GET['idSekolah']) && $_GET['idSekolah'] != null ? $_GET['idSekolah'] : "",
+            'idJenisUjian' => isset($_GET['idJenisUjian']) && $_GET['idJenisUjian'] != null ? $_GET['idJenisUjian'] : "",
+            'idKelas' => isset($_GET['idKelas']) && $_GET['idKelas'] != null ? $_GET['idKelas'] : ""
+            ]) }}">Semua Jurusan SMA</a></li>
+        <li><a href="{{ route('member.ujian.soal.list', [
+            'idSekolah' => isset($_GET['idSekolah']) && $_GET['idSekolah'] != null ? $_GET['idSekolah'] : "",
+            'idJenisUjian' => isset($_GET['idJenisUjian']) && $_GET['idJenisUjian'] != null ? $_GET['idJenisUjian'] : "",
+            'idKelas' => isset($_GET['idKelas']) && $_GET['idKelas'] != null ? $_GET['idKelas'] : "",
+            'jurusan' => 'IPA'
+            ]) }}">IPA</a></li>
+        <li><a href="{{ route('member.ujian.soal.list', [
+            'idSekolah' => isset($_GET['idSekolah']) && $_GET['idSekolah'] != null ? $_GET['idSekolah'] : "",
+            'idJenisUjian' => isset($_GET['idJenisUjian']) && $_GET['idJenisUjian'] != null ? $_GET['idJenisUjian'] : "",
+            'idKelas' => isset($_GET['idKelas']) && $_GET['idKelas'] != null ? $_GET['idKelas'] : "",
+            'jurusan' => 'IPS'
+            ]) }}">IPS</a></li>
+    </ul>
+</div>
+@endif
 <div class="btn-group btn-hspace btn-space">
     <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle" aria-expanded="false">
         {{ $mapelSelect == null ? "Pilih Mata Pelajaran" : $mapelSelect->nama }} <span class="icon-dropdown mdi mdi-chevron-down"></span>

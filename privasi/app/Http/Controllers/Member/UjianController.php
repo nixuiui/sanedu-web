@@ -190,10 +190,10 @@ class UjianController extends Controller
             $ujian = $ujian->where('id_mata_pelajaran', $idMataPelajaran);
             $mapelSelect = SetPustaka::find($idMataPelajaran);
         }
-        $ujian = $ujian->get();
+        $ujian      = $ujian->get();
 
-        $kategori = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran, $idJenisUjian])->get();
-        $mapel = $this->getMapel($idSekolah, $idJenisUjian);
+        $kategori   = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran, $idJenisUjian])->get();
+        $mapel      = $this->getMapel($idSekolah, $idJenisUjian);
 
         return view('member.ujian.list')->with([
             'ujian' => $ujian,
@@ -240,13 +240,52 @@ class UjianController extends Controller
 
         $mapel = [];
         if($idJenisUjian == 1401) {
-            $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
+            if($idSekolah == 1301) {
+                $mapel = SetPustaka::whereIn('id', [1501, 1502, 1504])->get();
+            }
+            else if($idSekolah == 1302) {
+                $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
+            }
+            else if($idSekolah == 1303) {
+                if(isset($_GET['jurusan'])) {
+                    if($_GET['jurusan'] == "IPA") {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1513, 1514, 1515])->get();
+                    }
+                    else if($_GET['jurusan'] == "IPS") {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1510, 1511, 1512])->get();
+                    }
+                    else {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1510, 1511, 1512, 1513, 1514, 1515])->get();
+                    }
+                }
+                else {
+                    $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1510, 1511, 1512, 1513, 1514, 1515])->get();
+                }
+            }
         }
         else if($idJenisUjian == 1402 || $idJenisUjian == 1403) {
-            $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504, 1505, 1507, 1508, 1509, 1510, 1511, 1512, 1513, 1514, 1515])->get();
-        }
-        else if($idJenisUjian == 1401) {
-            $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
+            if($idSekolah == 1301) {
+                $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504, 1505])->get();
+            }
+            else if($idSekolah == 1302) {
+                $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504, 1505])->get();
+            }
+            else if($idSekolah == 1303) {
+                if(isset($_GET['jurusan'])) {
+                    if($_GET['jurusan'] == "IPA") {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1509, 1513, 1514, 1515])->get();
+                    }
+                    else if($_GET['jurusan'] == "IPS") {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1509, 1510, 1511, 1512])->get();
+                    }
+                    else {
+                        $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1509, 1510, 1511, 1512, 1513, 1514, 1515])->get();
+                    }
+                }
+                else {
+                    $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1509, 1510, 1511, 1512, 1513, 1514, 1515])->get();
+                }
+            }
         }
         else if($idJenisUjian == 1404) {
             $mapel = SetPustaka::whereIn('id', [1504, 1505, 1506])->get();

@@ -2,11 +2,10 @@
 <html lang="en">
 @include('partials.admin.htmlheader')
 <body>
-    <div class="be-wrapper be-fixed-sidebar be-aside">
+    <div class="be-wrapper be-collapsible-sidebar be-collapsible-sidebar-collapsed be-fixed-sidebar be-aside">
         <nav class="navbar navbar-default navbar-fixed-top be-top-header">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a href="{{ route('guest.home') }}" class="navbar-brand" style="background: none;"></a>
                     <a href="#" class="be-toggle-left-sidebar"><span class="icon mdi mdi-menu"></span></a>
                 </div>
                 @include('partials.admin.navbar-right')

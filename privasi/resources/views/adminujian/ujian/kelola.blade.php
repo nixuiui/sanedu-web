@@ -13,8 +13,9 @@ Kelola Soal Ujian
         @if(!$ujian->is_published)
         <a href="{{ route('admin.ujian.soal.publish', $ujian->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
         @else
-            @if( $ujian->diBeliOleh->count() > 0)
             <hr>
+            <p>Tanggal Rilis: {{ hariTanggalWaktu($ujian->created_at) }}</p>
+            @if( $ujian->diBeliOleh->count() > 0)
             <p>Soal ini sudah dibeli oleh <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">{{ $ujian->diBeliOleh->count() }}x</a></strong> oleh member, <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">Lihat Member yang membeli</a></strong></p>
             @else
             <p class="">Soal belum ada yang membeli. :(</p>
@@ -104,6 +105,7 @@ Kelola Soal Ujian
                     </div>
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md btn-icon"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
+                <a href="{{ route('admin.ujian.soal.up', $ujian->id) }}" class="btn btn-success btn-fill btn-md btn-icon"><i class="mdi mdi-long-arrow-up"></i>Naikan Soal</a>
                 <a href="{{ route('admin.ujian.form.peraturan', $ujian->id) }}" class="btn btn-default btn-md btn-icon pull-right"><i class="mdi mdi-settings"></i>{{ $ujian->peraturan == null ? "Peraturan Ujian Belum Ada" : "Peraturan Ujian"}}</a>
             </div>
         </form>

@@ -47,7 +47,7 @@ History - {{ $ujian->judul }}
                             <td>{{ $data->user->nama }}</td>
                             <td>{{ $data->ujian->jenisUjian->nama }}</td>
                             <td>{{ $data->ujian->judul }}</td>
-                            <td>{{ round(($data->jumlah_benar / $data->ujian->soal->count())*100, 2) }}</td>
+                            <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-center">{{ $data->jumlah_salah }}</td>
                             <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>

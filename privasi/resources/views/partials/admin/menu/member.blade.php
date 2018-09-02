@@ -12,23 +12,11 @@
                 <li class="{{ active(['member']) }}" title="Beranda">
                     <a href="{{ route('member') }}"><i class="icon mdi mdi-home"></i><span>Beranda</span></a>
                 </li>
-                <li class="parent" title="Ujian">
-                    <a href="#"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
-                    <ul class="sub-menu">
-                        <li class="{{ active(['member.ujian.soal', 'member.ujian.soal.*']) }}"><a href="{{ route('member.ujian.soal') }}">Soal</a></li>
-                        <li class="{{ active(['member.ujian.soal.list.dibeli', 'member.ujian.soal.list.dibeli*']) }}"><a href="{{ route('member.ujian.soal.list.dibeli') }}">Soal Yang Anda Beli</a></li>
-                        <li class="{{ active(['member.ujian.history', 'member.ujian.history.*']) }}"><a href="{{ route('member.ujian.history') }}">History</a></li>
-                    </ul>
+                <li class="{{ active(['member.ujian.*']) }}" title="Ujian">
+                    <a href="{{ route('member.ujian.soal') }}"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
                 </li>
-                <li class="parent {{ active(['member.informasi', 'member.informasi.*'], "active open") }}" title="Informasi">
-                    <a href="#"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>
-                    <ul class="sub-menu">
-                        <li class=""><a href="{{ route('member.informasi') }}">Semua Informasi</a></li>
-                        <li class=""><a href="{{ route('member.informasi', ['kategori' => 1701]) }}">Beasiswa</a></li>
-                        <li class=""><a href="{{ route('member.informasi', ['kategori' => 1702]) }}">Universitas</a></li>
-                        <li class=""><a href="{{ route('member.informasi', ['kategori' => 1703]) }}">Peluang Kerja</a></li>
-                        <li class=""><a href="{{ route('member.passgrade') }}">Passing Grade</a></li>
-                    </ul>
+                <li class="{{ active(['member.informasi', 'member.informasi.*']) }}" title="Informasi">
+                    <a href="{{ route('member.informasi') }}"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>
                 </li>
                 <li class="" title="Simulasi">
                     <a href="#"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
