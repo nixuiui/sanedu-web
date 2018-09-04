@@ -15,7 +15,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Nasional</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/un.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/un.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -30,7 +30,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Tengah Semester</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/uts.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/uts.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -71,7 +71,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Semester</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/us.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/us.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -112,7 +112,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">SBMPTN</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/sbmptn.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/sbmptn.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -125,7 +125,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STAN</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/stan.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/stan.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -138,7 +138,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLTEKES</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/poltekes.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/poltekes.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -151,7 +151,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLINELA</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/polinela.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/polinela.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -164,7 +164,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STIS</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/stis.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/stis.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -177,7 +177,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">KEDINASAN</span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-member/img/kedinasan.jpg" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('asset-member/img/kedinasan.jpg') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
