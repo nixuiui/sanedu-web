@@ -23,7 +23,7 @@ Route::get('/mail/verify-resend/{username}',    'MailController@resendVerificati
 
 
 /*--------------------------------------------------------------------------
-    AUTH
+AUTH
 -------------------------------------------------------------------------*/
 Route::get('/login',        'Auth\LoginController@loginForm')->name('auth.login');
 Route::post('/login',       'Auth\LoginController@login')->name('auth.login.post');
@@ -33,7 +33,7 @@ Route::post('/register',    'Auth\RegisterController@register')->name('auth.regi
 
 
 /*--------------------------------------------------------------------------
-    RESET PASSWORD
+RESET PASSWORD
 -------------------------------------------------------------------------*/
 Route::get('password/reset',        'Auth\ForgotPasswordController@showLinkRequestForm')->name('auth.password.forgot');
 Route::post('password/email',       'Auth\ForgotPasswordController@sendResetLinkEmail')->name('auth.password.email');
@@ -42,7 +42,7 @@ Route::post('password/reset',       'Auth\ResetPasswordController@reset')->name(
 
 
 /*--------------------------------------------------------------------------
-    SUPER ADMIN
+SUPER ADMIN
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'superadmin', 'prefix' => 'superadmin'], function(){
     Route::get('/', 'SuperAdmin\HomeController@index')->name('superadmin');
@@ -60,7 +60,7 @@ Route::group(['middleware' => 'superadmin', 'prefix' => 'superadmin'], function(
 
 
 /*--------------------------------------------------------------------------
-    ALL ADMIN
+ALL ADMIN
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'alladmin', 'prefix' => 'admin'], function(){
     Route::group(['prefix' => 'profil'], function(){
@@ -76,7 +76,7 @@ Route::group(['middleware' => 'alladmin', 'prefix' => 'admin'], function(){
 
 
 /*--------------------------------------------------------------------------
-    ADMIN GENERAL
+ADMIN GENERAL
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
     Route::get('/', 'Admin\HomeController@index')->name('admin');
@@ -109,11 +109,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/openuniv/{id}/formjur/{idJur?}',   'Admin\PassingGradeController@formJurusan')->name('admin.passgrade.form.jurusan');
         Route::post('/openuniv/{id}/savejur/{idJur?}',  'Admin\PassingGradeController@saveJurusan')->name('admin.passgrade.save.jurusan');
     });
+
 });
 
 
 /*--------------------------------------------------------------------------
-    ADMIN TIKET
+ADMIN UJIAN
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(){
     Route::get('/', 'AdminUjian\HomeController@index')->name('adminujian');
@@ -141,11 +142,11 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
 });
 
 
-    /*--------------------------------------------------------------------------
-        ADMIN TIKET
-    -------------------------------------------------------------------------*/
-    Route::group(['middleware' => 'admintiket', 'prefix' => 'admintiket'], function(){
-        Route::get('/', 'AdminTiket\HomeController@index')->name('admintiket');
+/*--------------------------------------------------------------------------
+ADMIN TIKET
+-------------------------------------------------------------------------*/
+Route::group(['middleware' => 'admintiket', 'prefix' => 'admintiket'], function(){
+    Route::get('/', 'AdminTiket\HomeController@index')->name('admintiket');
 
     Route::group(['prefix' => 'user/{id}'], function(){
         Route::post('/edit-profil',     'AdminTiket\ProfilController@editProfil')->name('admintiket.user.edit.profil');
@@ -169,7 +170,15 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
 
 
 /*--------------------------------------------------------------------------
-    MEMBER
+ADMIN SIMULASI
+-------------------------------------------------------------------------*/
+Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], function(){
+    Route::get('/', 'AdminSimulasi\HomeController@index')->name('adminsimulasi');
+});
+
+
+/*--------------------------------------------------------------------------
+MEMBER
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
     Route::get('/', 'Member\HomeController@index')->name('member');

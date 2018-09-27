@@ -29,6 +29,8 @@ class HomeController extends Controller
             return redirect()->route('guest.home');
             else if(Auth::user()->id_role == 1006)
             return redirect()->route('adminujian');
+            else if(Auth::user()->id_role == 1007)
+            return redirect()->route('adminsimulasi');
             else
             return  "WRONG TURN!";
         }
