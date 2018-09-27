@@ -48,7 +48,9 @@ class PassingGradeController extends Controller
     public function saveUniv(Request $input, $id=null) {
         $this->validate($input, [
             'nama' => 'required',
-            'file' => 'nullable'
+            'file' => 'nullable',
+            'peminat' => 'numeric',
+            'daya_tampung' => 'numeric'
         ]);
         $universitas = new Universitas;
         $universitas->id = Uuid::generate();
@@ -57,8 +59,8 @@ class PassingGradeController extends Controller
         $universitas->nama = $input->nama;
         if($input->hasFile('file')){
             $path = $input->file('file')->getRealPath();
-            $data = Excel::load($path, function($header) {
-            })->get();
+            $data = collect(Excel::load($path, function($header) {
+            })->get());
             if(!empty($data) && $data->count()){
                 foreach ($data as $key => $value) {
                     if( $value->jurusan == null &&

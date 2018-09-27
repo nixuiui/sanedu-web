@@ -30,7 +30,7 @@ class InformasiController extends Controller
     }
 
     public function passGrade() {
-        $universitas = Universitas::all();
+        $universitas = Universitas::orderBy("nama", "asc")->get();
         if(isset($_GET['universitas']) && $_GET['universitas'] != null && isset($_GET['jurusan'])) {
             $jurusan = Jurusan::where('id_universitas', $_GET['universitas']);
             if($_GET['jurusan'] != null) {

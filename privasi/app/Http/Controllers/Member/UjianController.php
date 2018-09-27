@@ -190,7 +190,7 @@ class UjianController extends Controller
             $ujian = $ujian->where('id_mata_pelajaran', $idMataPelajaran);
             $mapelSelect = SetPustaka::find($idMataPelajaran);
         }
-        $ujian      = $ujian->get();
+        $ujian      = $ujian->orderBy("created_at", "desc")->get();
 
         $kategori   = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran, $idJenisUjian])->get();
         $mapel      = $this->getMapel($idSekolah, $idJenisUjian);

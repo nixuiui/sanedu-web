@@ -56,6 +56,7 @@ Ujian
                             @endif
                             <td>{{ $val->is_published ? "Published" : "Draft" }}</td>
                             <td class="text-right">
+                                <a href="{{ route('admin.ujian.soal.up', $val->id) }}" class="btn btn-xs btn-default" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-long-arrow-up"></i></a>
                                 <a href="{{ route('admin.ujian.soal.kelola', $val->id) }}" class="btn btn-xs btn-warning" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-edit"></i></a>
                                 <a href="{{ route('admin.ujian.soal.delete', $val->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
                             </td>

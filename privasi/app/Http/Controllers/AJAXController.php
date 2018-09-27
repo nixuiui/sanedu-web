@@ -21,13 +21,13 @@ class AJAXController extends Controller
             $jenisUjian = SetPustaka::jenisUjian();
             if($idSekolah != null){
                 switch ($idSekolah) {
-                    case '1301':
+                    case '1301':    //SD
                         $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403])->get();
                         break;
-                    case '1302':
+                    case '1302':    //SMP
                         $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403])->get();
                         break;
-                    case '1303':
+                    case '1303':    //SMA
                         $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1404, 1405, 1406])->get();
                         break;
                 }
@@ -37,20 +37,20 @@ class AJAXController extends Controller
         else if($_GET['request'] == 'kelasmapel') {
             $mapel = [];
             $kelas = [];
+            //UJIAN NASIONAL
             if($idUjian == 1401) {
                 $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
             }
+            //UTS & UAS
             else if($idUjian == 1402 || $idUjian == 1403) {
                 $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504, 1505, 1507, 1508, 1509, 1510, 1511, 1512, 1513, 1514, 1515])->get();
                 if($idSekolah == 1301) $kelas = SetPustaka::whereIn('id', [1601, 1602, 1603, 1604, 1605, 1606])->get();
                 if($idSekolah == 1302) $kelas = SetPustaka::whereIn('id', [1607, 1608, 1609])->get();
                 if($idSekolah == 1303) $kelas = SetPustaka::whereIn('id', [1610, 1611, 1612])->get();
             }
-            else if($idUjian == 1401) {
-                $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
-            }
+            //SBMPTN
             else if($idUjian == 1404) {
-                $mapel = SetPustaka::whereIn('id', [1504, 1505, 1506])->get();
+                $mapel = SetPustaka::whereIn('id', [1516, 1517, 1518])->get();
             }
             return response()->json([
                 'mapel' => $mapel,

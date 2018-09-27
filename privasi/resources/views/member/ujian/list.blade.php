@@ -76,9 +76,9 @@ Ujian
         @endif
     </div>
 </div>
-<div class="row row-ujian">
+<div class="row">
     @if($ujian->count() <= 0)
-    <div class="col-md-4">
+    <div class="col-lg-3 col-md-4">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="data-is-empty">
@@ -102,7 +102,7 @@ Ujian
             </div>
             @if($data->diBeliOleh->where('id', Auth::id())->first() == null)
             <div class="card-body row vertical-align">
-                <div class="col-xs-8">
+                <div class="col-xs-8 ujian-info">
                     <div class="text-success text-bold">
                         {{ $data->harga == 0 ? "GRATIS" : "Harga: " . formatUang($data->harga) }}
                     </div>
@@ -113,7 +113,7 @@ Ujian
             </div>
             @else
             <div class="card-body row vertical-align">
-                <div class="col-xs-8">
+                <div class="col-xs-8 ujian-info">
                     <div class="text-info">
                         Nilai Anda: <strong>{{ $data->attempt->count() > 0 ? round(($data->attempt->first()->jumlah_benar / $data->soal->count())*100, 2) : "-" }}</strong> <br>
                         <a href="#" class="text-link"><i class="mdi mdi-download mr-2"></i>Download Pembahasan</a>

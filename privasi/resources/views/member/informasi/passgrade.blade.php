@@ -38,7 +38,7 @@ $(document).ready(function(){
     <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1701 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1701']) }}">Beasiswa</a></li>
     <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1702 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1702']) }}">Universitas</a></li>
     <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1703 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1703']) }}">Prospek Kerja</a></li>
-    <li role="presentation" class="{{ route('member.passgrade') }}"><a href="{{ route('member.passgrade') }}">PG</a></li>
+    <li role="presentation" class="{{ active('member.passgrade') }}"><a href="{{ route('member.passgrade') }}">PG</a></li>
 </ul>
 <div class="row">
     <div class="col-md-3">

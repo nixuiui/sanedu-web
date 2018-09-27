@@ -12,7 +12,7 @@
     <!-- =========================
     favicon and app touch icon
     ============================== -->
-    <link rel="shortcut icon" href="{{ asset('asset-landing/img/main/favico.ico')}}"/>
+    <link rel="shortcut icon" href="{{ asset('asset-landing/img/main/favicon.png')}}"/>
     <link rel="apple-touch-icon" href="{{ asset('asset-landing/img/main/sanedu-touch.png')}}"/>
     <title>@yield('title') - Sanedu</title>
     {{ addStyle('asset-beagle/lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}

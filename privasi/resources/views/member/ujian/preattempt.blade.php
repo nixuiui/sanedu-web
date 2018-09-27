@@ -109,7 +109,7 @@ Ujian
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
-                    <table id="datatables" class="table datatables table-striped">
+                    <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>No</th>

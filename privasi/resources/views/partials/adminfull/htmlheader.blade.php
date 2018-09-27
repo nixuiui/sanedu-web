@@ -9,7 +9,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ asset('img/logo.png') }}">
+    <!-- =========================
+    favicon and app touch icon
+    ============================== -->
+    <link rel="shortcut icon" href="{{ asset('asset-landing/img/main/favicon.png')}}"/>
+    <link rel="apple-touch-icon" href="{{ asset('asset-landing/img/main/sanedu-touch.png')}}"/>
     <title>@yield('title') - Sanedu</title>
     {{ addStyle('asset-beagle/lib/perfect-scrollbar/css/perfect-scrollbar.min.css') }}
     {{ addStyle('asset-beagle/lib/material-design-icons/css/material-design-iconic-font.min.css') }}

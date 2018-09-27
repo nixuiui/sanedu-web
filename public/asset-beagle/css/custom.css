@@ -6,6 +6,7 @@ body {
 .btn-space, .label-space { margin-right: 18px; margin-bottom: 18px; display: inline-block; }
 .label-md { padding: 6px 8px; }
 select.input-sm, .input-sm { height: 36px; }
+.btn-kelas { width: 30px; height: 30px; padding: 0 !important; }
 .btn-group-xs>.btn, .btn-xs { padding: 2px 8px; border-radius: 2px; }
 .btn.btn-icon i.mdi, .label.label-icon i.mdi { margin-right: 5px; }
 .btn-soal-group { width: 100%; display: table; width: 100%; table-layout: fixed; border-collapse: separate;}
@@ -255,6 +256,11 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 .col-ujian .card-body {
     height: calc(100% - 200px);
+}
+.ujian-info {
+    height: 37px;
+    display: flex;
+    align-items: center;
 }
 .vertical-align {
     display: flex;
