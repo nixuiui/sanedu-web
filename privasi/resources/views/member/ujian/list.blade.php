@@ -93,12 +93,16 @@ Ujian
     <div class="col-lg-3 col-md-4 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
-                <span class="card-label-ujian bg-primary">{{ $data->mataPelajaran->nama . ": " . $data->tingkatSekolah->nama }} {{ $data->id_tingkat_kelas == null ? "" : "Kelas " . $data->tingkatKelas->nama }}</span>
-                <span class="card-label-ujian-bottom bg-primary">
+                {{-- <span class="card-label-ujian bg-primary">{{ $data->mataPelajaran->nama . ": " . $data->tingkatSekolah->nama }} {{ $data->id_tingkat_kelas == null ? "" : "Kelas " . $data->tingkatKelas->nama }}</span> --}}
+                @if($data->mataPelajaran->image == null)
+                <img class="card-img-top" src="http://localhost/sanedu/public/asset-beagle/img/empty.png" alt="Placeholder">
+                @else
+                <img class="" src="{{ asset('image/' . $data->mataPelajaran->image) }}" alt="Placeholder">
+                @endif
+                <div class="card-label-ujian-bottom bg-primary">
                     {{ $data->judul }} <br>
                     Soal: {{ $data->jumlah_soal }}
-                </span>
-                <img class="card-img-top" src="http://localhost/sanedu/public/asset-beagle/img/empty.png" alt="Placeholder">
+                </div>
             </div>
             @if($data->diBeliOleh->where('id', Auth::id())->first() == null)
             <div class="card-body row vertical-align">
