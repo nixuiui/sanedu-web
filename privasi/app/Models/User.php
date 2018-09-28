@@ -30,6 +30,16 @@ class User extends Authenticatable {
   	public function role() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_role');
   	}
+  	public function simulasi() {
+  		return $this->hasMany('App\Models\Simulasi', 'id_creator');
+  	}
+  	public function simulasiDibeli() {
+  		return $this->belongsToMany('App\Models\Simulasi', 'tbl_simulasi_peserta', 'id_user', 'id_simulasi')
+                    ->withPivot('id', 'harga', 'no_peserta', 'created_at');
+  	}
+  	public function ruangSimulasi() {
+  		return $this->belongsToMany('App\Models\SimulasiRuang', 'tbl_simulasi_ruang', 'id_user', 'id_ruang');
+  	}
     public function cetakTiket() {
         return $this->hasMany('App\Models\CetakTiket', 'id_user');
     }
