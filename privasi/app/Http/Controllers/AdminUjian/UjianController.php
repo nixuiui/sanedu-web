@@ -130,10 +130,11 @@ class UjianController extends Controller
         ]);
         $ujian = Ujian::findOrFail($id);
         $soal = new Soal;
+        $soal->id = UUid::generate();
+        $soal->id_ujian = $ujian->id;
         if($idSoal != null) {
             $soal = Soal::find($idSoal);
         }
-        $soal->id = UUid::generate();
         $soal->soal = $input->soal;
         $soal->a = $input->a;
         $soal->b = $input->b;
@@ -141,7 +142,6 @@ class UjianController extends Controller
         $soal->d = $input->d;
         $soal->e = $input->e;
         $soal->jawaban = $input->jawaban;
-        $soal->id_ujian = $ujian->id;
         $soal->save();
         if($input->simpan == "simpan")
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');

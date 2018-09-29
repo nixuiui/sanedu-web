@@ -34,7 +34,7 @@ class Simulasi extends Model {
   	public function ruang() {
   		return $this->hasMany('App\Models\SimulasiRuang', 'id_simulasi');
   	}
-  	public function ujianDibeli() {
+  	public function peserta() {
   		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_simulasi', 'id_user')
                     ->withPivot('id', 'harga', 'no_peserta', 'created_at');
   	}

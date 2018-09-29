@@ -6,8 +6,8 @@
                 <li class="{{ active(['adminsimulasi']) }}">
                     <a href="{{ route('adminsimulasi') }}"><i class="icon mdi mdi-home"></i><span>Beranda</span></a>
                 </li>
-                <li class="{{ active(['adminsimulasi', 'adminsimulasi.*']) }}">
-                    <a href="{{ route('adminsimulasi') }}"><i class="icon mdi mdi-assignment"></i><span>Simulasi</span></a>
+                <li class="{{ active(['adminsimulasi.simulasi', 'adminsimulasi.simulasi.*']) }}">
+                    <a href="{{ route('adminsimulasi.simulasi') }}"><i class="icon mdi mdi-assignment"></i><span>Simulasi</span></a>
                 </li>
             </ul>
         </div>

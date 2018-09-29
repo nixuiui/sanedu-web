@@ -115,6 +115,10 @@
                     <span class="nav-label"><a href="{{ route('admintiket') }}" style="color: #fff;" target="_top">Dashboard</a></span>
                     @elseif(Auth::user()->id_role == 1004)
                     <span class="nav-label"><a href="{{ route('member') }}" style="color: #fff;" target="_top">Dashboard</a></span>
+                    @elseif(Auth::user()->id_role == 1006)
+                    <span class="nav-label"><a href="{{ route('admin.ujian') }}" style="color: #fff;" target="_top">Dashboard</a></span>
+                    @elseif(Auth::user()->id_role == 1007)
+                    <span class="nav-label"><a href="{{ route('adminsimulasi') }}" style="color: #fff;" target="_top">Dashboard</a></span>
                     @endif
                 </li>
                 <li>
