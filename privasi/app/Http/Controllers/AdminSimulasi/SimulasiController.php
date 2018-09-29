@@ -10,6 +10,7 @@ use DB;
 use App\Models\SetPustaka;
 use App\Models\Simulasi;
 use App\Models\SimulasiAgenda;
+use App\Models\SimulasiRuang;
 
 class SimulasiController extends Controller
 {
@@ -128,6 +129,48 @@ class SimulasiController extends Controller
         $agenda = SimulasiAgenda::find($idAgenda);
         $agenda->forceDelete();
         return redirect()->back()->with('success', 'Berhasil menghapus agenda');
+    }
+
+    public function ruangForm($id, $idRuang = null) {
+        $simulasi = Simulasi::findOrFail($id);
+        if($idRuang == null)
+        return view('adminsimulasi.simulasi.ruangform')->with([
+            'simulasi' => $simulasi
+        ]);
+
+        $ruang = SimulasiRuang::find($idRuang);
+        return view('adminsimulasi.simulasi.ruangform')->with([
+            'simulasi' => $simulasi,
+            'ruang' => $ruang
+        ]);
+    }
+
+    public function ruangPost(Request $input, $id, $idRuang = null) {
+        $this->validate($input, [
+            'nama_ruang'    => 'required',
+            'kapasitas'     => 'required|numeric',
+            'alamat'        => 'required',
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $ruang = new SimulasiRuang;
+        $ruang->id = UUid::generate();
+        $ruang->id_simulasi = $simulasi->id;
+        if($idRuang != null) {
+            $ruang = SimulasiRuang::find($idRuang);
+        }
+        $ruang->nama_ruang = $input->nama_ruang;
+        $ruang->kapasitas = $input->kapasitas;
+        $ruang->alamat = $input->alamat;
+        $ruang->save();
+        if($input->simpan == "simpan")
+        return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Berhasil menyimpan ruangan');
+        return redirect()->route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id)->with('success', 'Berhasil menyimpan ruangan');
+    }
+
+    public function ruangDelete($id, $idRuang) {
+        $ruang = SimulasiRuang::find($idRuang);
+        $ruang->forceDelete();
+        return redirect()->back()->with('success', 'Berhasil menghapus ruangan');
     }
 
 

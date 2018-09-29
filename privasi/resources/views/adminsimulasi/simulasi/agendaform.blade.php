@@ -5,6 +5,7 @@ Soal Ujian
 @endsection
 
 @section('content')
+<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left"></i> Kembali</a>
 <div class="row">
     <div class="col-md-6">
         @if(isset($agenda))

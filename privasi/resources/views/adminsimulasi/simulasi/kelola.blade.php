@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Kelola Soal Ujian
+Kelola Simulasi
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@ Kelola Soal Ujian
 <div class="row">
     <div class="col-md-12">
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">
-            <div class="panel-heading">Form Ujian</div>
+            <div class="panel-heading">Informasi Simulasi</div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="row">
@@ -95,7 +95,6 @@ Kelola Soal Ujian
         <div class="row">
             <div class="col-md-6">
                 <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', $simulasi->id) }}" class="btn btn-warning btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Kegiatan</a>
-
                 <div class="panel panel-default panel-table">
                     <div class="panel-body">
                         <table id="datatables" class="table table-striped">
@@ -123,6 +122,42 @@ Kelola Soal Ujian
                                 @else
                                 <tr>
                                     <td colspan="4" class="data-is-empty">Belum ada agenda yang dibuat</td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-warning btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
+                <div class="panel panel-default panel-table">
+                    <div class="panel-body">
+                        <table id="datatables" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Ruang</th>
+                                    <th>Kapasitas</th>
+                                    <th>Alamat</th>
+                                    <th class="text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if($simulasi->ruang->count() > 0)
+                                @foreach($simulasi->ruang as $ruang)
+                                <tr>
+                                    <td>{{ $ruang->nama_ruang }}</td>
+                                    <td>{{ $ruang->kapasitas }}</td>
+                                    <td>{{ $ruang->alamat }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-md btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-md btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="4" class="data-is-empty">Belum ada ruangan yang dibuat</td>
                                 </tr>
                                 @endif
                             </tbody>
