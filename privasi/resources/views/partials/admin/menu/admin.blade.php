@@ -26,8 +26,8 @@
                 <li class="{{ active(['admin.ujian.soal', 'admin.ujian.soal.*']) }}">
                     <a href="{{ route('admin.ujian.soal') }}"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
                 </li>
-                <li class="{{ active(['admin.ujian.soal', 'admin.ujian.soal.*']) }}">
-                    <a href="{{ route('admin.ujian.soal') }}"><i class="icon mdi mdi-assignment"></i><span>Simulasi</span></a>
+                <li class="{{ active(['adminsimulasi.simulasi', 'adminsimulasi.simulasi.*']) }}">
+                    <a href="{{ route('adminsimulasi.simulasi') }}"><i class="icon mdi mdi-assignment"></i><span>Simulasi</span></a>
                 </li>
             </ul>
         </div>
