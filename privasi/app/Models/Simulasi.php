@@ -25,8 +25,8 @@ class Simulasi extends Model {
   	public function creator() {
   		return $this->belongsTo('App\Models\User', 'id_creator');
   	}
-  	public function jenisUjian() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_jenis_ujian');
+  	public function tingkatSekolah() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
   	}
   	public function agenda() {
   		return $this->hasMany('App\Models\SimulasiAgenda', 'id_simulasi');

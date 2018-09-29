@@ -87,8 +87,8 @@ class SetPustaka extends Model {
   	public function ujianByMataPelajaran() {
   		return $this->hasMany('App\Models\Ujian', 'id_mata_pelajaran');
   	}
-  	public function simulasiByJenisUjian() {
-  		return $this->hasMany('App\Models\Simulasi', 'id_jenis_ujian');
+  	public function simulasiByTingkatSekolah() {
+  		return $this->hasMany('App\Models\Simulasi', 'id_tingkat_sekolah');
   	}
   	public function informasi() {
   		return $this->hasMany('App\Models\Informasi', 'id_kategori');
