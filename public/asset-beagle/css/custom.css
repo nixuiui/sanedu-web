@@ -219,7 +219,6 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 .card .card-img-top {
     width: 100%;
-    height: 200px;
     object-fit: cover;
     border-top-left-radius: calc(3px - 1px);
     border-top-right-radius: calc(3px - 1px);
@@ -287,6 +286,31 @@ div.dataTables_wrapper div.dataTables_filter input {
 .col-ujian .harga-ujian {
     font-size: 20px;
     font-weight: 600;
+}
+.col-ujian .col-button {
+    display: inline-block;
+    width: 50%;
+    margin: 0 auto;
+}
+.col-ujian .col-button-x {
+    display: inline-block;
+    width: 50%;
+    margin: 0 auto;
+    float: left;
+}
+@media (min-width: 500px) {
+    .col-ujian .col-button {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        float: none;
+    }
+    .col-ujian .col-button-x {
+        display: block;
+        width: 100%;
+        margin: 0 auto;
+        float: none;
+    }
 }
 
 

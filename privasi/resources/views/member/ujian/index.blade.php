@@ -15,7 +15,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Nasional</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/un.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -30,7 +30,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Tengah Semester</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/uts.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_tengah_semester.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -39,28 +39,36 @@ Ujian
                             <div class="mb-1 text-bold">
                                 SD
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1601]) }}" class="btn btn-default btn-kelas">1</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1602]) }}" class="btn btn-default btn-kelas">2</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1603]) }}" class="btn btn-default btn-kelas">3</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1604]) }}" class="btn btn-default btn-kelas">4</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1605]) }}" class="btn btn-default btn-kelas">5</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1606]) }}" class="btn btn-default btn-kelas">6</a>
+                            <div class="col-button-x">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1601]) }}" class="btn btn-default btn-kelas">1</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1602]) }}" class="btn btn-default btn-kelas">2</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1603]) }}" class="btn btn-default btn-kelas">3</a>
+                            </div>
+                            <div class="col-button-x">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1604]) }}" class="btn btn-default btn-kelas">4</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1605]) }}" class="btn btn-default btn-kelas">5</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1402, 'idKelas' => 1606]) }}" class="btn btn-default btn-kelas">6</a>
+                            </div>
                         </div>
                         <div class="col-xs-4 text-center">
                             <div class="mb-1 text-bold">
                                 SMP
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1607]) }}" class="btn btn-default btn-kelas">7</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1608]) }}" class="btn btn-default btn-kelas">8</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1609]) }}" class="btn btn-default btn-kelas">9</a>
+                            <div class="col-button">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1607]) }}" class="btn btn-default btn-kelas">7</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1608]) }}" class="btn btn-default btn-kelas">8</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1402, 'idKelas' => 1609]) }}" class="btn btn-default btn-kelas">9</a>
+                            </div>
                         </div>
                         <div class="col-xs-4 text-center">
                             <div class="mb-1 text-bold">
                                 SMA
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1610]) }}" class="btn btn-default btn-kelas">10</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1611]) }}" class="btn btn-default btn-kelas">11</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1612]) }}" class="btn btn-default btn-kelas">12</a>
+                            <div class="col-button">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1610]) }}" class="btn btn-default btn-kelas">10</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1611]) }}" class="btn btn-default btn-kelas">11</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1402, 'idKelas' => 1612]) }}" class="btn btn-default btn-kelas">12</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,7 +79,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Semester</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/us.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_semester.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -80,28 +88,36 @@ Ujian
                             <div class="mb-1 text-bold">
                                 SD
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1601]) }}" class="btn btn-default btn-kelas">1</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1602]) }}" class="btn btn-default btn-kelas">2</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1603]) }}" class="btn btn-default btn-kelas">3</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1604]) }}" class="btn btn-default btn-kelas">4</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1605]) }}" class="btn btn-default btn-kelas">5</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1606]) }}" class="btn btn-default btn-kelas">6</a>
+                            <div class="col-button-x">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1601]) }}" class="btn btn-default btn-kelas">1</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1602]) }}" class="btn btn-default btn-kelas">2</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1603]) }}" class="btn btn-default btn-kelas">3</a>
+                            </div>
+                            <div class="col-button-x">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1604]) }}" class="btn btn-default btn-kelas">4</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1605]) }}" class="btn btn-default btn-kelas">5</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1301, 'idJenisUjian' => 1403, 'idKelas' => 1606]) }}" class="btn btn-default btn-kelas">6</a>
+                            </div>
                         </div>
                         <div class="col-xs-4 text-center">
                             <div class="mb-1 text-bold">
                                 SMP
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1607]) }}" class="btn btn-default btn-kelas">7</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1608]) }}" class="btn btn-default btn-kelas">8</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1609]) }}" class="btn btn-default btn-kelas">9</a>
+                            <div class="col-button">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1607]) }}" class="btn btn-default btn-kelas">7</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1608]) }}" class="btn btn-default btn-kelas">8</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1302, 'idJenisUjian' => 1403, 'idKelas' => 1609]) }}" class="btn btn-default btn-kelas">9</a>
+                            </div>
                         </div>
                         <div class="col-xs-4 text-center">
                             <div class="mb-1 text-bold">
                                 SMA
                             </div>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1610]) }}" class="btn btn-default btn-kelas">10</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1611]) }}" class="btn btn-default btn-kelas">11</a>
-                            <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1612]) }}" class="btn btn-default btn-kelas">12</a>
+                            <div class="col-button">
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1610]) }}" class="btn btn-default btn-kelas">10</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1611]) }}" class="btn btn-default btn-kelas">11</a>
+                                <a href="{{ route('member.ujian.soal.list', ['idSekolah' => 1303, 'idJenisUjian' => 1403, 'idKelas' => 1612]) }}" class="btn btn-default btn-kelas">12</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +128,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">SBMPTN</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/sbmptn.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_sbmptn.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -125,7 +141,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STAN</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/stan.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_stan.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -138,7 +154,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLTEKES</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/poltekes.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_poltekes.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -151,7 +167,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLITEKNIK</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/polinela.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_politeknik.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -164,7 +180,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STIS</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/stis.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_stis.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
@@ -177,7 +193,7 @@ Ujian
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">KEDINASAN</span>
-                <img class="card-img-top" src="{{ asset('asset-member/img/kedinasan.jpg') }}" alt="Placeholder">
+                <img class="card-img-top" src="{{ asset('image/ujian_kedinasan.png') }}" alt="Placeholder">
             </div>
             <div class="card-body vertical-align text-center">
                 <div class="card-body-content">
