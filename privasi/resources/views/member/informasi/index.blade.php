@@ -43,8 +43,8 @@ $(document).ready(function(){
 <div class="row">
     @foreach($informasi as $info)
     <div class="col-md-6 col-lg-4">
-        <div class="card mb-3">
-            <img class="card-img-top" src="{{ $info->foto_url }}" alt="Placeholder">
+        <div class="card mb-3 mb-5">
+            <img class="card-img-top fix-height" src="{{ $info->foto_url }}" alt="Placeholder">
             <div class="card-header">{{ $info->judul }}</div>
             <div class="card-body">
                 <a class="card-link" href="{{ route('member.informasi.view', $info->id) }}">Baca Selengkapnya</a>
