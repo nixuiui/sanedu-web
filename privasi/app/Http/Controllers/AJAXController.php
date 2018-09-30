@@ -28,7 +28,7 @@ class AJAXController extends Controller
                         $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403])->get();
                         break;
                     case '1303':    //SMA
-                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1404, 1405, 1406])->get();
+                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409])->get();
                         break;
                 }
             }
@@ -51,6 +51,26 @@ class AJAXController extends Controller
             //SBMPTN
             else if($idUjian == 1404) {
                 $mapel = SetPustaka::whereIn('id', [1516, 1517, 1518])->get();
+            }
+            //STAN
+            else if($idUjian == 1405) {
+                $mapel = SetPustaka::whereIn('id', [1525])->get();
+            }
+            //POLTEKES
+            else if($idUjian == 1406) {
+                $mapel = SetPustaka::whereIn('id', [1524])->get();
+            }
+            //POLITEKNIK
+            else if($idUjian == 1407) {
+                $mapel = SetPustaka::whereIn('id', [1523])->get();
+            }
+            //STIS
+            else if($idUjian == 1408) {
+                $mapel = SetPustaka::whereIn('id', [1526])->get();
+            }
+            //KEDINASAN
+            else if($idUjian == 1409) {
+                $mapel = SetPustaka::whereIn('id', [1519, 1520, 1521, 1522])->get();
             }
             return response()->json([
                 'mapel' => $mapel,

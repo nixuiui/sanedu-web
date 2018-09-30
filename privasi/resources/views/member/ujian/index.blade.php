@@ -11,7 +11,7 @@ Ujian
     </div>
 </div>
 <div class="row row-ujian">
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Nasional</span>
@@ -26,7 +26,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Tengah Semester</span>
@@ -75,7 +75,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">Ujian Semester</span>
@@ -124,7 +124,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">SBMPTN</span>
@@ -137,7 +137,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STAN</span>
@@ -150,7 +150,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLTEKES</span>
@@ -163,7 +163,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">POLITEKNIK</span>
@@ -176,7 +176,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">STIS</span>
@@ -189,7 +189,7 @@ Ujian
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-ujian mb-3">
+    <div class="col-md-4 col-sm-6 col-ujian mb-3">
         <div class="card">
             <div class="card-image">
                 <span class="card-label-ujian bg-primary">KEDINASAN</span>
