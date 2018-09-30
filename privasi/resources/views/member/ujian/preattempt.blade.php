@@ -7,96 +7,70 @@ Ujian
 @section('content')
 <div class="row">
     <div class="col-md-5">
-        <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="panel panel-preattempt">
+            <div class="heading">
                 {{ $ujian->judul }}
             </div>
-            <div class="panel-body">
-                <table class="table table-condensed table-hover table-bordered table-striped">
-                    <tr>
-                        <th>Ujian</th>
-                        <td>{{ $ujian->jenisUjian->nama }}</td>
-                    </tr>
-                    <tr>
-                        <th>Soal</th>
-                        <td>{{ $ujian->judul }}</td>
-                    </tr>
-                    @if($ujian->id_mata_pelajaran != null)
-                    <tr>
-                        <th>Mate Pelajaran</th>
-                        <td>{{ $ujian->mataPelajaran->nama }}</td>
-                    </tr>
-                    @endif
-                    <tr>
-                        <th>Tingkat Sekolah</th>
-                        <td>{{ $ujian->tingkatSekolah->nama }}</td>
-                    </tr>
-                    @if($ujian->id_tingkat_kelas != null)
-                    <tr>
-                        <th>Mate Pelajaran</th>
-                        <td>{{ $ujian->tingkatKelas->nama }}</td>
-                    </tr>
-                    @endif
-                    <tr>
-                        <th>Durasi</th>
-                        <td>{{ $ujian->durasi }} menit</td>
-                    </tr>
-                    <tr>
-                        <th>Jumlah Soal</th>
-                        <td>{{ $ujian->jumlah_soal }} butir</td>
-                    </tr>
-                    <tr>
-                        <th>Harga</th>
-                        <td>{{ formatUang($ujian->harga) }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nilai Percobaan Pertama</th>
-                        <td>{{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</td>
-                    </tr>
-                    <tr>
-                        <th>Pembahasan</th>
-                        <td><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $ujian->link_pembahasan }} Download</a></td>
-                    </tr>
-                    @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
-                    <tr>
-                        <th>Keterangan</th>
-                        <td>Soal belum dibeli</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-md btn-success beli-ujian" data-harga="{{ formatUang($ujian->harga) }}" data-hargaori="{{ $ujian->harga }}" data-saldo="{{ Auth::user()->saldo }}" data-judul="{{ $ujian->judul }}">Beli Ujian</span></td>
-                    </tr>
-                    @else
-                    <tr>
-                        <th>Keterangan</th>
-                        <td>Soal sudah dibeli</td>
-                    </tr>
-                    @if($attempt)
-                    <tr>
-                        <th colspan="2">ANDA SEDANG UJIAN</th>
-                    </tr>
-                    <tr>
-                        <th>Berakhir Pada</th>
-                        <td>{{ hariTanggalWaktu($attempt->end_attempt) }}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <a href="{{ route('member.ujian.soal.open', $attempt->id) }}" class="btn btn-md btn-primary">Lanjut Ujian</a>
-                        </td>
-                    </tr>
-                    @else
-                    <tr>
-                        <td colspan="2">
-                            <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
-                            <!-- @if($ujian->id_jenis_ujian == 1404)
-                            <a href="{{ route('member.ujian.soal.sbmptn.passgrade', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
+            <div class="panel-section">
+                <div class="text-20 text-bold item">{{ $ujian->jenisUjian->nama }}</div>
+            </div>
+            <div class="panel-section">
+                <div class="text-20 text-bold item">{{ $ujian->tingkatSekolah->nama }}{{ $ujian->id_tingkat_kelas != null ? " - " . $ujian->tingkatKelas->nama : "" }} - {{ $ujian->mataPelajaran->nama}}</div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="text-muted">JUMLAH SOAL</div>
+                        <div>{{ $ujian->soal->count() }} Butir</div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="text-muted">DURASI</div>
+                        <div>{{ $ujian->durasi }} menit</div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-muted">PEMBAHASAN</div>
+                        <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $ujian->link_pembahasan }} Download</a></div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="text-muted">PERCOBAAN PERTAMA</div>
+                        <div>Nilai: {{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <div class="text-muted">HARGA</div>
+                        <div class="text-success text-20 text-bold">Rp. 150.000</div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="text-muted">KETERANGAN</div>
+                        <div>
+                            @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
+                                Belum dibeli
                             @else
-                            <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-md btn-primary mulai-ujian">Mulai Ujian</a>
-                            @endif -->
-                        </td>
-                    </tr>
+                                Sudah dibeli
+                            @endif
+                        </div>
+                    </div>
+                    @if($attempt)
+                    <div class="col-md-6">
+                        <div class="text-muted">ANDA SEDANG UJIAN</div>
+                        <div class="">Berakhir pada <br> <strong>{{ hariTanggalWaktu($attempt->end_attempt) }}</strong></div>
+                    </div>
                     @endif
+                </div>
+            </div>
+            <div class="panel-section">
+                @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
+                <span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block beli-ujian" data-harga="{{ formatUang($ujian->harga) }}" data-hargaori="{{ $ujian->harga }}" data-saldo="{{ Auth::user()->saldo }}" data-judul="{{ $ujian->judul }}">Beli Ujian</span>
+                @else
+                    @if($attempt)
+                    <a href="{{ route('member.ujian.soal.open', $attempt->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary">Lanjut Ujian</a>
+                    @else
+                    <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary mulai-ujian">Mulai Ujian</a>
                     @endif
-                </table>
+                @endif
             </div>
         </div>
     </div>
