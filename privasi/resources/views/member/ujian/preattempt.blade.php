@@ -19,19 +19,19 @@ Ujian
             </div>
             <div class="panel-section">
                 <div class="row">
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">JUMLAH SOAL</div>
                         <div>{{ $ujian->soal->count() }} Butir</div>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-2 col-xs-6 mb-3">
                         <div class="text-muted">DURASI</div>
                         <div>{{ $ujian->durasi }} menit</div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">PEMBAHASAN</div>
                         <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $ujian->link_pembahasan }} Download</a></div>
                     </div>
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-4 col-xs-6 mb-3">
                         <div class="text-muted">PERCOBAAN PERTAMA</div>
                         <div>Nilai: {{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</div>
                     </div>
@@ -39,11 +39,11 @@ Ujian
             </div>
             <div class="panel-section">
                 <div class="row">
-                    <div class="col-md-3 mb-3">
+                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">HARGA</div>
-                        <div class="text-success text-20 text-bold">Rp. 150.000</div>
+                        <div class="text-success text-20 text-bold">{{ formatUang($ujian->harga) }}</div>
                     </div>
-                    <div class="col-md-2 mb-3">
+                    <div class="col-md-2 col-xs-6 mb-3">
                         <div class="text-muted">KETERANGAN</div>
                         <div>
                             @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
