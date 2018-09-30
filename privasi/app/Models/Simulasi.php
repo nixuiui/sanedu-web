@@ -13,6 +13,7 @@ class Simulasi extends Model {
     protected $keyType      = 'string';
     public $incrementing    = false;
     protected $dates        = ['deleted_at'];
+    protected $appends      = ['image_url'];
 
     protected static function boot() {
         parent::boot();
@@ -38,5 +39,8 @@ class Simulasi extends Model {
   		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_simulasi', 'id_user')
                     ->withPivot('id', 'harga', 'no_peserta', 'created_at');
   	}
+    public function getImageUrlAttribute() {
+        return env('APP_STORAGE_URL') . $this->featured_image;
+    }
 
 }

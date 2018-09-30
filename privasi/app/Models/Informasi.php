@@ -29,7 +29,6 @@ class Informasi extends Model {
         return $this->belongsTo('App\Models\User', 'id_author');
     }
     public function getFotoUrlAttribute() {
-        return "http://storage.sanedu.id/" . $this->foto;
-
+        return env('APP_STORAGE_URL') . $this->foto;
     }
 }

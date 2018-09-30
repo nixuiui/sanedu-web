@@ -46,6 +46,11 @@ class SimulasiController extends Controller
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
         $simulasi->harga = $input->harga;
+        if($input->featured_image != null) {
+            $upload = $this->uploadImage($input->featured_image);
+            if($upload->success) $simulasi->featured_image = $upload->filename;
+            else return back()->with('danger', 'Gambar tidak terupload');
+        }
         $simulasi->save();
         return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Simulasi berhasil dibuat');
     }
@@ -71,6 +76,11 @@ class SimulasiController extends Controller
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
         $simulasi->harga = $input->harga;
+        if($input->featured_image != null) {
+            $upload = $this->uploadImage($input->featured_image);
+            if($upload->success) $simulasi->featured_image = $upload->filename;
+            else return back()->with('danger', 'Gambar tidak terupload');
+        }
         $simulasi->save();
         return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Berhasil menyimpan perubahan');
     }

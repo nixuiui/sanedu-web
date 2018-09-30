@@ -91,13 +91,13 @@ Buat Simulasi Baru
                             <input type="hidden" name="featured_image">
                             <input class="inputfile" id="file-1" type="file" name="file-1" data-multiple-caption="{count} files selected" multiple="" accept="image/*">
                             <label class="btn-secondary" for="file-1"> <i class="mdi mdi-upload"></i><span>Pilih Foto...</span></label>
-                            <img id="imagePreview" class="img-fluid">
                             @if($errors->has('kategori'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('kategori') }}</strong>
                             </span>
                             @endif
                         </div>
+                        <img id="imagePreview" class="img-fluid" width="300px">
                     </div>
                 </div>
                 <hr>

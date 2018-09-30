@@ -16,7 +16,7 @@ class Controller extends BaseController
         $data = array("file" => $file);
         $data_string = json_encode($data);
 
-        $ch = curl_init('http://storage.sanedu.id/upload-image.php');
+        $ch = curl_init(env('APP_STORAGE_URL') . 'upload-image.php');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

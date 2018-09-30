@@ -92,6 +92,12 @@ function jamMenit($strTime = null) {
     return date("H:i", strtotime($strTime));
     # code...
 }
+function jamMenitA($strTime = null) {
+    if($strTime == null)
+        $strTime = date("G:i");
+    return date("H:i A", strtotime($strTime));
+    # code...
+}
 function kelamin($kelamin) {
     return $kelamin == 0 ? "Laki - laki" : "Perempuan";
 }
