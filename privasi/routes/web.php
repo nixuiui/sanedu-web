@@ -27,6 +27,8 @@ AUTH
 -------------------------------------------------------------------------*/
 Route::get('/login',        'Auth\LoginController@loginForm')->name('auth.login');
 Route::post('/login',       'Auth\LoginController@login')->name('auth.login.post');
+Route::get('/login-admin',  'Auth\LoginController@loginAdminForm')->name('auth.login.admin');
+Route::post('/login-admin', 'Auth\LoginController@loginAdmin')->name('auth.login.admin.post');
 Route::get('/logout',       'Auth\LoginController@logout')->name('auth.logout');
 Route::get('/register',     'Auth\RegisterController@registerForm')->name('auth.register');
 Route::post('/register',    'Auth\RegisterController@register')->name('auth.register.post');
