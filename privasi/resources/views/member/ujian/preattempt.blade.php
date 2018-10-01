@@ -74,54 +74,6 @@ Ujian
             </div>
         </div>
     </div>
-
-    @if($ujian->attempt->count() > 0)
-    <div class="col-md-7">
-        <div class="panel panel-default panel-table">
-            <div class="panel-heading">
-                Riwayat Pengerjaan {{ $ujian->judul }}
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Ujian</th>
-                            <th>Soal</th>
-                            <th class="text-center">Nilai</th>
-                            <th>Waktu</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>No</th>
-                            <th>Ujian</th>
-                            <th>Soal</th>
-                            <th class="text-center">Nilai</th>
-                            <th>Waktu</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach($ujian->attempt as $i => $data)
-                        <tr>
-                            <td>{{ $i+1 }}</td>
-                            <td>{{ $data->ujian->jenisUjian->nama }}</td>
-                            <td>{{ $data->ujian->judul }}</td>
-                            <td class="text-center">{{ $data->jumlah_benar }}</td>
-                            <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
-                            <td><a href="{{ route('member.ujian.history', $data->id) }}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endif
 </div>
 @endsection
 
