@@ -100,8 +100,17 @@ Ujian
                 <img class="" src="{{ asset('image/' . $data->mataPelajaran->image) }}" alt="Placeholder">
                 @endif
                 <div class="card-label-ujian-bottom bg-primary">
-                    {{ $data->tingkatSekolah->nama . ": " . $data->judul }} <br>
-                    SOAL: {{ $data->jumlah_soal }}
+                    <div class="row">
+                        <div class="col-md-6 text-ellipsis">
+                            {{ $data->mataPelajaran->nama }} <br>
+                        </div>
+                        <div class="col-md-6 text-ellipsis text-right">
+                            SOAL: {{ $data->jumlah_soal }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ $data->tingkatSekolah->nama . ": " . $data->judul }}
+                        </div>
+                    </div>
                 </div>
             </div>
             @if($data->diBeliOleh->where('id', Auth::id())->first() == null)
