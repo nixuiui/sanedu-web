@@ -18,8 +18,8 @@
                 <li class="{{ active(['member.informasi', 'member.informasi.*']) }}" title="Informasi">
                     <a href="{{ route('member.informasi') }}"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>
                 </li>
-                <li class="" title="Simulasi">
-                    <a href="#"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
+                <li class="{{ active(['member.simulasi', 'member.simulasi.*']) }}" title="Informasi">
+                    <a href="{{ route('member.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
                 </li>
                 <li class="" title="Privat">
                     <a href="#"><i class="icon mdi mdi-accounts-alt"></i><span>Privat</span></a>
