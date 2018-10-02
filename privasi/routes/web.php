@@ -242,9 +242,17 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
         Route::get('/finish/{idAttempt}',   'Member\UjianController@finish')->name('member.ujian.soal.finish');
         Route::get('/history/{idAttempt?}', 'Member\UjianController@history')->name('member.ujian.history');
     });
+
     Route::group(['prefix' => 'attempt'], function(){
         Route::get('/reqsoal/{idUjian}',    'Member\AttemptController@reqSoal')->name('member.ujian.attempt.request.soal');
         Route::post('/sendjawaban',         'Member\AttemptController@sendJawaban')->name('member.ujian.attempt.sendJawaban');
+    });
+
+    Route::group(['prefix' => 'simulasi'], function(){
+        Route::get('/',                 'Member\SimulasiController@index')->name('member.simulasi');
+        Route::get('/register/{id}',    'Member\SimulasiController@register')->name('member.simulasi.register');
+        Route::post('/register/{id}',   'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
+        Route::get('/o/{id}',           'Member\SimulasiController@open')->name('member.simulasi.open');
     });
 
 });

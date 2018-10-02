@@ -48,22 +48,22 @@ $(document).ready(function(){
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="#" class="menu-item">
+        <a href="{{ route('member.simulasi') }}" class="menu-item new-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_simulasi.png') }}" alt="">
             <div class="menu-title">Simulasi</div>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="#" class="menu-item">
+        <span href="#" class="menu-item soon-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_games.png') }}" alt="">
             <div class="menu-title">Games</div>
-        </a>
+        </span>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="#" class="menu-item">
+        <span href="#" class="menu-item soon-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_privat.png') }}" alt="">
             <div class="menu-title">Privat</div>
-        </a>
+        </span>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="{{ route('member.grupchat') }}" class="menu-item new-fitur">
@@ -72,10 +72,10 @@ $(document).ready(function(){
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="#" class="menu-item">
+        <span href="#" class="menu-item soon-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_poin.png') }}" alt="">
             <div class="menu-title">Point</div>
-        </a>
+        </span>
     </div>
 </div>
 @endsection
