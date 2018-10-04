@@ -12,42 +12,48 @@ Simulasi
 </div>
 @if(!isset($_GET['sekolah']))
 <div class="row">
-    <a href="{{ route('member.simulasi', ['sekolah' => '1301']) }}" class="col-md-4 col-sm-4 col-simulasi mb-3">
+    <div class="col-md-4 col-sm-4 col-simulasi mb-3">
         <div class="card">
-            <div class="card-image">
-                <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
-                <div class="flex-center sd">
-                    <div class="text-school">
-                        SD
+            <a href="{{ route('member.simulasi', ['sekolah' => '1301']) }}">
+                <div class="card-image">
+                    <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
+                    <div class="flex-center sd">
+                        <div class="text-school">
+                            SD
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-    </a>
-    <a href="{{ route('member.simulasi', ['sekolah' => '1302']) }}" class="col-md-4 col-sm-4 col-simulasi mb-3">
+    </div>
+    <div class="col-md-4 col-sm-4 col-simulasi mb-3">
         <div class="card">
-            <div class="card-image">
-                <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
-                <div class="flex-center smp">
-                    <div class="text-school">
-                        SMP
+            <a href="{{ route('member.simulasi', ['sekolah' => '1302']) }}">
+                <div class="card-image">
+                    <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
+                    <div class="flex-center smp">
+                        <div class="text-school">
+                            SMP
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-    </a>
-    <a href="{{ route('member.simulasi', ['sekolah' => '1303']) }}" class="col-md-4 col-sm-4 col-simulasi mb-3">
+    </div>
+    <div class="col-md-4 col-sm-4 col-simulasi mb-3">
         <div class="card">
-            <div class="card-image">
-                <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
-                <div class="flex-center sma">
-                    <div class="text-school">
-                        SMA
+            <a href="{{ route('member.simulasi', ['sekolah' => '1303']) }}">
+                <div class="card-image">
+                    <img class="card-img-top" src="{{ asset('image/ujian_nasional.png') }}" alt="Placeholder">
+                    <div class="flex-center sma">
+                        <div class="text-school">
+                            SMA
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-    </a>
+    </div>
 </div>
 @else
 <div class="row">

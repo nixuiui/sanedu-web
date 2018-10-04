@@ -19,7 +19,7 @@ class SimulasiController extends Controller
         if(!isset($_GET['sekolah']))
         return view('member.simulasi.index');
 
-        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])->get();
+        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])->where('is_published', 1)->get();
         return view('member.simulasi.index')->with("simulasi", $simulasi);
     }
 
@@ -42,12 +42,12 @@ class SimulasiController extends Controller
             'jurusan_3' => 'required|exists:tbl_jurusan,id',
         ]);
 
-        $simulasi = Simulasi::find($id);
-        if(!$simulasi) return 0;
+        $simulasi = Simulasi::where('is_published', 1)->where('id', $id)->first();
+        if(!$simulasi) return 7;
 
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
         if($peserta)
-            return "Anda sudah mendaftar";
+            return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Anda sudah mendaftar pada Simulasi " . $simulasi->judul);
 
         $peserta = new SimulasiPeserta;
         $peserta->id = Uuid::generate();

@@ -185,6 +185,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
         Route::group(['prefix' => 'kelola/{id}'], function(){
             Route::get('/',                         'AdminSimulasi\SimulasiController@kelola')->name('adminsimulasi.simulasi.kelola');
             Route::get('/publish',                  'AdminSimulasi\SimulasiController@publish')->name('adminsimulasi.simulasi.kelola.publish');
+            Route::get('/peserta',                  'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
             Route::get('/delete',                   'AdminSimulasi\SimulasiController@deleteSimulasi')->name('adminsimulasi.simulasi.kelola.delete');
             Route::get('/agenda/form/{idAgenda?}',  'AdminSimulasi\SimulasiController@agendaForm')->name('adminsimulasi.simulasi.kelola.agenda.form');
             Route::post('/agenda/post/{idAgenda?}', 'AdminSimulasi\SimulasiController@agendaPost')->name('adminsimulasi.simulasi.kelola.agenda.post');

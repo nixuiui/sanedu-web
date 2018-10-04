@@ -183,6 +183,11 @@ class SimulasiController extends Controller
         return redirect()->back()->with('success', 'Berhasil menghapus ruangan');
     }
 
+    public function peserta($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        return view('adminsimulasi.simulasi.peserta')->with('simulasi', $simulasi);
+    }
+
 
 
     //-----------------------------------------------------------------

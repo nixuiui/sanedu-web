@@ -46,7 +46,7 @@ Simulasi
                             <td>{{ $data->tempat_pelaksanaan }} soal</td>
                             <td>{{ formatUang($data->harga) }}</td>
                             @if($data->peserta->count() > 0)
-                            <td><a href="#">{{ $data->peserta->count() . " peserta" }}</a></td>
+                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $data->id) }}">{{ $data->peserta->count() . " peserta" }}</a></td>
                             @else
                             <td>-</td>
                             @endif
