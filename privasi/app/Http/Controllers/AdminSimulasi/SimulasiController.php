@@ -157,7 +157,7 @@ class SimulasiController extends Controller
 
     public function ruangPost(Request $input, $id, $idRuang = null) {
         $this->validate($input, [
-            'nama_ruang'    => 'required',
+            'nama'    => 'required',
             'kapasitas'     => 'required|numeric',
             'alamat'        => 'required',
         ]);
@@ -168,7 +168,7 @@ class SimulasiController extends Controller
         if($idRuang != null) {
             $ruang = SimulasiRuang::find($idRuang);
         }
-        $ruang->nama_ruang = $input->nama_ruang;
+        $ruang->nama = $input->nama;
         $ruang->kapasitas = $input->kapasitas;
         $ruang->alamat = $input->alamat;
         $ruang->save();

@@ -119,7 +119,7 @@ Kelola Simulasi
             <div class="col-md-6">
                 <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Kegiatan</a>
                 <div class="panel panel-default panel-table">
-                    <div class="panel-body">
+                    <div class="panel-body table-responsive">
                         <table id="datatables" class="table table-striped">
                             <thead>
                                 <tr>
@@ -158,8 +158,9 @@ Kelola Simulasi
             </div>
             <div class="col-md-6">
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
+                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-pin-account"></i>Lakukan Penempatan Otomatis</a>
                 <div class="panel panel-default panel-table">
-                    <div class="panel-body">
+                    <div class="panel-body table-responsive">
                         <table id="datatables" class="table table-striped">
                             <thead>
                                 <tr>
@@ -174,7 +175,7 @@ Kelola Simulasi
                                 @foreach($simulasi->ruang as $ruang)
                                 <tr>
                                     <td>
-                                        <strong>{{ $ruang->nama_ruang }}</strong> <br>
+                                        <strong>{{ $ruang->nama }}</strong> <br>
                                     </td>
                                     <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $ruang->kapasitas }} Orang</td>
                                     <td>{{ $ruang->alamat }}</td>

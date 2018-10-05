@@ -8,7 +8,7 @@ Simulasi
         <a href="{{ route('adminsimulasi.simulasi.tambah') }}" class="btn btn-md btn-fill btn-primary btn-space btn-icon"><i class="mdi mdi-plus"></i> Buat Simulasi Baru</a>
 
         <div class="panel panel-default panel-table">
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table id="datatables" class="table table-striped">
                     <thead>
                         <tr>

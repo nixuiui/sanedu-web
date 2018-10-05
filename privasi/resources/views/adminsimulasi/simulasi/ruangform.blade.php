@@ -20,10 +20,10 @@ Soal Ujian
                 @csrf
                 <div class="form-group">
                     <label><strong>Nama Ruangan</strong></label>
-                    <input type="text" name="nama_ruang" class="form-control input-sm" value="{{ isset($ruang) ? $ruang->nama_ruang : old('nama_ruang') }}" required>
-                    @if($errors->has('nama_ruang'))
+                    <input type="text" name="nama" class="form-control input-sm" value="{{ isset($ruang) ? $ruang->nama : old('nama') }}" required>
+                    @if($errors->has('nama'))
                     <span class="help-block">
-                        <strong>{{ $errors->first('nama_ruang') }}</strong>
+                        <strong>{{ $errors->first('nama') }}</strong>
                     </span>
                     @endif
                 </div>
@@ -45,8 +45,10 @@ Soal Ujian
                     </span>
                     @endif
                 </div>
-                <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Buat agenda baru</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-hspace" name="simpan" value="simpan">{{ isset($ruang) ? "Simpan Perubahan" : "Simpan" }}</button>
+                @if(!isset($ruang))
+                <button type="submit"  class="btn btn-default btn-fill btn-md btn-hspace" name="simpan" value="simpanandnext">Simpan dan Buat agenda baru</button>
+                @endif
             </div>
         </form>
     </div>

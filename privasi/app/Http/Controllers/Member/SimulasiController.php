@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Universitas;
 use App\Models\Simulasi;
 use App\Models\SimulasiPeserta;
+use App\Models\SimulasiPenempatan;
 use App\Models\PilihanPassingGrade;
 
 class SimulasiController extends Controller
@@ -82,8 +83,10 @@ class SimulasiController extends Controller
 
     public function open($id) {
         $simulasi = Simulasi::findOrFail($id);
+        $penempatan = SimulasiPenempatan::where("id_simulasi", $simulasi->id)->where("id_user", Auth::id())->first();
         return view('member.simulasi.open')->with([
-            'simulasi' => $simulasi
+            'simulasi' => $simulasi,
+            'penempatan' => $penempatan
         ]);
     }
 }

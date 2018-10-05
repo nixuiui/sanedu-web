@@ -12,7 +12,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
             <div class="panel-heading">
                 Data Member Yang Membeli {{ $simulasi->judul }}
             </div>
-            <div class="panel-body">
+            <div class="panel-body table-responsive">
                 <table id="datatables" class="table datatables table-striped">
                     <thead>
                         <tr>

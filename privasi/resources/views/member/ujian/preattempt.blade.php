@@ -9,10 +9,10 @@ Ujian
     <div class="col-md-5">
         <div class="panel panel-preattempt">
             <div class="heading">
-                {{ $ujian->judul }}
+                UJIAN
             </div>
             <div class="panel-section">
-                <div class="text-20 text-bold item">{{ $ujian->jenisUjian->nama }}</div>
+                <div class="text-20 text-bold item">{{ $ujian->jenisUjian->nama }} - {{ $ujian->judul }}</div>
             </div>
             <div class="panel-section">
                 <div class="text-20 text-bold item">{{ $ujian->tingkatSekolah->nama }}{{ $ujian->id_tingkat_kelas != null ? " - " . $ujian->tingkatKelas->nama : "" }} - {{ $ujian->mataPelajaran->nama}}</div>
