@@ -27,6 +27,12 @@ class SimulasiController extends Controller
         $simulasi = Simulasi::find($id);
         if(!$simulasi) return back();
 
+        $isRegistered = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                        ->where('id_user', Auth::id())
+                                        ->first();
+        if($isRegistered)
+            return redirect()->route('member.simulasi.open', $simulasi->id);
+
         $universitas = Universitas::all();
         return view('member.simulasi.passgrade')->with([
             'simulasi' => $simulasi,
