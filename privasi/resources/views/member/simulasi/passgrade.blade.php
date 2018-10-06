@@ -18,16 +18,16 @@ Simulasi
                         <label class="col-sm-3 control-label">JURUSAN</label>
                         <div class="col-sm-9">
                             <div class="be-radio inline">
-                                <input type="radio" name="jurusan" id="ipa" value="1504" checked>
-                                <label for="ipa">IPA</label>
+                                <input type="radio" name="jurusan" id="SAINTEK" value="1516" checked>
+                                <label for="SAINTEK">SAINTEK</label>
                             </div>
                             <div class="be-radio inline">
-                                <input type="radio" name="jurusan" id="ips" value="1505">
-                                <label for="ips">IPS</label>
+                                <input type="radio" name="jurusan" id="SOSHUM" value="1517">
+                                <label for="SOSHUM">SOSHUM</label>
                             </div>
                             <div class="be-radio inline">
-                                <input type="radio" name="jurusan" id="ipc" value="1506">
-                                <label for="ipc">IPC</label>
+                                <input type="radio" name="jurusan" id="CAMPURAN" value="1518">
+                                <label for="CAMPURAN">CAMPURAN</label>
                             </div>
                         </div>
                     </div>

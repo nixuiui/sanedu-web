@@ -92,9 +92,9 @@ class AJAXController extends Controller
         $jurusan = Jurusan::where('id_universitas', $id)->select('id', 'jurusan', 'saintek', 'soshum');
         if(isset($_GET['jurusan']) && $_GET['jurusan'] != null) {
             $idjur = $_GET['jurusan'];
-            if($idjur == 1504)
+            if($idjur == 1516)
                 $jurusan = $jurusan->where('saintek', 1);
-            elseif($idjur == 1505)
+            elseif($idjur == 1517)
                 $jurusan = $jurusan->where('soshum', 1);
             else
                 $jurusan = $jurusan->where('saintek', 1)->where('soshum', 1);
