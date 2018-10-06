@@ -87,9 +87,16 @@ class SimulasiController extends Controller
 
     public function publish($id) {
         $simulasi = Simulasi::find($id);
-        $simulasi->is_published = 1;
+        $simulasi->id_status = 1902;
         $simulasi->save();
         return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Berhasil dipublish');
+    }
+
+    public function closeReg($id) {
+        $simulasi = Simulasi::find($id);
+        $simulasi->id_status = 1903;
+        $simulasi->save();
+        return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Pendaftaran telah ditutup, sudah tidak ada yang bisa mendaftar pada simulasi ini lagi');
     }
 
     public function deleteSimulasi($id) {
@@ -188,117 +195,11 @@ class SimulasiController extends Controller
         return view('adminsimulasi.simulasi.peserta')->with('simulasi', $simulasi);
     }
 
-
-
-    //-----------------------------------------------------------------
-
-    public function savePeraturan(Request $input, $id) {
-        $ujian = Ujian::findOrFail($id);
-        $ujian->peraturan = $input->peraturan;
-        $ujian->save();
-        return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menyimpan peraturan');
-    }
-
-    public function formSoal($id, $idSoal = null) {
-        $ujian = Ujian::findOrFail($id);
-        if($idSoal == null)
-        return view('adminujian.ujian.tambahsoal')->with([
-            'ujian' => $ujian
-        ]);
-
-        $soal = Soal::find($idSoal);
-        return view('adminujian.ujian.tambahsoal')->with([
-            'ujian' => $ujian,
-            'soal' => $soal
-        ]);
-    }
-
-    public function prosesTambahSoal(Request $input, $id, $idSoal = null) {
-        $this->validate($input, [
-            'soal'      => 'required',
-            'jawaban'   => 'required',
-        ]);
-        $ujian = Ujian::findOrFail($id);
-        $soal = new Soal;
-        if($idSoal != null) {
-            $soal = Soal::find($idSoal);
-        }
-        $soal->id = UUid::generate();
-        $soal->soal = $input->soal;
-        $soal->a = $input->a;
-        $soal->b = $input->b;
-        $soal->c = $input->c;
-        $soal->d = $input->d;
-        $soal->e = $input->e;
-        $soal->jawaban = $input->jawaban;
-        $soal->id_ujian = $ujian->id;
-        $soal->save();
-        if($input->simpan == "simpan")
-        return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
-        return redirect()->route('admin.ujian.soal.form.soal', $ujian->id)->with('success', 'Berhasil menambah butir soal');
-    }
-
-    public function deleteSoal($id, $idSoal) {
-        $soal = Soal::find($idSoal);
-        $soal->forceDelete();
-        return redirect()->back()->with('success', 'Berhasil menghapus Soal');
-    }
-
-    public function viewSoal($id, $idSoal) {
-        $soal = Soal::find($idSoal);
-        return view('adminujian.ujian.lihatsoal')->with([
-            'soal' => $soal
-        ]);
-    }
-
-    public function history($id, $idAttempt = null) {
-        $ujian = Ujian::findOrFail($id);
-        $history = Attempt::where('id_ujian', $id)
-                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
-                            ->get();
-        if($idAttempt == null)
-        return view('adminujian.ujian.history')->with([
-            'history' => $history,
-            'ujian' => $ujian
-        ]);
-
-        $attempt = Attempt::findOrFail($idAttempt);
-        $idUjian = $attempt->id_ujian;
-        $soal = collect(DB::select("
-                SELECT
-                soal.id,
-                soal.soal,
-                soal.a,
-                soal.b,
-                soal.c,
-                soal.d,
-                soal.e,
-                soal.jawaban as kunci,
-                correct.jawaban,
-                correct.is_correct
-                FROM
-                tbl_attempt_correction as correct
-                RIGHT JOIN tbl_soal as soal ON
-                correct.id_soal=soal.id AND
-                soal.id_ujian='" . $idUjian. "' AND
-                correct.id_attempt='" . $idAttempt . "'
-                WHERE
-                soal.id_ujian='" . $idUjian . "' &&
-                soal.deleted_at IS NULL &&
-                correct.deleted_at IS NULL
-                ORDER BY soal.created_at ASC"));
-        return view('adminujian.ujian.preview')->with([
-            'attempt' => $attempt,
-            'soal' => $soal,
-            'ujian' => $ujian
-        ]);
-    }
-
-    public function pembeli($id) {
-        $ujian = Ujian::findOrFail($id);
-        return view('adminujian.ujian.pembeli')->with([
-            'ujian' => $ujian
-        ]);
+    public function penempatan($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        if($simulasi->id_status == 1903)
+            return view('adminsimulasi.simulasi.penempatan')->with('simulasi', $simulasi);
+        return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id);
     }
 
 }

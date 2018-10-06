@@ -39,7 +39,7 @@ Simulasi
                     <tbody>
                         @foreach($simulasi as $data)
                         <tr>
-                            <td><i class="mdi mdi-circle {{ $data->is_published ? "text-success" : "text-default" }}" title="{{ $data->is_published ? "Sudah Publish" : "Belum Publish" }}"></i></td>
+                            <td><i class="mdi mdi-circle {{ $data->id_status == 1902 ? "text-success" : $data->id_status == 1903 ? "text-primary" : "text-default" }}" title="{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}"></i></td>
                             <td><a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" data-jumlahtiket="">{{ $data->judul }}</a></td>
                             <td>{{ $data->tingkatSekolah->nama }}</td>
                             <td>{{ $data->tanggal_pelaksanaan }} soal</td>
@@ -50,7 +50,7 @@ Simulasi
                             @else
                             <td>-</td>
                             @endif
-                            <td>{{ $data->is_published ? "Published" : "Draft" }}</td>
+                            <td>{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" class="btn btn-xs btn-warning" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-edit"></i></a>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.delete', $data->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>

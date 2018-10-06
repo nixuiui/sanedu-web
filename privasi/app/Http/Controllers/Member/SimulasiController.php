@@ -20,7 +20,7 @@ class SimulasiController extends Controller
         if(!isset($_GET['sekolah']))
         return view('member.simulasi.index');
 
-        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])->where('is_published', 1)->get();
+        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])->whereIn('id_status', [1902, 1903])->get();
         return view('member.simulasi.index')->with("simulasi", $simulasi);
     }
 
@@ -49,7 +49,7 @@ class SimulasiController extends Controller
             'jurusan_3' => 'required|exists:tbl_jurusan,id',
         ]);
 
-        $simulasi = Simulasi::where('is_published', 1)->where('id', $id)->first();
+        $simulasi = Simulasi::where('id_status', 1902)->where('id', $id)->first();
         if(!$simulasi) return 7;
 
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();

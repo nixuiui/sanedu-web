@@ -5,17 +5,22 @@ Kelola Simulasi
 @endsection
 
 @section('content')
-<div class="alert alert-{{ $simulasi->is_published ? "success" : "primary" }} alert-icon alert-icon-border alert-dismissible" role="alert">
+<div class="alert alert-{{ $simulasi->id_status == 1902 ? "success" : "primary" }} alert-icon alert-icon-border alert-dismissible" role="alert">
     <div class="icon"><span class="mdi mdi-mail-send"></span></div>
     <div class="message">
-        @if(!$simulasi->is_published)
+        @if($simulasi->id_status == 1901)
         <a href="{{ route('adminsimulasi.simulasi.kelola.publish', $simulasi->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
-        @else
-
+        @elseif($simulasi->id_status == 1902 || $simulasi->id_status == 1903)
             @if( $simulasi->peserta->count() > 0)
             <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->peserta->count() }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
             @else
             <p class="">Belum ada peserta yang mendaftar pada simulasi ini.</p>
+            @endif
+            <hr>
+            @if($simulasi->id_status == 1902)
+            <a href="{{ route('adminsimulasi.simulasi.kelola.closereg', $simulasi->id) }}" class="btn btn-default btn-md">Tutup Pendaftaran</a>
+            @else
+            <span class="text-muted">PENDAFTARAN TELAH DITUTUP</span>
             @endif
         @endif
     </div>
@@ -158,7 +163,7 @@ Kelola Simulasi
             </div>
             <div class="col-md-6">
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
-                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-pin-account"></i>Lakukan Penempatan Otomatis</a>
+                <a href="{{ route('adminsimulasi.simulasi.kelola.penempatan', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space" {{ $simulasi->id_status == 1903 ? "" : "disabled" }} title="Tutup Pendaftaran Terlebih Dahulu"><i class="mdi mdi-pin-account"></i>Lakukan Penempatan Otomatis</a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table id="datatables" class="table table-striped">
