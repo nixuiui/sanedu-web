@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class SimulasiRuang extends Model {
     use SoftDeletes;
@@ -17,7 +17,10 @@ class SimulasiRuang extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            // $data->tiket()->delete();
+            $data->penempatan()->delete();
+        });
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('nama', 'asc');
         });
     }
 
@@ -27,6 +30,9 @@ class SimulasiRuang extends Model {
   	}
   	public function peserta() {
   		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_ruang', 'id_ruang', 'id_user');
+  	}
+  	public function penempatan() {
+  		return $this->hasMany('App\Models\SimulasiPenempatan', 'id_ruang');
   	}
 
 }

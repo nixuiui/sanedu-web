@@ -39,9 +39,12 @@ class Controller extends BaseController
         return response()->json(["success" => false, "message" => $message]);
     }
 
-    public function success($data = null) {
-        if($data == null)
-        return response()->json(["success" => true]);
-        return response()->json(["success" => true, "data" => $data]);
+    public function success($data = null, $message = null) {
+        return response()->json([
+            "success" => true,
+            "message" => $message,
+            "data" => $data
+        ]);
     }
+    
 }

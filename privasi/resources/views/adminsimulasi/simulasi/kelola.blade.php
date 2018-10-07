@@ -182,7 +182,7 @@ Kelola Simulasi
                                     <td>
                                         <strong>{{ $ruang->nama }}</strong> <br>
                                     </td>
-                                    <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $ruang->kapasitas }} Orang</td>
+                                    <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $ruang->jumlah_peserta }}/{{ $ruang->kapasitas }} Orang</td>
                                     <td>{{ $ruang->alamat }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>

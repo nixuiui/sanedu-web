@@ -9,8 +9,10 @@ use Uuid;
 use DB;
 use App\Models\SetPustaka;
 use App\Models\Simulasi;
+use App\Models\SimulasiPeserta;
 use App\Models\SimulasiAgenda;
 use App\Models\SimulasiRuang;
+use App\Models\SimulasiPenempatan;
 
 class SimulasiController extends Controller
 {
@@ -186,7 +188,7 @@ class SimulasiController extends Controller
 
     public function ruangDelete($id, $idRuang) {
         $ruang = SimulasiRuang::find($idRuang);
-        $ruang->forceDelete();
+        $ruang->delete();
         return redirect()->back()->with('success', 'Berhasil menghapus ruangan');
     }
 
@@ -200,6 +202,53 @@ class SimulasiController extends Controller
         if($simulasi->id_status == 1903)
             return view('adminsimulasi.simulasi.penempatan')->with('simulasi', $simulasi);
         return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id);
+    }
+
+    public function penempatanProses($id, $idRuang, $index) {
+        $simulasi = Simulasi::find($id);
+        if(!$simulasi) return $this->error("Simulasi tidak ditemukan");
+
+        $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
+                                ->where('id', $idRuang)
+                                ->first();
+        if(!$ruang) return $this->error("Ruangan tidak ditemukan");
+
+        $penempatan = SimulasiPenempatan::select('id_peserta')->where('id_simulasi', $simulasi->id)->get();
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                    ->whereNotIn('id', $penempatan)
+                                    ->get();
+
+        if($ruang->jumlah_peserta == $ruang->kapasitas) {
+            $ruang['index'] = $index;
+            return $this->success($ruang, "Completed");
+        }
+
+        $batas = $ruang->kapasitas <= $peserta->count() ? $ruang->kapasitas : $peserta->count();
+
+        for($i = 0; $i < $batas; $i++) {
+            $penempatanNew = new SimulasiPenempatan;
+            $penempatanNew->id = Uuid::generate();
+            $penempatanNew->id_ruang = $ruang->id;
+            $penempatanNew->id_simulasi = $simulasi->id;
+            $penempatanNew->id_peserta = $peserta[$i]->id;
+            $penempatanNew->save();
+        }
+
+
+        //UPDATE TERBARU
+        $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
+                                ->where('id', $idRuang)
+                                ->first();
+        $ruang['index'] = $index;
+        return $this->success($ruang, "Completed");
+
+    }
+
+    public function requestRuang($id) {
+        $simulasi = Simulasi::find($id);
+        if(!$simulasi) return $this->error("Simulasi tidak ditemukan");
+
+        return $this->success($simulasi->ruang);
     }
 
 }

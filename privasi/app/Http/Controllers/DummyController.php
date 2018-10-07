@@ -19,8 +19,9 @@ class DummyController extends Controller
             $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                         ->where('id_user', $data->id)
                                         ->first();
-            if(!$peserta)
+            if($peserta)
                 continue;
+                
             $peserta = new SimulasiPeserta;
             $peserta->id = Uuid::generate();
             $peserta->id_simulasi = $simulasi->id;

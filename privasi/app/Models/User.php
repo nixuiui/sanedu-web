@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -23,6 +24,9 @@ class User extends Authenticatable {
         parent::boot();
         static::deleting(function($data) {
             // $data->method()->delete();
+        });
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('nama', 'asc');
         });
     }
 
