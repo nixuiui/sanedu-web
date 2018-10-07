@@ -129,6 +129,7 @@ Kelola Simulasi
                             <thead>
                                 <tr>
                                     <th>Waktu & Tempat</th>
+                                    <th>Tempat</th>
                                     <th>Agenda</th>
                                     <th class="text-right">Aksi</th>
                                 </tr>
@@ -137,11 +138,8 @@ Kelola Simulasi
                                 @if($simulasi->agenda->count() > 0)
                                 @foreach($simulasi->agenda as $agenda)
                                 <tr>
-                                    <td>
-                                        {{ hariTanggal($agenda->waktu) }}<br>
-                                        {{ jamMenitA($agenda->waktu) }} <br>
-                                        di <strong>{{ ucwords($agenda->tempat) }}</strong>
-                                    </td>
+                                    <td>{{ jamMenit($agenda->waktu_mulai) }} - {{ jamMenit($agenda->waktu_selesai) }}</td>
+                                    <td>{{ $agenda->tempat }}</td>
                                     <td>
                                         <strong>{{ $agenda->nama_agenda }}</strong> <br>
                                         {{ $agenda->deskripsi }}

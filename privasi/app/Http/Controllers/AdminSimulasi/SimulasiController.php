@@ -125,10 +125,10 @@ class SimulasiController extends Controller
 
     public function agendaPost(Request $input, $id, $idAgenda = null) {
         $this->validate($input, [
-            'tanggal'       => 'required|date',
-            'waktu'         => 'required|date_format:"H:i"',
+            'waktu_mulai'   => 'required|date_format:"H:i"',
+            'waktu_selesai' => 'required|date_format:"H:i"',
             'nama_agenda'   => 'required',
-            'tempat'   => 'required',
+            'tempat'        => 'required',
             'deskripsi'     => 'required',
         ]);
         $simulasi = Simulasi::findOrFail($id);
@@ -138,7 +138,8 @@ class SimulasiController extends Controller
         if($idAgenda != null) {
             $agenda = SimulasiAgenda::find($idAgenda);
         }
-        $agenda->waktu = $input->tanggal . " " . $input->waktu;
+        $agenda->waktu_mulai = $input->waktu_mulai;
+        $agenda->waktu_selesai = $input->waktu_selesai;
         $agenda->nama_agenda = $input->nama_agenda;
         $agenda->tempat = $input->tempat;
         $agenda->deskripsi = $input->deskripsi;

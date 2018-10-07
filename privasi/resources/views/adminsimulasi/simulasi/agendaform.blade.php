@@ -18,22 +18,25 @@ Soal Ujian
             </div>
             <div class="panel-body">
                 @csrf
-                <div class="form-group">
-                    <label><strong>Waktu Pelaksanaan</strong></label>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <input type="date" name="tanggal" class="form-control input-sm" value="{{ isset($agenda) ? date('Y-m-d', strtotime($agenda->waktu)) : old('tanggal') }}" required>
-                            @if($errors->has('tanggal'))
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Waktu Mulai</strong></label>
+                            <input type="time" name="waktu_mulai" class="form-control input-sm" value="{{ isset($agenda) ? date('H:i', strtotime($agenda->waktu_mulai)) : old('waktu_mulai') }}" required>
+                            @if($errors->has('waktu_mulai'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('tanggal') }}</strong>
+                                <strong>{{ $errors->first('waktu_mulai') }}</strong>
                             </span>
                             @endif
                         </div>
-                        <div class="col-md-6">
-                            <input type="time" name="waktu" class="form-control input-sm" value="{{ isset($agenda) ? date('H:i', strtotime($agenda->waktu)) : old('waktu') }}" required>
-                            @if($errors->has('waktu'))
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label><strong>Waktu Selesai</strong></label>
+                            <input type="time" name="waktu_selesai" class="form-control input-sm" value="{{ isset($agenda) ? date('H:i', strtotime($agenda->waktu_selesai)) : old('waktu_selesai') }}" required>
+                            @if($errors->has('waktu_selesai'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('waktu') }}</strong>
+                                <strong>{{ $errors->first('waktu_selesai') }}</strong>
                             </span>
                             @endif
                         </div>
