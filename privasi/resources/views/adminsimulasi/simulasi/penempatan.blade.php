@@ -12,11 +12,12 @@ Penempatan Peserta Simulasi
 </div>
 <div class="row">
     <div class="col-md-6">
-        <button type="button" @click="reqPenempatan" class="btn btn-md btn-fill btn-primary btn-space btn-icon">Generate Penempatan</button>
+        <button type="button" @click="reqPenempatan" v-if="isFinishGenerate && isMounted" class="btn btn-md btn-fill btn-primary btn-space btn-icon">Generate Penempatan</button>
+        <button type="button" v-if="!isFinishGenerate || !isMounted" class="btn btn-md btn-fill btn-primary btn-space btn-icon disabled">Loading</button>
 
         <div class="panel panel-default panel-table">
             <div class="panel-body table-responsive">
-                <table class="table table-striped">
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Nama Ruang</th>
@@ -24,9 +25,9 @@ Penempatan Peserta Simulasi
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(ruang, index) in ruangs">
-                            <td>@{{ ruang.nama }}</td>
-                            <td>@{{ ruang.jumlah_peserta }}/@{{ ruang.kapasitas }} orang</td>
+                        <tr v-for="(ruang, i) in ruangs" v-bind:class="{'bg-warning': !isFinishGenerate && index == i}">
+                            <td v-bind:class="{'text-bold': !isFinishGenerate && index == i}">@{{ ruang.nama }}</td>
+                            <td v-bind:class="{'text-bold': !isFinishGenerate && index == i}">@{{ ruang.jumlah_peserta }}/@{{ ruang.kapasitas }} orang</td>
                         </tr>
                     </tbody>
                 </table>
@@ -49,6 +50,7 @@ var app = new Vue({
         ruangs: [],
         jumlahRuang: 0,
         isMounted: false,
+        isFinishGenerate: true,
         isErrorExist: false,
         errorMessage: null,
         index: 0
@@ -59,6 +61,7 @@ var app = new Vue({
             this.errorMessage = null;
         },
         reqPenempatan: function() {
+            this.isFinishGenerate = false;
             var self = this;
             var ruang = this.ruangs[this.index];
             var linkRequestPenempatan = "{{ route('adminsimulasi.simulasi.kelola.penempatan.proses', ['id' => ':id', 'idRuang' => ':idRuang', 'i' => ':i']) }}";
@@ -76,8 +79,10 @@ var app = new Vue({
                     self.index += 1;
                     if(self.index < self.jumlahRuang)
                         self.reqPenempatan();
-                    else
+                    else {
+                        self.isFinishGenerate = true;
                         self.index = 0;
+                    }
                 }
                 else {
                     self.isErrorExist = true;
