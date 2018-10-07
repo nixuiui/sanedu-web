@@ -72,7 +72,8 @@ Simulasi - {{ $simulasi->judul }}
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Waktu</th>
+                            <th width="180px">Waktu</th>
+                            <th>Tempat</th>
                             <th>Agenda</th>
                         </tr>
                     </thead>
@@ -84,6 +85,7 @@ Simulasi - {{ $simulasi->judul }}
                                 {{ hariTanggal($agenda->waktu) }}<br>
                                 {{ jamMenitA($agenda->waktu) }}
                             </td>
+                            <td>{{ $agenda->tempat }}</td>
                             <td>
                                 <strong>{{ $agenda->nama_agenda }}</strong> <br>
                                 {{ $agenda->deskripsi }}

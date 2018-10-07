@@ -128,7 +128,7 @@ Kelola Simulasi
                         <table id="datatables" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>Waktu</th>
+                                    <th>Waktu & Tempat</th>
                                     <th>Agenda</th>
                                     <th class="text-right">Aksi</th>
                                 </tr>
@@ -139,7 +139,8 @@ Kelola Simulasi
                                 <tr>
                                     <td>
                                         {{ hariTanggal($agenda->waktu) }}<br>
-                                        {{ jamMenitA($agenda->waktu) }}
+                                        {{ jamMenitA($agenda->waktu) }} <br>
+                                        di <strong>{{ ucwords($agenda->tempat) }}</strong>
                                     </td>
                                     <td>
                                         <strong>{{ $agenda->nama_agenda }}</strong> <br>

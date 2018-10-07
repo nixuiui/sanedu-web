@@ -49,6 +49,15 @@ Soal Ujian
                     @endif
                 </div>
                 <div class="form-group">
+                    <label><strong>Tempat Kegiatan</strong></label>
+                    <input type="text" name="tempat" class="form-control input-sm" value="{{ isset($agenda) ? $agenda->tempat : old('tempat') }}" required>
+                    @if($errors->has('tempat'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('tempat') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label><strong>Deskripsi Agenda</strong></label>
                     <textarea name="deskripsi" class="form-control input-sm" rows="3" required>{!! isset($agenda) ? $agenda->deskripsi : old('deskripsi') !!}</textarea>
                     @if($errors->has('deskripsi'))

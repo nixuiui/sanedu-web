@@ -126,6 +126,7 @@ class SimulasiController extends Controller
             'tanggal'       => 'required|date',
             'waktu'         => 'required|date_format:"H:i"',
             'nama_agenda'   => 'required',
+            'tempat'   => 'required',
             'deskripsi'     => 'required',
         ]);
         $simulasi = Simulasi::findOrFail($id);
@@ -137,6 +138,7 @@ class SimulasiController extends Controller
         }
         $agenda->waktu = $input->tanggal . " " . $input->waktu;
         $agenda->nama_agenda = $input->nama_agenda;
+        $agenda->tempat = $input->tempat;
         $agenda->deskripsi = $input->deskripsi;
         $agenda->save();
         if($input->simpan == "simpan")
