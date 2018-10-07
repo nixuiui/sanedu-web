@@ -125,7 +125,7 @@ Kelola Simulasi
                 <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Kegiatan</a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
-                        <table id="datatables" class="table table-striped">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Waktu & Tempat</th>
@@ -164,13 +164,13 @@ Kelola Simulasi
             </div>
             <div class="col-md-6">
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
-                <a href="{{ route('adminsimulasi.simulasi.kelola.penempatan', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space" {{ $simulasi->id_status == 1903 ? "" : "disabled" }} title="Tutup Pendaftaran Terlebih Dahulu"><i class="mdi mdi-pin-account"></i>Lakukan Penempatan Otomatis</a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
-                        <table id="datatables" class="table table-striped">
+                        <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>Ruang</th>
+                                    <th>Mapel</th>
                                     <th>Kursi</th>
                                     <th>Alamat</th>
                                     <th class="text-right">Aksi</th>
@@ -178,17 +178,16 @@ Kelola Simulasi
                             </thead>
                             <tbody>
                                 @if($simulasi->ruang->count() > 0)
-                                @foreach($simulasi->ruang as $ruang)
+                                @foreach($ruang as $data)
                                 <tr>
-                                    <td>
-                                        <strong>{{ $ruang->nama }}</strong> <br>
-                                    </td>
-                                    <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $ruang->jumlah_peserta }}/{{ $ruang->kapasitas }} Orang</td>
-                                    <td>{{ $ruang->alamat }}</td>
+                                    <td><strong>{{ $data->nama }}</strong></td>
+                                    <td>{{ $data->ruangMapel->nama }}</td>
+                                    <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
+                                    <td>{{ $data->alamat }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $ruang->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

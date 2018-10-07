@@ -10,8 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Universitas;
 use App\Models\Simulasi;
+use App\Models\SimulasiRuang;
 use App\Models\SimulasiPeserta;
-use App\Models\SimulasiPenempatan;
 use App\Models\PilihanPassingGrade;
 
 class SimulasiController extends Controller
@@ -49,19 +49,49 @@ class SimulasiController extends Controller
             'jurusan_3' => 'required|exists:tbl_jurusan,id',
         ]);
 
-        $simulasi = Simulasi::where('id_status', 1902)->where('id', $id)->first();
-        if(!$simulasi) return 7;
+        $simulasi = Simulasi::where('id', $id)->first();
+        if(!$simulasi) return back();
 
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
         if($peserta)
             return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Anda sudah mendaftar pada Simulasi " . $simulasi->judul);
 
+        $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
+                                ->where('id_mapel', $input->jurusan)
+                                ->where('is_full', false)
+                                ->first();
+        if(!$ruang)
+            return back()->with("danger", "Tiket belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
+
+        $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                        ->where('id_mapel', $input->jurusan)
+                                        ->orderBy('no_peserta', 'desc')
+                                        ->first();
+        switch ($input->jurusan) {
+            case 1516: $kode = 111; break;
+            case 1517: $kode = 211; break;
+            default: $kode = 311; break;
+        }
+        if (empty($checkPeserta)) {
+			$nomor		= sprintf('%05d', 1);
+			$no_peserta	= $kode.'-24-'.$nomor;
+		}
+		else{
+			$pisah		= substr($checkPeserta->no_peserta, -5);
+			$str 		= ltrim($pisah, '0');
+			$new		= intval($str)+1;
+			$nomor		= sprintf('%05d', $new);
+			$no_peserta	= $kode.'-24-'.$nomor;
+		}
+
         $peserta = new SimulasiPeserta;
         $peserta->id = Uuid::generate();
         $peserta->id_simulasi = $simulasi->id;
         $peserta->id_user = Auth::id();
+        $peserta->id_ruang = $ruang->id;
+        $peserta->id_mapel = $input->jurusan;
         $peserta->harga = $simulasi->harga;
-        $peserta->no_peserta = time();
+        $peserta->no_peserta = $no_peserta;
         if($peserta->save()) {
             $passingGrade = new PilihanPassingGrade;
             $passingGrade->id = Uuid::generate();
@@ -83,10 +113,12 @@ class SimulasiController extends Controller
 
     public function open($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $penempatan = SimulasiPenempatan::where("id_simulasi", $simulasi->id)->where("id_peserta", Auth::id())->first();
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                    ->where('id_user', Auth::id())
+                                    ->first();
         return view('member.simulasi.open')->with([
             'simulasi' => $simulasi,
-            'penempatan' => $penempatan
+            'peserta' => $peserta
         ]);
     }
 }

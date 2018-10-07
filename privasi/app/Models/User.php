@@ -41,9 +41,6 @@ class User extends Authenticatable {
   		return $this->belongsToMany('App\Models\Simulasi', 'tbl_simulasi_peserta', 'id_user', 'id_simulasi')
                     ->withPivot('id', 'harga', 'no_peserta', 'created_at');
   	}
-  	public function ruangSimulasi() {
-  		return $this->belongsToMany('App\Models\SimulasiRuang', 'tbl_simulasi_ruang', 'id_user', 'id_ruang');
-  	}
     public function cetakTiket() {
         return $this->hasMany('App\Models\CetakTiket', 'id_user');
     }

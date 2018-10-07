@@ -17,7 +17,7 @@ class SimulasiRuang extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            $data->penempatan()->delete();
+            $data->peserta()->delete();
         });
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('nama', 'asc');
@@ -28,11 +28,12 @@ class SimulasiRuang extends Model {
   	public function simulasi() {
   		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
   	}
-  	public function peserta() {
-  		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_ruang', 'id_ruang', 'id_user');
+  	public function ruangMapel() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
   	}
-  	public function penempatan() {
-  		return $this->hasMany('App\Models\SimulasiPenempatan', 'id_ruang');
+  	public function peserta() {
+  		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_ruang', 'id_ruang', 'id_user')
+                    ->withPivot('id', 'id_mapel', 'harga', 'no_peserta', 'created_at');
   	}
 
 }

@@ -26,6 +26,12 @@ class SimulasiPeserta extends Model {
   	public function simulasi() {
   		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
   	}
+  	public function mapel() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
+  	}
+  	public function ruang() {
+  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
+  	}
   	public function user() {
   		return $this->belongsTo('App\Models\User', 'id_user');
   	}

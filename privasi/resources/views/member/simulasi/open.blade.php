@@ -33,6 +33,9 @@ Simulasi - {{ $simulasi->judul }}
             <div class="panel-section">
                 <div class="text-20 text-bold item">{{ $simulasi->judul }}</div>
             </div>
+            <div class="panel-section text-center p-5">
+                <div class="text-bold text-20">NO PESERTA {{ $peserta->no_peserta }}</div>
+            </div>
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
@@ -53,13 +56,21 @@ Simulasi - {{ $simulasi->judul }}
                     </div>
                 </div>
             </div>
-            <div class="panel-section text-center p-5">
-                @if($penempatan)
-                <div class="text-muted text-20">LOKASI UJIAN SAYA</div>
-                <div class="text-muted">{{ $penempatan->ruang->nama }}</div>
-                @else
-                <div class="text-muted text-20">RUANG UJIAN BELUM DITETAPKAN, MOHON DITUNGGU</div>
-                @endif
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">JENIS TO</div>
+                        <div>{{ $peserta->mapel->nama }}</div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">RUANG</div>
+                        <div>{{ $peserta->ruang->nama }}</div>
+                    </div>
+                    <div class="col-md-6 col-xs-6 mb-3">
+                        <div class="text-muted">ALAMAT RUANG</div>
+                        <div>{{ $peserta->ruang->alamat }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
