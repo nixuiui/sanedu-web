@@ -24,4 +24,7 @@ class Universitas extends Model {
     public function jurusan() {
         return $this->hasMany('App\Models\Jurusan', 'id_universitas');
     }
+    public function getNamaAttribute($value) {
+        return strtoupper($value);
+    }
 }

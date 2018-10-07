@@ -83,7 +83,7 @@ class SimulasiController extends Controller
 
     public function open($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $penempatan = SimulasiPenempatan::where("id_simulasi", $simulasi->id)->where("id_user", Auth::id())->first();
+        $penempatan = SimulasiPenempatan::where("id_simulasi", $simulasi->id)->where("id_peserta", Auth::id())->first();
         return view('member.simulasi.open')->with([
             'simulasi' => $simulasi,
             'penempatan' => $penempatan

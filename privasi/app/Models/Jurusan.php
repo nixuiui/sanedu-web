@@ -24,4 +24,7 @@ class Jurusan extends Model {
     public function universitas() {
         return $this->belongsTo('App\Models\Universitas', 'id_universitas');
     }
+    public function getJurusanAttribute($value) {
+        return strtoupper($value);
+    }
 }
