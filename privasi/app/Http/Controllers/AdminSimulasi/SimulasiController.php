@@ -36,6 +36,8 @@ class SimulasiController extends Controller
             'instansi'              => 'required',
             'tanggal_pelaksanaan'   => 'required|date',
             'tempat_pelaksanaan'    => 'required',
+            'link_soal'             => 'nullable|url',
+            'link_pembahasan'       => 'nullable|url',
             'harga'                 => 'required|numeric',
         ]);
         $simulasi = new Simulasi;
@@ -47,6 +49,8 @@ class SimulasiController extends Controller
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
+        $simulasi->link_soal = $input->link_soal;
+        $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
         if($input->featured_image != null) {
             $upload = $this->uploadImage($input->featured_image);
@@ -73,12 +77,16 @@ class SimulasiController extends Controller
             'tanggal_pelaksanaan'   => 'required|date',
             'tempat_pelaksanaan'    => 'required',
             'harga'                 => 'required|numeric',
+            'link_soal'             => 'nullable|url',
+            'link_pembahasan'       => 'nullable|url',
         ]);
         $simulasi = Simulasi::find($id);
         $simulasi->judul = $input->judul;
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
+        $simulasi->link_soal = $input->link_soal;
+        $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
         if($input->featured_image != null) {
             $upload = $this->uploadImage($input->featured_image);

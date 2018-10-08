@@ -5,7 +5,7 @@ Kelola Simulasi
 @endsection
 
 @section('content')
-<div class="alert alert-{{ $simulasi->id_status == 1902 ? "success" : "primary" }} alert-icon alert-icon-border alert-dismissible" role="alert">
+<div class="alert alert-primary alert-icon alert-icon-border alert-dismissible" role="alert">
     <div class="icon"><span class="mdi mdi-mail-send"></span></div>
     <div class="message">
         @if($simulasi->id_status == 1901)
@@ -91,6 +91,28 @@ Kelola Simulasi
                                     @if($errors->has('tanggal_pelaksanaan'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tanggal_pelaksanaan') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Link Soal</label>
+                                    <input type="url" class="form-control input-sm" placeholder="http://domain.com/download_soal" name="link_soal"  value="{{ $simulasi->link_soal }}">
+                                    @if($errors->has('link_soal'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('link_soal') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Link Pembahasan</label>
+                                    <input type="url" class="form-control input-sm" placeholder="http://domain.com/download_pembahasan" name="link_pembahasan"  value="{{ $simulasi->link_pembahasan }}">
+                                    @if($errors->has('link_pembahasan'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('link_pembahasan') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -191,7 +213,7 @@ Kelola Simulasi
                                 @endforeach
                                 @else
                                 <tr>
-                                    <td colspan="4" class="data-is-empty">Belum ada ruangan yang dibuat</td>
+                                    <td colspan="5" class="data-is-empty">Belum ada ruangan yang dibuat</td>
                                 </tr>
                                 @endif
                             </tbody>

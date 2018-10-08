@@ -10,17 +10,17 @@ Simulasi - {{ $simulasi->judul }}
         <div class="row">
             <div class="col-md-12 hidden-xs visible-md visible-lg">
                 <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-print mr-3"></i>Cetak Kartu Ujian</a>
-                <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-download mr-3"></i>Download Soal</button>
-                <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-download mr-3"></i>Download Pembahasan</button>
+                <a href="{{ $simulasi->link_soal }}" class="btn btn-space btn-default" {{ $simulasi->link_soal == null ? "disabled" : ""}}><i class="icon icon-left mdi mdi-download mr-3"></i>Download Soal</a>
+                <a href="{{ $simulasi->link_pembahasan }}" class="btn btn-space btn-default" {{ $simulasi->link_pembahasan == null ? "disabled" : ""}}><i class="icon icon-left mdi mdi-download mr-3"></i>Download Pembahasan</a>
                 <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-notifications mr-3"></i>Pengumuman</button>
             </div>
             <div class="col-md-12 visible-xs visible-sm">
                 <div class="btn-group btn-space">
                     <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Pilih Aksi <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
                     <ul role="menu" class="dropdown-menu">
-                        <li><a href="#">Cetak Kartu Ujian</a></li>
-                        <li><a href="#">Download Soal</a></li>
-                        <li><a href="#">Download Pembahasan</a></li>
+                        <li><a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}">Cetak Kartu Ujian</a></li>
+                        <li><a href="{{ $simulasi->link_soal != null ? $simulasi->link_soal : '#' }}">Download Soal</a></li>
+                        <li><a href="{{ $simulasi->link_pembahasan != null ? $simulasi->link_pembahasan : '#' }}">Download Pembahasan</a></li>
                         <li><a href="#">Pengumuman</a></li>
                     </ul>
                 </div>
