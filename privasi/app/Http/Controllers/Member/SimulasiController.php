@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use Auth;
 use Uuid;
+use PDF;
 use DB;
 use App\Http\Controllers\Controller;
 
@@ -96,6 +97,7 @@ class SimulasiController extends Controller
             $passingGrade = new PilihanPassingGrade;
             $passingGrade->id = Uuid::generate();
             $passingGrade->id_simulasi = $simulasi->id;
+            $passingGrade->id_peserta = $peserta->id;
             $passingGrade->pilihan_1 = $input->jurusan_1;
             $passingGrade->pilihan_2 = $input->jurusan_2;
             $passingGrade->pilihan_3 = $input->jurusan_3;
@@ -118,6 +120,19 @@ class SimulasiController extends Controller
                                     ->first();
         return view('member.simulasi.open')->with([
             'simulasi' => $simulasi,
+            'peserta' => $peserta
+        ]);
+    }
+
+    public function kartuUjian($id) {
+        // return $pass = PilihanPassingGrade::find('dde9a3d0-ca82-11e8-9e11-15353a285c9e')->pil1;
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                    ->where('id_user', Auth::id())
+                                    ->firstOrFail();
+        $pdf = PDF::loadView('member.simulasi.kartuujian', compact(['peserta']))->setPaper('a4', 'landscape');
+        // return $pdf->stream($peserta->mapel->nama.' - '.tanggal($peserta->created_at).'.pdf');
+        return view('member.simulasi.kartuujian')->with([
             'peserta' => $peserta
         ]);
     }

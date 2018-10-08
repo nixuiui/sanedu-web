@@ -35,5 +35,8 @@ class SimulasiPeserta extends Model {
   	public function user() {
   		return $this->belongsTo('App\Models\User', 'id_user');
   	}
+  	public function passingGrade() {
+  		return $this->hasOne('App\Models\PilihanPassingGrade', 'id_peserta');
+  	}
 
 }

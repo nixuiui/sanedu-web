@@ -253,9 +253,12 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
 
     Route::group(['prefix' => 'simulasi'], function(){
         Route::get('/',                 'Member\SimulasiController@index')->name('member.simulasi');
-        Route::get('/register/{id}',    'Member\SimulasiController@register')->name('member.simulasi.register');
-        Route::post('/register/{id}',   'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
-        Route::get('/o/{id}',           'Member\SimulasiController@open')->name('member.simulasi.open');
+        Route::group(['prefix' => '{id}'], function(){
+            Route::get('/register',    'Member\SimulasiController@register')->name('member.simulasi.register');
+            Route::post('/register',   'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
+            Route::get('/o',           'Member\SimulasiController@open')->name('member.simulasi.open');
+            Route::get('/kartuujian',  'Member\SimulasiController@kartuUjian')->name('member.simulasi.kartuujian');
+        });
     });
 
 });

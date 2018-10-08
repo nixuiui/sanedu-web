@@ -9,7 +9,7 @@ Simulasi - {{ $simulasi->judul }}
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-12 hidden-xs visible-md visible-lg">
-                <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-print mr-3"></i>Cetak Kartu Ujian</button>
+                <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-print mr-3"></i>Cetak Kartu Ujian</a>
                 <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-download mr-3"></i>Download Soal</button>
                 <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-download mr-3"></i>Download Pembahasan</button>
                 <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-notifications mr-3"></i>Pengumuman</button>
