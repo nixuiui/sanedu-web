@@ -189,6 +189,9 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/closereg',                 'AdminSimulasi\SimulasiController@closeReg')->name('adminsimulasi.simulasi.kelola.closereg');
             Route::get('/peserta',                  'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
             Route::get('/delete',                   'AdminSimulasi\SimulasiController@deleteSimulasi')->name('adminsimulasi.simulasi.kelola.delete');
+            Route::get('/kuncijawaban',             'AdminSimulasi\SimulasiController@kunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban');
+            Route::get('/reqkuncijawaban',          'AdminSimulasi\SimulasiController@reqKunciJawaban')->name('adminsimulasi.simulasi.kelola.req.kunci.jawaban');
+            Route::post('/kuncijawaban',            'AdminSimulasi\SimulasiController@saveKunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban.post');
             Route::get('/agenda/form/{idAgenda?}',  'AdminSimulasi\SimulasiController@agendaForm')->name('adminsimulasi.simulasi.kelola.agenda.form');
             Route::post('/agenda/post/{idAgenda?}', 'AdminSimulasi\SimulasiController@agendaPost')->name('adminsimulasi.simulasi.kelola.agenda.post');
             Route::get('/agenda/delete/{idAgenda?}','AdminSimulasi\SimulasiController@agendaDelete')->name('adminsimulasi.simulasi.kelola.agenda.delete');

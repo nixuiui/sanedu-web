@@ -12,6 +12,7 @@ use App\Models\Simulasi;
 use App\Models\SimulasiPeserta;
 use App\Models\SimulasiAgenda;
 use App\Models\SimulasiRuang;
+use App\Models\SimulasiKunciJawaban;
 
 class SimulasiController extends Controller
 {
@@ -217,6 +218,38 @@ class SimulasiController extends Controller
     public function peserta($id) {
         $simulasi = Simulasi::findOrFail($id);
         return view('adminsimulasi.simulasi.peserta')->with('simulasi', $simulasi);
+    }
+
+    public function kunciJawaban($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        return view('adminsimulasi.simulasi.kuncijawaban')->with('simulasi', $simulasi);
+    }
+
+    public function saveKunciJawaban(Request $input, $id) {
+        $this->validate($input, [
+            'jumlahSoal' => 'required|numeric',
+            'jawaban'    => 'required',
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->delete();
+        $batas = $input->jumlahSoal < count($input->jawaban) ? $input->jumlahSoal : count($input->jawaban);
+        for($i = 0; $i < $batas; $i++) {
+            $kunci = new SimulasiKunciJawaban;
+            $kunci->id = Uuid::generate();
+            $kunci->id_simulasi = $simulasi->id;
+            $kunci->no = $i+1;
+            $kunci->jawaban = $input->jawaban[$i];
+            $kunci->save();
+        }
+        return back()->with("success", "Berhasil Menyimpan Kunci Jawaban");
+    }
+
+    public function reqKunciJawaban($id) {
+        $simulasi = Simulasi::find($id);
+        if(!$simulasi)
+            return $this->error("Data Simulasi tidak ada");
+        $kunci = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->get();
+        return $this->success($kunci);
     }
 
 }

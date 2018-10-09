@@ -32,6 +32,9 @@ class Simulasi extends Model {
   	public function status() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_status');
   	}
+  	public function kunciJawaban() {
+  		return $this->hasMany('App\Models\SimulasiKunciJawaban', 'id_simulasi');
+  	}
   	public function agenda() {
   		return $this->hasMany('App\Models\SimulasiAgenda', 'id_simulasi');
   	}

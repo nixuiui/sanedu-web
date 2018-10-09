@@ -181,8 +181,7 @@ Kelola Simulasi
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
+                <hr>
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
@@ -218,6 +217,15 @@ Kelola Simulasi
                                 @endif
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="data-is-empty">
+                        <i class="mdi mdi-key"></i>
+                        <p>KUNCI JAWABAN BELUM DIBUAT</p>
+                        <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md btn-warning">Buat Kunci Jawaban</a>
                     </div>
                 </div>
             </div>
