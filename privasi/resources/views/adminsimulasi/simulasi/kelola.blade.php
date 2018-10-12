@@ -182,6 +182,29 @@ Kelola Simulasi
                     </div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <strong>KUOTA SAINTEK: {{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <strong>KUOTA SOSHUM: {{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body text-center">
+                                <strong>KUOTA CAMPUR: {{ $simulasi->ruang->where('id_mapel', 1518)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1518)->sum('kapasitas') }} TIKET</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-default btn-md btn-vspace pull-right">Lihat Semua<i class="mdi mdi-arrow-right ml-3"></i></a>
                 <div class="panel panel-default panel-table">
