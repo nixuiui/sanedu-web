@@ -131,9 +131,9 @@ class SimulasiController extends Controller
                                     ->where('id_user', Auth::id())
                                     ->firstOrFail();
         $pdf = PDF::loadView('member.simulasi.kartuujian', compact(['peserta']))->setPaper('a4', 'landscape');
-        // return $pdf->stream($peserta->mapel->nama.' - '.tanggal($peserta->created_at).'.pdf');
-        return view('member.simulasi.kartuujian')->with([
-            'peserta' => $peserta
-        ]);
+        return $pdf->stream($peserta->mapel->nama.' - '.tanggal($peserta->created_at).'.pdf');
+        // return view('member.simulasi.kartuujian')->with([
+        //     'peserta' => $peserta
+        // ]);
     }
 }
