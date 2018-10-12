@@ -13,6 +13,8 @@
         @include('partials.admin.menu.adminujian')
         @elseif(Auth::user()->id_role == 1007)
         @include('partials.admin.menu.adminsimulasi')
+        @elseif(Auth::user()->id_role == 1008)
+        @include('partials.admin.menu.pengawas')
         @endif
     </div>
 </div>

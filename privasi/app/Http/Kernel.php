@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         'admintiket'    => \App\Http\Middleware\AdminTiket::class,
         'adminujian'    => \App\Http\Middleware\AdminUjian::class,
         'adminsimulasi' => \App\Http\Middleware\AdminSimulasi::class,
+        'pengawas'      => \App\Http\Middleware\Pengawas::class,
         'user'          => \App\Http\Middleware\User::class,
         'member'        => \App\Http\Middleware\Member::class,
     ];
