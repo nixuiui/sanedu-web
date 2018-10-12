@@ -22,6 +22,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Email</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
+                            <th>Ruang</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -32,17 +33,19 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Email</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
+                            <th>Ruang</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         @foreach($simulasi->peserta as $i => $peserta)
                         <tr>
-                            <td>{{ $peserta->pivot->no_peserta }}</td>
-                            <td>{{ $peserta->nama }}</td>
-                            <td>{{ $peserta->username }}</td>
-                            <td>{{ $peserta->email }}</td>
-                            <td>{{ $peserta->no_hp }}</td>
-                            <td>{{ $peserta->asal_sekolah }}</td>
+                            <td>{{ $peserta->no_peserta }}</td>
+                            <td>{{ $peserta->profil->nama }}</td>
+                            <td>{{ $peserta->profil->username }}</td>
+                            <td>{{ $peserta->profil->email }}</td>
+                            <td>{{ $peserta->profil->no_hp }}</td>
+                            <td>{{ $peserta->profil->asal_sekolah }}</td>
+                            <td><strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $peserta->ruang->id]) }}">{{ $peserta->ruang->nama }}</a></strong></td>
                         </tr>
                         @endforeach
                     </tbody>

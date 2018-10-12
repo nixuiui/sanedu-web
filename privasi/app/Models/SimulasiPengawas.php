@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
-class SimulasiRuang extends Model {
+class SimulasiPengawas extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_simulasi_ruang';
+    protected $table        = 'tbl_simulasi_pengawas';
     protected $primaryKey   = 'id';
     protected $keyType      = 'string';
     public $incrementing    = false;
@@ -19,24 +19,17 @@ class SimulasiRuang extends Model {
         static::deleting(function($data) {
             $data->peserta()->delete();
         });
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('nama', 'asc');
-        });
     }
 
     //RELATION table
   	public function simulasi() {
   		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
   	}
-  	public function pengawas() {
-  		return $this->hasMany('App\Models\SimulasiPengawas', 'id_ruang');
+  	public function ruang() {
+  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
   	}
-  	public function ruangMapel() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
-  	}
-  	public function peserta() {
-  		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_ruang', 'id_user')
-                    ->withPivot('id', 'id_mapel', 'harga', 'no_peserta', 'created_at');
+  	public function profil() {
+  		return $this->belongsTo('App\Models\User', 'id_user');
   	}
 
 }

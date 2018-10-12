@@ -76,7 +76,9 @@ img { max-width: 100%; }
 }
 
 .data-is-empty { text-align: center; padding: 50px; color: #9E9E9E; }
-.data-is-empty i { font-size: 40px; display: block;}
+.data-is-empty i { font-size: 40px; display: block; }
+.data-card { text-align: center; padding: 50px; color: #444; }
+.data-card i { font-size: 40px; display: block; }
 
 .panel.panel-transparent {
     background: none;

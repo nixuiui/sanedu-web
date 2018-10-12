@@ -27,7 +27,7 @@ Kunci Jawaban
                     <thead>
                         <tr>
                             <th width="20px">NO</th>
-                            <th width="150px">INPUT</th>
+                            <th width="70px">INPUT</th>
                             <th class="text-center">A</th>
                             <th class="text-center">B</th>
                             <th class="text-center">C</th>
@@ -38,7 +38,7 @@ Kunci Jawaban
                     <tbody>
                         <tr v-for="(no, index) in intSoal">
                             <td>@{{ no }}</td>
-                            <td><input type="text" pattern="[a-eA-E]{1}" class="form-control input-xs" name="jawaban[]" v-model="jawaban[index]" required/></td>
+                            <td><input type="text" pattern="[a-eA-E]{1}" class="form-control input-xs text-center" name="jawaban[]" v-model="jawaban[index]" required/></td>
                             <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawaban[index] == 'a' || jawaban[index] == 'A', 'text-muted': jawaban[index] != 'a' && jawaban[index] != 'A'}"></i></td>
                             <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawaban[index] == 'b' || jawaban[index] == 'B', 'text-muted': jawaban[index] != 'b' && jawaban[index] != 'B'}"></i></td>
                             <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawaban[index] == 'c' || jawaban[index] == 'C', 'text-muted': jawaban[index] != 'c' && jawaban[index] != 'C'}"></i></td>

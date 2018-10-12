@@ -11,17 +11,17 @@ Kelola Simulasi
         @if($simulasi->id_status == 1901)
         <a href="{{ route('adminsimulasi.simulasi.kelola.publish', $simulasi->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
         @elseif($simulasi->id_status == 1902 || $simulasi->id_status == 1903)
-            @if( $simulasi->peserta->count() > 0)
-            <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->peserta->count() }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
-            @else
-            <p class="">Belum ada peserta yang mendaftar pada simulasi ini.</p>
-            @endif
-            <hr>
-            @if($simulasi->id_status == 1902)
-            <a href="{{ route('adminsimulasi.simulasi.kelola.closereg', $simulasi->id) }}" class="btn btn-default btn-md">Tutup Pendaftaran</a>
-            @else
-            <span class="text-muted">PENDAFTARAN TELAH DITUTUP</span>
-            @endif
+        @if( $simulasi->peserta->count() > 0)
+        <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->peserta->count() }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
+        @else
+        <p class="">Belum ada peserta yang mendaftar pada simulasi ini.</p>
+        @endif
+        <hr>
+        @if($simulasi->id_status == 1902)
+        <a href="{{ route('adminsimulasi.simulasi.kelola.closereg', $simulasi->id) }}" class="btn btn-default btn-md">Tutup Pendaftaran</a>
+        @else
+        <span class="text-muted">PENDAFTARAN TELAH DITUTUP</span>
+        @endif
         @endif
     </div>
 </div>
@@ -183,6 +183,7 @@ Kelola Simulasi
                 </div>
                 <hr>
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
+                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-default btn-md btn-vspace pull-right">Lihat Semua<i class="mdi mdi-arrow-right ml-3"></i></a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -199,7 +200,7 @@ Kelola Simulasi
                                 @if($simulasi->ruang->count() > 0)
                                 @foreach($ruang as $data)
                                 <tr>
-                                    <td><strong>{{ $data->nama }}</strong></td>
+                                    <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
                                     <td>{{ $data->ruangMapel->nama }}</td>
                                     <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
                                     <td>{{ $data->alamat }}</td>
@@ -221,11 +222,28 @@ Kelola Simulasi
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="data-is-empty">
-                        <i class="mdi mdi-key"></i>
-                        <p>KUNCI JAWABAN BELUM DIBUAT</p>
-                        <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md btn-warning">Buat Kunci Jawaban</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-key mb-3"></i>
+                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "KUNCI JAWABAN BELUM DIBUAT" : "KELOLA KUNCI JAWABAN" }}</p>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT KUNCI JAWABAN" : "UBAH KUNCI JAWABAN" }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-account-box mb-3"></i>
+                                <p>{{ $simulasi->pengawas->count() <= 0 ? "BELUM ADA PENGAWAS" : "SUDAH ADA " . $simulasi->pengawas->count() . " PENGAWAS" }}</p>
+                                @if($simulasi->pengawas->count() <= 0)
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-warning">TAMBAH PENGAWAS</a>
+                                @else
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA PENGAWAS</a>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,9 @@ use Auth;
 use Uuid;
 use DB;
 use App\Models\SetPustaka;
+use App\Models\User;
 use App\Models\Simulasi;
+use App\Models\SimulasiPengawas;
 use App\Models\SimulasiPeserta;
 use App\Models\SimulasiAgenda;
 use App\Models\SimulasiRuang;
@@ -164,6 +166,18 @@ class SimulasiController extends Controller
         return redirect()->back()->with('success', 'Berhasil menghapus agenda');
     }
 
+    public function ruang($id, $idRuang = null) {
+        $simulasi = Simulasi::findOrFail($id);
+        if($idRuang == null)
+        return view('adminsimulasi.simulasi.ruang')->with('simulasi', $simulasi);
+
+        $ruang = SimulasiRuang::findOrFail($idRuang);
+        return view('adminsimulasi.simulasi.ruangview')->with([
+            'simulasi' => $simulasi,
+            'ruang' => $ruang
+        ]);
+    }
+
     public function ruangForm($id, $idRuang = null) {
         $simulasi = Simulasi::findOrFail($id);
 
@@ -250,6 +264,103 @@ class SimulasiController extends Controller
             return $this->error("Data Simulasi tidak ada");
         $kunci = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->get();
         return $this->success($kunci);
+    }
+
+    public function pengawas($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        return view('adminsimulasi.simulasi.pengawas')->with('simulasi', $simulasi);
+    }
+
+    public function pengawasForm($id, $idPengawas = null) {
+        $simulasi = Simulasi::findOrFail($id);
+        $ruang = SimulasiRuang::where("id_simulasi", $simulasi->id)->orderBy("id_mapel", "ASC")->get();
+        if($idPengawas == null)
+        return view('adminsimulasi.simulasi.pengawasform')->with([
+            'simulasi' => $simulasi,
+            'ruang' => $ruang
+        ]);
+
+        $pengawas = SimulasiPengawas::findOrFail($idPengawas);
+        return view('adminsimulasi.simulasi.pengawasform')->with([
+            'simulasi' => $simulasi,
+            'pengawas' => $pengawas,
+            'ruang' => $ruang
+        ]);
+    }
+
+    public function pengawasAddAccount(Request $input, $id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $this->validate($input, [
+            'ruang'             => 'nullable|exists:tbl_simulasi_ruang,id',
+            'email'             => 'required',
+        ]);
+        $user = User::where("id_role", 1008)->where("email", $input->email)->first();
+        if(!$user)
+        $user = User::where("id_role", 1008)->where("username", $input->email)->first();
+        if(!$user)
+        return back()->with("danger", "Maaf akun yang Anda masukan belum terdaftar sebagai akun pengawas");
+
+        $pengawas = SimulasiPengawas::where("id_simulasi", $simulasi->id)->where("id_user", $user->id)->first();
+        if($pengawas)
+        return back()->with("danger", "Maaf akun yang Anda masukan sudah menjadi pengawas pada simulasi ini");
+
+        $pengawas = new SimulasiPengawas;
+        $pengawas->id = Uuid::generate();
+        $pengawas->id_simulasi = $simulasi->id;
+        $pengawas->id_user = $user->id;
+        $pengawas->id_ruang = $input->ruang;
+        if($pengawas->save())
+            return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
+        else
+            return back()->with("danger", "Gagal menyimpan data pengawas");
+    }
+
+
+    public function pengawasPost(Request $input, $id, $idPengawas = null) {
+        $simulasi = Simulasi::findOrFail($id);
+
+        if($idPengawas == null) {
+            $this->validate($input, [
+                'ruang'             => 'nullable|exists:tbl_simulasi_ruang,id',
+                'nama'              => 'required|string|max:255',
+                'email'             => 'required|string|email|max:255|unique:tbl_users',
+                'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
+                'password'          => 'required|string|min:6'
+            ]);
+
+            $user           = new User();
+            $user->id       = Uuid::generate();
+            $user->id_role  = 1008;
+            $user->nama     = $input->nama;
+            $user->email    = $input->email;
+            $user->username = $input->username;
+            $user->password = bcrypt($input->password);
+            if($user->save()) {
+                $pengawas = new SimulasiPengawas;
+                $pengawas->id = Uuid::generate();
+                $pengawas->id_simulasi = $simulasi->id;
+                $pengawas->id_user = $user->id;
+                $pengawas->id_ruang = $input->ruang;
+                if($pengawas->save()) {
+                    return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
+                }
+                else {
+                    $user->forceDelete();
+                    return back()->with("danger", "Gagal menyimpan data pengawas");
+                }
+            }
+            return back()->with("danger", "Gagal Menambah User");
+        }
+        else {
+            $this->validate($input, [
+                'ruang'             => 'nullable|exists:tbl_simulasi_ruang,id',
+            ]);
+            $pengawas = SimulasiPengawas::findOrFail($idPengawas);
+            $pengawas->id_ruang = $input->ruang;
+            if($pengawas->save()) {
+                return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menyimpan Perubahan");
+            }
+        }
     }
 
 }

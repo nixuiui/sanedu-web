@@ -42,8 +42,10 @@ class Simulasi extends Model {
   		return $this->hasMany('App\Models\SimulasiRuang', 'id_simulasi');
   	}
   	public function peserta() {
-  		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_simulasi', 'id_user')
-                    ->withPivot('id', 'harga', 'no_peserta', 'created_at');
+  		return $this->hasMany('App\Models\SimulasiPeserta', 'id_simulasi');
+  	}
+  	public function pengawas() {
+  		return $this->hasMany('App\Models\SimulasiPengawas', 'id_simulasi');
   	}
     public function getImageUrlAttribute() {
         return env('APP_STORAGE_URL') . $this->featured_image;
