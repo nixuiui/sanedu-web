@@ -68,7 +68,7 @@ Simulasi
                 <div><i class="mdi mdi-calendar mr-4 mb-2"></i>{{ hariTanggal($data->tanggal_pelaksanaan) }}</div>
                 <div><i class="mdi mdi-pin mr-4 mb-2"></i>{{ $data->tempat_pelaksanaan }}</div>
                 <div class="text-success text-bold mb-3"><i class="mdi mdi-circle mr-4"></i>{{ formatUang($data->harga) }}</div>
-                @if($data->peserta->where('id', Auth::id())->first() == null)
+                @if($data->peserta->where('id_user', Auth::id())->first() == null)
                 <a data-href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success beli-simulasi" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">BELI TIKET</a>
                 @else
                 <a href="{{ route('member.simulasi.open', $data->id) }}" class="btn btn-lg btn-block btn-primary">BUKA SIMULASI</a>
