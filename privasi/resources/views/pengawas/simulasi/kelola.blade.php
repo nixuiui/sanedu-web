@@ -9,8 +9,8 @@ Simulasi - {{ $simulasi->judul }}
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-12 hidden-xs visible-md visible-lg">
-                <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
-                <button class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-eye mr-3"></i>Pengumuman</button>
+                <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default disabled"><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
+                <button class="btn btn-space btn-default disabled"><i class="icon icon-left mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</button>
             </div>
             <div class="col-md-12 visible-xs visible-sm">
                 <div class="btn-group btn-space">

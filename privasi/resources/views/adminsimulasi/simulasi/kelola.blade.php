@@ -27,6 +27,11 @@ Kelola Simulasi
 </div>
 <div class="row">
     <div class="col-md-12">
+        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
+        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
+        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Sementara</a>
+        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Akhir</a>
+        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Borang Rekomendasi</a>
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">
             <div class="panel-heading">Informasi Simulasi</div>
             <div class="panel-body">
