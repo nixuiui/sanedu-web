@@ -155,6 +155,9 @@ Kelola Simulasi
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th colspan="4" class="text-center">KEGIATAN</th>
+                                </tr>
+                                <tr>
                                     <th>Waktu & Tempat</th>
                                     <th>Tempat</th>
                                     <th>Agenda</th>
@@ -191,9 +194,12 @@ Kelola Simulasi
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>KUOTA SAINTEK</th>
-                                    <th>KUOTA SOSHUM</th>
-                                    <th>KUOTA CAMPUR</th>
+                                    <th colspan="3" class="text-center">KUOTA</th>
+                                </tr>
+                                <tr>
+                                    <th>SAINTEK</th>
+                                    <th>SOSHUM</th>
+                                    <th>CAMPUR</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -212,6 +218,9 @@ Kelola Simulasi
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
                             <thead>
+                                <tr>
+                                    <th colspan="6" class="text-center">RUANG</th>
+                                </tr>
                                 <tr>
                                     <th>Ruang</th>
                                     <th>Mapel</th>
@@ -259,8 +268,8 @@ Kelola Simulasi
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="data-card">
-                                <i class="mdi mdi-key mb-3"></i>
-                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "KUNCI JAWABAN BELUM DIBUAT" : "KELOLA KUNCI JAWABAN" }}</p>
+                                <i class="mdi mdi-assignment mb-3"></i>
+                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "KUNCI JAWABAN & SOAL BELUM DIBUAT" : "KELOLA KUNCI JAWABAN & SOAL" }}</p>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT KUNCI JAWABAN" : "UBAH KUNCI JAWABAN" }}</a>
                             </div>
                         </div>

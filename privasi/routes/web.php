@@ -189,7 +189,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/peserta',                  'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
             Route::get('/delete',                   'AdminSimulasi\SimulasiController@deleteSimulasi')->name('adminsimulasi.simulasi.kelola.delete');
             Route::get('/kuncijawaban',             'AdminSimulasi\SimulasiController@kunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban');
-            Route::get('/reqkuncijawaban',          'AdminSimulasi\SimulasiController@reqKunciJawaban')->name('adminsimulasi.simulasi.kelola.req.kunci.jawaban');
+            Route::get('/reqkuncijawaban/{idMapel}','AdminSimulasi\SimulasiController@reqKunciJawaban')->name('adminsimulasi.simulasi.kelola.req.kunci.jawaban');
             Route::post('/kuncijawaban',            'AdminSimulasi\SimulasiController@saveKunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban.post');
             Route::get('/pengawas',                 'AdminSimulasi\SimulasiController@pengawas')->name('adminsimulasi.simulasi.kelola.pengawas');
             Route::get('/pengawas/f/{idPengawas?}', 'AdminSimulasi\SimulasiController@pengawasForm')->name('adminsimulasi.simulasi.kelola.pengawas.form');

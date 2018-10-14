@@ -241,16 +241,18 @@ class SimulasiController extends Controller
 
     public function saveKunciJawaban(Request $input, $id) {
         $this->validate($input, [
+            'id_mapel'   => 'nullable|exists:set_pustaka,id',
             'jumlahSoal' => 'required|numeric',
             'jawaban'    => 'required',
         ]);
         $simulasi = Simulasi::findOrFail($id);
-        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->delete();
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where('id_mapel', $input->id_mapel)->delete();
         $batas = $input->jumlahSoal < count($input->jawaban) ? $input->jumlahSoal : count($input->jawaban);
         for($i = 0; $i < $batas; $i++) {
             $kunci = new SimulasiKunciJawaban;
             $kunci->id = Uuid::generate();
             $kunci->id_simulasi = $simulasi->id;
+            $kunci->id_mapel = $input->id_mapel;
             $kunci->no = $i+1;
             $kunci->jawaban = $input->jawaban[$i];
             $kunci->save();
@@ -258,11 +260,11 @@ class SimulasiController extends Controller
         return back()->with("success", "Berhasil Menyimpan Kunci Jawaban");
     }
 
-    public function reqKunciJawaban($id) {
+    public function reqKunciJawaban($id, $idMapel) {
         $simulasi = Simulasi::find($id);
         if(!$simulasi)
             return $this->error("Data Simulasi tidak ada");
-        $kunci = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->get();
+        $kunci = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where("id_mapel", $idMapel)->get();
         return $this->success($kunci);
     }
 
