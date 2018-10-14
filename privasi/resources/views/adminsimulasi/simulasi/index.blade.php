@@ -18,7 +18,7 @@ Simulasi
                             <th>Tanggal Pelaksanaan</th>
                             <th>Tempat Pelaksanaan</th>
                             <th>Harga</th>
-                            <th>Peserta</th>
+                            <th>Kuota</th>
                             <th>Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -31,7 +31,7 @@ Simulasi
                             <th>Tanggal Pelaksanaan</th>
                             <th>Tempat Pelaksanaan</th>
                             <th>Harga</th>
-                            <th>Peserta</th>
+                            <th>Kuota</th>
                             <th>Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -46,7 +46,7 @@ Simulasi
                             <td>{{ $data->tempat_pelaksanaan }} soal</td>
                             <td>{{ formatUang($data->harga) }}</td>
                             @if($data->peserta->count() > 0)
-                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $data->id) }}">{{ $data->peserta->count() . " peserta" }}</a></td>
+                            <td><b>{{ $data->peserta->count() }}/{{ $data->ruang->sum('kapasitas') }} TIKET</b></td>
                             @else
                             <td>-</td>
                             @endif

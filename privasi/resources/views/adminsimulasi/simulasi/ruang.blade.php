@@ -13,6 +13,7 @@ Simulasi
                     <thead>
                         <tr>
                             <th>Nama Ruang</th>
+                            <th>Mapel</th>
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
@@ -21,6 +22,7 @@ Simulasi
                     <tfoot>
                         <tr>
                             <th>Nama Ruang</th>
+                            <th>Mapel</th>
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
@@ -30,6 +32,7 @@ Simulasi
                         @foreach($simulasi->ruang as $data)
                         <tr>
                             <td><strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}">{{ $data->nama }}</a></strong></td>
+                            <td>{{ $data->ruangMapel->nama }}</td>
                             <td>{{ $data->alamat }}</td>
                             <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
                             <td>{{ $data->pengawas->count() }}</td>

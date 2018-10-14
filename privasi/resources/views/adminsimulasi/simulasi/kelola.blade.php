@@ -215,30 +215,39 @@ Kelola Simulasi
                                 <tr>
                                     <th>Ruang</th>
                                     <th>Mapel</th>
-                                    <th>Kursi</th>
+                                    <th>Kuota</th>
+                                    <th>Pengawas</th>
                                     <th>Alamat</th>
                                     <th class="text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if($simulasi->ruang->count() > 0)
-                                @foreach($ruang as $data)
-                                <tr>
-                                    <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
-                                    <td>{{ $data->ruangMapel->nama }}</td>
-                                    <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
-                                    <td>{{ $data->alamat }}</td>
-                                    <td class="text-right">
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
+                                    @foreach($ruang as $index => $data)
+                                        @if($index >= 5)
+                                            <tr>
+                                                <td colspan="6" class="text-center text-bold"><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}">Lihat Semua Ruang</a></td>
+                                            </tr>
+                                            @break
+                                        @else
+                                        <tr>
+                                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
+                                            <td>{{ $data->ruangMapel->nama }}</td>
+                                            <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
+                                            <td>{{ $data->pengawas->count() }}</td>
+                                            <td>{{ $data->alamat }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>
+                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                    @endforeach
                                 @else
-                                <tr>
-                                    <td colspan="5" class="data-is-empty">Belum ada ruangan yang dibuat</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="6" class="data-is-empty">Belum ada ruangan yang dibuat</td>
+                                    </tr>
                                 @endif
                             </tbody>
                         </table>

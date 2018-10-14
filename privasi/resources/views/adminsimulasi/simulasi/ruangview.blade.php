@@ -16,7 +16,7 @@ Simulasi
                         <tr>
                             <th width="10px">No</th>
                             <th>Nama Pengawas</th>
-                            <th>Sekolah</th>
+                            <th>NO HP</th>
                         </tr>
                     </thead>
                     <tbody>
