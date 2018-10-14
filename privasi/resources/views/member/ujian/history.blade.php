@@ -39,7 +39,7 @@ History Ujian
                             <tr>
                                 <td>{{ $i+1 }}</td>
                                 <td>{{ $data->ujian->jenisUjian->nama }}</td>
-                                <td>{{ $data->ujian->judul }}</td>
+                                <td><a href="{{ route('member.ujian.soal.preattempt', $data->ujian->id) }}">{{ $data->ujian->judul }}</a></td>
                                 <td>{{ $data->jumlah_benar }}</td>
                                 <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
                                 <td><a href="{{ route('member.ujian.history', $data->id) }}" target="_blank"><i class="mdi mdi-open-in-new"></i></a></td>

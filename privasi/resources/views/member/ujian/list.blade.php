@@ -128,7 +128,7 @@ Ujian
             <div class="card-body row vertical-align">
                 <div class="col-xs-8 ujian-info">
                     <div class="text-info">
-                        Nilai Anda: <strong>{{ $data->attempt->count() > 0 ? round(($data->attempt->first()->jumlah_benar / $data->soal->count())*100, 2) : "-" }}</strong> <br>
+                        Nilai Anda: <strong>{{ $data->attempt->count() > 0 ? round(($data->attempt->last()->jumlah_benar / $data->soal->count())*100, 2) : "-" }}</strong> <br>
                         <a href="#" class="text-link"><i class="mdi mdi-download mr-2"></i>Download Pembahasan</a>
                     </div>
                 </div>

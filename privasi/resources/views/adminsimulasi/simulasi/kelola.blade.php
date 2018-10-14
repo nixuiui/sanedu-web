@@ -186,28 +186,24 @@ Kelola Simulasi
                         </table>
                     </div>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body text-center">
-                                <strong>KUOTA SAINTEK: {{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body text-center">
-                                <strong>KUOTA SOSHUM: {{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body text-center">
-                                <strong>KUOTA CAMPUR: {{ $simulasi->ruang->where('id_mapel', 1518)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1518)->sum('kapasitas') }} TIKET</strong>
-                            </div>
-                        </div>
+                <div class="panel panel-default panel-table">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>KUOTA SAINTEK</th>
+                                    <th>KUOTA SOSHUM</th>
+                                    <th>KUOTA CAMPUR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1518)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1518)->sum('kapasitas') }} TIKET</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
