@@ -96,4 +96,7 @@ class SetPustaka extends Model {
   	public function riwayatSaldo() {
   		return $this->hasMany('App\Models\RiwayatSaldo', 'id_kategori');
   	}
+  	public function siswaTingkatSekolah() {
+  		return $this->hasMany('App\Models\User', 'id_tingkat_sekolah');
+  	}
 }

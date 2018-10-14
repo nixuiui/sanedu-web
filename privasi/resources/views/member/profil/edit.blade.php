@@ -68,6 +68,20 @@ Pengaturan Profil
                     @endif
                 </div>
                 <div class="form-group">
+                    <label>Tingkat Sekolah</label>
+                    <select class="form-control input-sm" name="id_tingkat_sekolah" required>
+                        <option value="">-- Pilih Tingkat Sekolah --</option>
+                        <option value="1301" {{ $user->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
+                        <option value="1302" {{ $user->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
+                        <option value="1303" {{ $user->id_tingkat_sekolah == 1303 ? "selected" : "" }}>SMA</option>
+                    </select>
+                    @if ($errors->has('asal_sekolah'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('asal_sekolah') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label>Asal Sekolah</label>
                     <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="asal_sekolah"  value="{{ $user->asal_sekolah }}" required>
                     @if ($errors->has('asal_sekolah'))

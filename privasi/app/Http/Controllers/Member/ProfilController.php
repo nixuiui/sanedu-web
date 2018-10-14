@@ -45,17 +45,21 @@ class ProfilController extends Controller {
     public function editProfil(Request $data) {
         // 'alamat'            => 'required|string|email|max:255|unique:users,email,'. Auth::id() .'',
         $this->validate($data, [
-            'nama'              => 'required|string|max:255',
-            'no_hp'             => 'required',
-            'alamat'            => 'required',
-            'asal_sekolah'      => 'required',
-            'tempat_lahir'      => 'required',
+            'nama'                  => 'required|string|max:255',
+            'no_hp'                 => 'required',
+            'alamat'                => 'required',
+            'id_tingkat_sekolah'    => 'required|exists:set_pustaka,id',
+            'asal_sekolah'          => 'required',
+            'tempat_lahir'          => 'required',
         ]);
+
+        if($data->id_tingkat_sekolah != 1301 && $data->id_tingkat_sekolah != 1302 && $data->id_tingkat_sekolah != 1303) return back();
 
         $user               = User::find(Auth::id());
         $user->nama         = $data->nama;
         $user->no_hp        = $data->no_hp;
         $user->alamat       = $data->alamat;
+        $user->id_tingkat_sekolah = $data->id_tingkat_sekolah;
         $user->asal_sekolah = $data->asal_sekolah;
         $user->tempat_lahir = $data->tempat_lahir;
         if($user->save())

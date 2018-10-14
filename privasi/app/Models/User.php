@@ -34,6 +34,9 @@ class User extends Authenticatable {
   	public function role() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_role');
   	}
+  	public function tingkatSekolah() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
+  	}
   	public function simulasi() {
   		return $this->hasMany('App\Models\Simulasi', 'id_creator');
   	}
