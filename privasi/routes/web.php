@@ -217,6 +217,9 @@ Route::group(['middleware' => 'pengawas', 'prefix' => 'pengawas'], function(){
         Route::group(['prefix' => 'kelola/{id}'], function(){
             Route::get('/',                         'Pengawas\SimulasiController@kelola')->name('pengawas.simulasi.kelola');
             Route::get('/peserta',                  'Pengawas\SimulasiController@peserta')->name('pengawas.simulasi.kelola.peserta');
+            Route::get('/koreksi',                  'Pengawas\SimulasiController@koreksi')->name('pengawas.simulasi.kelola.koreksi');
+            Route::post('/koreksi',                 'Pengawas\SimulasiController@koreksiPost')->name('pengawas.simulasi.kelola.koreksi.post');
+            Route::get('/lihathasilsementara',      'Pengawas\SimulasiController@lihatHasilSementara')->name('pengawas.simulasi.kelola.lihat.hasil.sementara');
         });
     });
 });

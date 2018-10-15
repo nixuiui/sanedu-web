@@ -32,6 +32,9 @@ class SimulasiPeserta extends Model {
   	public function ruang() {
   		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
   	}
+  	public function koreksi() {
+  		return $this->hasMany('App\Models\SimulasiKoreksi', 'id_peserta');
+  	}
   	public function profil() {
   		return $this->belongsTo('App\Models\User', 'id_user');
   	}

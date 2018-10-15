@@ -246,7 +246,6 @@ Kelola Simulasi
                                             <td>{{ $data->pengawas->count() }}</td>
                                             <td>{{ $data->alamat }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-default" title="Edit Agenda"><i class="mdi mdi-arrow-right"></i></a>
                                                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
                                                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
                                             </td>

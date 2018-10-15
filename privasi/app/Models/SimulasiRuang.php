@@ -31,6 +31,9 @@ class SimulasiRuang extends Model {
   	public function pengawas() {
   		return $this->hasMany('App\Models\SimulasiPengawas', 'id_ruang');
   	}
+  	public function pesertaPivot() {
+  		return $this->hasMany('App\Models\SimulasiPeserta', 'id_ruang');
+  	}
   	public function ruangMapel() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
   	}
