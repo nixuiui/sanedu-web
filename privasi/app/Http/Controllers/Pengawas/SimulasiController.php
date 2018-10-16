@@ -35,7 +35,7 @@ class SimulasiController extends Controller
     public function koreksi($id) {
         $simulasi = Simulasi::findOrFail($id);
         $pengawas = SimulasiPengawas::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
-        $idMapel = $pengawas->ruang->id_mapel;
+        $idMapel = $pengawas->id_mapel;
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where("id_ruang", $pengawas->ruang->id)->where('is_corrected', 0)->orderBy("no_peserta", "ASC")->get();
         $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where("id_mapel", $idMapel)->get();
         return view('pengawas.simulasi.koreksi')->with([
@@ -81,7 +81,7 @@ class SimulasiController extends Controller
     public function lihatHasilSementara($id) {
         $simulasi = Simulasi::findOrFail($id);
         $pengawas = SimulasiPengawas::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
-        $idMapel = $pengawas->ruang->id_mapel;
+        $idMapel = $pengawas->id_mapel;
         $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where("id_mapel", $idMapel)->get()->count();
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where("id_ruang", $pengawas->ruang->id)->where('is_corrected', 1)->orderBy("no_peserta", "ASC")->get();
         return view('pengawas.simulasi.lihathasilsementara')->with([

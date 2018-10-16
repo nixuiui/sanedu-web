@@ -306,11 +306,16 @@ class SimulasiController extends Controller
         if($pengawas)
         return back()->with("danger", "Maaf akun yang Anda masukan sudah menjadi pengawas pada simulasi ini");
 
+        $ruang = SimulasiRuang::find($input->ruang);
+
         $pengawas = new SimulasiPengawas;
         $pengawas->id = Uuid::generate();
         $pengawas->id_simulasi = $simulasi->id;
         $pengawas->id_user = $user->id;
-        $pengawas->id_ruang = $input->ruang;
+        if($ruang) {
+            $pengawas->id_ruang = $ruang->id;
+            $pengawas->id_mapel = $ruang->id_mapel;
+        }
         if($pengawas->save())
             return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
         else
@@ -338,11 +343,15 @@ class SimulasiController extends Controller
             $user->username = $input->username;
             $user->password = bcrypt($input->password);
             if($user->save()) {
+                $ruang = SimulasiRuang::find($input->ruang);
                 $pengawas = new SimulasiPengawas;
                 $pengawas->id = Uuid::generate();
                 $pengawas->id_simulasi = $simulasi->id;
                 $pengawas->id_user = $user->id;
-                $pengawas->id_ruang = $input->ruang;
+                if($ruang) {
+                    $pengawas->id_ruang = $ruang->id;
+                    $pengawas->id_mapel = $ruang->id_mapel;
+                }
                 if($pengawas->save()) {
                     return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
                 }
