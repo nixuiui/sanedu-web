@@ -290,9 +290,9 @@
                                         <td>ALAMAT: {{ $peserta->ruang->nama }} - {{ $peserta->ruang->alamat }}</td>
                                     </tr>
                                 </table>
-                                <div class="qrcode">
+                                <!-- <div class="qrcode">
                                     <img src="{{ asset('assets/img/qrcode.jpg') }}">
-                                </div>
+                                </div> -->
                                 <p class="title-box" style="font-size: 12px;">LOKASI UJIAN TULIS BISA DILIHAT SATU HARI SEBELUM PELAKSANAAN UJIAN</p>
                             </div>
                             <div class="box perlengkapan">
