@@ -42,8 +42,8 @@ Simulasi
                             <td><i class="mdi mdi-circle {{ $data->id_status == 1902 ? "text-success" : $data->id_status == 1903 ? "text-primary" : "text-default" }}" title="{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}"></i></td>
                             <td><a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" data-jumlahtiket="">{{ $data->judul }}</a></td>
                             <td>{{ $data->tingkatSekolah->nama }}</td>
-                            <td>{{ $data->tanggal_pelaksanaan }} soal</td>
-                            <td>{{ $data->tempat_pelaksanaan }} soal</td>
+                            <td>{{ $data->tanggal_pelaksanaan }}</td>
+                            <td>{{ $data->tempat_pelaksanaan }}</td>
                             <td>{{ formatUang($data->harga) }}</td>
                             @if($data->peserta->count() > 0)
                             <td><b>{{ $data->peserta->count() }}/{{ $data->ruang->sum('kapasitas') }} TIKET</b></td>
