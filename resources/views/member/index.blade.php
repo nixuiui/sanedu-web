@@ -77,5 +77,17 @@ $(document).ready(function(){
             <div class="menu-title">Point</div>
         </span>
     </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <span href="#" class="menu-item soon-fitur">
+            <img class="menu-icon" src="{{ asset('asset-member/img/menu_sanmodul.png') }}" alt="">
+            <div class="menu-title">SANMODUL</div>
+        </span>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <span href="#" class="menu-item soon-fitur">
+            <img class="menu-icon" src="{{ asset('asset-member/img/menu_sanlator.png') }}" alt="">
+            <div class="menu-title">SANLATOR</div>
+        </span>
+    </div>
 </div>
 @endsection
