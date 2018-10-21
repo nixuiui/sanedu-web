@@ -53,10 +53,10 @@ class ForgotPasswordController extends Controller
             $passwordReset->email = $user->email;
             $passwordReset->token = $token;
             if($passwordReset->save()) {
-                Mail::send('email.passwordreset', $data, function ($mail) use ($user) {
-                    $mail->to($user->email, $user->nama);
-                    $mail->subject('Sanedu.id - Reset Password');
-                });
+                // Mail::send('email.passwordreset', $data, function ($mail) use ($user) {
+                //     $mail->to($user->email, $user->nama);
+                //     $mail->subject('Sanedu.id - Reset Password');
+                // });
                 return redirect()->route('auth.login')->with([
                     'success' => '<strong>Permintaan Terkirim!</strong> Silahkan cek email Anda untuk mendapatkan link reset password.'
                 ]);
