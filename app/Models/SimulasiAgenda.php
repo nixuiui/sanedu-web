@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class SimulasiAgenda extends Model {
     use SoftDeletes;
@@ -18,6 +18,9 @@ class SimulasiAgenda extends Model {
         parent::boot();
         static::deleting(function($data) {
             // $data->tiket()->delete();
+        });
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('waktu_mulai', 'asc');
         });
     }
 
