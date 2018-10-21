@@ -14,12 +14,14 @@ Peserta Simulasi - {{ $simulasi->judul }}
         <form action="{{ route('pengawas.simulasi.kelola.koreksi.post', $simulasi->id) }}" method="post">
             @csrf
             <input type="hidden" name="id_mapel" value="{{ $idMapel }}">
-            <select class="form-control input-sm mb-3" name="id_peserta" required>
-                <option value="">-- Pilih Peserta --</option>
-                @foreach($peserta as $data)
-                <option value="{{ $data->id }}">{{ $data->no_peserta }} {{ $data->profil->nama }}</option>
-                @endforeach
-            </select>
+            <div class="mb-3">
+                <select class="form-control input-sm select2" name="id_peserta" required>
+                    <option value="">-- Pilih Peserta --</option>
+                    @foreach($peserta as $data)
+                    <option value="{{ $data->id }}">{{ $data->no_peserta }} {{ $data->profil->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="panel panel-default panel-table">
                 <div class="panel-body table-responsive">
                     <table class="table table-striped">
