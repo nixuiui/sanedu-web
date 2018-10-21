@@ -37,6 +37,7 @@ class SimulasiController extends Controller
             'id_sekolah'            => 'required|exists:set_pustaka,id',
             'judul'                 => 'required',
             'instansi'              => 'required',
+            'tanggal_pengumuman'    => 'required|date',
             'tanggal_pelaksanaan'   => 'required|date',
             'tempat_pelaksanaan'    => 'required',
             'link_soal'             => 'nullable|url',
@@ -53,6 +54,7 @@ class SimulasiController extends Controller
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
+        $simulasi->tanggal_pengumuman = $input->tanggal_pengumuman;
         $simulasi->link_soal = $input->link_soal;
         $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
@@ -78,6 +80,7 @@ class SimulasiController extends Controller
         $this->validate($input, [
             'judul'                 => 'required',
             'instansi'              => 'required',
+            'tanggal_pengumuman'    => 'required|date',
             'tanggal_pelaksanaan'   => 'required|date',
             'tempat_pelaksanaan'    => 'required',
             'harga'                 => 'required|numeric',
@@ -89,6 +92,7 @@ class SimulasiController extends Controller
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
+        $simulasi->tanggal_pengumuman = $input->tanggal_pengumuman;
         $simulasi->link_soal = $input->link_soal;
         $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;

@@ -83,6 +83,17 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Tanggal Pengumuman</label>
+                            <input type="date" class="form-control input-sm" name="tanggal_pengumuman"  value="{{ old('tanggal_pengumuman') }}" required>
+                            @if($errors->has('tanggal_pengumuman'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('tanggal_pengumuman') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">

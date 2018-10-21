@@ -222,7 +222,7 @@
                             </div>
                             <div class="box text-center pengumuman" style="font-size: 16px;">
                                 PENGUMUMAN DILIHAT MELALUI WEBSITE PENDAFTARAN SANEDU.ID <br>
-                                <strong class="text-red">{{ strtoupper(tanggal($peserta->simulasi->tanggal_pelaksanaan)) }}</strong>
+                                <strong class="text-red">{{ strtoupper(tanggal($peserta->simulasi->tanggal_pengumuman)) }}</strong>
                             </div>
                             <div class="box text-center">
                                 <table class="jadwal">

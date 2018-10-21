@@ -59,6 +59,14 @@ Simulasi - {{ $simulasi->judul }}
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">WAKTU PENGUMUMAN</div>
+                        <div>{{ $peserta->waktu_pengumuman }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">JENIS TO</div>
                         <div>{{ $peserta->mapel->nama }}</div>
                     </div>
@@ -67,7 +75,7 @@ Simulasi - {{ $simulasi->judul }}
                         <div>{{ $peserta->ruang->nama }}</div>
                     </div>
                     <div class="col-md-6 col-xs-6 mb-3">
-                        <div class="text-muted">ALAMAT RUANG</div>
+                        <div class="text-muted">ALAMAT TEMPAT</div>
                         <div>{{ $peserta->ruang->alamat }}</div>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Kunci Jawaban
+Kunci Jawaban Simulasi
 @endsection
 
 @section('content')

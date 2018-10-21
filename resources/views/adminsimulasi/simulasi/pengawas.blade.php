@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Simulasi
+Pengawas Simulasi
 @endsection
 @section('content')
 <div class="row">

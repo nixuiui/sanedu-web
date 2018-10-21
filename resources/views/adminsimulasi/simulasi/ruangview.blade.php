@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Simulasi
+Ruang Simulasi
 @endsection
 @section('content')
 <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>

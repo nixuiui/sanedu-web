@@ -50,7 +50,7 @@ Simulasi
                             @else
                             <td>-</td>
                             @endif
-                            <td>{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}</td>
+                            <td>{{ $data->id_status == 1902 ? "Published" :  ($data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft") }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" class="btn btn-xs btn-warning" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-edit"></i></a>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.delete', $data->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>

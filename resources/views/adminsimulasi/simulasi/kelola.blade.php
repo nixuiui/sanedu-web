@@ -69,17 +69,6 @@ Kelola Simulasi
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Harga (Rp)</label>
-                                    <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ $simulasi->harga }}" required>
-                                    @if($errors->has('harga'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('harga') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label>Tempat Pelaksanaan</label>
                                     <input type="text" class="form-control input-sm" placeholder="Unila" name="tempat_pelaksanaan"  value="{{ $simulasi->tempat_pelaksanaan }}">
                                     @if($errors->has('tempat_pelaksanaan'))
@@ -96,6 +85,28 @@ Kelola Simulasi
                                     @if($errors->has('tanggal_pelaksanaan'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tanggal_pelaksanaan') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tanggal Pengumuman</label>
+                                    <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pengumuman"  value="{{ $simulasi->tanggal_pengumuman }}" required>
+                                    @if($errors->has('tanggal_pengumuman'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('tanggal_pengumuman') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Harga (Rp)</label>
+                                    <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ $simulasi->harga }}" required>
+                                    @if($errors->has('harga'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('harga') }}</strong>
                                     </span>
                                     @endif
                                 </div>
