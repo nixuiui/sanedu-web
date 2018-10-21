@@ -63,6 +63,7 @@ class SimulasiController extends Controller
             $koreksi->id_soal = $input->jawaban['id_soal'][$i];
             $koreksi->no_soal = $input->jawaban['no_soal'][$i];
             $koreksi->jawaban = $input->jawaban['jawaban'][$i];
+            $koreksi->kunci_jawaban = $input->jawaban['kunci'][$i];
             if(strtoupper($input->jawaban['jawaban'][$i]) == strtoupper($input->jawaban['kunci'][$i]))
             $koreksi->is_correct = 1;
             $koreksi->save();
