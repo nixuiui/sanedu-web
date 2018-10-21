@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Ruang Simulasi
+Simulasi - Ruang  {{ $ruang->nama }}
 @endsection
 @section('content')
 <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>
@@ -8,7 +8,7 @@ Ruang Simulasi
     <div class="col-md-4">
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
-                Data Pengawas Simulasi Ruang {{ $ruang->nama }}
+                Data Pengawas
             </div>
             <div class="panel-body table-responsive">
                 <table class="table table-striped">
@@ -42,7 +42,7 @@ Ruang Simulasi
     <div class="col-md-8">
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
-                Data Peserta Simulasi Ruang {{ $ruang->nama }}
+                Data Peserta
             </div>
             <div class="panel-body table-responsive">
                 <table class="table table-striped">

@@ -98,10 +98,7 @@ Simulasi - {{ $simulasi->judul }}
                         @if($simulasi->agenda->count() > 0)
                         @foreach($simulasi->agenda as $agenda)
                         <tr>
-                            <td>
-                                {{ hariTanggal($agenda->waktu) }}<br>
-                                {{ jamMenitA($agenda->waktu) }}
-                            </td>
+                            <td>{{ jamMenit($agenda->waktu_mulai) }} - {{ jamMenit($agenda->waktu_selesai) }}</td>
                             <td>{{ $agenda->tempat }}</td>
                             <td>
                                 <strong>{{ $agenda->nama_agenda }}</strong> <br>

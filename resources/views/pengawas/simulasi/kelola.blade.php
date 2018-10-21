@@ -55,8 +55,16 @@ Simulasi - {{ $simulasi->judul }}
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">KELAS</div>
+                        <div class="text-muted">JENIS TO</div>
                         <div>{{ $pengawas->ruang->ruangMapel->nama }}</div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">RUANG</div>
+                        <div>{{ $pengawas->ruang->nama }}</div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">ALAMAT</div>
+                        <div>{{ $pengawas->ruang->alamat }}</div>
                     </div>
                 </div>
             </div>
@@ -78,10 +86,7 @@ Simulasi - {{ $simulasi->judul }}
                         @if($simulasi->agenda->count() > 0)
                         @foreach($simulasi->agenda as $agenda)
                         <tr>
-                            <td>
-                                {{ hariTanggal($agenda->waktu) }}<br>
-                                {{ jamMenitA($agenda->waktu) }}
-                            </td>
+                            <td>{{ jamMenit($agenda->waktu_mulai) }} - {{ jamMenit($agenda->waktu_selesai) }}</td>
                             <td>{{ $agenda->tempat }}</td>
                             <td>
                                 <strong>{{ $agenda->nama_agenda }}</strong> <br>
