@@ -48,6 +48,7 @@ class SimulasiController extends Controller
         $simulasi->id_creator = Auth::id();
         $simulasi->id_tingkat_sekolah = $input->id_sekolah;
         $simulasi->id_jenis_ujian = 1404;
+        $simulasi->id_status = 1901;
         $simulasi->judul = $input->judul;
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
