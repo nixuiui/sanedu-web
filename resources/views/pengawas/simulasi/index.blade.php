@@ -46,7 +46,7 @@ Simulasi
                             @else
                             <td>-</td>
                             @endif
-                            <td>{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}</td>
+                            <td>{{ $data->id_status == 1902 ? "Published" :  ($data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft") }}</td>
                         </tr>
                         @endforeach
                     </tbody>
