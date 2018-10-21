@@ -107,7 +107,7 @@ Simulasi
                         </div>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-sm btn-primary">Mulai Ujian</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Daftar</button>
                 </form>
             </div>
         </div>
