@@ -335,7 +335,7 @@ class SimulasiController extends Controller
                 'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
                 'password'          => 'required|string|min:6'
             ]);
-
+            return $input;
             $user           = new User();
             $user->id       = Uuid::generate();
             $user->id_role  = 1008;
@@ -368,7 +368,11 @@ class SimulasiController extends Controller
                 'ruang'             => 'nullable|exists:tbl_simulasi_ruang,id',
             ]);
             $pengawas = SimulasiPengawas::findOrFail($idPengawas);
-            $pengawas->id_ruang = $input->ruang;
+            $ruang = SimulasiRuang::find($input->ruang);
+            if($ruang) {
+                $pengawas->id_ruang = $ruang->id;
+                $pengawas->id_mapel = $ruang->id_mapel;
+            }
             if($pengawas->save()) {
                 return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menyimpan Perubahan");
             }

@@ -101,7 +101,7 @@ Pengawas Simulasi
                 <div class="form-group">
                     <label class="control-label col-sm-3">Ruang Simulasi</label>
                     <div class="col-sm-9">
-                        <select class="form-control input-sm" name="">
+                        <select class="form-control input-sm" name="ruang">
                             @foreach($ruang as $r)
                             <option value="{{ $r->id }}">{{ $r->nama }} {{ $r->pengawas->count() > 0 ? "- Pengawas" . $r->pengawas->count() : "" }}</option>
                             @endforeach
