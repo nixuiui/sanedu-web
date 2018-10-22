@@ -16,6 +16,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                 <table id="datatables" class="table datatables table-striped">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>No</th>
                             <th>Nama</th>
                             <th>Username</th>
@@ -27,6 +28,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                     </thead>
                     <tfoot>
                         <tr>
+                            <th></th>
                             <th>No</th>
                             <th>Nama Peserta</th>
                             <th>Username</th>
