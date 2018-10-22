@@ -11,8 +11,8 @@ Kelola Simulasi
         @if($simulasi->id_status == 1901)
         <a href="{{ route('adminsimulasi.simulasi.kelola.publish', $simulasi->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
         @elseif($simulasi->id_status == 1902 || $simulasi->id_status == 1903)
-        @if( $simulasi->peserta->count() > 0)
-        <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->peserta->count() }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
+        @if( $simulasi->jumlah_peserta > 0)
+        <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->jumlah_peserta }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
         @else
         <p class="">Belum ada peserta yang mendaftar pada simulasi ini.</p>
         @endif
