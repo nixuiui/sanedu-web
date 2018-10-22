@@ -48,10 +48,6 @@ Simulasi
                                 <input type="radio" name="jurusan" id="SOSHUM" value="1517">
                                 <label for="SOSHUM">SOSHUM</label>
                             </div>
-                            <div class="be-radio inline">
-                                <input type="radio" name="jurusan" id="CAMPURAN" value="1518">
-                                <label for="CAMPURAN">CAMPURAN</label>
-                            </div>
                         </div>
                     </div>
                     <hr>
