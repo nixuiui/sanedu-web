@@ -47,6 +47,14 @@ Simulasi - {{ $simulasi->judul }}
                         <div>{{ $simulasi->tingkatSekolah->nama }}</div>
                     </div>
                     <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">JENIS TO</div>
+                        <div>{{ $peserta->mapel->nama }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">WAKTU PELAKSANAAN</div>
                         <div>{{ hariTanggal($simulasi->tanggal_pelaksanaan) }}</div>
                     </div>
@@ -54,22 +62,19 @@ Simulasi - {{ $simulasi->judul }}
                         <div class="text-muted">TEMPAT</div>
                         <div>{{ $simulasi->tempat_pelaksanaan }}</div>
                     </div>
-                </div>
-            </div>
-            <div class="panel-section">
-                <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">WAKTU PENGUMUMAN</div>
-                        <div>{{ $peserta->waktu_pengumuman }}</div>
+                        <div>{{ $peserta->tanggal_pengumuman }}</div>
                     </div>
                 </div>
             </div>
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">JENIS TO</div>
-                        <div>{{ $peserta->mapel->nama }}</div>
+                        <div class="text-muted">SIMULASI</div>
+                        <div>{{ $peserta->mode_simulasi }}</div>
                     </div>
+                    @if($peserta->mode_simulasi == "offline")
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">RUANG</div>
                         <div>{{ $peserta->ruang->nama }}</div>
@@ -78,6 +83,12 @@ Simulasi - {{ $simulasi->judul }}
                         <div class="text-muted">ALAMAT TEMPAT</div>
                         <div>{{ $peserta->ruang->alamat }}</div>
                     </div>
+                    @else
+                    <div class="col-md-6 col-xs-6 mb-3">
+                        <div class="text-muted">SOAL</div>
+                        <div>Belum Tersedia</div>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

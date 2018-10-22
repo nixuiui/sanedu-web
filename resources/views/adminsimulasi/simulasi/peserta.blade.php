@@ -39,13 +39,20 @@ Peserta Simulasi - {{ $simulasi->judul }}
                     <tbody>
                         @foreach($simulasi->peserta as $i => $peserta)
                         <tr>
+                            <td><i class="mdi mdi-circle {{ $peserta->mode_simulasi == 'online' ? "text-success" : "text-default" }}" title="{{ $peserta->mode_simulasi }}"></i></td>
                             <td>{{ $peserta->no_peserta }}</td>
                             <td>{{ $peserta->profil->nama }}</td>
                             <td>{{ $peserta->profil->username }}</td>
                             <td>{{ $peserta->profil->email }}</td>
                             <td>{{ $peserta->profil->no_hp }}</td>
                             <td>{{ $peserta->profil->asal_sekolah }}</td>
-                            <td><strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $peserta->ruang->id]) }}">{{ $peserta->ruang->nama }}</a></strong></td>
+                            <td>
+                                @if($peserta->mode_offline)
+                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $peserta->ruang->id]) }}">{{ $peserta->ruang->nama }}</a></strong>
+                                @else
+                                -
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

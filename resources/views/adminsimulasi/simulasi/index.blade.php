@@ -12,27 +12,27 @@ Simulasi
                 <table id="datatables" class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Judul Simulasi</th>
-                            <th>Tingkat Sekolah</th>
-                            <th>Tanggal Pelaksanaan</th>
-                            <th>Tempat Pelaksanaan</th>
-                            <th>Harga</th>
-                            <th>Kuota</th>
-                            <th>Publish</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Judul Simulasi</th>
+                            <th class="text-center">Tingkat Sekolah</th>
+                            <th class="text-center">Pelaksanaan</th>
+                            <th class="text-center">Harga</th>
+                            <th class="text-center">Peserta</th>
+                            <th class="text-center">Kursi</th>
+                            <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>Judul Simulasi</th>
-                            <th>Tingkat Sekolah</th>
-                            <th>Tanggal Pelaksanaan</th>
-                            <th>Tempat Pelaksanaan</th>
-                            <th>Harga</th>
-                            <th>Kuota</th>
-                            <th>Publish</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Judul Simulasi</th>
+                            <th class="text-center">Tingkat Sekolah</th>
+                            <th class="text-center">Pelaksanaan</th>
+                            <th class="text-center">Harga</th>
+                            <th class="text-center">Peserta</th>
+                            <th class="text-center">Kursi</th>
+                            <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
                     </tfoot>
@@ -41,16 +41,15 @@ Simulasi
                         <tr>
                             <td><i class="mdi mdi-circle {{ $data->id_status == 1902 ? "text-success" : $data->id_status == 1903 ? "text-primary" : "text-default" }}" title="{{ $data->id_status == 1902 ? "Published" :  $data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft" }}"></i></td>
                             <td><a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" data-jumlahtiket="">{{ $data->judul }}</a></td>
-                            <td>{{ $data->tingkatSekolah->nama }}</td>
-                            <td>{{ $data->tanggal_pelaksanaan }}</td>
-                            <td>{{ $data->tempat_pelaksanaan }}</td>
+                            <td class="text-center">{{ $data->tingkatSekolah->nama }}</td>
+                            <td>
+                                {{ hariTanggal($data->tanggal_pelaksanaan) }} <br>
+                                di {{ $data->tempat_pelaksanaan }}
+                            </td>
                             <td>{{ formatUang($data->harga) }}</td>
-                            @if($data->peserta->count() > 0)
-                            <td><b>{{ $data->peserta->count() }}/{{ $data->ruang->sum('kapasitas') }} TIKET</b></td>
-                            @else
-                            <td>-</td>
-                            @endif
-                            <td>{{ $data->id_status == 1902 ? "Published" :  ($data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft") }}</td>
+                            <td class="text-center">{{ $data->jumlah_peserta }}</td>
+                            <td class="text-right"><b>{{ $data->ruang->sum('jumlah_peserta') }}/{{ $data->ruang->sum('kapasitas') }} KURSI</b></td>
+                            <td class="text-center">{{ $data->id_status == 1902 ? "Published" :  ($data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft") }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" class="btn btn-xs btn-warning" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-edit"></i></a>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.delete', $data->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>

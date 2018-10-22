@@ -205,7 +205,7 @@ Kelola Simulasi
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th colspan="3" class="text-center">KUOTA</th>
+                                    <th colspan="3" class="text-center">KUOTA KURSI</th>
                                 </tr>
                                 <tr>
                                     <th>SAINTEK</th>

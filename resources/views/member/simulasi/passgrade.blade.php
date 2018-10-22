@@ -15,6 +15,29 @@ Simulasi
                 <form class="form-horizontal" action="{{ route('member.simulasi.register.post', $simulasi->id)}}" method="post">
                     @csrf
                     <div class="form-group">
+                        <label class="col-sm-3 control-label">PILIHAN SIMULASI</label>
+                        <div class="col-sm-9">
+                            <div class="be-radio inline">
+                                <input type="radio" name="mode" id="OFFLINE" value="offline" checked>
+                                <label for="OFFLINE">OFFLINE</label>
+                            </div>
+                            <div class="be-radio inline mb-3">
+                                <input type="radio" name="mode" id="ONLINE" value="online">
+                                <label for="ONLINE">ONLINE</label>
+                            </div>
+                            <div role="alert" class="alert alert-primary alert-icon alert-dismissible mb-0">
+                                <div class="icon"><span class="mdi mdi-info-outline"></span></div>
+                                <div class="message">
+                                    <ul class="m-0 p-0 pl-4">
+                                        <li><strong>OFFLINE</strong> Untuk peserta yang akan hadir Simulasi Try Out ditempat.</li>
+                                        <li><strong>ONLINE</strong> Untuk peserta yang tidak hadir Simulasi Try Out ditempat, tapi akan digantikan dengan pengerjaan soal online.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label">JURUSAN</label>
                         <div class="col-sm-9">
                             <div class="be-radio inline">
@@ -139,10 +162,10 @@ $(document).ready(function(){
                         inputJurusan.append("<option value=" + val.id + "> " + val.jurusan + "</option>");
                     });
                 }
-				else {
-					inputJurusan.html("");
-					inputJurusan.append("<option>Tidak ada jurusan</option>");
-				}
+                else {
+                    inputJurusan.html("");
+                    inputJurusan.append("<option>Tidak ada jurusan</option>");
+                }
             }
         });
     });

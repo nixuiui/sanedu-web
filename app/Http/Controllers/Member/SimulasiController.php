@@ -44,35 +44,38 @@ class SimulasiController extends Controller
 
     public function registerPost(Request $input, $id) {
         $this->validate($input, [
+            'mode'      => 'required|in:offline,online',
             'jurusan'   => 'required|exists:set_pustaka,id',
             'jurusan_1' => 'required|exists:tbl_jurusan,id',
             'jurusan_2' => 'required|exists:tbl_jurusan,id',
             'jurusan_3' => 'required|exists:tbl_jurusan,id',
         ]);
-
         $simulasi = Simulasi::where('id', $id)->first();
         if(!$simulasi) return back();
 
+        //CHECK SUDAH DAFTAR ATAU BELUM?
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
-        if($peserta)
-            return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Anda sudah mendaftar pada Simulasi " . $simulasi->judul);
+        if($peserta) return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Anda sudah mendaftar pada Simulasi " . $simulasi->judul);
 
-        $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
-                                ->where('id_mapel', $input->jurusan)
-                                ->where('is_full', false)
-                                ->first();
-        if(!$ruang)
-            return back()->with("danger", "Tiket belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
+        //CHECK KETERSEDIAAN TIKET
+        if($input->mode == "offline") {
+            $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
+                    ->where('id_mapel', $input->jurusan)
+                    ->where('is_full', false)
+                    ->first();
+            if(!$ruang) return back()->with("danger", "Tiket belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
+
+        }
 
         $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
-                                        ->where('id_mapel', $input->jurusan)
-                                        ->orderBy('no_peserta', 'desc')
-                                        ->first();
+                        ->where('id_mapel', $input->jurusan)
+                        ->first();
         switch ($input->jurusan) {
             case 1516: $kode = 111; break;
             case 1517: $kode = 211; break;
             default: $kode = 311; break;
         }
+
         if (empty($checkPeserta)) {
 			$nomor		= sprintf('%05d', 1);
 			$no_peserta	= $kode.'-24-'.$nomor;
@@ -89,7 +92,13 @@ class SimulasiController extends Controller
         $peserta->id = Uuid::generate();
         $peserta->id_simulasi = $simulasi->id;
         $peserta->id_user = Auth::id();
-        $peserta->id_ruang = $ruang->id;
+        if($input->mode == 'offline') {
+            $peserta->id_ruang = $ruang->id;
+            $peserta->mode_simulasi = 'offline';
+        }
+        else {
+            $peserta->mode_simulasi = 'online';
+        }
         $peserta->id_mapel = $input->jurusan;
         $peserta->harga = $simulasi->harga;
         $peserta->no_peserta = $no_peserta;
@@ -118,10 +127,12 @@ class SimulasiController extends Controller
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                     ->where('id_user', Auth::id())
                                     ->first();
+        if($peserta)
         return view('member.simulasi.open')->with([
             'simulasi' => $simulasi,
             'peserta' => $peserta
         ]);
+        return redirect()->route('member.simulasi');
     }
 
     public function kartuUjian($id) {
