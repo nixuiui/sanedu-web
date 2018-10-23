@@ -237,7 +237,14 @@ class SimulasiController extends Controller
 
     public function peserta($id) {
         $simulasi = Simulasi::findOrFail($id);
-        return view('adminsimulasi.simulasi.peserta')->with('simulasi', $simulasi);
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id);
+        if(isset($_GET['simulasi']))
+        $peserta->where('mode_simulasi', $_GET['simulasi']);
+        $peserta = $peserta->get();
+        return view('adminsimulasi.simulasi.peserta')->with([
+            'simulasi' => $simulasi,
+            'peserta' => $peserta
+        ]);
     }
 
     public function pesertaSwicthOnlineOffline($id, $idPeserta) {
