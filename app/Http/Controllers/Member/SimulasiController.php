@@ -63,8 +63,7 @@ class SimulasiController extends Controller
                     ->where('id_mapel', $input->jurusan)
                     ->where('is_full', false)
                     ->first();
-            if(!$ruang) return back()->with("danger", "Tiket belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
-
+            if(!$ruang) return back()->with("danger", "Tiket Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
         }
 
         //CHECK NO PESERTA YANG TERAKHIR

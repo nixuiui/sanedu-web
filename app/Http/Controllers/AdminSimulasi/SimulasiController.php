@@ -240,6 +240,28 @@ class SimulasiController extends Controller
         return view('adminsimulasi.simulasi.peserta')->with('simulasi', $simulasi);
     }
 
+    public function pesertaSwicthOnlineOffline($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::findOrFail($idPeserta);
+
+        if($peserta->mode_simulasi == "offline") {
+            $peserta->mode_simulasi = "online";
+            $peserta->id_ruang = null;
+        }
+        else {
+            $ruang = SimulasiRuang::where('id_simulasi', $peserta->id_simulasi)
+                    ->where('id_mapel', $peserta->id_mapel)
+                    ->where('is_full', false)
+                    ->orderBy('created_at', 'ASC')
+                    ->first();
+            if(!$ruang) return back()->with("danger", "Kuota Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
+            $peserta->mode_simulasi = "offline";
+            $peserta->id_ruang = $ruang->id;
+        }
+        $peserta->save();
+        return back()->with("success", "Peserta berhasil dipindahkan");
+    }
+
     public function kunciJawaban($id) {
         $simulasi = Simulasi::findOrFail($id);
         return view('adminsimulasi.simulasi.kuncijawaban')->with('simulasi', $simulasi);
