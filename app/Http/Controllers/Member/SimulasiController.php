@@ -90,8 +90,6 @@ class SimulasiController extends Controller
 			$no_peserta	= $kode.'-24-'.$nomor;
 		}
 
-        return $no_peserta;
-
         $peserta = new SimulasiPeserta;
         $peserta->id = Uuid::generate();
         $peserta->id_simulasi = $simulasi->id;
