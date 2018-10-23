@@ -9,7 +9,7 @@ Simulasi - {{ $simulasi->judul }}
     <div class="col-md-6">
         <div class="row">
             <div class="col-md-12 hidden-xs visible-md visible-lg">
-                @if($peserta->mode_offline)
+                @if($peserta->mode_simulasi == "offline")
                 <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-print mr-3"></i>Cetak Kartu Ujian</a>
                 @endif
                 <a href="{{ $simulasi->link_soal }}" class="btn btn-space btn-default" {{ $simulasi->link_soal == null ? "disabled" : ""}}><i class="icon icon-left mdi mdi-download mr-3"></i>Download Soal</a>
@@ -20,7 +20,7 @@ Simulasi - {{ $simulasi->judul }}
                 <div class="btn-group btn-space">
                     <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Pilih Aksi <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
                     <ul role="menu" class="dropdown-menu">
-                        @if($peserta->mode_offline)
+                        @if($peserta->mode_simulasi == "offline")
                         <li><a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}">Cetak Kartu Ujian</a></li>
                         @endif
                         <li><a href="{{ $simulasi->link_soal != null ? $simulasi->link_soal : '#' }}">Download Soal</a></li>
