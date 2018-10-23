@@ -68,7 +68,8 @@ class SimulasiController extends Controller
     }
 
     public function kelola($id) {
-        $simulasi = Simulasi::findOrFail($id);
+        $simulasi = Simulasi::find($id);
+        if(!$simulasi) return redirect()->route('adminsimulasi.simulasi')->with('danger', "Simulasi tidak ditemukan");
         $ruang = SimulasiRuang::where("id_simulasi", $simulasi->id)->get();
         return view('adminsimulasi.simulasi.kelola')->with([
             'simulasi' => $simulasi,
@@ -230,7 +231,7 @@ class SimulasiController extends Controller
 
     public function ruangDelete($id, $idRuang) {
         $ruang = SimulasiRuang::find($idRuang);
-        $ruang->delete();
+        $ruang->forceDelete();
         return redirect()->back()->with('success', 'Berhasil menghapus ruangan');
     }
 

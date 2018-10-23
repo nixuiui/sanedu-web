@@ -68,7 +68,7 @@ Simulasi - {{ $simulasi->judul }}
                     </div>
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">WAKTU PENGUMUMAN</div>
-                        <div>{{ $peserta->tanggal_pengumuman }}</div>
+                        <div>{{ $simulasi->tanggal_pengumuman != null ? hariTanggal($simulasi->tanggal_pengumuman) : "-" }}</div>
                     </div>
                 </div>
             </div>

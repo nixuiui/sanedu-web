@@ -17,7 +17,7 @@ class SimulasiRuang extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            $data->peserta()->delete();
+            $data->pesertaPivot()->forceDelete();
         });
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('nama', 'asc');
