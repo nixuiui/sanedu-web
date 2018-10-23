@@ -67,8 +67,10 @@ class SimulasiController extends Controller
 
         }
 
+        //CHECK NO PESERTA YANG TERAKHIR
         $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                         ->where('id_mapel', $input->jurusan)
+                        ->orderBy('no_peserta', 'desc')
                         ->first();
         switch ($input->jurusan) {
             case 1516: $kode = 111; break;
@@ -87,6 +89,8 @@ class SimulasiController extends Controller
 			$nomor		= sprintf('%05d', $new);
 			$no_peserta	= $kode.'-24-'.$nomor;
 		}
+
+        return $no_peserta;
 
         $peserta = new SimulasiPeserta;
         $peserta->id = Uuid::generate();
