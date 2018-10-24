@@ -41,6 +41,9 @@ class Simulasi extends Model {
   	public function ruang() {
   		return $this->hasMany('App\Models\SimulasiRuang', 'id_simulasi');
   	}
+  	public function jadwalOnline() {
+  		return $this->hasMany('App\Models\SimulasiJadwalOnline', 'id_simulasi');
+  	}
   	public function peserta() {
   		return $this->hasMany('App\Models\SimulasiPeserta', 'id_simulasi');
   	}

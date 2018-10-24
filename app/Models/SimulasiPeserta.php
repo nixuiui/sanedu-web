@@ -32,6 +32,9 @@ class SimulasiPeserta extends Model {
   	public function ruang() {
   		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
   	}
+  	public function jadwalOnline() {
+  		return $this->belongsTo('App\Models\SimulasiJadwalOnline', 'id_jadwal_online');
+  	}
   	public function koreksi() {
   		return $this->hasMany('App\Models\SimulasiKoreksi', 'id_peserta');
   	}
