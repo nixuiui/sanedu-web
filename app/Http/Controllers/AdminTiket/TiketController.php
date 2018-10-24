@@ -47,9 +47,9 @@ class TiketController extends Controller
     }
 
     public function dataMember() {
-        $tiket = Tiket::where('id_user', '!=', null)->get();
+        $member = User::select(['id', 'pin', 'kap', 'nama', 'asal_sekolah', 'no_hp'])->where('id_role', 1004)->get();
         return view('admintiket.tiket.memberdata')->with([
-            "tiket" => $tiket
+            "member" => $member
         ]);
     }
 

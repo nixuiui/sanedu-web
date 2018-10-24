@@ -43,18 +43,18 @@ Data Member
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($tiket as $no => $val)
+                        @foreach($member as $no => $val)
                         <tr>
                             <td>{{ $no+1 }}</td>
                             <td>{{ $val->pin }}</td>
                             <td>{{ $val->kap }}</td>
-                            <td>{{ $val->user->nama }}</td>
-                            <td>{{ $val->user->asal_sekolah }}</td>
-                            <td>{{ $val->user->no_hp }}</td>
+                            <td>{{ $val->nama }}</td>
+                            <td>{{ $val->asal_sekolah }}</td>
+                            <td>{{ $val->no_hp }}</td>
                             <td></td>
                             <td>
                                 <!-- <a href="#" class="btn btn-xs btn-danger delete" title="Hapus"> <i class="mdi mdi-delete"></i> </a> -->
-                                <a href="{{ route('admintiket.tiket.member.data.edit', $val->user->id) }}" class="btn btn-xs btn-success" title="Edit Data Member"> <i class="mdi mdi-edit"></i> </a>
+                                <a href="{{ route('admintiket.tiket.member.data.edit', $val->id) }}" class="btn btn-xs btn-success" title="Edit Data Member"> <i class="mdi mdi-edit"></i> </a>
                             </td>
                         </tr>
                         @endforeach
