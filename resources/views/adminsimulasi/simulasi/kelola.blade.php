@@ -160,11 +160,15 @@ Kelola Simulasi
 
         <div class="row">
             <div class="col-md-6">
-                <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Kegiatan</a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
                             <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon"><i class="mdi mdi-plus"></i>Tambah Kegiatan</a>
+                                    </th>
+                                </tr>
                                 <tr>
                                     <th colspan="4" class="text-center">KEGIATAN</th>
                                 </tr>
@@ -223,12 +227,16 @@ Kelola Simulasi
                         </table>
                     </div>
                 </div>
-                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
-                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-default btn-md btn-vspace pull-right">Lihat Semua<i class="mdi mdi-arrow-right ml-3"></i></a>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
                             <thead>
+                                <tr>
+                                    <th colspan="6">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon"><i class="mdi mdi-plus"></i>Tambah Ruangan</a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-default btn-md pull-right">Lihat Semua<i class="mdi mdi-arrow-right ml-3"></i></a>
+                                    </th>
+                                </tr>
                                 <tr>
                                     <th colspan="6" class="text-center">RUANG</th>
                                 </tr>
@@ -253,7 +261,7 @@ Kelola Simulasi
                                         <tr>
                                             <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
                                             <td>{{ $data->ruangMapel->nama }}</td>
-                                            <td><i class="mdi mdi-accounts-alt mr-2"></i>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
+                                            <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
                                             <td>{{ $data->pengawas->count() }}</td>
                                             <td>{{ $data->alamat }}</td>
                                             <td class="text-right">
@@ -296,6 +304,45 @@ Kelola Simulasi
                                 @endif
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="panel panel-default panel-table">
+                    <div class="panel-body table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon"><i class="mdi mdi-plus"></i>Tambah Jadwal Online</a>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="4" class="text-center">JADWAL TRY OUT ONLINE</th>
+                                </tr>
+                                <tr>
+                                    <th>Waktu</th>
+                                    <th>Kuota Peserta</th>
+                                    <th class="text-right">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if($simulasi->jadwalOnline->count() > 0)
+                                @foreach($simulasi->jadwalOnline as $jadwal)
+                                <tr>
+                                    <td>{{ hariTanggal($jadwal->tanggal) }}</td>
+                                    <td>{{ $jadwal->jumlah_peserta . "/" . $jadwal->kapasitas }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.delete', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="4" class="data-is-empty">Belum jadwal online yang dibuat</td>
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

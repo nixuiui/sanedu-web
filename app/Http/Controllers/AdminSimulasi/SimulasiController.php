@@ -10,6 +10,7 @@ use DB;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Simulasi;
+use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiPengawas;
 use App\Models\SimulasiPeserta;
 use App\Models\SimulasiAgenda;
@@ -170,6 +171,46 @@ class SimulasiController extends Controller
         $agenda = SimulasiAgenda::find($idAgenda);
         $agenda->forceDelete();
         return redirect()->back()->with('success', 'Berhasil menghapus agenda');
+    }
+
+    public function jadwalForm($id, $idJadwal = null) {
+        $simulasi = Simulasi::findOrFail($id);
+        if($idJadwal == null)
+        return view('adminsimulasi.simulasi.jadwalform')->with([
+            'simulasi' => $simulasi
+        ]);
+
+        $jadwal = SimulasiJadwalOnline::find($idJadwal);
+        return view('adminsimulasi.simulasi.jadwalform')->with([
+            'simulasi' => $simulasi,
+            'jadwal' => $jadwal
+        ]);
+    }
+
+    public function jadwalPost(Request $input, $id, $idJadwal = null) {
+        $this->validate($input, [
+            'tanggal'   => 'required|date',
+            'kapasitas' => 'required'
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $jadwal = new SimulasiJadwalOnline;
+        $jadwal->id = UUid::generate();
+        $jadwal->id_simulasi = $simulasi->id;
+        if($idJadwal != null) {
+            $jadwal = SimulasiJadwalOnline::find($idJadwal);
+        }
+        $jadwal->tanggal = $input->tanggal;
+        $jadwal->kapasitas = $input->kapasitas;
+        $jadwal->save();
+        if($input->simpan == "simpan")
+        return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Berhasil menyimpan jadwal online');
+        return redirect()->route('adminsimulasi.simulasi.kelola.jadwal.form', $simulasi->id)->with('success', 'Berhasil menyimpan jadwal online');
+    }
+
+    public function jadwalDelete($id, $idJadwal) {
+        $jadwal = SimulasiJadwalOnline::find($idJadwal);
+        $jadwal->forceDelete();
+        return redirect()->back()->with('success', 'Berhasil menghapus jadwal online');
     }
 
     public function ruang($id, $idRuang = null) {

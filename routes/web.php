@@ -199,6 +199,9 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/agenda/f/{idAgenda?}',         'AdminSimulasi\SimulasiController@agendaForm')->name('adminsimulasi.simulasi.kelola.agenda.form');
             Route::post('/agenda/post/{idAgenda?}',     'AdminSimulasi\SimulasiController@agendaPost')->name('adminsimulasi.simulasi.kelola.agenda.post');
             Route::get('/agenda/delete/{idAgenda?}',    'AdminSimulasi\SimulasiController@agendaDelete')->name('adminsimulasi.simulasi.kelola.agenda.delete');
+            Route::get('/jadwal/f/{idJadwal?}',         'AdminSimulasi\SimulasiController@jadwalForm')->name('adminsimulasi.simulasi.kelola.jadwal.form');
+            Route::post('/jadwal/post/{idJadwal?}',     'AdminSimulasi\SimulasiController@jadwalPost')->name('adminsimulasi.simulasi.kelola.jadwal.post');
+            Route::get('/jadwal/delete/{idJadwal?}',    'AdminSimulasi\SimulasiController@jadwalDelete')->name('adminsimulasi.simulasi.kelola.jadwal.delete');
             Route::get('/ruang/f/{idRuang?}',           'AdminSimulasi\SimulasiController@ruangForm')->name('adminsimulasi.simulasi.kelola.ruang.form');
             Route::post('/ruang/post/{idRuang?}',       'AdminSimulasi\SimulasiController@ruangPost')->name('adminsimulasi.simulasi.kelola.ruang.post');
             Route::get('/ruang/delete/{idRuang?}',      'AdminSimulasi\SimulasiController@ruangDelete')->name('adminsimulasi.simulasi.kelola.ruang.delete');
