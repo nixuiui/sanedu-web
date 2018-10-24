@@ -17,6 +17,7 @@ Ruang Simulasi
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -26,6 +27,7 @@ Ruang Simulasi
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
+                            <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -36,6 +38,10 @@ Ruang Simulasi
                             <td>{{ $data->alamat }}</td>
                             <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
                             <td>{{ $data->pengawas->count() }}</td>
+                            <td class="text-right">
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

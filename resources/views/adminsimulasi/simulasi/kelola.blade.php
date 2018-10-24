@@ -173,10 +173,10 @@ Kelola Simulasi
                                     <th colspan="4" class="text-center">KEGIATAN</th>
                                 </tr>
                                 <tr>
-                                    <th>Waktu & Tempat</th>
+                                    <th width="150px">Waktu & Tempat</th>
                                     <th>Tempat</th>
                                     <th>Agenda</th>
-                                    <th class="text-right">Aksi</th>
+                                    <th class="text-right" width="100px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -246,7 +246,7 @@ Kelola Simulasi
                                     <th>Kuota</th>
                                     <th>Pengawas</th>
                                     <th>Alamat</th>
-                                    <th class="text-right">Aksi</th>
+                                    <th class="text-right" width="100px">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
