@@ -104,7 +104,7 @@ Simulasi - {{ $simulasi->judul }}
         </div>
     </div>
     <div class="col-md-6">
-        @if($simulasi->mode_simulasi == "offline")
+        @if($peserta->mode_simulasi == "offline")
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
                 Agenda
@@ -167,7 +167,7 @@ Simulasi - {{ $simulasi->judul }}
                         @endforeach
                             @if($peserta->id_jadwal_online == null)
                             <tr>
-                                <td><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
+                                <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
                             </tr>
                             @endif
                         @else
