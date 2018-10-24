@@ -287,6 +287,7 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
             Route::post('/register',   'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
             Route::get('/o',           'Member\SimulasiController@open')->name('member.simulasi.open');
             Route::get('/kartuujian',  'Member\SimulasiController@kartuUjian')->name('member.simulasi.kartuujian');
+            Route::post('/aturjadwal',  'Member\SimulasiController@aturJadwal')->name('member.simulasi.aturjadwal');
         });
     });
 
