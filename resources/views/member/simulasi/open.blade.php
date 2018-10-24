@@ -144,6 +144,9 @@ Simulasi - {{ $simulasi->judul }}
             <div class="panel-heading">
                 Jadwal Try Out Online
             </div>
+            <div class="panel-body p-4">
+                Silahkan pilih salah satu hari dibawah ini yang kamu yakini sebagai hari ujian kamu, ujian berlangsung sejak pukul 00.00 sampai 24.00 di setiap harinya
+            </div>
             <form class="panel-body table-responsive" action="{{ route('member.simulasi.aturjadwal', $simulasi->id) }}" method="post">
                 @csrf
                 <table class="table table-striped">
