@@ -168,4 +168,49 @@ class SimulasiController extends Controller
         if($peserta->save()) return back()->with("success", "Berhasil mengatur jadwal try out online Anda");
         return back();
     }
+
+
+    public function passGrade($id) {
+        $simulasi = Simulasi::find($id);
+        if(!$simulasi) return back();
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                                        ->where('id_user', Auth::id())
+                                        ->first();
+        if(!$peserta)
+            return redirect()->route('member.simulasi');
+        $universitas = Universitas::all();
+        return view('member.simulasi.updatepassgrade')->with([
+            'simulasi' => $simulasi,
+            'universitas' => $universitas,
+            'peserta' => $peserta
+        ]);
+    }
+
+    public function passGradePost(Request $input, $id) {
+        $this->validate($input, [
+            'jurusan_1' => 'required|exists:tbl_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+        ]);
+
+        $simulasi = Simulasi::where('id', $id)->first();
+        if(!$simulasi) return back();
+
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_user", Auth::id())
+                                    ->first();
+        if(!$peserta) return back();
+
+        $passingGrade = PilihanPassingGrade::where("id_peserta", $peserta->id)->first();
+        if(!$passingGrade) return back();
+        $passingGrade->pilihan_1 = $input->jurusan_1;
+        $passingGrade->pilihan_2 = $input->jurusan_2;
+        $passingGrade->pilihan_3 = $input->jurusan_3;
+        if($passingGrade->save()) {
+            return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Berhasil menyimpan perubahan pilihan Passing Grade");
+        }
+        else {
+            return back()->with('danger', "Gagal Menyimpan Passing Grade");
+        }
+    }
 }

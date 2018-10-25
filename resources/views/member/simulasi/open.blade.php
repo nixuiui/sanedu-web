@@ -102,6 +102,42 @@ Simulasi - {{ $simulasi->judul }}
                 </div>
             </div>
         </div>
+        <div class="panel panel-default panel-table">
+            <div class="panel-heading">
+                Passing Grade
+            </div>
+            <div class="panel-body table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td width="10px"></td>
+                            <th>Universitas</th>
+                            <th>Jurusan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>#1</th>
+                            <td>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->universitas->nama : "-" }}</td>
+                            <td>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->jurusan : "-" }}</td>
+                        </tr>
+                        <tr>
+                            <th>#2</th>
+                            <td>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->universitas->nama : "-" }}</td>
+                            <td>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->jurusan : "-" }}</td>
+                        </tr>
+                        <tr>
+                            <th>#3</th>
+                            <td>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->universitas->nama : "-" }}</td>
+                            <td>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->jurusan : "-"}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-center"> <a href="{{ route('member.simulasi.passgrade', $simulasi->id) }}" class="btn btn-md btn-primary">Ubah Pilihan Passing Grade</a> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         @if($peserta->mode_simulasi == "offline")
