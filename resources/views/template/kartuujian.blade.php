@@ -270,16 +270,16 @@
                                 <p class="title-box">PILIHAN PROGRAM STUDI : </p>
                                 <ul class="prodi">
                                     <li>
-                                        <strong>{{ $peserta->passingGrade->pilihan1->universitas->nama }}</strong>
-                                        <span>{{ $peserta->passingGrade->pilihan1->jurusan }}</span>
+                                        <strong>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->universitas->nama : "-" }}</strong>
+                                        <span>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->jurusan : "-" }}</span>
                                     </li>
                                     <li>
-                                        <strong>{{ $peserta->passingGrade->pilihan2->universitas->nama }}</strong>
-                                        <span>{{ $peserta->passingGrade->pilihan2->jurusan }}</span>
+                                        <strong>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->universitas->nama : "-" }}</strong>
+                                        <span>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->jurusan : "-" }}</span>
                                     </li>
                                     <li>
-                                        <strong>{{ $peserta->passingGrade->pilihan3->universitas->nama }}</strong>
-                                        <span>{{ $peserta->passingGrade->pilihan3->jurusan }}</span>
+                                        <strong>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->universitas->nama : "-" }}</strong>
+                                        <span>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->jurusan : "-"}}</span>
                                     </li>
                                 </ul>
                             </div>
