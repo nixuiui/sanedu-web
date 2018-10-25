@@ -40,7 +40,7 @@ Passing Grade
                             <td class="text-right">
                                 <a href="{{ route('admin.passgrade.open.univ', $w->id) }}" class="btn btn-xs btn-default" title="Lihat Passing Grade"><i class="mdi mdi-eye"></i></a>
                                 <a href="{{ route('admin.passgrade.form.univ', $w->id) }}" class="btn btn-xs btn-success" title="Lihat Passing Grade"><i class="mdi mdi-edit"></i></a>
-                                <a href="{{ route('admin.passgrade.delete.univ', $w->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
+                                {{-- <a href="{{ route('admin.passgrade.delete.univ', $w->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a> --}}
                             </td>
                         </tr>
                         @endforeach
