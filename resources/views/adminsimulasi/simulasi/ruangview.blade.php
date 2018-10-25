@@ -45,7 +45,7 @@ Simulasi - Ruang  {{ $ruang->nama }}
                 Data Peserta
             </div>
             <div class="panel-body table-responsive">
-                <table class="table table-striped">
+                <table class="table datatables table-striped">
                     <thead>
                         <tr>
                             <th>No Peserta</th>
