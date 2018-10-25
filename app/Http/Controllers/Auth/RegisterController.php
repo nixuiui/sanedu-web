@@ -126,10 +126,10 @@ class RegisterController extends Controller
                     'username'  => $user->username,
                     'code'      => $user->email_verification_code
                 ];
-                // Mail::send('email.registration', $dataEmail, function ($mail) use ($user)  {
-                //     $mail->to($user->email, $user->name);
-                //     $mail->subject('Sanedu.id - Konfirmasi Email Anda');
-                // });
+                Mail::send('email.registration', $dataEmail, function ($mail) use ($user)  {
+                    $mail->to($user->email, $user->name);
+                    $mail->subject('Sanedu.id - Konfirmasi Email Anda');
+                });
                 return redirect()->route('auth.login')->with([
                     'success' => '<strong>Berhasil Daftar!</strong> Silahkan cek email Anda dan lakukan konfirmasi email.
                                     Belum dapat email? <a href="'.route("email.verification.resend", ["username" => $user->username]).'">Kirim Ulang.</a>'
