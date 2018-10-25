@@ -209,19 +209,17 @@ Kelola Simulasi
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th colspan="3" class="text-center">KUOTA KURSI</th>
+                                    <th colspan="2" class="text-center">KUOTA KURSI</th>
                                 </tr>
                                 <tr>
                                     <th>SAINTEK</th>
                                     <th>SOSHUM</th>
-                                    <th>CAMPUR</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</td>
                                     <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</td>
-                                    <td>{{ $simulasi->ruang->where('id_mapel', 1518)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1518)->sum('kapasitas') }} TIKET</td>
                                 </tr>
                             </tbody>
                         </table>

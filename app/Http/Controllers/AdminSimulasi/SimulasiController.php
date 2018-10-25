@@ -230,7 +230,7 @@ class SimulasiController extends Controller
 
         $mapel = "";
         if($simulasi->id_jenis_ujian == 1404)
-            $mapel = SetPustaka::whereIn("id", [1516, 1517, 1518])->get();
+            $mapel = SetPustaka::whereIn("id", [1516, 1517])->get();
 
         if($idRuang == null)
         return view('adminsimulasi.simulasi.ruangform')->with([

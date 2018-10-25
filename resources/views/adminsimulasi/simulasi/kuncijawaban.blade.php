@@ -112,60 +112,7 @@ Kunci Jawaban Simulasi
                 </table>
             </div>
         </form>
-    </div>
-    <div class="col-md-4">
-        <form action="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban.post', $simulasi->id) }}" method="post">
-            @csrf
-            <input type="hidden" name="id_mapel" value="1518">
-            <div class="input-group input-group-sm xs-mb-15" style="width: 300px;">
-                <span class="input-group-addon">Jumlah Soal</span>
-                <input type="text" name="jumlahSoal" placeholder="0" class="form-control" v-model="jumlahSoalCampuran">
-            </div>
-            <div class="panel panel-table">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th colspan="7" class="text-center">
-                                SOSHUM
-                            </th>
-                        </tr>
-                        <tr>
-                            <th width="20px">NO</th>
-                            <th width="70px">INPUT</th>
-                            <th class="text-center">A</th>
-                            <th class="text-center">B</th>
-                            <th class="text-center">C</th>
-                            <th class="text-center">D</th>
-                            <th class="text-center">E</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-if="jumlahSoalCampuran > 0">
-                            <td colspan="7">
-                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN</button>
-                                <button type="button" class="btn btn-md btn-primary btn-block disabled" v-if="!isFinish || !isMounted">Loading</button>
-                            </td>
-                        </tr>
-                        <tr v-for="(no, index) in intSoalCampuran">
-                            <td>@{{ no }}</td>
-                            <td><input type="text" pattern="[a-eA-E]{1}" class="form-control input-xs text-center" name="jawaban[]" v-model="jawabanCampuran[index]" required/></td>
-                            <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawabanCampuran[index] == 'a' || jawabanCampuran[index] == 'A', 'text-muted': jawabanCampuran[index] != 'a' && jawabanCampuran[index] != 'A'}"></i></td>
-                            <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawabanCampuran[index] == 'b' || jawabanCampuran[index] == 'B', 'text-muted': jawabanCampuran[index] != 'b' && jawabanCampuran[index] != 'B'}"></i></td>
-                            <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawabanCampuran[index] == 'c' || jawabanCampuran[index] == 'C', 'text-muted': jawabanCampuran[index] != 'c' && jawabanCampuran[index] != 'C'}"></i></td>
-                            <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawabanCampuran[index] == 'd' || jawabanCampuran[index] == 'D', 'text-muted': jawabanCampuran[index] != 'd' && jawabanCampuran[index] != 'D'}"></i></td>
-                            <td class="text-center"><i class="mdi mdi-check-circle text-16" v-bind:class="{'text-success': jawabanCampuran[index] == 'e' || jawabanCampuran[index] == 'E', 'text-muted': jawabanCampuran[index] != 'e' && jawabanCampuran[index] != 'E'}"></i></td>
-                        </tr>
-                        <tr v-if="jumlahSoalCampuran > 0">
-                            <td colspan="7">
-                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN</button>
-                                <button type="button" class="btn btn-md btn-primary btn-block disabled" v-if="!isFinish || !isMounted">Loading</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </form>
-    </div>
+    </div>]
 </div> <!-- end row -->
 @endsection
 
@@ -259,39 +206,11 @@ var app = new Vue({
             .catch(function(error) {
                 console.log(error);
             });
-        },
-        reqKunciCampuran: function() {
-            var self = this;
-            var url = linkReqKunciJawaban;
-            url = url.replace(':idMapel', '1518');
-            axios({
-                method: 'get',
-                url: url,
-                headers: {}
-            })
-            .then(function(response) {
-                if(response.data.success){
-                    self.isMounted = true;
-                    response.data.data.forEach(function(val, index, arr) {
-                        self.jawabanCampuran.push(val.jawaban);
-                    });
-                    self.jumlahSoalCampuran = response.data.data.length;
-                }
-                else {
-                    self.isMounted = true;
-                    self.isErrorExist = true;
-                    self.errorMessage = response.data.message;
-                }
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
         }
     },
     mounted: function() {
         this.reqKunciSaintek();
         this.reqKunciSoshum();
-        this.reqKunciCampuran();
     }
 });
 </script>
