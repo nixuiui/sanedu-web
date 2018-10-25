@@ -10,9 +10,10 @@ Hasil Sementara - {{ $simulasi->judul }}
     <div class="col-md-8">
         <div class="panel panel-default panel-table">
             <div class="panel-body table-responsive">
-                <table class="table table-striped">
+                <table class="table datatables table-striped">
                     <thead>
                         <tr>
+                            <th></th>
                             <th>No Peserta</th>
                             <th>Nama</th>
                             <th>Asal Sekolah</th>
@@ -26,6 +27,10 @@ Hasil Sementara - {{ $simulasi->judul }}
                         @if($peserta->count() > 0)
                         @foreach($peserta as $data)
                         <tr>
+                            <td>
+                                <span class="mdi mdi-circle {{ $data->mode_simulasi == 'online' ? "text-success" : "text-danger" }}" title="{{ $data->mode_simulasi }}"></span>
+                                {{ $data->mode_simulasi }}
+                            </td>
                             <td>{{ $data->no_peserta }}</td>
                             <td>{{ $data->profil->nama }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>

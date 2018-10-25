@@ -454,4 +454,13 @@ class SimulasiController extends Controller
         }
     }
 
+    public function hasilSementara($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->orderBy("no_peserta", "ASC")->get();
+        return view('adminsimulasi.simulasi.lihathasilsementara')->with([
+            'simulasi' => $simulasi,
+            'peserta' => $peserta
+        ]);
+    }
+
 }

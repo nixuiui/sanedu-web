@@ -46,7 +46,9 @@ Peserta Simulasi - {{ $simulasi->judul }}
                     <tbody>
                         @foreach($peserta as $i => $data)
                         <tr>
-                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.switch', ['id' => $simulasi->id, 'idPeserta' => $data->id])}}" class="mdi mdi-circle {{ $data->mode_simulasi == 'online' ? "text-success" : "text-danger" }}" title="{{ $data->mode_simulasi }}"></a></td>
+                            <td>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.switch', ['id' => $simulasi->id, 'idPeserta' => $data->id])}}" class="mdi mdi-circle {{ $data->mode_simulasi == 'online' ? "text-success" : "text-danger" }}" title="{{ $data->mode_simulasi }}"> {{ $data->mode_simulais }}</a>
+                            </td>
                             <td>{{ $data->no_peserta }}</td>
                             <td>{{ $data->profil->nama }}</td>
                             <td>{{ $data->profil->username }}</td>
