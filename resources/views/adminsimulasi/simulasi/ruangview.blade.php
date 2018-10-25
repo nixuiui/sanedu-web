@@ -56,21 +56,19 @@ Simulasi - Ruang  {{ $ruang->nama }}
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            @if($ruang->peserta->count() > 0)
-                                @foreach($ruang->peserta as $i => $data)
-                                <tr>
-                                    <td>{{ $data->pivot->no_peserta }}</td>
-                                    <td>{{ $data->nama }}</td>
-                                    <td>{{ $data->asal_sekolah }}</td>
-                                    <td>{{ $data->no_hp }}</td>
-                                    <td>{{ $data->email }}</td>
-                                </tr>
-                                @endforeach
-                            @else
-                                    <td colspan="5" class="text-center">Belum ada peserta untuk ruangan ini</td>
-                            @endif
-                        </tr>
+                        @if($ruang->peserta->count() > 0)
+                            @foreach($ruang->peserta as $i => $data)
+                            <tr>
+                                <td>{{ $data->pivot->no_peserta }}</td>
+                                <td>{{ $data->nama }}</td>
+                                <td>{{ $data->asal_sekolah }}</td>
+                                <td>{{ $data->no_hp }}</td>
+                                <td>{{ $data->email }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                                <td colspan="5" class="text-center">Belum ada peserta untuk ruangan ini</td>
+                        @endif
                     </tbody>
                 </table>
             </div>
