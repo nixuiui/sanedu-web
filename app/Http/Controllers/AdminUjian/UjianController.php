@@ -211,4 +211,43 @@ class UjianController extends Controller
         ]);
     }
 
+    public function view($id) {
+        $ujian = Ujian::findOrFail($id);
+        return view('adminujian.ujian.view')->with([
+            'ujian' => $ujian
+        ]);
+    }
+
+    public function reqSoal($idUjian) {
+        $soal = Soal::where('id_ujian', $idUjian)->orderBy('created_at', 'asc')->get();
+        if(isset($_GET['attempt'])) {
+            $idAttempt = $_GET['attempt'];
+            $soal = collect(DB::select("
+            SELECT
+            soal.id,
+            soal.soal,
+            soal.a,
+            soal.b,
+            soal.c,
+            soal.d,
+            soal.e,
+            correct.jawaban,
+            correct.is_correct
+            FROM
+            tbl_attempt_correction as correct
+            RIGHT JOIN tbl_soal as soal ON
+            correct.id_soal=soal.id AND
+            soal.id_ujian='" . $idUjian. "' AND
+            correct.id_attempt='" . $idAttempt . "'
+            WHERE
+            soal.id_ujian='" . $idUjian . "' &&
+            soal.deleted_at IS NULL &&
+            correct.deleted_at IS NULL
+            ORDER BY soal.created_at ASC"));
+        }
+        if($soal->count() > 0)
+        return $this->success($soal);
+        return $this->error("Soal gagal di load");
+    }
+
 }

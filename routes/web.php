@@ -134,6 +134,8 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
         Route::group(['prefix' => 'soal/kelola'], function(){
             Route::get('/{id}',                         'AdminUjian\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
             Route::get('/{id}/publish',                 'AdminUjian\UjianController@publish')->name('admin.ujian.soal.publish');
+            Route::get('/{id}/view',                    'AdminUjian\UjianController@view')->name('admin.ujian.soal.view');
+            Route::get('/{id}/reqsoal',                      'AdminUjian\UjianController@reqSoal')->name('admin.ujian.soal.req.soal');
             Route::get('/{id}/formperaturan',           'AdminUjian\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
             Route::post('/{id}/formperaturan',          'AdminUjian\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
             Route::get('/{id}/formsoal/{idSoal?}',      'AdminUjian\UjianController@formSoal')->name('admin.ujian.soal.form.soal');

@@ -113,6 +113,7 @@ Kelola Soal Ujian
         @if(!$ujian->is_published)
         <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-warning btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Soal</a>
         @endif
+        <a href="{{ route('admin.ujian.soal.view', $ujian->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-eye"></i>Review Soal</a>
         <div class="panel panel-default panel-table" style="border: none">
             <div class="panel-body">
                 <table class="table table-bordered">
