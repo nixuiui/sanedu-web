@@ -29,6 +29,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>Ruang</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -41,6 +42,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>Ruang</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -58,6 +60,13 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>
                                 @if($data->mode_simulasi == "offline")
                                 <strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->ruang->id]) }}">{{ $data->ruang->nama }}</a></strong>
+                                @else
+                                -
+                                @endif
+                            </td>
+                            <td>
+                                @if($data->mode_simulasi == "offline")
+                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default"><i class="mdi mdi-print mr-3"></i>Cetak Kartu</a></strong>
                                 @else
                                 -
                                 @endif

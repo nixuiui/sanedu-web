@@ -190,6 +190,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/closereg',                     'AdminSimulasi\SimulasiController@closeReg')->name('adminsimulasi.simulasi.kelola.closereg');
             Route::get('/peserta',                      'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
             Route::get('/peserta/{idPeserta}/swicth',   'AdminSimulasi\SimulasiController@pesertaSwicthOnlineOffline')->name('adminsimulasi.simulasi.kelola.peserta.switch');
+            Route::get('/kartuujian/{idPeserta}',       'AdminSimulasi\SimulasiController@kartuUjian')->name('adminsimulasi.simulasi.kelola.peserta.kartuujian');
             Route::get('/delete',                       'AdminSimulasi\SimulasiController@deleteSimulasi')->name('adminsimulasi.simulasi.kelola.delete');
             Route::get('/kuncijawaban',                 'AdminSimulasi\SimulasiController@kunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban');
             Route::get('/reqkuncijawaban/{idMapel}',    'AdminSimulasi\SimulasiController@reqKunciJawaban')->name('adminsimulasi.simulasi.kelola.req.kunci.jawaban');

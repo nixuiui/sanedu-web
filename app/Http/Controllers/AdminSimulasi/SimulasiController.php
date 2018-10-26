@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use Uuid;
 use DB;
+use PDF;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Simulasi;
@@ -461,6 +462,16 @@ class SimulasiController extends Controller
             'simulasi' => $simulasi,
             'peserta' => $peserta
         ]);
+    }
+
+    public function kartuUjian($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::findOrFail($idPeserta);
+        $pdf = PDF::loadView('template.kartuujian', compact(['peserta']))->setPaper('a4', 'landscape');
+        return $pdf->stream($peserta->mapel->nama.' - '.tanggal($peserta->created_at).'.pdf');
+        // return view('member.simulasi.kartuujian')->with([
+        //     'peserta' => $peserta
+        // ]);
     }
 
 }
