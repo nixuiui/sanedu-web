@@ -277,6 +277,13 @@ class SimulasiController extends Controller
         return redirect()->back()->with('success', 'Berhasil menghapus ruangan');
     }
 
+    public function ruangBorang($id, $idRuang) {
+        $ruang = SimulasiRuang::find($idRuang);
+        $peserta = SimulasiPeserta::where("id_ruang", $ruang->id)->get();
+        $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
+        return $pdf->stream($ruang->nama.' - '.tanggal(date("Y-m-d")).'.pdf');
+    }
+
     public function peserta($id) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id);

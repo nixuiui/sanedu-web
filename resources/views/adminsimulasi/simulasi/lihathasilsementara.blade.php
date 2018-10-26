@@ -5,7 +5,7 @@ Hasil Sementara - {{ $simulasi->judul }}
 @endsection
 
 @section('content')
-<a href="{{ route('pengawas.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
+<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <div class="row">
     <div class="col-md-8">
         <div class="panel panel-default panel-table">
@@ -42,7 +42,7 @@ Hasil Sementara - {{ $simulasi->judul }}
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="7" class="text-center text-muted">Belum ada peserta yang di koreksi</td>
+                            <td colspan="8" class="text-center text-muted">Belum ada peserta yang di koreksi</td>
                         </tr>
                         @endif
                     </tbody>

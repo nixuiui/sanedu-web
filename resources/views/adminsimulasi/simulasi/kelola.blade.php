@@ -31,7 +31,7 @@ Kelola Simulasi
         <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
         <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Sementara</a>
         <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Akhir</a>
-        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Borang Rekomendasi</a>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-download mr-3"></i>Download Borang Rekomendasi</a>
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">
             <div class="panel-heading">Informasi Simulasi</div>
             <div class="panel-body">
@@ -286,7 +286,7 @@ Kelola Simulasi
                             <div class="data-card">
                                 <i class="mdi mdi-assignment mb-3"></i>
                                 <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "KUNCI JAWABAN & SOAL BELUM DIBUAT" : "KELOLA KUNCI JAWABAN & SOAL" }}</p>
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT KUNCI JAWABAN" : "UBAH KUNCI JAWABAN" }}</a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT SOAL & KUNCI JAWABAN" : "UBAH SOAL & KUNCI JAWABAN" }}</a>
                             </div>
                         </div>
                     </div>

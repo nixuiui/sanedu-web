@@ -112,7 +112,7 @@ Kunci Jawaban Simulasi
                 </table>
             </div>
         </form>
-    </div>]
+    </div>
 </div> <!-- end row -->
 @endsection
 

@@ -4,7 +4,7 @@ Ruang Simulasi
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Tambah Ruang</a>
         <div class="panel panel-default panel-table">
@@ -41,6 +41,7 @@ Ruang Simulasi
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.borang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-default" title="Hapus Agenda"><i class="mdi mdi-download mr-3"></i>Borang Rekomendasi</a>
                             </td>
                         </tr>
                         @endforeach
