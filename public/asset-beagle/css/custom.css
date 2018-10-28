@@ -222,7 +222,7 @@ div.dataTables_wrapper div.dataTables_filter input {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    height: 3em;
+    height: 18px;
     text-overflow: ellipsis;
 }
 

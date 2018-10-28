@@ -22,6 +22,9 @@ class Ujian extends Model {
     }
 
     //RELATION table
+  	public function simulasi() {
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  	}
   	public function tingkatSekolah() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
   	}

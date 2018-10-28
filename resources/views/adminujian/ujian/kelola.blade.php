@@ -104,8 +104,8 @@ Kelola Soal Ujian
                         </div>
                     </div>
                 </div>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-icon"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
-                <a href="{{ route('admin.ujian.soal.up', $ujian->id) }}" class="btn btn-success btn-fill btn-md btn-icon"><i class="mdi mdi-long-arrow-up"></i>Naikan Soal</a>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-icon btn-hspace"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
+                <a href="{{ route('admin.ujian.soal.up', $ujian->id) }}" class="btn btn-default btn-fill btn-md btn-icon btn-hspace"><i class="mdi mdi-long-arrow-up"></i>Naikan Soal</a>
                 <a href="{{ route('admin.ujian.form.peraturan', $ujian->id) }}" class="btn btn-default btn-md btn-icon pull-right"><i class="mdi mdi-settings"></i>{{ $ujian->peraturan == null ? "Peraturan Ujian Belum Ada" : "Peraturan Ujian"}}</a>
             </div>
         </form>
