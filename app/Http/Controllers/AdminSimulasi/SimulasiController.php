@@ -10,7 +10,9 @@ use DB;
 use PDF;
 use App\Models\SetPustaka;
 use App\Models\User;
+use App\Models\Ujian;
 use App\Models\Simulasi;
+use App\Models\SimulasiUjian;
 use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiPengawas;
 use App\Models\SimulasiPeserta;
@@ -320,7 +322,15 @@ class SimulasiController extends Controller
 
     public function kunciJawaban($id) {
         $simulasi = Simulasi::findOrFail($id);
-        return view('adminsimulasi.simulasi.kuncijawaban')->with('simulasi', $simulasi);
+        $ujian = Ujian::where("id_jenis_ujian", $simulasi->id_jenis_ujian)->get();
+        $saintek = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", 1516)->first();
+        $soshum = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", 1517)->first();
+        return view('adminsimulasi.simulasi.kuncijawaban')->with([
+            'simulasi' => $simulasi,
+            'ujian' => $ujian,
+            'saintek' => $saintek,
+            'soshum' => $soshum
+        ]);
     }
 
     public function saveKunciJawaban(Request $input, $id) {
@@ -342,6 +352,26 @@ class SimulasiController extends Controller
             $kunci->save();
         }
         return back()->with("success", "Berhasil Menyimpan Kunci Jawaban");
+    }
+
+    public function tautSoal(Request $input, $id) {
+        $this->validate($input, [
+            'id_mapel'  => 'required|exists:set_pustaka,id',
+            'id_ujian'  => 'required|exists:tbl_ujian,id',
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)
+                                        ->where("id_mapel", $input->id_mapel)
+                                        ->first();
+        if(!$simulasiUjian) {
+            $simulasiUjian = new SimulasiUjian;
+            $simulasiUjian->id = Uuid::generate();
+            $simulasiUjian->id_simulasi = $simulasi->id;
+            $simulasiUjian->id_mapel = $input->id_mapel;
+        }
+        $simulasiUjian->id_ujian = $input->id_ujian;
+        $simulasiUjian->save();
+        return back()->with("success", "Berhasil menyimpan");
     }
 
     public function reqKunciJawaban($id, $idMapel) {
