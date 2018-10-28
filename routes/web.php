@@ -289,13 +289,16 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
     Route::group(['prefix' => 'simulasi'], function(){
         Route::get('/',                 'Member\SimulasiController@index')->name('member.simulasi');
         Route::group(['prefix' => '{id}'], function(){
-            Route::get('/register',    'Member\SimulasiController@register')->name('member.simulasi.register');
-            Route::post('/register',   'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
-            Route::get('/passgrade',    'Member\SimulasiController@passGrade')->name('member.simulasi.passgrade');
-            Route::post('/passgrade',   'Member\SimulasiController@passGradePost')->name('member.simulasi.passgrade.post');
-            Route::get('/o',           'Member\SimulasiController@open')->name('member.simulasi.open');
-            Route::get('/kartuujian',  'Member\SimulasiController@kartuUjian')->name('member.simulasi.kartuujian');
-            Route::post('/aturjadwal',  'Member\SimulasiController@aturJadwal')->name('member.simulasi.aturjadwal');
+            Route::get('/register',             'Member\SimulasiController@register')->name('member.simulasi.register');
+            Route::post('/register',            'Member\SimulasiController@registerPost')->name('member.simulasi.register.post');
+            Route::get('/passgrade',            'Member\SimulasiController@passGrade')->name('member.simulasi.passgrade');
+            Route::post('/passgrade',           'Member\SimulasiController@passGradePost')->name('member.simulasi.passgrade.post');
+            Route::get('/o',                    'Member\SimulasiController@open')->name('member.simulasi.open');
+            Route::get('/kartuujian',           'Member\SimulasiController@kartuUjian')->name('member.simulasi.kartuujian');
+            Route::post('/aturjadwal',          'Member\SimulasiController@aturJadwal')->name('member.simulasi.aturjadwal');
+            Route::get('/attempt/{idUjian}',    'Member\SimulasiController@attempt')->name('member.simulasi.ujian.attempt');
+            Route::get('/openujian/{idAttempt}','Member\SimulasiController@openUjian')->name('member.simulasi.ujian.open');
+            Route::get('/finish/{idAttempt}',   'Member\SimulasiController@finish')->name('member.simulasi.ujian.finish');
         });
     });
 

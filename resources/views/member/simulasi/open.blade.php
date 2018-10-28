@@ -72,35 +72,67 @@ Simulasi - {{ $simulasi->judul }}
                     </div>
                 </div>
             </div>
-            <div class="panel-section">
-                <div class="row">
-                    <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">SIMULASI</div>
-                        <div>{{ $peserta->mode_simulasi }}</div>
+            @if($peserta->mode_simulasi == "offline")
+                <div class="panel-section">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">SIMULASI</div>
+                            <div>{{ $peserta->mode_simulasi }}</div>
+                        </div>
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">RUANG</div>
+                            <div>{{ $peserta->ruang->nama }}</div>
+                        </div>
+                        <div class="col-md-6 col-xs-6 mb-3">
+                            <div class="text-muted">ALAMAT TEMPAT</div>
+                            <div>{{ $peserta->ruang->alamat }}</div>
+                        </div>
                     </div>
-                    @if($peserta->mode_simulasi == "offline")
-                    <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">RUANG</div>
-                        <div>{{ $peserta->ruang->nama }}</div>
-                    </div>
-                    <div class="col-md-6 col-xs-6 mb-3">
-                        <div class="text-muted">ALAMAT TEMPAT</div>
-                        <div>{{ $peserta->ruang->alamat }}</div>
-                    </div>
-                    @else
-                    <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">SOAL</div>
-                        <div>Belum Tersedia</div>
-                    </div>
+                </div>
+            @else
+                <div class="panel-section">
+                    <div class="row">
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">SIMULASI</div>
+                            <div>{{ $peserta->mode_simulasi }}</div>
+                        </div>
                         @if($peserta->id_jadwal_online != null)
                         <div class="col-md-3 col-xs-6 mb-3">
                             <div class="text-muted">WAKTU TO ONLINE</div>
                             <div>{{ hariTanggal($peserta->jadwalOnline->tanggal)}}</div>
                         </div>
                         @endif
-                    @endif
+                        @if($soalOnline)
+                        <div class="col-md-6 col-xs-6 mb-3">
+                            <div class="text-muted">SOAL</div>
+                            <div>{{ $soalOnline->ujian->judul }}</div>
+                        </div>
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">JUMLAH SOAL</div>
+                            <div>{{ $soalOnline->ujian->jumlah_soal }}</div>
+                        </div>
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">DURASI</div>
+                            <div>{{ $soalOnline->ujian->durasi }} menit</div>
+                        </div>
+                        @else
+                        <div class="col-md-3 col-xs-6 mb-3">
+                            <div class="text-muted">SOAL</div>
+                            <div>Belum Tersedia</div>
+                        </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
+                @if($soalOnline)
+                <div class="panel-section">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a href="{{ route('member.simulasi.ujian.attempt', ['id' => $simulasi->id, 'idUjian' => $soalOnline->ujian->id]) }}" class="btn btn-lg btn-ujian btn-block btn-primary mulai-ujian">Mulai Ujian</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            @endif
         </div>
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
@@ -204,11 +236,11 @@ Simulasi - {{ $simulasi->judul }}
                             <td class={{ $jadwal->is_full ? "text-muted" : "" }} {{ $peserta->id_jadwal_online == $jadwal->id ? "text-bold" : "" }}>{{ hariTanggal($jadwal->tanggal) }} {{ $peserta->id_jadwal_online == $jadwal->id ? " - Jadwal Anda" : "" }}</td>
                         </tr>
                         @endforeach
-                            @if($peserta->id_jadwal_online == null)
-                            <tr>
-                                <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
-                            </tr>
-                            @endif
+                        @if($peserta->id_jadwal_online == null)
+                        <tr>
+                            <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
+                        </tr>
+                        @endif
                         @else
                         <tr>
                             <td colspan="4" class="data-is-empty">Belum ada jadwal yang dibuat</td>

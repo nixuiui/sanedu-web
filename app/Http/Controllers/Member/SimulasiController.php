@@ -10,7 +10,10 @@ use DB;
 use App\Http\Controllers\Controller;
 
 use App\Models\Universitas;
+use App\Models\Ujian;
+use App\Models\Attempt;
 use App\Models\Simulasi;
+use App\Models\SimulasiUjian;
 use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiRuang;
 use App\Models\SimulasiPeserta;
@@ -129,11 +132,25 @@ class SimulasiController extends Controller
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                     ->where('id_user', Auth::id())
                                     ->first();
-        if($peserta)
-        return view('member.simulasi.open')->with([
-            'simulasi' => $simulasi,
-            'peserta' => $peserta
-        ]);
+        if($peserta) {
+            if($peserta->mode_simulasi == "offline") {
+                return view('member.simulasi.open')->with([
+                    'simulasi' => $simulasi,
+                    'peserta' => $peserta
+                ]);
+            }
+            $soalOnline = null;
+            if(strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d"))) {
+                $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
+                ->where("id_mapel", $peserta->id_mapel)
+                ->first();
+            }
+            return view('member.simulasi.open')->with([
+                'simulasi' => $simulasi,
+                'peserta' => $peserta,
+                'soalOnline' => $soalOnline
+            ]);
+        }
         return redirect()->route('member.simulasi');
     }
 
@@ -213,4 +230,78 @@ class SimulasiController extends Controller
             return back()->with('danger', "Gagal Menyimpan Passing Grade");
         }
     }
+
+
+    public function attempt($id, $idUjian) {
+        $simulasi = Simulasi::findOrFail($id);
+        $ujian = Ujian::findOrFail($idUjian);
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_user", Auth::id())
+                                    ->where("mode_simulasi", "online")
+                                    ->where("id_mapel", $ujian->id_mata_pelajaran)
+                                    ->firstOrFail();
+
+        $attemptOnGoing = Attempt::where('id_user', Auth::id())
+                                    ->where('id_ujian', $ujian->id)
+                                    ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                                    ->first();
+
+        if(($attemptOnGoing != null) || (strtotime($peserta->jadwalOnline->tanggal) != strtotime(date("Y-m-d")))) {
+            return redirect()->route('member.simulasi.ujian.open', [
+                'id' => $simulasi->id,
+                'idAttempt' => $attemptOnGoing->id
+            ]);
+        }
+        
+        $now = date('Y-m-d H:i:s');
+        $attempt = new Attempt;
+        $attempt->id = Uuid::generate();
+        $attempt->start_attempt = $now;
+        $attempt->end_attempt = plusMinute($now, $ujian->durasi);
+        $attempt->id_ujian = $ujian->id;
+        $attempt->id_peserta_simulasi = $peserta->id;
+        $attempt->id_user = Auth::id();
+        $attempt->jumlah_benar = 0;
+        $attempt->jumlah_salah = 0;
+        $attempt->jumlah_tidak_jawab = 0;
+        $attempt->nilai = 0;
+        if($attempt->save()) {
+            return redirect()->route('member.simulasi.ujian.open', [
+                'id' => $simulasi->id,
+                'idAttempt' => $attempt->id
+            ]);
+        }
+        return redirect()->route('member.simulasi.open', $simulasi->id);
+    }
+
+    public function openUjian($id, $idAttempt) {
+        $simulasi = Simulasi::findOrFail($id);
+        $attempt = Attempt::where('id_user', Auth::id())
+                        ->where('id', $idAttempt)
+                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                        ->first();
+        if($attempt == null) return redirect()->route('member.simulasi.open', $simulasi->id);
+        $soal = Ujian::findOrFail($attempt->id_ujian);
+        return view('member.simulasi.soal')->with([
+            'soal' => $soal,
+            'attempt' => $attempt,
+            'simulasi' => $simulasi
+        ]);
+    }
+
+    public function finish($id, $idAttempt) {
+        $simulasi = Simulasi::findOrFail($id);
+        $attempt = Attempt::where('id_user', Auth::id())
+                        ->where('id', $idAttempt)
+                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                        ->first();
+        if($attempt == null) return redirect()->route('member.ujian.soal');
+        $attempt->end_attempt = date("Y-m-d H:i:s");
+        $attempt->save();
+        return view('member.simulasi.finish')->with([
+            'simulasi' => $simulasi,
+            'attempt' => $attempt
+        ]);
+    }
+
 }
