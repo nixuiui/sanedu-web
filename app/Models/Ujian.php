@@ -22,9 +22,6 @@ class Ujian extends Model {
     }
 
     //RELATION table
-  	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
-  	}
   	public function tingkatSekolah() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
   	}
@@ -45,6 +42,9 @@ class Ujian extends Model {
   	}
   	public function pembelian() {
   		return $this->hasMany('App\Models\PembelianUjian', 'id_ujian');
+  	}
+  	public function simulasiUjian() {
+  		return $this->hasMany('App\Models\SimulasiUjian', 'id_ujian');
   	}
   	public function diBeliOleh() {
   		return $this->belongsToMany('App\Models\User', 'tbl_pembelian_ujian', 'id_ujian', 'id_user')

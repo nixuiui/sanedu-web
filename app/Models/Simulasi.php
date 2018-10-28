@@ -47,8 +47,8 @@ class Simulasi extends Model {
   	public function peserta() {
   		return $this->hasMany('App\Models\SimulasiPeserta', 'id_simulasi');
   	}
-  	public function soalUjian() {
-  		return $this->hasMany('App\Models\Ujian', 'id_simulasi');
+  	public function simulasiUjian() {
+  		return $this->hasMany('App\Models\SimulasiUjian', 'id_simulasi');
   	}
   	public function pengawas() {
   		return $this->hasMany('App\Models\SimulasiPengawas', 'id_simulasi');
