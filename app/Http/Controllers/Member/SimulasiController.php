@@ -140,7 +140,7 @@ class SimulasiController extends Controller
                 ]);
             }
             $soalOnline = null;
-            if(strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d"))) {
+            if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
                 $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
                 ->where("id_mapel", $peserta->id_mapel)
                 ->first();
@@ -252,7 +252,7 @@ class SimulasiController extends Controller
                 'idAttempt' => $attemptOnGoing->id
             ]);
         }
-        
+
         $now = date('Y-m-d H:i:s');
         $attempt = new Attempt;
         $attempt->id = Uuid::generate();
