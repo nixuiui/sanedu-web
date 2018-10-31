@@ -38,6 +38,9 @@ class SimulasiPeserta extends Model {
   	public function koreksi() {
   		return $this->hasMany('App\Models\SimulasiKoreksi', 'id_peserta');
   	}
+  	public function attempt() {
+  		return $this->hasMany('App\Models\Attempt', 'id_peserta_simulasi');
+  	}
   	public function profil() {
   		return $this->belongsTo('App\Models\User', 'id_user');
   	}

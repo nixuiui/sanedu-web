@@ -11,7 +11,11 @@ use PDF;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Ujian;
+use App\Models\Soal;
+use App\Models\Attempt;
+use App\Models\AttemptCorrection;
 use App\Models\Simulasi;
+use App\Models\SimulasiKoreksi;
 use App\Models\SimulasiUjian;
 use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiPengawas;
@@ -176,6 +180,17 @@ class SimulasiController extends Controller
         return redirect()->back()->with('success', 'Berhasil menghapus agenda');
     }
 
+    public function jadwal($id, $idJadwal) {
+        $simulasi = Simulasi::findOrFail($id);
+        $jadwal = SimulasiJadwalOnline::where('id_simulasi', $simulasi->id)
+                                        ->where('id', $idJadwal)
+                                        ->firstOrFail();
+        return view('adminsimulasi.simulasi.jadwal')->with([
+            'simulasi' => $simulasi,
+            'jadwal' => $jadwal
+        ]);
+    }
+
     public function jadwalForm($id, $idJadwal = null) {
         $simulasi = Simulasi::findOrFail($id);
         if($idJadwal == null)
@@ -214,6 +229,44 @@ class SimulasiController extends Controller
         $jadwal = SimulasiJadwalOnline::find($idJadwal);
         $jadwal->forceDelete();
         return redirect()->back()->with('success', 'Berhasil menghapus jadwal online');
+    }
+
+    public function pushNilai($id, $idJadwal) {
+        $simulasi = Simulasi::findOrFail($id);
+        $jadwal = SimulasiJadwalOnline::where('id_simulasi', $simulasi->id)
+                                        ->where('id', $idJadwal)
+                                        ->firstOrFail();
+        return $peserta = SimulasiPeserta::where('id_jadwal_online', $jadwal->id)
+                                    ->where('is_corrected', false)
+                                    ->where('is_attempted', true)
+                                    ->get();
+        foreach($peserta as $data) {
+            $attempt = Attempt::where('id_peserta_simulasi', $data->id)
+                                ->orderBy('jumlah_benar', 'asc')
+                                ->first();
+            $soal = Soal::select(['id', 'created_at'])
+                                ->where('id_ujian', $attempt->id_ujian)
+                                ->orderBy('created_at', 'asc')
+                                ->get();
+            foreach($soal as $key => $s) {
+                $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
+                                                        ->where('id_soal', $s->id)
+                                                        ->first();
+                $koreksi = new SimulasiKoreksi;
+                $koreksi->id = Uuid::generate();
+                $koreksi->id_simulasi = $simulasi->id;
+                $koreksi->id_peserta = $data->id;
+                $koreksi->id_soal = $s->id;
+                $koreksi->no_soal = $key + 1;
+                $koreksi->kunci_jawaban = $s->jawaban;
+                $koreksi->jawaban = $attemptCorrection == null ? null : $attemptCorrection->jawaban;
+                $koreksi->is_correct = $attemptCorrection == null ? false : $attemptCorrection->is_correct;
+                $koreksi->save();
+            }
+            $data->is_corrected = 1;
+            $data->save();
+        }
+        return back()->with('success', 'Proses push nilai berhasil');
     }
 
     public function ruang($id, $idRuang = null) {

@@ -326,7 +326,7 @@ Kelola Simulasi
                                 @if($simulasi->jadwalOnline->count() > 0)
                                 @foreach($simulasi->jadwalOnline as $jadwal)
                                 <tr>
-                                    <td>{{ hariTanggal($jadwal->tanggal) }}</td>
+                                    <td><a href="{{ route('adminsimulasi.simulasi.kelola.jadwal', ['simulasi' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}">{{ hariTanggal($jadwal->tanggal) }}</a></td>
                                     <td>{{ $jadwal->jumlah_peserta . "/" . $jadwal->kapasitas }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>

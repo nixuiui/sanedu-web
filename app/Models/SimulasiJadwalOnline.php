@@ -33,7 +33,7 @@ class SimulasiJadwalOnline extends Model {
   	}
   	public function peserta() {
   		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_jadwal_online', 'id_user')
-                    ->withPivot('id', 'id_mapel', 'harga', 'no_peserta', 'created_at');
+                    ->withPivot('id', 'id_mapel', 'harga', 'no_peserta', 'is_attempted', 'created_at');
   	}
 
 }
