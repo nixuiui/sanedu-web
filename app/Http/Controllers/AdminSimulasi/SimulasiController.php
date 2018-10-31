@@ -322,7 +322,7 @@ class SimulasiController extends Controller
         $ruang->alamat = $input->alamat;
         $ruang->save();
         if($input->simpan == "simpan")
-        return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Berhasil menyimpan ruangan');
+        return redirect()->route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id)->with('success', 'Berhasil menyimpan ruangan');
         return redirect()->route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id)->with('success', 'Berhasil menyimpan ruangan');
     }
 
