@@ -8,6 +8,7 @@ use Auth;
 use Uuid;
 use DB;
 use PDF;
+use Excel;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Ujian;
@@ -279,6 +280,39 @@ class SimulasiController extends Controller
             'simulasi' => $simulasi,
             'ruang' => $ruang
         ]);
+    }
+
+    public function ruangAbsen($id, $idRuang = null) {
+        $simulasi = Simulasi::findOrFail($id);
+        $ruang = SimulasiRuang::findOrFail($idRuang);
+        if(!$ruang) return back();
+
+        $peserta = DB::select("
+                                    SELECT
+                                    no_peserta,
+                                    user.nama,
+                                    user.no_hp,
+                                    user.asal_sekolah
+                                    FROM
+                                    tbl_simulasi_peserta as peserta
+                                    INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                                    WHERE id_ruang='".$ruang->id."'
+                                    ORDER BY user.nama ASC
+        ");
+
+        $pesertaArray = [];
+        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'Tanda Tangan'];
+        foreach ($peserta as $data) {
+            $pesertaArray[] = [$data->nama, $data->no_peserta, $data->asal_sekolah, ''];
+        }
+        Excel::create('Absen ' . $ruang->nama, function($excel) use ($ruang, $pesertaArray) {
+            $excel->setTitle('Absen ' . $ruang->nama);
+            $excel->setCreator('Sanedu')->setCompany('Niki Rahmadi Wiharto');
+            $excel->setDescription('Absen peserta');
+            $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
+                    $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+            });
+        })->download('xlsx');
     }
 
     public function ruangForm($id, $idRuang = null) {
