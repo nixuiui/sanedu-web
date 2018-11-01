@@ -564,4 +564,36 @@ class SimulasiController extends Controller
         // ]);
     }
 
+    public function pindahRuang($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $ruang = SimulasiRuang::where("id_simulasi", $id)->get();
+        $jumlah = 0;
+        foreach($ruang as $key => $r) {
+            $selisih = $r->jumlah_peserta - $r->kapasitas;
+            if(($selisih) > 0) {
+                $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                            ->where("id_ruang", $r->id)
+                                            ->limit($selisih)->update(['id_ruang' => null]);
+            }
+            $jumlah += $r->jumlah_peserta;
+        }
+
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                            ->where("mode_simulasi", "offline")
+                            ->where("id_ruang", NULL)
+                            ->get();
+        foreach($peserta as $data) {
+            $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
+                    ->where('id_mapel', $data->id_mapel)
+                    ->where('is_full', false)
+                    ->first();
+            if($ruang) {
+                $data->id_ruang = $ruang->id;
+                $data->save();
+            }
+        }
+
+
+    }
+
 }
