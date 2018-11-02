@@ -535,7 +535,6 @@ class SimulasiController extends Controller
                 'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
                 'password'          => 'required|string|min:6'
             ]);
-            return $input;
             $user           = new User();
             $user->id       = Uuid::generate();
             $user->id_role  = 1008;
