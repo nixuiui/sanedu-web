@@ -626,6 +626,7 @@ class SimulasiController extends Controller
                 $data->save();
             }
         }
+        return back();
 
 
     }

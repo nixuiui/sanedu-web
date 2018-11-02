@@ -7,7 +7,7 @@ Ruang Simulasi
     <div class="col-md-8">
         <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Tambah Ruang</a>
-        {{-- <a href="{{ route('adminsimulasi.simulasi.kelola.pindah.ruang', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Pindah Ruang</a> --}}
+        <a href="{{ route('adminsimulasi.simulasi.kelola.pindah.ruang', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Pindah Ruang</a>
         <div class="panel panel-default panel-table">
             <div class="panel-body table-responsive">
                 <table id="datatables" class="table table-striped">
