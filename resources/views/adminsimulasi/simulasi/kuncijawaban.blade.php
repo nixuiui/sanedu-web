@@ -81,7 +81,7 @@ Kunci Jawaban Simulasi
                 <option value="{{ $data->id }}" {{ $soshum != null ? ($data->id == $soshum->id_ujian ? "selected" : "") : "" }}>{{ $data->judul }}</option>
                 @endforeach
             </select>
-            <button type="submit" class="btn btn-lg btn-default btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK SAINTEK</button>
+            <button type="submit" class="btn btn-lg btn-default btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK SOSHUM</button>
         </form>
         <form action="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban.post', $simulasi->id) }}" method="post">
             @csrf
