@@ -12,13 +12,12 @@ Simulasi - {{ $simulasi->judul }}
         <a href="{{ route('pengawas.simulasi.kelola.lihat.hasil.sementara', $simulasi->id) }}" class="btn btn-space btn-default   "><i class="icon icon-left mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
     </div>
     <div class="col-md-12 visible-xs visible-sm">
+        <a href="{{ url()->previous() }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-arrow-left mr-3"></i>Kembali</a>
         <div class="btn-group btn-space">
             <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">Pilih Aksi <span class="icon-dropdown mdi mdi-chevron-down"></span></button>
             <ul role="menu" class="dropdown-menu">
-                <li><a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}">Cetak Kartu Ujian</a></li>
-                <li><a href="{{ $simulasi->link_soal != null ? $simulasi->link_soal : '#' }}">Download Soal</a></li>
-                <li><a href="{{ $simulasi->link_pembahasan != null ? $simulasi->link_pembahasan : '#' }}">Download Pembahasan</a></li>
-                <li><a href="#">Pengumuman</a></li>
+                <li><a href="{{ route('pengawas.simulasi.kelola.koreksi', $simulasi->id) }}">Koreksi</a></li>
+                <li><a href="{{ route('pengawas.simulasi.kelola.lihat.hasil.sementara', $simulasi->id) }}">Lihat Hasil Sementara</a></li>
             </ul>
         </div>
     </div>
