@@ -200,6 +200,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/pengawas/f/{idPengawas?}',     'AdminSimulasi\SimulasiController@pengawasForm')->name('adminsimulasi.simulasi.kelola.pengawas.form');
             Route::post('/pengawas/f/{idPengawas?}',    'AdminSimulasi\SimulasiController@pengawasPost')->name('adminsimulasi.simulasi.kelola.pengawas.post');
             Route::post('/pengawas/addaccount',         'AdminSimulasi\SimulasiController@pengawasAddAccount')->name('adminsimulasi.simulasi.kelola.pengawas.post.account');
+            Route::get('/pengawas/hapus/{idPengawas}',  'AdminSimulasi\SimulasiController@pengawasHapus')->name('adminsimulasi.simulasi.kelola.pengawas.hapus');
             Route::get('/agenda/f/{idAgenda?}',         'AdminSimulasi\SimulasiController@agendaForm')->name('adminsimulasi.simulasi.kelola.agenda.form');
             Route::post('/agenda/post/{idAgenda?}',     'AdminSimulasi\SimulasiController@agendaPost')->name('adminsimulasi.simulasi.kelola.agenda.post');
             Route::get('/agenda/delete/{idAgenda?}',    'AdminSimulasi\SimulasiController@agendaDelete')->name('adminsimulasi.simulasi.kelola.agenda.delete');

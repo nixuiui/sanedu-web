@@ -474,6 +474,13 @@ class SimulasiController extends Controller
         return view('adminsimulasi.simulasi.pengawas')->with('simulasi', $simulasi);
     }
 
+    public function pengawasHapus($id, $idPengawas) {
+        $simulasi = Simulasi::findOrFail($id);
+        $pengawas = SimulasiPengawas::findOrFail($idPengawas);
+        $pengawas->delete();
+        return back();
+    }
+
     public function pengawasForm($id, $idPengawas = null) {
         $simulasi = Simulasi::findOrFail($id);
         $ruang = SimulasiRuang::where("id_simulasi", $simulasi->id)->orderBy("id_mapel", "ASC")->get();

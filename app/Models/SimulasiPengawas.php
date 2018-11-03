@@ -17,7 +17,6 @@ class SimulasiPengawas extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            $data->peserta()->delete();
         });
     }
 

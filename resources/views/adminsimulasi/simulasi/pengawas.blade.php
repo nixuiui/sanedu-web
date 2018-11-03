@@ -4,7 +4,7 @@ Pengawas Simulasi
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Tambah Pengawas</a>
         <div class="panel panel-default panel-table">
@@ -39,7 +39,10 @@ Pengawas Simulasi
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->ruang->id]) }}"><strong>{{ $data->ruang->nama }}</strong></a>
                                 @endif
                             </td>
-                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', ['id' => $simulasi->id, 'idPengawas' => $data->id]) }}" class="btn btn-xs btn-default">Atur Ruang</a></td>
+                            <td>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', ['id' => $simulasi->id, 'idPengawas' => $data->id]) }}" class="btn btn-xs btn-default">Atur Ruang</a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.hapus', ['id' => $simulasi->id, 'idPengawas' => $data->id]) }}" class="btn btn-xs btn-danger"><i class="mdi mdi-delete"></i></a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
