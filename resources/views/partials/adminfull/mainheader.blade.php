@@ -10,7 +10,7 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="dropdown-toggle">
                         <img src="{{ asset('asset-beagle/img/avatar.png')}}" alt="Avatar">
-                        <span class="user-name">Nama Orang</span>
+                        <span class="user-name">{{ Auth::user()->nama }}</span>
                     </a>
                     <ul role="menu" class="dropdown-menu">
                         <li>
