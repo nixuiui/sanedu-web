@@ -9,7 +9,9 @@ Peserta Simulasi - {{ $simulasi->judul }}
 <div class="row">
     <div class="col-md-3">
         <div class="alert alert-warning">
-            Isi dengan <strong>(A,B,C,D,E)</strong> atau <strong>Kosongkan</strong>
+            <p>Isi dengan <strong>(A,B,C,D,E)</strong> atau <strong>Kosongkan</strong></p>
+            <p>Gunakan <strong>TAB</strong> untuk pindah nomor soal</p>
+            <p>Jika ada kesalahan dalam pengisian silahkan lapor</p>
         </div>
         <form action="{{ route('pengawas.simulasi.kelola.koreksi.post', $simulasi->id) }}" method="post">
             @csrf
