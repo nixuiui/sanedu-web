@@ -7,7 +7,7 @@ Hasil Sementara - {{ $simulasi->judul }}
 @section('content')
 <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="panel panel-default panel-table">
             <div class="panel-body table-responsive">
                 <table class="table datatables table-striped">
