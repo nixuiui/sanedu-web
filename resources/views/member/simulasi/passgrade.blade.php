@@ -17,17 +17,17 @@ Simulasi
                     <div class="form-group">
                         <label class="col-sm-3 control-label">PILIHAN SIMULASI</label>
                         <div class="col-sm-9">
+                            {{--
                             <div class="be-radio inline">
                                 <input type="radio" name="mode" id="OFFLINE" value="offline" checked>
                                 <label for="OFFLINE">OFFLINE</label>
                             </div>
-                            {{--
+                            --}}
                             <div class="be-radio inline mb-3">
                                 <input type="radio" name="mode" id="ONLINE" value="online">
                                 <label for="ONLINE">ONLINE</label>
                             </div>
-                            --}}
-                            <div role="alert" class="alert alert-primary alert-icon alert-dismissible mb-0">
+                            <!-- <div role="alert" class="alert alert-primary alert-icon alert-dismissible mb-0">
                                 <div class="icon"><span class="mdi mdi-info-outline"></span></div>
                                 <div class="message">
                                     <ul class="m-0 p-0 pl-4">
@@ -35,7 +35,7 @@ Simulasi
                                         <li><strong>ONLINE</strong> Maaf untuk tryout online saat ini sudah tidak tersedia.</li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <hr>
