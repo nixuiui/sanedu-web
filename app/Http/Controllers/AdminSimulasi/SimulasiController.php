@@ -594,6 +594,15 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function hasilSementaraDelete($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::findOrFail($idPeserta);
+        $koreksi = SimulasiKoreksi::where("id_peserta", $idPeserta)->forceDelete();
+        $peserta->is_corrected = 0;
+        $peserta->save();
+        return back()->with("success", "Berhasil Delete");
+    }
+
     public function kartuUjian($id, $idPeserta) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::findOrFail($idPeserta);

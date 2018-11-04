@@ -216,6 +216,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/ruang/absen/{idRuang?}',       'AdminSimulasi\SimulasiController@ruangAbsen')->name('adminsimulasi.simulasi.kelola.ruang.absen');
             Route::get('/ruang/{idRuang?}',             'AdminSimulasi\SimulasiController@ruang')->name('adminsimulasi.simulasi.kelola.ruang');
             Route::get('/hasilsementara',               'AdminSimulasi\SimulasiController@hasilSementara')->name('adminsimulasi.simulasi.kelola.hasil.sementara');
+            Route::get('/hasilsementara/d/{idPeserta}', 'AdminSimulasi\SimulasiController@hasilSementaraDelete')->name('adminsimulasi.simulasi.kelola.hasil.sementara.delete');
             Route::get('/pindahruang',                  'AdminSimulasi\SimulasiController@pindahRuang')->name('adminsimulasi.simulasi.kelola.pindah.ruang');
         });
     });
