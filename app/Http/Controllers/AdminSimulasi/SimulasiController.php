@@ -368,7 +368,7 @@ class SimulasiController extends Controller
 
     public function ruangBorang($id, $idRuang) {
         $ruang = SimulasiRuang::find($idRuang);
-        $peserta = SimulasiPeserta::where("id_ruang", $ruang->id)->get();
+        $peserta = SimulasiPeserta::where("id_ruang", $ruang->id)->limit(1)->get();
         $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
         return $pdf->stream($ruang->nama.' - '.tanggal(date("Y-m-d")).'.pdf');
     }

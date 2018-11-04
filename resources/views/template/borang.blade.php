@@ -16,6 +16,8 @@
     .text-right { text-align: right; }
     table.borang td { padding: 5px; }
     .box { border: 1px solid #333; padding: 3px; }
+    .box.peringkat { width: 100px; height: 100px; float: right; text-align: center; }
+    .text-peringkat { font-size: 50px; font-weight: bold; margin-top: 10px; display: block;}
 </style>
 </head>
 <body>
@@ -25,23 +27,28 @@
         <tr>
             <td width="170px">Nama</td>
             <td width="5px">:</td>
-            <td>{{ $data->profil->nama }}</td>
-            <td></td>
+            <td colspan="2">{{ $data->profil->nama }}</td>
+            <td rowspan="4" class="text-center">
+                <div class="box peringkat">
+                    PERINGKAT <br>
+                    <span class="text-peringkat">{{ $data->peringkat }}</span>
+                </div>
+            </td>
         </tr>
         <tr>
             <td width="170px">No Ujian</td>
             <td>:</td>
-            <td>{{ $data->profil->no_peserta }}</td>
+            <td colspan="2">{{ $data->no_peserta }}</td>
         </tr>
         <tr>
             <td width="170px">Asal Sekolah</td>
             <td>:</td>
-            <td>{{ $data->profil->asal_sekolah }}</td>
+            <td colspan="2">{{ $data->profil->asal_sekolah }}</td>
         </tr>
         <tr>
             <td width="170px">Jurusan Ujian</td>
             <td>:</td>
-            <td>{{ $data->mapel->nama }}</td>
+            <td colspan="2">{{ $data->mapel->nama }}</td>
         </tr>
         <tr>
             <td width="170px">Hasil Ujian</td>
@@ -53,8 +60,8 @@
                 <div class="box">
                     <table width="100%">
                         <tr>
-                            <td class="50%">B: </td>
-                            <td class="50%">S: </td>
+                            <td class="50%">B: {{ $data->jumlah_benar }}</td>
+                            <td class="50%">S: {{ $data->jumlah_salah }}</td>
                         </tr>
                     </table>
                 </div>
@@ -82,11 +89,11 @@
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan1->universitas != null ? $data->passingGrade->pilihan1->universitas->nama : "-" }}</div></td>
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan1->universitas != null ? $data->passingGrade->pilihan1->jurusan : "-" }}</div></td>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -94,11 +101,11 @@
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan2->universitas != null ? $data->passingGrade->pilihan2->universitas->nama : "-" }}</div></td>
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan2->universitas != null ? $data->passingGrade->pilihan2->jurusan : "-" }}</div></td>
         </tr>
         <tr>
             <td colspan="2"></td>
@@ -106,25 +113,25 @@
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan3->universitas != null ? $data->passingGrade->pilihan3->universitas->nama : "-" }}</div></td>
         </tr>
         <tr>
             <td colspan="2"></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="2"><div class="box">{{ $data->passingGrade->pilihan3->universitas != null ? $data->passingGrade->pilihan3->jurusan : "-" }}</div></td>
         </tr>
         <tr valign="top">
             <td width="170px">Keterangan</td>
             <td></td>
-            <td colspan="2"><textarea class="box"></textarea></td>
+            <td colspan="3"><textarea class="box"></textarea></td>
         </tr>
         <tr valign="top">
             <td width="170px">Rekomendasi Konsultasi</td>
             <td></td>
-            <td colspan="2"><textarea class="box"></textarea></td>
+            <td colspan="3"><textarea class="box" style="height: 60px"></textarea></td>
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
-            <td colspan="2" class="text-right">Bandar Lampung ....................................</td>
+            <td colspan="3" class="text-right">Bandar Lampung ....................................</td>
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
@@ -132,7 +139,7 @@
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
-            <td colspan="2" class="text-right">
+            <td colspan="3" class="text-right">
                 <div class="" style="margin-top: 2cm">
                     (________________________________)
                 </div>
