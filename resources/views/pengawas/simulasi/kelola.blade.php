@@ -8,7 +8,7 @@ Simulasi - {{ $simulasi->judul }}
 <div class="row">
     <div class="col-md-12 hidden-xs visible-md visible-lg">
         <a href="{{ url()->previous() }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-arrow-left mr-3"></i>Kembali</a>
-        <a href="{{ route('pengawas.simulasi.kelola.koreksi', $simulasi->id) }}" class="btn btn-space btn-default   "><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
+        <a href="{{ route('pengawas.simulasi.kelola.koreksi', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
         <a href="{{ route('pengawas.simulasi.kelola.lihat.hasil.sementara', $simulasi->id) }}" class="btn btn-space btn-default   "><i class="icon icon-left mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
     </div>
     <div class="col-md-12 visible-xs visible-sm">

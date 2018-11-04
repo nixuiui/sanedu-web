@@ -8,7 +8,7 @@ Kunci Jawaban Simulasi
 <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space btn-icon"><i class="mdi mdi-arrow-left"></i>Kembali</a>
 <div class="row">
     <div class="col-md-4">
-        <form class="mb-5" action="{{ route('adminsimulasi.simulasi.kelola.taut.soal', $simulasi->id) }}" method="post">
+        <form class="mb-3" action="{{ route('adminsimulasi.simulasi.kelola.taut.soal', $simulasi->id) }}" method="post">
             @csrf
             <input type="hidden" name="id_mapel" value="1516">
             <select class="form-control input-sm select2" name="id_ujian">
@@ -19,6 +19,7 @@ Kunci Jawaban Simulasi
             </select>
             <button type="submit" class="btn btn-lg btn-default btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK SAINTEK</button>
         </form>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.koreksi', ['id' => $simulasi->id, 'idMapel' => 1516]) }}" class="btn btn-vspace btn-block btn-sm btn-success mb-3"><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
         <form action="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban.post', $simulasi->id) }}" method="post">
             @csrf
             <input type="hidden" name="id_mapel" value="1516">
@@ -72,7 +73,7 @@ Kunci Jawaban Simulasi
         </form>
     </div>
     <div class="col-md-4">
-        <form class="mb-5" action="{{ route('adminsimulasi.simulasi.kelola.taut.soal', $simulasi->id) }}" method="post">
+        <form class="mb-3" action="{{ route('adminsimulasi.simulasi.kelola.taut.soal', $simulasi->id) }}" method="post">
             @csrf
             <input type="hidden" name="id_mapel" value="1517">
             <select class="form-control input-sm select2" name="id_ujian">
@@ -83,6 +84,7 @@ Kunci Jawaban Simulasi
             </select>
             <button type="submit" class="btn btn-lg btn-default btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK SOSHUM</button>
         </form>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.koreksi', ['id' => $simulasi->id, 'idMapel' => 1517]) }}" class="btn btn-vspace btn-block btn-sm btn-success mb-3"><i class="icon icon-left mdi mdi-assignment-check mr-3"></i>Koreksi</a>
         <form action="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban.post', $simulasi->id) }}" method="post">
             @csrf
             <input type="hidden" name="id_mapel" value="1517">
