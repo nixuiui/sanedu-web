@@ -70,7 +70,7 @@ Preview - {{ $peserta->simulasi->judul }}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($peserta->koreksi as $i => $d)
+                        @foreach($koreksi as $i => $d)
                         <tr>
                             <td class="text-center">{{ $i+1 }}.</td>
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
