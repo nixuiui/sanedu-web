@@ -78,7 +78,7 @@ Preview - {{ $attempt->ujian->judul }}
         </div>
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
-                JAWABAN ANDA
+                Jawaban
             </div>
             <div class="panel-body">
                 <table class="table table-striped">

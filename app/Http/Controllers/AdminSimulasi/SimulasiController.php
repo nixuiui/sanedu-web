@@ -603,6 +603,18 @@ class SimulasiController extends Controller
         return back()->with("success", "Berhasil Delete");
     }
 
+    public function lihatJawaban($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::where("id", $idPeserta)
+                                    ->where("is_corrected", 1)
+                                    ->first();
+        return view('adminsimulasi.simulasi.lihatjawaban')->with([
+            'simulasi' => $simulasi,
+            'peserta' => $peserta
+        ]);
+
+    }
+
     public function kartuUjian($id, $idPeserta) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::findOrFail($idPeserta);
