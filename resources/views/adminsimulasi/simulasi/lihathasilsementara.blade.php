@@ -41,7 +41,7 @@ Hasil Sementara - {{ $simulasi->judul }}
                             <td class="text-center">{{ $data->jumlah_benar }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara.delete', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-danger delete"><i class="mdi mdi-delete"></i></a>
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.lihat.jawaban', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default"><i class="mdi mdi-open-in-new"></i></a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.lihat.jawaban', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-open-in-new"></i></a>
                             </td>
                         </tr>
                         @endforeach
