@@ -608,9 +608,11 @@ class SimulasiController extends Controller
         $peserta = SimulasiPeserta::where("id", $idPeserta)
                                     ->where("is_corrected", 1)
                                     ->first();
+        $koreksi = SimulasiKoreksi::where("id_peserta", $peserta->id)->orderBy("no_soal", "ASC")->get();
         return view('adminsimulasi.simulasi.lihatjawaban')->with([
             'simulasi' => $simulasi,
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'koreksi' => $koreksi
         ]);
 
     }
