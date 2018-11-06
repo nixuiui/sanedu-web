@@ -56,10 +56,12 @@ Preview - {{ $peserta->simulasi->judul }}
             <div class="panel-heading">
                 Jawaban
             </div>
-            <div class="panel-body">
+            <form class="panel-body" action="{{ route('adminsimulasi.simulasi.kelola.delete.jawaban', $simulasi->id) }}" method="post">
+                @csrf
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <td></td>
                             <th class="text-center">No</th>
                             <th class="text-center">A</th>
                             <th class="text-center">B</th>
@@ -72,6 +74,7 @@ Preview - {{ $peserta->simulasi->judul }}
                     <tbody>
                         @foreach($koreksi as $i => $d)
                         <tr>
+                            <td><input type="checkbox" name="id[]" value="{{ $d->id }}"></td>
                             <td class="text-center">{{ $d->no_soal }}.</td>
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'b' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'b' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'b' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
@@ -83,7 +86,8 @@ Preview - {{ $peserta->simulasi->judul }}
                         @endforeach
                     </tbody>
                 </table>
-            </div>
+                <button type="submit" name="button">Kirim</button>
+            </form>
         </div>
     </div>
 </div>

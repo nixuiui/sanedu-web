@@ -617,6 +617,13 @@ class SimulasiController extends Controller
 
     }
 
+    public function deleteJawaban(Request $input, $id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $koreksi = SimulasiKoreksi::whereIn("id", $input->id)->delete();
+        return back();
+
+    }
+
     public function kartuUjian($id, $idPeserta) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::findOrFail($idPeserta);
