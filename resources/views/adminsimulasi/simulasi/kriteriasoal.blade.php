@@ -5,7 +5,7 @@ Kriteria Soal
 @endsection
 
 @section('content')
-<a href="{{ URL::previous() }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
+<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <a href="{{ route('adminsimulasi.simulasi.kelola.generate.kriteria.soal', $simulasi->id) }}" class="btn btn-default btn-space">Generate</a>
 <div class="row">
     <div class="col-md-4">
