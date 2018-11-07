@@ -242,7 +242,7 @@ class SimulasiController extends Controller
         $jadwal = SimulasiJadwalOnline::where('id_simulasi', $simulasi->id)
                                         ->where('id', $idJadwal)
                                         ->firstOrFail();
-        return $peserta = SimulasiPeserta::where('id_jadwal_online', $jadwal->id)
+        $peserta = SimulasiPeserta::where('id_jadwal_online', $jadwal->id)
                                     ->where('is_corrected', false)
                                     ->where('is_attempted', true)
                                     ->get();
