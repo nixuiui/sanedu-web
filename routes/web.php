@@ -314,6 +314,7 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
             Route::get('/attempt/{idUjian}',    'Member\SimulasiController@attempt')->name('member.simulasi.ujian.attempt');
             Route::get('/openujian/{idAttempt}','Member\SimulasiController@openUjian')->name('member.simulasi.ujian.open');
             Route::get('/finish/{idAttempt}',   'Member\SimulasiController@finish')->name('member.simulasi.ujian.finish');
+            Route::get('/lihathasil',           'Member\SimulasiController@lihatHasil')->name('member.simulasi.lihat.hasil');
         });
     });
 
