@@ -12,6 +12,7 @@ Simulasi - {{ $simulasi->judul }}
         @endif
         <a href="{{ $simulasi->link_soal }}" class="btn btn-space btn-default" {{ $simulasi->link_soal == null ? "disabled" : ""}}><i class="icon icon-left mdi mdi-download mr-3"></i>Download Soal</a>
         <a href="{{ $simulasi->link_pembahasan }}" class="btn btn-space btn-default" {{ $simulasi->link_pembahasan == null ? "disabled" : ""}}><i class="icon icon-left mdi mdi-download mr-3"></i>Download Pembahasan</a>
+        <a href="{{ route('member.simulasi.lihat.hasil', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
     </div>
     <div class="col-md-12 visible-xs visible-sm">
         <div class="btn-group btn-space">

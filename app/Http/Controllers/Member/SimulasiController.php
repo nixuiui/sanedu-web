@@ -304,4 +304,17 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function lihatHasil($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_user", Auth::id())
+                                    ->firstOrFail();
+        $koreksi = SimulasiKoreksi::where("id_peserta", $peserta->id)->orderBy("no_soal", "ASC")->get();
+        return view('member.simulasi.lihathasilsementara')->with([
+            'simulasi' => $simulasi,
+            'peserta' => $peserta,
+            'koreksi' => $koreksi
+        ]);
+    }
+
 }
