@@ -258,13 +258,17 @@ class SimulasiController extends Controller
                 $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
                                                         ->where('id_soal', $s->id)
                                                         ->first();
+                $soalOffline = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                                    ->where("id_mapel", $peserta->id_mapel)
+                                                    ->where('no', $key+1)
+                                                    ->first();
                 $koreksi = new SimulasiKoreksi;
                 $koreksi->id = Uuid::generate();
                 $koreksi->id_simulasi = $simulasi->id;
                 $koreksi->id_peserta = $data->id;
-                $koreksi->id_soal = $s->id;
+                $koreksi->id_soal = $soalOffline->id;
                 $koreksi->no_soal = $key + 1;
-                $koreksi->kunci_jawaban = $s->jawaban;
+                $koreksi->kunci_jawaban = $soalOffline->jawaban;
                 $koreksi->jawaban = $attemptCorrection == null ? null : $attemptCorrection->jawaban;
                 $koreksi->is_correct = $attemptCorrection == null ? false : $attemptCorrection->is_correct;
                 $koreksi->save();
