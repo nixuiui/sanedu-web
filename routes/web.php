@@ -208,6 +208,8 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::post('/jadwal/post/{idJadwal?}',     'AdminSimulasi\SimulasiController@jadwalPost')->name('adminsimulasi.simulasi.kelola.jadwal.post');
             Route::get('/jadwal/delete/{idJadwal?}',    'AdminSimulasi\SimulasiController@jadwalDelete')->name('adminsimulasi.simulasi.kelola.jadwal.delete');
             Route::get('/jadwal/{idJadwal?}',           'AdminSimulasi\SimulasiController@jadwal')->name('adminsimulasi.simulasi.kelola.jadwal');
+            Route::get('/aturpesertaonline',            'AdminSimulasi\SimulasiController@aturPesertaOnline')->name('adminsimulasi.simulasi.kelola.peserta.online.form');
+            Route::post('/aturpesertaonline',           'AdminSimulasi\SimulasiController@aturPesertaOnlinePost')->name('adminsimulasi.simulasi.kelola.peserta.online.post');
             Route::get('/pushnilai/{idJadwal?}',        'AdminSimulasi\SimulasiController@pushNilai')->name('adminsimulasi.simulasi.kelola.push.nilai');
             Route::get('/ruang/f/{idRuang?}',           'AdminSimulasi\SimulasiController@ruangForm')->name('adminsimulasi.simulasi.kelola.ruang.form');
             Route::post('/ruang/post/{idRuang?}',       'AdminSimulasi\SimulasiController@ruangPost')->name('adminsimulasi.simulasi.kelola.ruang.post');
@@ -218,7 +220,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/hasilsementara',               'AdminSimulasi\SimulasiController@hasilSementara')->name('adminsimulasi.simulasi.kelola.hasil.sementara');
             Route::get('/hasilsementara/d/{idPeserta}', 'AdminSimulasi\SimulasiController@hasilSementaraDelete')->name('adminsimulasi.simulasi.kelola.hasil.sementara.delete');
             Route::get('/lihatjawaban/{idPeserta}',     'AdminSimulasi\SimulasiController@lihatJawaban')->name('adminsimulasi.simulasi.kelola.lihat.jawaban');
-            Route::post('/deletejawaban',     'AdminSimulasi\SimulasiController@deleteJawaban')->name('adminsimulasi.simulasi.kelola.delete.jawaban');
+            Route::post('/deletejawaban',               'AdminSimulasi\SimulasiController@deleteJawaban')->name('adminsimulasi.simulasi.kelola.delete.jawaban');
             Route::get('/pindahruang',                  'AdminSimulasi\SimulasiController@pindahRuang')->name('adminsimulasi.simulasi.kelola.pindah.ruang');
             Route::get('/koreksi',                      'AdminSimulasi\SimulasiController@koreksi')->name('adminsimulasi.simulasi.kelola.koreksi');
             Route::get('/generateattempt',              'AdminSimulasi\SimulasiController@generateAttempt');

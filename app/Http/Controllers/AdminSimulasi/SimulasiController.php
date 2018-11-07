@@ -741,4 +741,36 @@ class SimulasiController extends Controller
         }
     }
 
+    public function aturPesertaOnline($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
+                                        ->where("is_full", false)
+                                        ->get();
+        return view("adminsimulasi.simulasi.aturpesertaonline")->with([
+            'simulasi' => $simulasi,
+            'jadwal' => $jadwal
+        ]);
+    }
+
+    public function aturPesertaOnlinePost(Request $input, $id) {
+        $this->validate($input, [
+            'id_jadwal_online'  => 'required|exists:tbl_simulasi_jadwal_online,id',
+            'username'          => 'required|exists:tbl_users,username'
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
+                                        ->where("id", $input->id_jadwal_online)
+                                        ->where("is_full", false)
+                                        ->firstOrFail();
+        $user = User::where("username", $input->username)->firstOrFail();
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_user", $user->id)
+                                    ->firstOrFail();
+        $peserta->mode_simulasi = "online";
+        $peserta->id_ruang = null;
+        $peserta->id_jadwal_online = $jadwal->id;
+        $peserta->save();
+        return back()->with("success", "Berhasil menyimpan");
+    }
+
 }

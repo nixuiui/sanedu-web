@@ -311,6 +311,7 @@ Kelola Simulasi
                                 <tr>
                                     <th colspan="4">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon"><i class="mdi mdi-plus"></i>Tambah Jadwal Online</a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.online.form', $simulasi->id) }}" class="btn btn-default btn-md btn-icon"><i class="mdi mdi-account"></i>Atur Peserta Online</a>
                                     </th>
                                 </tr>
                                 <tr>
