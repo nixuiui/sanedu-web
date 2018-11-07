@@ -734,11 +734,9 @@ class SimulasiController extends Controller
             ->get();
         foreach($soal as $s) {
             $benar = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 1)->get()->count();
-            $salah = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->whereNotNull("jawaban")->get()->count();
-            $kosong = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->whereNull("jawaban")->get()->count();
+            $salah = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->get()->count();
             $s->jumlah_benar = $benar;
             $s->jumlah_salah = $salah;
-            $s->jumlah_kosong = $kosong;
             $s->save();
         }
     }
