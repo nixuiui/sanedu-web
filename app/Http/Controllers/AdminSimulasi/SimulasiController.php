@@ -259,7 +259,7 @@ class SimulasiController extends Controller
                                                         ->where('id_soal', $s->id)
                                                         ->first();
                 $soalOffline = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
-                                                    ->where("id_mapel", $peserta->id_mapel)
+                                                    ->where("id_mapel", $data->id_mapel)
                                                     ->where('no', $key+1)
                                                     ->first();
                 $koreksi = new SimulasiKoreksi;
