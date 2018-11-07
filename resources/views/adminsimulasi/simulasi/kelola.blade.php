@@ -28,7 +28,7 @@ Kelola Simulasi
 <div class="row">
     <div class="col-md-12">
         <a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
-        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
         <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Sementara</a>
         <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Akhir</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-download mr-3"></i>Download Borang Rekomendasi</a>

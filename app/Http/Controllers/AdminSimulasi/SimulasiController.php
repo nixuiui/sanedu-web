@@ -706,4 +706,36 @@ class SimulasiController extends Controller
         return back()->with("success", "Berhasil Disimpan");
     }
 
+    public function kriteriaSoal($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $soalSaintek = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                ->where("id_mapel", 1516)
+                                ->orderBy("no", "ASC")
+                                ->get();
+        $soalSoshum = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                ->where("id_mapel", 1517)
+                                ->orderBy("no", "ASC")
+                                ->get();
+        return view("adminsimulasi.simulasi.kriteriasoal")->with([
+            'simulasi' => $simulasi,
+            'soalSaintek' => $soalSaintek,
+            'soalSoshum' => $soalSoshum
+        ]);
+    }
+
+    public function kriteriaSoalgenerate($id) {
+        $soal = SimulasiKunciJawaban::where("id_simulasi", $id)
+            ->orderBy("no", "ASC")
+            ->get();
+        foreach($soal as $s) {
+            $benar = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 1)->get()->count();
+            $salah = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->whereNotNull("jawaban")->get()->count();
+            $kosong = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->whereNull("jawaban")->get()->count();
+            $s->jumlah_benar = $benar;
+            $s->jumlah_salah = $salah;
+            $s->jumlah_kosong = $kosong;
+            $s->save();
+        }
+    }
+
 }
