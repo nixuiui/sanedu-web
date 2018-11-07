@@ -739,6 +739,7 @@ class SimulasiController extends Controller
             $s->jumlah_salah = $salah;
             $s->save();
         }
+        return back()->with("success", "Berhasil");
     }
 
     public function aturPesertaOnline($id) {

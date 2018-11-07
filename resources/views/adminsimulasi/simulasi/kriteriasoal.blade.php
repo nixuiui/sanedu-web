@@ -40,7 +40,7 @@ Kriteria Soal
                 SOAL SOSHUM
             </div>
             <div class="panel-body">
-                <table id="datatables" class="table table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
