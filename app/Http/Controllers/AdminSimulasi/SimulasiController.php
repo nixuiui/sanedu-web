@@ -27,6 +27,11 @@ use App\Models\SimulasiKunciJawaban;
 
 class SimulasiController extends Controller
 {
+    public function generateAttempt($id){
+	$attempt = Attempt::select(['id_peserta_simulasi'])->whereNotNull("id_peserta_simulasi")->get();
+	$peserta = SimulasiPeserta::whereIn('id', $attempt)->update(['is_attempted' => 1]);
+    }
+
     public function index() {
         $simulasi = Simulasi::where('id_creator', Auth::id())->orderby('created_at', 'desc')->get();
         return view('adminsimulasi.simulasi.index')->with([
