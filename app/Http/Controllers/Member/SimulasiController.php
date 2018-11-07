@@ -13,6 +13,7 @@ use App\Models\Universitas;
 use App\Models\Ujian;
 use App\Models\Attempt;
 use App\Models\Simulasi;
+use App\Models\SimulasiKoreksi;
 use App\Models\SimulasiUjian;
 use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiRuang;
