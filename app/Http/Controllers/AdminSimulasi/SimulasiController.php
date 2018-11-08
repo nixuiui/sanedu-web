@@ -111,6 +111,8 @@ class SimulasiController extends Controller
         $simulasi->link_soal = $input->link_soal;
         $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
+        $simulasi->is_offline = isset($input->offline) ? 1 : 0;
+        $simulasi->is_online = isset($input->online) ? 1 : 0;
         if($input->featured_image != null) {
             $upload = $this->uploadImage($input->featured_image);
             if($upload->success) $simulasi->featured_image = $upload->filename;

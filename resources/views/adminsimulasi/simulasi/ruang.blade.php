@@ -4,7 +4,7 @@ Ruang Simulasi
 @endsection
 @section('content')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-md btn-default btn-space"><i class="mdi mdi-arrow-left mr-3"></i> Kembali</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Tambah Ruang</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.pindah.ruang', $simulasi->id) }}" class="btn btn-md btn-fill btn-primary btn-space"><i class="mdi mdi-plus mr-3"></i> Pindah Ruang</a>
@@ -18,7 +18,7 @@ Ruang Simulasi
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
-                            <th>Aksi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -28,7 +28,7 @@ Ruang Simulasi
                             <th>Alamat</th>
                             <th>Kursi</th>
                             <th>Pengawas</th>
-                            <th>Aksi</th>
+                            <th></th>
                         </tr>
                     </tfoot>
                     <tbody>

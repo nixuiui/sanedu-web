@@ -133,6 +133,18 @@ Kelola Simulasi
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <div class="be-checkbox be-checkbox-color inline mb-3">
+                                        <input id="offline" name="offline" type="checkbox" {{ $simulasi->is_offline ? "checked" : ""}} value="1">
+                                        <label for="offline">OFFLINE</label>
+                                    </div>
+                                    <div class="be-checkbox be-checkbox-color inline mb-3">
+                                        <input id="online" name="online" type="checkbox" {{ $simulasi->is_online ? "checked" : ""}} value="1">
+                                        <label for="online">ONLINE</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -249,30 +261,30 @@ Kelola Simulasi
                             </thead>
                             <tbody>
                                 @if($simulasi->ruang->count() > 0)
-                                    @foreach($ruang as $index => $data)
-                                        @if($index >= 5)
-                                            <tr>
-                                                <td colspan="6" class="text-center text-bold"><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}">Lihat Semua Ruang</a></td>
-                                            </tr>
-                                            @break
-                                        @else
-                                        <tr>
-                                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
-                                            <td>{{ $data->ruangMapel->nama }}</td>
-                                            <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
-                                            <td>{{ $data->pengawas->count() }}</td>
-                                            <td>{{ $data->alamat }}</td>
-                                            <td class="text-right">
-                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                                <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                    @endforeach
+                                @foreach($ruang as $index => $data)
+                                @if($index >= 5)
+                                <tr>
+                                    <td colspan="6" class="text-center text-bold"><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}">Lihat Semua Ruang</a></td>
+                                </tr>
+                                @break
                                 @else
-                                    <tr>
-                                        <td colspan="6" class="data-is-empty">Belum ada ruangan yang dibuat</td>
-                                    </tr>
+                                <tr>
+                                    <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
+                                    <td>{{ $data->ruangMapel->nama }}</td>
+                                    <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
+                                    <td>{{ $data->pengawas->count() }}</td>
+                                    <td>{{ $data->alamat }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                    </td>
+                                </tr>
+                                @endif
+                                @endforeach
+                                @else
+                                <tr>
+                                    <td colspan="6" class="data-is-empty">Belum ada ruangan yang dibuat</td>
+                                </tr>
                                 @endif
                             </tbody>
                         </table>
