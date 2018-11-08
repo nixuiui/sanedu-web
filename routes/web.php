@@ -227,6 +227,9 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::post('/koreksi',                     'AdminSimulasi\SimulasiController@koreksiPost')->name('adminsimulasi.simulasi.kelola.koreksi.post');
             Route::get('/kriteriasoal',                 'AdminSimulasi\SimulasiController@kriteriaSoal')->name('adminsimulasi.simulasi.kelola.kriteria.soal');
             Route::get('/kriteriasoalgenerate',         'AdminSimulasi\SimulasiController@kriteriaSoalgenerate')->name('adminsimulasi.simulasi.kelola.generate.kriteria.soal');
+            Route::group(['prefix' => 'download'], function(){
+                Route::get('/peserta',      'AdminSimulasi\SimulasiController@downloadPesertaAll')->name('adminsimulasi.simulasi.kelola.download.peserta');
+            });
         });
     });
 });

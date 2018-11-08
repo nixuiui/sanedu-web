@@ -29,9 +29,17 @@ Kelola Simulasi
     <div class="col-md-12">
         <a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
-        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Sementara</a>
-        <a href="#" class="btn btn-sm btn-default btn-space disabled"><i class="mdi mdi-download mr-3"></i>Download Hasil Akhir</a>
-        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-download mr-3"></i>Download Borang Rekomendasi</a>
+        <div class="btn-group btn-space">
+            <button type="button" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                <i class="icon icon-left mdi mdi-download mr-3"></i> Download
+                <span class="icon-dropdown mdi mdi-chevron-down"></span>
+            </button>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="#">Download Hasil Sementara</a></li>
+                <li><a href="#">Download Hasil Akhir</a></li>
+                <li><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}">Download Borang Rekomendasi</a></li>
+            </ul>
+        </div>
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">
             <div class="panel-heading">Informasi Simulasi</div>
             <div class="panel-body">

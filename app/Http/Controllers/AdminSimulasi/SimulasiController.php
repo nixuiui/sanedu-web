@@ -795,4 +795,64 @@ class SimulasiController extends Controller
         return redirect()->route('adminsimulasi.simulasi.kelola.peserta.online.form', $simulasi->id)->with("success", "Berhasil menyimpan");
     }
 
+
+
+    public function downloadPesertaAll($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $where = "id_simulasi='".$simulasi->id."'";
+        $title = 'Data Peserta Simulasi ' . $simulasi->judul;
+        if(isset($_GET['mode_simulasi'])) {
+            $mode = $_GET['mode_simulasi'];
+            $where .= " && mode_simulasi='" . $mode . "' ";
+            $title .= " " . strtoupper($mode);
+        }
+        if(isset($_GET['id_mapel'])) {
+            $mapel = $_GET['id_mapel'];
+            if($mapel == 1516) {
+                $where .= " && id_mapel=1516 ";
+                $title .= " SAINTEK";
+            }
+            else if($mapel == 1517) {
+                $where .= " && id_mapel=1517 ";
+                $title .= " SOSHUM";
+            }
+        }
+        if(isset($_GET['is_attempted'])) {
+            $where .= " && is_attempted=0 ";
+            $title .= " BELUM UJIAN";
+        }
+        if(isset($_GET['is_corrected'])) {
+            $where .= " && is_corrected=0 ";
+            $title .= " BELUM UJIAN";
+        }
+        $peserta = DB::select("
+                        SELECT
+                        no_peserta,
+                        mode_simulasi,
+                        user.nama,
+                        user.no_hp,
+                        user.asal_sekolah
+                        FROM
+                        tbl_simulasi_peserta as peserta
+                        INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                        WHERE
+                        " . $where . "
+                        ORDER BY user.nama ASC
+        ");
+
+        $pesertaArray = [];
+        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi'];
+        foreach ($peserta as $data) {
+            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->asal_sekolah), $data->no_hp, strtoupper($data->mode_simulasi)];
+        }
+        Excel::create($title, function($excel) use ($simulasi, $pesertaArray) {
+            $excel->setTitle('Data Peserta Simulasi ' . $simulasi->judul);
+            $excel->setCreator('Niki Rahmadi Wiharto')->setCompany('Sanedu');
+            $excel->setDescription('Data Peserta');
+            $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
+                    $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+            });
+        })->download('xlsx');
+    }
+
 }

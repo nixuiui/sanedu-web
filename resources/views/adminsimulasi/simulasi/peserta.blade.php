@@ -9,9 +9,24 @@ Peserta Simulasi - {{ $simulasi->judul }}
 <div class="row">
     <div class="col-md-12">
         <div class="mb-3">
-            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id]) }}" class="btn btn-md btn-default">SEMUA</a>
-            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id, 'simulasi' => 'offline']) }}" class="btn btn-md btn-default"><i class="mdi mdi-circle mr-2 text-danger"></i>OFFLINE</a>
-            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id, 'simulasi' => 'online']) }}" class="btn btn-md btn-default"><i class="mdi mdi-circle mr-2 text-success"></i>ONLINE</a>
+            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id]) }}" class="btn btn-sm btn-default btn-space">SEMUA</a>
+            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id, 'simulasi' => 'offline']) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-circle mr-2 text-danger"></i>OFFLINE</a>
+            <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', ['id' => $simulasi->id, 'simulasi' => 'online']) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-circle mr-2 text-success"></i>ONLINE</a>
+            <div class="btn-group btn-space">
+                <button type="button" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                    <i class="icon icon-left mdi mdi-download mr-3"></i> Download
+                    <span class="icon-dropdown mdi mdi-chevron-down"></span>
+                </button>
+                <ul role="menu" class="dropdown-menu">
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id]) }}">Peserta</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'id_mapel' => 1516]) }}">Peserta Saintek</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'id_mapel' => 1517]) }}">Peserta Soshum</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'mode_simulasi' => 'online']) }}">Peserta Online</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'mode_simulasi' => 'offline']) }}">Peserta Offline</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'mode_simulasi' => 'online', 'is_attempted' => 0]) }}">Peserta Online Belum Ujian</a></li>
+                    <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.peserta', ['id' => $simulasi->id, 'mode_simulasi' => 'offline', 'is_corrected' => 0]) }}">Peserta Offline Belum Ujian</a></li>
+                </ul>
+            </div>
         </div>
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
