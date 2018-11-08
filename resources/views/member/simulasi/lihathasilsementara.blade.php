@@ -40,6 +40,7 @@ Hasil Sementara
                         </tr>
                     </thead>
                     <tbody>
+                        @if($koreksi->count() > 0)
                         @foreach($koreksi as $i => $d)
                         <tr>
                             <td class="text-center">{{ $d->no_soal }}.</td>
@@ -51,6 +52,11 @@ Hasil Sementara
                             <td class="text-center text-uppercase text-bold">{{ $d->kunci_jawaban }}</td>
                         </tr>
                         @endforeach
+                        @else
+                        <tr>
+                            <td colspan="7" class="text-center">Nilai Anda Belum Masuk</td>
+                        </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
