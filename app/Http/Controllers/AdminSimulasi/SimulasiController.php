@@ -596,10 +596,17 @@ class SimulasiController extends Controller
 
     public function hasilSementara($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->orderBy("no_peserta", "ASC")->get();
+        $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1);
+        $saintek = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->where("id_mapel", 1516)->get()->count();
+        $soshum = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->where("id_mapel", 1517)->get()->count();
+        if(isset($_GET['id_mapel']))
+            $peserta = $peserta->where("id_mapel", $_GET['id_mapel']);
+        $peserta = $peserta->orderBy("no_peserta", "ASC")->get();
         return view('adminsimulasi.simulasi.lihathasilsementara')->with([
             'simulasi' => $simulasi,
-            'peserta' => $peserta
+            'peserta' => $peserta,
+            'saintek' => $saintek,
+            'soshum' => $soshum
         ]);
     }
 

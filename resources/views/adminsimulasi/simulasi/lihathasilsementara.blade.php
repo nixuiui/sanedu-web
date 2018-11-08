@@ -5,7 +5,27 @@ Hasil Sementara - {{ $simulasi->judul }}
 @endsection
 
 @section('content')
-<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
+<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default mb-3 mr-3 btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
+<div class="btn-group">
+    <button type="button" data-toggle="dropdown" class="btn btn-default mb-3 dropdown-toggle" aria-expanded="false">
+        @if(!isset($_GET['id_mapel']))
+        SEMUA
+        @else
+            @if($_GET['id_mapel'] == 1516)
+                SAINTEK
+            @else
+                SOSHUM
+            @endif
+        @endif
+        ({{ $peserta->count() }})
+        <span class="icon-dropdown mdi mdi-chevron-down"></span>
+    </button>
+    <ul role="menu" class="dropdown-menu">
+        <li><a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', ['id' => $simulasi->id]) }}">SEMUA</a></li>
+        <li><a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', ['id' => $simulasi->id, 'id_mapel' => 1516]) }}">SAINTEK ({{ $saintek }})</a></li>
+        <li><a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', ['id' => $simulasi->id, 'id_mapel' => 1517]) }}">SOSHUM ({{ $soshum }})</a></li>
+    </ul>
+</div>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default panel-table">
