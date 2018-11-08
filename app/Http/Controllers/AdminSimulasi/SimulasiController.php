@@ -379,7 +379,7 @@ class SimulasiController extends Controller
 
     public function ruangBorang($id, $idRuang) {
         $ruang = SimulasiRuang::find($idRuang);
-        $peserta = SimulasiPeserta::where("id_ruang", $ruang->id)->limit(1)->get();
+        $peserta = SimulasiPeserta::where("id_ruang", $ruang->id)->get();
         $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
         return $pdf->stream($ruang->nama.' - '.tanggal(date("Y-m-d")).'.pdf');
     }
@@ -795,9 +795,7 @@ class SimulasiController extends Controller
         return redirect()->route('adminsimulasi.simulasi.kelola.peserta.online.form', $simulasi->id)->with("success", "Berhasil menyimpan");
     }
 
-
-
-    public function downloadPesertaAll($id) {
+    public function downloadPeserta($id) {
         $simulasi = Simulasi::findOrFail($id);
         $where = "id_simulasi='".$simulasi->id."'";
         $title = 'Data Peserta Simulasi ' . $simulasi->judul;
@@ -853,6 +851,25 @@ class SimulasiController extends Controller
                     $sheet->fromArray($pesertaArray, null, 'A1', false, false);
             });
         })->download('xlsx');
+    }
+
+    public function downloadBorang($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id);
+        $title = "Borang Rekomendasi";
+        if(isset($_GET['idRuang'])) {
+            $ruang = SimulasiRuang::findOrFail($_GET['idRuang']);
+            $peserta = $peserta->where("id_ruang", $_GET['idRuang']);
+            $title .= " " . $ruang->nama;
+        }
+        else if(isset($_GET['idJadwal'])) {
+            $jadwal = SimulasiJadwalOnline::findOrFail($_GET['idJadwal']);
+            $peserta = $peserta->where("id_jadwal_online", $_GET['idJadwal']);
+            $title .= " " . $jadwal->tanggal;
+        }
+        $peserta = $peserta->get();
+        $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
+        return $pdf->stream($title . '.pdf');
     }
 
 }

@@ -7,7 +7,7 @@
     @page {
         margin: 1.5cm;
     }
-    body { font-size: 14px; }
+    body { font-size: 13px; }
     h1 { font-size: 30px; margin-bottom: 1cm; }
     .page-break {
         page-break-after: always;
@@ -21,7 +21,7 @@
 </style>
 </head>
 <body>
-    @foreach($peserta as $data)
+    @foreach($peserta as $index => $data)
     <h1 class="text-center">BORANG LAPORAN REKOMENDASI</h1>
     <table class="borang" width="17cm">
         <tr>
@@ -60,8 +60,8 @@
                 <div class="box">
                     <table width="100%">
                         <tr>
-                            <td class="50%">B: {{ $data->jumlah_benar }}</td>
-                            <td class="50%">S: {{ $data->jumlah_salah }}</td>
+                            <td class="50%">BENAR: {{ $data->jumlah_benar }}</td>
+                            <td class="50%">SALAH/KOSONG: {{ $data->jumlah_salah }}</td>
                         </tr>
                     </table>
                 </div>
@@ -131,7 +131,7 @@
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
-            <td colspan="3" class="text-right">Bandar Lampung ....................................</td>
+            <td colspan="3" class="text-right">Bandar Lampung, {{ tanggal(date("Y-m-d")) }}</td>
         </tr>
         <tr valign="top">
             <td colspan="2"></td>
@@ -146,7 +146,9 @@
             </td>
         </tr>
     </table>
+    @if($index+1 < $peserta->count())
     <div class="page-break"></div>
+    @endif
     @endforeach
 </body>
 </html>
