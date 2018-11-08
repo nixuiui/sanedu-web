@@ -28,8 +28,8 @@ use App\Models\SimulasiKunciJawaban;
 class SimulasiController extends Controller
 {
     public function generateAttempt($id){
-	$attempt = Attempt::select(['id_peserta_simulasi'])->whereNotNull("id_peserta_simulasi")->get();
-	$peserta = SimulasiPeserta::whereIn('id', $attempt)->update(['is_attempted' => 1]);
+        $attempt = Attempt::select(['id_peserta_simulasi'])->whereNotNull("id_peserta_simulasi")->get();
+        $peserta = SimulasiPeserta::whereIn('id', $attempt)->update(['is_attempted' => 1]);
     }
 
     public function index() {
@@ -245,17 +245,17 @@ class SimulasiController extends Controller
                                         ->where('id', $idJadwal)
                                         ->firstOrFail();
         $peserta = SimulasiPeserta::where('id_jadwal_online', $jadwal->id)
-                                    ->where('is_corrected', false)
-                                    ->where('is_attempted', true)
-                                    ->get();
+                                        ->where('is_corrected', false)
+                                        ->where('is_attempted', true)
+                                        ->get();
         foreach($peserta as $data) {
             $attempt = Attempt::where('id_peserta_simulasi', $data->id)
                                 ->orderBy('jumlah_benar', 'asc')
                                 ->first();
             $soal = Soal::select(['id', 'created_at'])
-                                ->where('id_ujian', $attempt->id_ujian)
-                                ->orderBy('created_at', 'asc')
-                                ->get();
+                            ->where('id_ujian', $attempt->id_ujian)
+                            ->orderBy('created_at', 'asc')
+                            ->get();
             foreach($soal as $key => $s) {
                 $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
                                                         ->where('id_soal', $s->id)
@@ -299,16 +299,16 @@ class SimulasiController extends Controller
         if(!$ruang) return back();
 
         $peserta = DB::select("
-                                    SELECT
-                                    no_peserta,
-                                    user.nama,
-                                    user.no_hp,
-                                    user.asal_sekolah
-                                    FROM
-                                    tbl_simulasi_peserta as peserta
-                                    INNER JOIN tbl_users as user ON user.id=peserta.id_user
-                                    WHERE id_ruang='".$ruang->id."'
-                                    ORDER BY user.nama ASC
+        SELECT
+        no_peserta,
+        user.nama,
+        user.no_hp,
+        user.asal_sekolah
+        FROM
+        tbl_simulasi_peserta as peserta
+        INNER JOIN tbl_users as user ON user.id=peserta.id_user
+        WHERE id_ruang='".$ruang->id."'
+        ORDER BY user.nama ASC
         ");
 
         $pesertaArray = [];
@@ -321,7 +321,7 @@ class SimulasiController extends Controller
             $excel->setCreator('Sanedu')->setCompany('Niki Rahmadi Wiharto');
             $excel->setDescription('Absen peserta');
             $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
-                    $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+                $sheet->fromArray($pesertaArray, null, 'A1', false, false);
             });
         })->download('xlsx');
     }
@@ -331,7 +331,7 @@ class SimulasiController extends Controller
 
         $mapel = "";
         if($simulasi->id_jenis_ujian == 1404)
-            $mapel = SetPustaka::whereIn("id", [1516, 1517])->get();
+        $mapel = SetPustaka::whereIn("id", [1516, 1517])->get();
 
         if($idRuang == null)
         return view('adminsimulasi.simulasi.ruangform')->with([
@@ -406,10 +406,10 @@ class SimulasiController extends Controller
         }
         else {
             $ruang = SimulasiRuang::where('id_simulasi', $peserta->id_simulasi)
-                    ->where('id_mapel', $peserta->id_mapel)
-                    ->where('is_full', false)
-                    ->orderBy('created_at', 'ASC')
-                    ->first();
+                                    ->where('id_mapel', $peserta->id_mapel)
+                                    ->where('is_full', false)
+                                    ->orderBy('created_at', 'ASC')
+                                    ->first();
             if(!$ruang) return back()->with("danger", "Kuota Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
             $peserta->mode_simulasi = "offline";
             $peserta->id_ruang = $ruang->id;
@@ -475,7 +475,7 @@ class SimulasiController extends Controller
     public function reqKunciJawaban($id, $idMapel) {
         $simulasi = Simulasi::find($id);
         if(!$simulasi)
-            return $this->error("Data Simulasi tidak ada");
+        return $this->error("Data Simulasi tidak ada");
         $kunci = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where("id_mapel", $idMapel)->get();
         return $this->success($kunci);
     }
@@ -536,9 +536,9 @@ class SimulasiController extends Controller
             $pengawas->id_mapel = $ruang->id_mapel;
         }
         if($pengawas->save())
-            return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
+        return redirect()->route('adminsimulasi.simulasi.kelola.pengawas', ["id" => $simulasi->id])->with("success", "Berhasil Menambah Pengawas");
         else
-            return back()->with("danger", "Gagal menyimpan data pengawas");
+        return back()->with("danger", "Gagal menyimpan data pengawas");
     }
 
 
@@ -602,7 +602,7 @@ class SimulasiController extends Controller
         $saintek = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->where("id_mapel", 1516)->get()->count();
         $soshum = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('is_corrected', 1)->where("id_mapel", 1517)->get()->count();
         if(isset($_GET['id_mapel']))
-            $peserta = $peserta->where("id_mapel", $_GET['id_mapel']);
+        $peserta = $peserta->where("id_mapel", $_GET['id_mapel']);
         $peserta = $peserta->orderBy("no_peserta", "ASC")->get();
         return view('adminsimulasi.simulasi.lihathasilsementara')->with([
             'simulasi' => $simulasi,
@@ -660,21 +660,21 @@ class SimulasiController extends Controller
             $selisih = $r->jumlah_peserta - $r->kapasitas;
             if(($selisih) > 0) {
                 $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
-                                            ->where("id_ruang", $r->id)
-                                            ->limit($selisih)->update(['id_ruang' => null]);
+                ->where("id_ruang", $r->id)
+                ->limit($selisih)->update(['id_ruang' => null]);
             }
             $jumlah += $r->jumlah_peserta;
         }
 
         $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
-                            ->where("mode_simulasi", "offline")
-                            ->where("id_ruang", NULL)
-                            ->get();
+                                    ->where("mode_simulasi", "offline")
+                                    ->where("id_ruang", NULL)
+                                    ->get();
         foreach($peserta as $data) {
             $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
-                    ->where('id_mapel', $data->id_mapel)
-                    ->where('is_full', false)
-                    ->first();
+                                    ->where('id_mapel', $data->id_mapel)
+                                    ->where('is_full', false)
+                                    ->first();
             if($ruang) {
                 $data->id_ruang = $ruang->id;
                 $data->save();
@@ -727,13 +727,13 @@ class SimulasiController extends Controller
     public function kriteriaSoal($id) {
         $simulasi = Simulasi::findOrFail($id);
         $soalSaintek = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
-                                ->where("id_mapel", 1516)
-                                ->orderBy("no", "ASC")
-                                ->get();
+                                            ->where("id_mapel", 1516)
+                                            ->orderBy("no", "ASC")
+                                            ->get();
         $soalSoshum = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
-                                ->where("id_mapel", 1517)
-                                ->orderBy("no", "ASC")
-                                ->get();
+                                            ->where("id_mapel", 1517)
+                                            ->orderBy("no", "ASC")
+                                            ->get();
         return view("adminsimulasi.simulasi.kriteriasoal")->with([
             'simulasi' => $simulasi,
             'soalSaintek' => $soalSaintek,
@@ -743,8 +743,8 @@ class SimulasiController extends Controller
 
     public function kriteriaSoalgenerate($id) {
         $soal = SimulasiKunciJawaban::where("id_simulasi", $id)
-            ->orderBy("no", "ASC")
-            ->get();
+                                        ->orderBy("no", "ASC")
+                                        ->get();
         foreach($soal as $s) {
             $benar = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 1)->get()->count();
             $salah = SimulasiKoreksi::where("id_soal", $s->id)->where("is_correct", 0)->get()->count();
@@ -752,7 +752,41 @@ class SimulasiController extends Controller
             $s->jumlah_salah = $salah;
             $s->save();
         }
-        return back()->with("success", "Berhasil");
+        return redirect()->route('adminsimulasi.simulasi.kelola.fill.kriteria.soal', $id);
+    }
+
+    public function kriteriaSoalFill($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $saintek = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                        ->where("id_mapel", 1516)
+                                        ->orderBy("jumlah_benar", "DESC")
+                                        ->get();
+        $soshum = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                        ->where("id_mapel", 1517)
+                                        ->orderBy("jumlah_benar", "DESC")
+                                        ->get();
+
+        //SAINTEK
+        $mudah = $saintek->count() * (40/100);
+        $sedang = $mudah + $saintek->count() * (40/100);
+        $sulit = $sedang + $saintek->count() * (20/100);
+        foreach ($saintek as $index => $data) {
+            $kriteria = ($index+1) <= $mudah ? "mudah" : (($index+1) <= $sedang ? "sedang" : "sulit");
+            $data->kriteria = $kriteria;
+            $data->save();
+        }
+
+        //SOSHUM
+        $mudah = $soshum->count() * (40/100);
+        $sedang = $mudah + $soshum->count() * (40/100);
+        $sulit = $sedang + $soshum->count() * (20/100);
+        foreach ($soshum as $index => $data) {
+            $kriteria = ($index+1) <= $mudah ? "mudah" : (($index+1) <= $sedang ? "sedang" : "sulit");
+            $data->kriteria = $kriteria;
+            $data->save();
+        }
+
+        return redirect()->route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id)->with("success", "Proses Generate Berhasil");
     }
 
     public function aturPesertaOnline($id) {
@@ -766,8 +800,8 @@ class SimulasiController extends Controller
                                     ->where("no_peserta", $noPeserta)
                                     ->get();
         $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
-                                        ->where("is_full", false)
-                                        ->get();
+                                    ->where("is_full", false)
+                                    ->get();
         return view("adminsimulasi.simulasi.aturpesertaonline")->with([
             'simulasi' => $simulasi,
             'peserta' => $peserta,
@@ -824,18 +858,18 @@ class SimulasiController extends Controller
             $title .= " BELUM UJIAN";
         }
         $peserta = DB::select("
-                        SELECT
-                        no_peserta,
-                        mode_simulasi,
-                        user.nama,
-                        user.no_hp,
-                        user.asal_sekolah
-                        FROM
-                        tbl_simulasi_peserta as peserta
-                        INNER JOIN tbl_users as user ON user.id=peserta.id_user
-                        WHERE
-                        " . $where . "
-                        ORDER BY user.nama ASC
+        SELECT
+        no_peserta,
+        mode_simulasi,
+        user.nama,
+        user.no_hp,
+        user.asal_sekolah
+        FROM
+        tbl_simulasi_peserta as peserta
+        INNER JOIN tbl_users as user ON user.id=peserta.id_user
+        WHERE
+        " . $where . "
+        ORDER BY user.nama ASC
         ");
 
         $pesertaArray = [];
@@ -848,7 +882,7 @@ class SimulasiController extends Controller
             $excel->setCreator('Niki Rahmadi Wiharto')->setCompany('Sanedu');
             $excel->setDescription('Data Peserta');
             $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
-                    $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+                $sheet->fromArray($pesertaArray, null, 'A1', false, false);
             });
         })->download('xlsx');
     }
