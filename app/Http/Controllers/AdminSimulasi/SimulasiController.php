@@ -748,11 +748,20 @@ class SimulasiController extends Controller
 
     public function aturPesertaOnline($id) {
         $simulasi = Simulasi::findOrFail($id);
+        if(!isset($_GET['no_peserta']))
+        return view("adminsimulasi.simulasi.aturpesertaonline")->with([
+            'simulasi' => $simulasi
+        ]);
+        $noPeserta = $_GET['no_peserta'];
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("no_peserta", $noPeserta)
+                                    ->get();
         $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
                                         ->where("is_full", false)
                                         ->get();
         return view("adminsimulasi.simulasi.aturpesertaonline")->with([
             'simulasi' => $simulasi,
+            'peserta' => $peserta,
             'jadwal' => $jadwal
         ]);
     }
@@ -760,22 +769,21 @@ class SimulasiController extends Controller
     public function aturPesertaOnlinePost(Request $input, $id) {
         $this->validate($input, [
             'id_jadwal_online'  => 'required|exists:tbl_simulasi_jadwal_online,id',
-            'username'          => 'required|exists:tbl_users,username'
+            'id_peserta'        => 'required|exists:tbl_simulasi_peserta,id'
         ]);
         $simulasi = Simulasi::findOrFail($id);
         $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
                                         ->where("id", $input->id_jadwal_online)
                                         ->where("is_full", false)
                                         ->firstOrFail();
-        $user = User::where("username", $input->username)->firstOrFail();
         $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
-                                    ->where("id_user", $user->id)
+                                    ->where("id", $input->id_peserta)
                                     ->firstOrFail();
         $peserta->mode_simulasi = "online";
         $peserta->id_ruang = null;
         $peserta->id_jadwal_online = $jadwal->id;
         $peserta->save();
-        return back()->with("success", "Berhasil menyimpan");
+        return redirect()->route('adminsimulasi.simulasi.kelola.peserta.online.form', $simulasi->id)->with("success", "Berhasil menyimpan");
     }
 
 }
