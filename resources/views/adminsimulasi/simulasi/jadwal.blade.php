@@ -8,10 +8,14 @@ Peserta Simulasi - {{ $simulasi->judul }}
 <a href="{{ route('adminsimulasi.simulasi.kelola', ['id' => $simulasi->id]) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <div class="row">
     <div class="col-md-12">
+        @if(strtotime($jadwal->tanggal) < strtotime(date("Y-m-d")))
         <a href="{{ route('adminsimulasi.simulasi.kelola.push.nilai', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-md btn-default mb-3"><i class="mdi mdi-upload mr-3 text-default"></i>PUSH NILAI</a>
+        @else
+        <a href="#" class="btn btn-md btn-default mb-3" disabled><i class="mdi mdi-upload mr-3 text-default"></i>PUSH NILAI</a>
+        @endif
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
-                Data Member Yang Membeli {{ $simulasi->judul }}
+                Data Member Ujian Online {{ hariTanggal($jadwal->tanggal) }}
             </div>
             <div class="panel-body table-responsive">
                 <table id="datatables" class="table datatables table-striped">
