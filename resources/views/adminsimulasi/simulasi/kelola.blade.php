@@ -352,6 +352,7 @@ Kelola Simulasi
                                     <td class="text-right">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.delete', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-default" title="Borang"><i class="mdi mdi-download mr-3"></i>Borang</a>
                                     </td>
                                 </tr>
                                 @endforeach
