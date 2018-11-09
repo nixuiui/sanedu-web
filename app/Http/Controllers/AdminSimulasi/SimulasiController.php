@@ -278,7 +278,7 @@ class SimulasiController extends Controller
             $data->is_corrected = 1;
             $data->save();
         }
-        return back()->with('success', 'Proses push nilai berhasil');
+        return back()->with('success', 'Nilai ' . $peserta->count() . ' peserta berhasil disimpan ke hasil sementara');
     }
 
     public function ruang($id, $idRuang = null) {
