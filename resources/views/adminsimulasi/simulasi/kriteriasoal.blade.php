@@ -7,6 +7,7 @@ Kriteria Soal
 @section('content')
 <a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <a href="{{ route('adminsimulasi.simulasi.kelola.generate.kriteria.soal', $simulasi->id) }}" class="btn btn-default btn-space">Generate</a>
+<a href="{{ route('adminsimulasi.simulasi.kelola.hitung.nilai.akhir', $simulasi->id) }}" class="btn btn-default btn-space">Hitung Nilai Akhir Peserta</a>
 <div class="row">
     <div class="col-md-4">
         <div class="panel panel-default panel-table">

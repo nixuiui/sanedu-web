@@ -250,7 +250,7 @@ class SimulasiController extends Controller
                                         ->get();
         foreach($peserta as $data) {
             $attempt = Attempt::where('id_peserta_simulasi', $data->id)
-                                ->orderBy('jumlah_benar', 'asc')
+                                ->orderBy('jumlah_benar', 'desc')
                                 ->first();
             $soal = Soal::select(['id', 'created_at'])
                             ->where('id_ujian', $attempt->id_ujian)
@@ -787,6 +787,21 @@ class SimulasiController extends Controller
         }
 
         return redirect()->route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id)->with("success", "Proses Generate Berhasil");
+    }
+
+    public function hitungNilaiAkhir($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $pesertaSaintek = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_mapel", 1516)
+                                    ->get();
+        $pesertaSoshum = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_mapel", 1517)
+                                    ->get();
+        return view('adminsimulasi.simulasi.hitungnilaiakhir')->with([
+            'simulasi' => $simulasi,
+            'saintek' => $pesertaSaintek,
+            'soshum' => $pesertaSoshum
+        ]);
     }
 
     public function aturPesertaOnline($id) {
