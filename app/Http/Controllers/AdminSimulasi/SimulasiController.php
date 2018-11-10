@@ -833,22 +833,29 @@ class SimulasiController extends Controller
                                             ->where("id_mapel", $peserta->id_mapel)
                                             ->get();
         $nilai = 0;
+        $kriteria = "";
         foreach($peserta->koreksi as $data) {
             if($data->is_correct) {
                 switch ($data->soal->kriteria) {
                     case 'sulit':
+                        $kriteria = "sulit";
                         $nilai += 1;
                         break;
                     case 'sedang':
+                        $kriteria = "sedang";
                         $nilai += 0.8;
                         break;
                     case 'mudah':
+                        $kriteria = "mudah";
                         $nilai += 0.6;
                         break;
                     default:
                         $nilai += 0;
+                        $kriteria = "";
                         break;
                 }
+                $data->kriteria = $kriteria;
+                $data->save();
             }
         }
         $peserta->nilai_akhir = round($nilai, 2);
