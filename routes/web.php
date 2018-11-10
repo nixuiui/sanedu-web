@@ -230,6 +230,8 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/kriteriasoalfill',             'AdminSimulasi\SimulasiController@kriteriaSoalFill')->name('adminsimulasi.simulasi.kelola.fill.kriteria.soal');
             Route::get('/hitungnilaiakhir',             'AdminSimulasi\SimulasiController@hitungNilaiAkhir')->name('adminsimulasi.simulasi.kelola.hitung.nilai.akhir');
             Route::get('/hitungnilaiakhir/{idPeserta}', 'AdminSimulasi\SimulasiController@hitungNilaiAkhirPeserta')->name('adminsimulasi.simulasi.kelola.hitung.nilai.akhir.proses');
+            Route::get('/generatePeringkat',            'AdminSimulasi\SimulasiController@generatePeringkat')->name('adminsimulasi.simulasi.kelola.generate.peringkat');
+            Route::get('/generatePeringkat/{idPeserta}','AdminSimulasi\SimulasiController@generatePeringkatPeserta')->name('adminsimulasi.simulasi.kelola.generate.peringkat.proses');
             Route::group(['prefix' => 'download'], function(){
                 Route::get('/peserta',      'AdminSimulasi\SimulasiController@downloadPeserta')->name('adminsimulasi.simulasi.kelola.download.peserta');
                 Route::get('/borang',       'AdminSimulasi\SimulasiController@downloadBorang')->name('adminsimulasi.simulasi.kelola.download.borang');

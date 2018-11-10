@@ -74,7 +74,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->profil->email }}</td>
                             <td>{{ $data->profil->no_hp }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>
-                            <td>{{ $data->nilai_akhir }}</td>
+                            <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
                             <td>
                                 @if($data->mode_simulasi == "offline")
                                 <strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->ruang->id]) }}">{{ $data->ruang->nama }}</a></strong>

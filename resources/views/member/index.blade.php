@@ -38,7 +38,7 @@ $(document).ready(function(){
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="{{ route('member.ujian.soal') }}" class="menu-item new-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_ujian.png') }}" alt="">
-            <div class="menu-title">Ujian</div>
+            <div class="menu-title">Contoh Soal</div>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">

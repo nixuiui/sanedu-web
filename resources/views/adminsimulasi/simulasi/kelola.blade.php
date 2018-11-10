@@ -28,7 +28,17 @@ Kelola Simulasi
 <div class="row">
     <div class="col-md-12">
         <a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
-        <a href="{{ route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-assignment-check mr-3"></i>Tentukan Kriteria Soal</a>
+        <div class="btn-group btn-space">
+            <button type="button" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
+                <i class="icon icon-left mdi mdi-download mr-3"></i> Pasca Simulasi
+                <span class="icon-dropdown mdi mdi-chevron-down"></span>
+            </button>
+            <ul role="menu" class="dropdown-menu">
+                <li><a href="{{ route('adminsimulasi.simulasi.kelola.kriteria.soal', $simulasi->id) }}">Tentukan Kriteria Soal</a></li>
+                <li><a href="{{ route('adminsimulasi.simulasi.kelola.hitung.nilai.akhir', $simulasi->id) }}">Hitung Nilai Akhir Peserta</a></li>
+                <li><a href="{{ route('adminsimulasi.simulasi.kelola.generate.peringkat', $simulasi->id) }}">Tentukan Peringkat Peserta</a></li>
+            </ul>
+        </div>
         <div class="btn-group btn-space">
             <button type="button" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
                 <i class="icon icon-left mdi mdi-download mr-3"></i> Download

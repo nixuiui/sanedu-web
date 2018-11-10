@@ -873,6 +873,70 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function generatePeringkat($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $pesertaSaintek = collect(DB::select("
+                SELECT
+                peserta.id,
+                no_peserta,
+                user.nama,
+                nilai_akhir
+                FROM
+                tbl_simulasi_peserta as peserta
+                INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                WHERE
+                is_corrected=1 AND
+                id_simulasi='" . $simulasi->id . "' AND
+                id_mapel=1516
+                ORDER BY nilai_akhir DESC
+        "));
+        $pesertaSoshum = collect(DB::select("
+                SELECT
+                peserta.id,
+                no_peserta,
+                user.nama
+                FROM
+                tbl_simulasi_peserta as peserta
+                INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                WHERE
+                is_corrected=1 AND
+                id_simulasi='" . $simulasi->id . "' AND
+                id_mapel=1517
+                ORDER BY nilai_akhir DESC
+        "));
+        return view('adminsimulasi.simulasi.peringkat')->with([
+            'simulasi' => $simulasi,
+            'saintek' => $pesertaSaintek,
+            'soshum' => $pesertaSoshum
+        ]);
+    }
+
+    public function generatePeringkatPeserta($id, $idPeserta) {
+        if(isset($_GET['peringkat'])) {
+            $simulasi = Simulasi::findOrFail($id);
+            $peserta = SimulasiPeserta::findOrFail($idPeserta);
+            $peserta->peringkat = $_GET['peringkat'];
+            if($peserta->save()) {
+                return response()->json([
+                    'success' => true,
+                    'peringkat' => $_GET['peringkat'],
+                    'message' => "Success"
+                ]);
+            }
+            return response()->json([
+                'success' => false,
+                'peringkat' => null,
+                'message' => "Gagal menyimpan"
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'peringkat' => null,
+            'message' => "Peringkat tidak diketahui"
+        ]);
+
+    }
+
     public function aturPesertaOnline($id) {
         $simulasi = Simulasi::findOrFail($id);
         if(!isset($_GET['no_peserta']))
