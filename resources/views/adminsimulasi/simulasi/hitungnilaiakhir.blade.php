@@ -14,7 +14,7 @@ Proses Perhitungan Nilai Akhir
     </div>
     <div class="col-md-6">
         <div class="">
-            <strong>Peserta Saintek (@{{ prosesSoshum.length }}/@{{ jumlahSoshum }})</strong>
+            <strong>Peserta Soshum (@{{ prosesSoshum.length }}/@{{ jumlahSoshum }})</strong>
         </div>
         <div v-for="(proses, index) in prosesSoshum">
             @{{ proses.no }} - @{{ proses.nama }} - Nilai: @{{ proses.nilai }} - @{{ proses.message }}
