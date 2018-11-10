@@ -44,6 +44,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
+                            <th>Peringkat</th>
                             <th>Ruang</th>
                             <th></th>
                         </tr>
@@ -58,6 +59,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
+                            <th>Peringkat</th>
                             <th>Ruang</th>
                             <th></th>
                         </tr>
@@ -75,6 +77,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->profil->no_hp }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
+                            <td>{{ $data->peringkat }}</td>
                             <td>
                                 @if($data->mode_simulasi == "offline")
                                 <strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->ruang->id]) }}">{{ $data->ruang->nama }}</a></strong>

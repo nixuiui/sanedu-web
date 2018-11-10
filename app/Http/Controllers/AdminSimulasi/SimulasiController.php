@@ -858,6 +858,15 @@ class SimulasiController extends Controller
                 $data->save();
             }
         }
+        if($nilai >= $peserta->passingGrade->pilihan1->passing_grade) {
+            $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan1->id;
+        }
+        else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
+            $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
+        }
+        else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
+            $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
+        }
         $peserta->nilai_akhir = round($nilai, 2);
         if($peserta->save()) {
             return response()->json([

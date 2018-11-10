@@ -53,7 +53,7 @@
         <tr>
             <td width="170px">Hasil Ujian</td>
             <td>:</td>
-            <td></td>
+            <td>{{ $data->nilai_akhir }}</td>
         </tr>
         <tr>
             <td colspan="3">
@@ -122,7 +122,7 @@
         <tr valign="top">
             <td width="170px">Keterangan</td>
             <td></td>
-            <td colspan="3"><textarea class="box"></textarea></td>
+            <td colspan="3"><div class="box">{{ $data->id_passing_grade_lolos == null ? "Anda Tidak Lulus" : "Lulus di " . strtoupper($data->passGradeLolos->jurusan) . " " . strtoupper($data->passGradeLolos->universitas->nama) }}</div></td>
         </tr>
         <tr valign="top">
             <td width="170px">Rekomendasi Konsultasi</td>
