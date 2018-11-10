@@ -40,6 +40,20 @@ Simulasi - {{ $simulasi->judul }}
             <div class="panel-section text-center p-5">
                 <div class="text-bold text-20">NO PESERTA {{ $peserta->no_peserta }}</div>
             </div>
+            @if($peserta->nilai_akhir != null)
+            <div class="panel-section text-center p-5">
+                <div class="text-bold text-20">NILAI ANDA: {{ $peserta->nilai_akhir }}</div>
+            </div>
+                @if($peserta->id_passing_grade_lolos != null)
+                <div class="panel-section text-center p-5">
+                    <div class="text-bold text-success text-20">DITERIMA DI: {{ strtoupper($peserta->passingGradeLolos->jurusan) }} {{ strtoupper($peserta->passingGradeLolos->universitas->nama) }}</div>
+                </div>
+                @else
+                <div class="panel-section text-center p-5">
+                    <div class="text-bold text-danger text-20">MAAF ANDA BELUM LULUS</div>
+                </div>
+                @endif
+            @endif
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
