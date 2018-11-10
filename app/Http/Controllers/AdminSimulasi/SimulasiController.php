@@ -800,6 +800,7 @@ class SimulasiController extends Controller
                 tbl_simulasi_peserta as peserta
                 INNER JOIN tbl_users as user ON user.id=peserta.id_user
                 WHERE
+                is_corrected=1 AND
                 id_simulasi='" . $simulasi->id . "' AND
                 id_mapel=1516
                 ORDER BY no_peserta ASC
@@ -813,6 +814,7 @@ class SimulasiController extends Controller
                 tbl_simulasi_peserta as peserta
                 INNER JOIN tbl_users as user ON user.id=peserta.id_user
                 WHERE
+                is_corrected=1 AND
                 id_simulasi='" . $simulasi->id . "' AND
                 id_mapel=1517
                 ORDER BY no_peserta ASC
