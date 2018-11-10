@@ -84,7 +84,7 @@
             <td colspan="3">
                 <div class="box">
                     @foreach($data->koreksi->where("kriteria", "sedang") as $index => $soal)
-                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                        {{ $index == 0 ? $soal->no_soal : ", " . $soal->no_soal}}
                     @endforeach
                 </div>
             </td>
