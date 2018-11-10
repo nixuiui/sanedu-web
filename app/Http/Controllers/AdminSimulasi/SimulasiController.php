@@ -791,16 +791,67 @@ class SimulasiController extends Controller
 
     public function hitungNilaiAkhir($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $pesertaSaintek = SimulasiPeserta::where("id_simulasi", $simulasi->id)
-                                    ->where("id_mapel", 1516)
-                                    ->get();
+        $pesertaSaintek = collect(DB::select("
+                SELECT
+                peserta.id,
+                no_peserta,
+                user.nama
+                FROM
+                tbl_simulasi_peserta as peserta
+                INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                WHERE
+                id_simulasi='" . $simulasi->id . "' AND
+                id_mapel=1516
+                ORDER BY no_peserta ASC
+        "));
         $pesertaSoshum = SimulasiPeserta::where("id_simulasi", $simulasi->id)
                                     ->where("id_mapel", 1517)
+                                    ->orderBy("no_peserta", "asc")
                                     ->get();
         return view('adminsimulasi.simulasi.hitungnilaiakhir')->with([
             'simulasi' => $simulasi,
             'saintek' => $pesertaSaintek,
             'soshum' => $pesertaSoshum
+        ]);
+    }
+
+    public function hitungNilaiAkhirPeserta($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $peserta = SimulasiPeserta::findOrFail($idPeserta);
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                            ->where("id_mapel", $peserta->id_mapel)
+                                            ->get();
+        $nilai = 0;
+        foreach($peserta->koreksi as $data) {
+            if($data->is_correct) {
+                switch ($data->soal->kriteria) {
+                    case 'sulit':
+                        $nilai += 1;
+                        break;
+                    case 'sedang':
+                        $nilai += 0.8;
+                        break;
+                    case 'mudah':
+                        $nilai += 0.6;
+                        break;
+                    default:
+                        $nilai += 0;
+                        break;
+                }
+            }
+        }
+        $peserta->nilai_akhir = round($nilai, 2);
+        if($peserta->save()) {
+            return response()->json([
+                'success' => true,
+                'nilai' => round($nilai, 2),
+                'message' => "Success"
+            ]);
+        }
+        return response()->json([
+            'success' => false,
+            'nilai' => 0,
+            'message' => "Failed"
         ]);
     }
 
