@@ -23,6 +23,9 @@ class SimulasiKoreksi extends Model {
   	public function simulasi() {
   		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
   	}
+  	public function soal() {
+  		return $this->belongsTo('App\Models\SimulasiKunciJawaban', 'id_soal');
+  	}
     public function getJawabanAttribute($value) {
         return strtoupper($value);
     }
