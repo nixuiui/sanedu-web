@@ -72,8 +72,10 @@
             <td></td>
             <td colspan="3">
                 <div class="box">
-                    @foreach($data->koreksi->where("kriteria", "sulit") as $index => $soal)
-                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                    <?php $no =0; ?>
+                    @foreach($data->koreksi->where("kriteria", "sulit") as $soal)
+                        {{ $no == 0 ? $soal->no_soal : ", " . $soal->no_soal}}
+                        <?php $no++; ?>
                     @endforeach
                 </div>
             </td>
@@ -83,8 +85,10 @@
             <td></td>
             <td colspan="3">
                 <div class="box">
-                    @foreach($data->koreksi->where("kriteria", "sedang") as $index => $soal)
-                        {{ $index == 0 ? $soal->no_soal : ", " . $soal->no_soal}}
+                    <?php $no =0; ?>
+                    @foreach($data->koreksi->where("kriteria", "sedang") as $soal)
+                        {{ $no == 0 ? $soal->no_soal : ", " . $soal->no_soal}}
+                        <?php $no++; ?>
                     @endforeach
                 </div>
             </td>
@@ -94,8 +98,10 @@
             <td></td>
             <td colspan="3">
                 <div class="box">
-                    @foreach($data->koreksi->where("kriteria", "mudah") as $index => $soal)
-                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                    <?php $no =0; ?>
+                    @foreach($data->koreksi->where("kriteria", "mudah") as $soal)
+                        {{ $no == 0 ? $soal->no_soal : ", " . $soal->no_soal}}
+                        <?php $no++; ?>
                     @endforeach
                 </div>
             </td>
