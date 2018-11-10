@@ -903,7 +903,8 @@ class SimulasiController extends Controller
                 SELECT
                 peserta.id,
                 no_peserta,
-                user.nama
+                user.nama,
+                nilai_akhir
                 FROM
                 tbl_simulasi_peserta as peserta
                 INNER JOIN tbl_users as user ON user.id=peserta.id_user
