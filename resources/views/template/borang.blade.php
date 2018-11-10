@@ -70,17 +70,35 @@
         <tr>
             <td width="170px">Soal Sulit</td>
             <td></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="3">
+                <div class="box">
+                    @foreach($data->koreksi->where("kriteria", "sulit") as $index => $soal)
+                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                    @endforeach
+                </div>
+            </td>
         </tr>
         <tr>
             <td width="170px">Soal Sedang</td>
             <td></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="3">
+                <div class="box">
+                    @foreach($data->koreksi->where("kriteria", "sedang") as $index => $soal)
+                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                    @endforeach
+                </div>
+            </td>
         </tr>
         <tr>
             <td width="170px">Soal Mudah</td>
             <td></td>
-            <td><div class="box"> &nbsp;</div></td>
+            <td colspan="3">
+                <div class="box">
+                    @foreach($data->koreksi->where("kriteria", "mudah") as $index => $soal)
+                        {{ $index == 0 ? $soal->no_soal . ", " : $soal->no_soal}}
+                    @endforeach
+                </div>
+            </td>
         </tr>
         <tr>
             <td width="170px">Pilihan Saat Simulasi</td>
@@ -122,7 +140,7 @@
         <tr valign="top">
             <td width="170px">Keterangan</td>
             <td></td>
-            <td colspan="3"><div class="box">{{ $data->id_passing_grade_lolos == null ? "Anda Tidak Lulus" : "Lulus di " . strtoupper($data->passGradeLolos->jurusan) . " " . strtoupper($data->passGradeLolos->universitas->nama) }}</div></td>
+            <td colspan="3"><div class="box">{{ $data->id_passing_grade_lolos == null ? "Anda Tidak Lulus" : "Lulus di " . strtoupper($data->passingGradeLolos->jurusan) . " " . strtoupper($data->passingGradeLolos->universitas->nama) }}</div></td>
         </tr>
         <tr valign="top">
             <td width="170px">Rekomendasi Konsultasi</td>
