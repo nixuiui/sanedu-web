@@ -804,6 +804,7 @@ class SimulasiController extends Controller
                 id_mapel=1516
                 ORDER BY no_peserta ASC
         "));
+<<<<<<< HEAD
         $pesertaSoshum = collect(DB::select("
                 SELECT
                 peserta.id,
@@ -817,6 +818,12 @@ class SimulasiController extends Controller
                 id_mapel=1517
                 ORDER BY no_peserta ASC
         "));
+=======
+        $pesertaSoshum = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_mapel", 1517)
+                                    ->orderBy("no_peserta", "asc")
+                                    ->get();
+>>>>>>> 59aca336880c17231a42e4986c34844a75d30c6f
         return view('adminsimulasi.simulasi.hitungnilaiakhir')->with([
             'simulasi' => $simulasi,
             'saintek' => $pesertaSaintek,
