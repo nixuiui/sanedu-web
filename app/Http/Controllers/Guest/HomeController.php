@@ -46,4 +46,8 @@ class HomeController extends Controller
     public function hubungikami() {
         return view('guest.landing.hubungi');
     }
+
+    public function phpinfo() {
+        phpinfo();
+    }
 }
