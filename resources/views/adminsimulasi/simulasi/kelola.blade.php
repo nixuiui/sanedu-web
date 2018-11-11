@@ -47,7 +47,7 @@ Kelola Simulasi
             <ul role="menu" class="dropdown-menu">
                 <li><a href="#">Download Hasil Sementara</a></li>
                 <li><a href="#">Download Hasil Akhir</a></li>
-                <li><a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', $simulasi->id) }}">Download Borang Rekomendasi</a></li>
+                <li><a href="{{ route('adminsimulasi.simulasi.kelola.borang.rekomendasi', $simulasi->id) }}">Download Borang Rekomendasi</a></li>
             </ul>
         </div>
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">

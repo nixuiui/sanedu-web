@@ -1059,9 +1059,32 @@ class SimulasiController extends Controller
             $peserta = $peserta->where("id_jadwal_online", $_GET['idJadwal']);
             $title .= " " . $jadwal->tanggal;
         }
-        $peserta = $peserta->get();
+        else if(isset($_GET['idMapel'])) {
+            $peserta = $peserta->where("id_mapel", $_GET['idMapel']);
+            if(isset($_GET['cluster'])) {
+                $peserta = $peserta->skip(($_GET['cluster']-1)*50)->limit(50);
+            }
+        }
+        $peserta = $peserta->orderBy("no_peserta", "asc")->get();
         $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
         return $pdf->stream($title . '.pdf');
+    }
+
+    public function borangRekomendasi($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $saintek = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_mapel", 1516)
+                                    ->get()->count();
+        $soshum = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("id_mapel", 1517)
+                                    ->get()->count();
+
+        return view("adminsimulasi.simulasi.borangrekomendasi")->with([
+            'simulasi' => $simulasi,
+            'saintek' => ceil($saintek/50),
+            'soshum' => ceil($soshum/50)
+        ]);
+
     }
 
 }
