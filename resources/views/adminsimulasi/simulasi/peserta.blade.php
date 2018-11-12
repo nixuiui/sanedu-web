@@ -87,10 +87,12 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             </td>
                             <td>
                                 @if($data->mode_simulasi == "offline")
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default"><i class="mdi mdi-print mr-3"></i>Kartu</a></strong>
+                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-print mr-3"></i>Kartu</a></strong>
                                 @else
                                 -
                                 @endif
+                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-download mr-3"></i>Borang</a></strong>
+
                             </td>
                         </tr>
                         @endforeach

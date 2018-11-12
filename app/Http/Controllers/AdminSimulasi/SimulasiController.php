@@ -1065,6 +1065,9 @@ class SimulasiController extends Controller
                 $peserta = $peserta->skip(($_GET['cluster']-1)*50)->limit(50);
             }
         }
+        else if(isset($_GET['idPeserta'])) {
+            $peserta = $peserta->where("id", $_GET['idPeserta']);
+        }
         $peserta = $peserta->orderBy("no_peserta", "asc")->get();
         $pdf = PDF::loadView('template.borang', compact(['peserta']))->setPaper('a4');
         return $pdf->stream($title . '.pdf');
