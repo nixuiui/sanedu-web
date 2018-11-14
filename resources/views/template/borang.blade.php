@@ -61,7 +61,7 @@
                     <table width="100%">
                         <tr>
                             <td class="50%">BENAR: {{ $data->jumlah_benar }}</td>
-                            <td class="50%">SALAH/KOSONG: {{ $data->jumlah_salah }}</td>
+                            <td class="50%">SALAH/KOSONG: {{ $data->jumlah_salah + $data->jumlah_tidak_jawab }}</td>
                         </tr>
                     </table>
                 </div>
