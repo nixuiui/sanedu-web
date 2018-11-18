@@ -133,23 +133,28 @@ class SimulasiController extends Controller
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                     ->where('id_user', Auth::id())
                                     ->first();
+        $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)
+                                        ->where("id_mapel", $peserta->id_mapel)
+                                        ->first();
         if($peserta) {
             if($peserta->mode_simulasi == "offline") {
                 return view('member.simulasi.open')->with([
                     'simulasi' => $simulasi,
+                    'simulasiUjian' => $simulasiUjian,
                     'peserta' => $peserta
                 ]);
-            }
-            $soalOnline = null;
-            if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
-                $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
-                ->where("id_mapel", $peserta->id_mapel)
-                ->first();
-            }
-            return view('member.simulasi.open')->with([
-                'simulasi' => $simulasi,
-                'peserta' => $peserta,
-                'soalOnline' => $soalOnline
+        }
+        $soalOnline = null;
+        if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
+            $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
+            ->where("id_mapel", $peserta->id_mapel)
+            ->first();
+        }
+        return view('member.simulasi.open')->with([
+            'simulasi' => $simulasi,
+            'simulasiUjian' => $simulasiUjian,
+            'peserta' => $peserta,
+            'soalOnline' => $soalOnline
             ]);
         }
         return redirect()->route('member.simulasi');
