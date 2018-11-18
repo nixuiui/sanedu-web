@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-History Ujian
+Riwayat Pengerjaan Soal
 @endsection
 
 @section('content')

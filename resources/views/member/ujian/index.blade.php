@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Ujian
+Contoh Soal
 @endsection
 
 @section('content')

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Ujian
+Contoh Soal
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@ Ujian
     <div class="col-md-5">
         <div class="panel panel-preattempt">
             <div class="heading">
-                UJIAN
+                Contoh Soal
             </div>
             <div class="panel-section">
                 <div class="text-20 text-bold item">{{ $ujian->jenisUjian->nama }} - {{ $ujian->judul }}</div>

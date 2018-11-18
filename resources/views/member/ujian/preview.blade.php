@@ -9,7 +9,7 @@ Preview - {{ $attempt->ujian->judul }}
     <div class="col-md-5">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Informasi Ujian dan Pengerjaan
+                Informasi Soal dan Pengerjaan
             </div>
             <div class="panel-body">
                 <table class="table table-condensed table-hover table-bordered table-striped">
