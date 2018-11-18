@@ -420,15 +420,28 @@ class SimulasiController extends Controller
 
     public function kunciJawaban($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $ujian = Ujian::where("id_jenis_ujian", $simulasi->id_jenis_ujian)->get();
-        $saintek = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", 1516)->first();
-        $soshum = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", 1517)->first();
-        return view('adminsimulasi.simulasi.kuncijawaban')->with([
-            'simulasi' => $simulasi,
-            'ujian' => $ujian,
-            'saintek' => $saintek,
-            'soshum' => $soshum
-        ]);
+        $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)->get();
+        if(isset($_GET['idMapel']) && ($_GET['idMapel'] != null)) {
+            $ujian = Ujian::where("id_jenis_ujian", $simulasi->id_jenis_ujian)->get();
+            $ujianSelected = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", $_GET['idMapel'])->first();
+            return view('adminsimulasi.simulasi.kuncijawaban')->with([
+                'simulasi' => $simulasi,
+                'ujian' => $ujian,
+                'ujianSelected' => $ujianSelected,
+                'simulasiUjian' => $simulasiUjian
+            ]);
+        }
+        else {
+            if($simulasiUjian->count() == 1) {
+                return redirect()->route('adminsimulasi.simulasi.kelola.kunci.jawaban', ['id' => $simulasi->id, 'idMapel' => $simulasiUjian[0]->id_mapel]);
+            }
+            else {
+                return view('adminsimulasi.simulasi.kuncijawaban')->with([
+                    'simulasi' => $simulasi,
+                    'simulasiUjian' => $simulasiUjian
+                ]);
+            }
+        }
     }
 
     public function saveKunciJawaban(Request $input, $id) {
@@ -452,6 +465,19 @@ class SimulasiController extends Controller
         return back()->with("success", "Berhasil Menyimpan Kunci Jawaban");
     }
 
+    public function simpanLinkSoal(Request $input, $id, $idMapel) {
+        $this->validate($input, [
+            'link_soal'             => 'nullable|url',
+            'link_pembahasan'       => 'nullable|url'
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", $idMapel)->firstOrFail();
+        $simulasiUjian->link_soal = $input->link_soal;
+        $simulasiUjian->link_pembahasan = $input->link_pembahasan;
+        $simulasiUjian->save();
+        return redirect()->route('adminsimulasi.simulasi.kelola.kunci.jawaban', ['id' => $simulasi->id, 'idMapel' => $idMapel])->with('success', 'Berhasil menyimpan perubahan');
+    }
+
     public function tautSoal(Request $input, $id) {
         $this->validate($input, [
             'id_mapel'  => 'required|exists:set_pustaka,id',
@@ -469,7 +495,7 @@ class SimulasiController extends Controller
         }
         $simulasiUjian->id_ujian = $input->id_ujian;
         $simulasiUjian->save();
-        return back()->with("success", "Berhasil menyimpan");
+        return back()->with("success", "Berhasil menautkan soal");
     }
 
     public function reqKunciJawaban($id, $idMapel) {

@@ -129,29 +129,7 @@ Kelola Simulasi
                                     @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Link Soal</label>
-                                    <input type="url" class="form-control input-sm" placeholder="http://domain.com/download_soal" name="link_soal"  value="{{ $simulasi->link_soal }}">
-                                    @if($errors->has('link_soal'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('link_soal') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Link Pembahasan</label>
-                                    <input type="url" class="form-control input-sm" placeholder="http://domain.com/download_pembahasan" name="link_pembahasan"  value="{{ $simulasi->link_pembahasan }}">
-                                    @if($errors->has('link_pembahasan'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('link_pembahasan') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="be-checkbox be-checkbox-color inline mb-3">
                                         <input id="offline" name="offline" type="checkbox" {{ $simulasi->is_offline ? "checked" : ""}} value="1">
