@@ -21,8 +21,8 @@ Simulasi - {{ $simulasi->judul }}
                 @if($peserta->mode_simulasi == "offline")
                 <li><a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}">Cetak Kartu Ujian</a></li>
                 @endif
-                <li><a href="{{ $simulasi->link_soal != null ? $simulasi->link_soal : '#' }}">Download Soal</a></li>
-                <li><a href="{{ $simulasi->link_pembahasan != null ? $simulasi->link_pembahasan : '#' }}">Download Pembahasan</a></li>
+                <li><a href="{{ $simulasiUjian->link_soal != null ? $simulasiUjian->link_soal : '#' }}">Download Soal</a></li>
+                <li><a href="{{ $simulasiUjian->link_pembahasan != null ? $simulasiUjian->link_pembahasan : '#' }}">Download Pembahasan</a></li>
                 <li><a href="#">Pengumuman</a></li>
             </ul>
         </div>
