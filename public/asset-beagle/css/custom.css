@@ -36,6 +36,11 @@ select.input-sm, .input-sm { height: 36px; }
 .jawaban input:checked ~ label.hapus-jawaban { display: block; }
 .jawaban #jawabanNull:checked + .hapus-jawaban { display: none; }
 
+.bar-soal { color: #fff; width: 0%; display: block; text-align: right }
+.bar-soal.sulit { background: #42A5F5; }
+.bar-soal.sedang { background: #1976D2; }
+.bar-soal.mudah { background: #0D47A1; }
+
 img { max-width: 100%; }
 
 .detail-laporan .item i { margin-right: 15px; }

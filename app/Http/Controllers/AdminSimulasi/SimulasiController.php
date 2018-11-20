@@ -424,11 +424,17 @@ class SimulasiController extends Controller
         if(isset($_GET['idMapel']) && ($_GET['idMapel'] != null)) {
             $ujian = Ujian::where("id_jenis_ujian", $simulasi->id_jenis_ujian)->get();
             $ujianSelected = SimulasiUjian::where("id_simulasi", $simulasi->id)->where("id_mapel", $_GET['idMapel'])->first();
+            $kunciJawaban = SimulasiKunciJawaban::select(['no', 'jumlah_benar', 'kriteria'])
+                                                ->where("id_simulasi", $simulasi->id)
+                                                ->where("id_mapel", $_GET['idMapel'])
+                                                ->orderBy("jumlah_benar", "DESC")
+                                                ->get();
             return view('adminsimulasi.simulasi.kuncijawaban')->with([
                 'simulasi' => $simulasi,
                 'ujian' => $ujian,
                 'ujianSelected' => $ujianSelected,
-                'simulasiUjian' => $simulasiUjian
+                'simulasiUjian' => $simulasiUjian,
+                'kunciJawaban' => $kunciJawaban
             ]);
         }
         else {

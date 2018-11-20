@@ -119,6 +119,43 @@ Kunci Jawaban Simulasi
             </div>
         </form>
     </div>
+    <div class="col-md-4">
+        <div class="panel panel-table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th colspan="7" class="text-center">
+                            Karakteristik Soal
+                        </th>
+                    </tr>
+                    <tr>
+                        <th width="20px">NO</th>
+                        <th colspan="5">Jumlah Benar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($kunciJawaban as $data)
+                    <?php
+                    $percent = $data->jumlah_benar == 0 ? 0 : (($data->jumlah_benar/$kunciJawaban->max("jumlah_benar")) * 100);
+                    ?>
+                    <tr>
+                        <td>{{ $data->no }}</td>
+                        <td colspan="5">
+                            <span class="bar-soal {{ $data->kriteria }}" data-percent="{{ $percent }}%">{{ $percent }}</span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <script>
+            $(document).ready(function() {
+                $(".bar-soal").css("width", function() {
+                    return $(this).data('percent');
+                });
+            });
+            </script>
+        </div>
+    </div>
 </div> <!-- end row -->
 @endif
 @endsection
