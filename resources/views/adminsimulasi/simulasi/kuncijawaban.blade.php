@@ -141,7 +141,7 @@ Kunci Jawaban Simulasi
                     <tr>
                         <td>{{ $data->no }}</td>
                         <td colspan="5">
-                            <span class="bar-soal {{ $data->kriteria }}" data-percent="{{ $percent }}%">{{ $percent }}</span>
+                            <span class="bar-soal {{ $data->kriteria }}" data-percent="{{ $percent }}%">{{ $data->jumlah_benar }}</span>
                         </td>
                     </tr>
                     @endforeach
