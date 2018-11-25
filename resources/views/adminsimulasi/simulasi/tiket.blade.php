@@ -3,6 +3,7 @@
 Tiket Peserta {{ $simulasi->judul }}
 @endsection
 @section('content')
+<a href="{{ route('adminsimulasi.simulasi.kelola', ['id' => $simulasi->id]) }}" class="btn btn-default btn-space btn-icon"><i class="mdi mdi-arrow-back"></i>Kembali</a>
 <div class="row">
     <div class="col-md-12">
         <div role="alert" class="alert alert-primary alert-icon alert-dismissible">
