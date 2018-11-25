@@ -87,9 +87,20 @@ class SimulasiController extends Controller
         $simulasi = Simulasi::find($id);
         if(!$simulasi) return redirect()->route('adminsimulasi.simulasi')->with('danger', "Simulasi tidak ditemukan");
         $ruang = SimulasiRuang::where("id_simulasi", $simulasi->id)->get();
+        $jumlahTiket = collect(DB::select(
+            "SELECT
+            SUM(jumlah_tiket) as jumlah
+            FROM
+            tbl_cetak_tiket
+            WHERE
+            id_kategori_tiket=1101 &&
+            id_simulasi='$id' &&
+            deleted_at IS NULL"
+        ))->first();
         return view('adminsimulasi.simulasi.kelola')->with([
             'simulasi' => $simulasi,
-            'ruang' => $ruang
+            'ruang' => $ruang,
+            'jumlahTiket' => $jumlahTiket
         ]);
     }
 
@@ -1126,8 +1137,7 @@ class SimulasiController extends Controller
 
     public function tiket($id) {
         $simulasi = Simulasi::findOrFail($id);
-        $cetakTiket = CetakTiket::where("id_kategori_tiket", 1101)
-                                ->where("id_simulasi", $simulasi->id)
+        $cetakTiket = CetakTiket::where("id_simulasi", $simulasi->id)
                                 ->orderBy("created_at", "desc")
                                 ->get();
         $jumlahTiket = collect(DB::select(
@@ -1153,24 +1163,26 @@ class SimulasiController extends Controller
     public function generateTiket(Request $input, $id){
         $simulasi = Simulasi::findOrFail($id);
         $this->validate($input, [
-            'jumlah'         => 'required|max:1000|numeric',
+            'jumlah'            => 'required|max:1000|numeric',
+            'id_kategori_tiket' => 'required|exists:set_pustaka,id',
         ]);
         $cetakTiket                     = new CetakTiket;
         $cetakTiket->id                 = Uuid::generate();
-        $cetakTiket->id_kategori_tiket  = 1101;
+        $cetakTiket->id_kategori_tiket  = $input->id_kategori_tiket;
         $cetakTiket->id_user            = Auth::id();
         $cetakTiket->id_simulasi        = $simulasi->id;
         if($cetakTiket->save()) {
             foreach (range(1,$input->jumlah) as $i => $key) {
-                $date                   = date("ymdhis");
-                $kap                    = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
-                $pin                    = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
-                $tiket                  = new Tiket;
-                $tiket->id              = Uuid::generate();
-                $tiket->id_cetak_tiket  = $cetakTiket->id;
-                $tiket->id_simulasi     = $simulasi->id;
-                $tiket->kap             = $kap;
-                $tiket->pin             = $pin;
+                $date                       = date("ymdhis");
+                $kap                        = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
+                $pin                        = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
+                $tiket                      = new Tiket;
+                $tiket->id                  = Uuid::generate();
+                $tiket->id_kategori_tiket   = $input->id_kategori_tiket;
+                $tiket->id_cetak_tiket      = $cetakTiket->id;
+                $tiket->id_simulasi         = $simulasi->id;
+                $tiket->kap                 = $kap;
+                $tiket->pin                 = $pin;
                 $tiket->save();
             }
         }

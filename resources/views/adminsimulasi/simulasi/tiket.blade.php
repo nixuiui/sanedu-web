@@ -29,6 +29,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <th>Waktu</th>
                             <th>Simulasi</th>
                             <th>Jumlah Tiket</th>
+                            <th>Kategori</th>
                             <th>Dibuat Oleh</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -38,6 +39,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <th>Waktu</th>
                             <th>Simulasi</th>
                             <th>Jumlah Tiket</th>
+                            <th>Kategori</th>
                             <th>Dibuat Oleh</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -48,6 +50,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <td>{{ hariTanggalWaktu($cetak->created_at) }}</td>
                             <td>{{ $cetak->simulasi->judul }}</td>
                             <td>{{ $cetak->jumlah_tiket }} tiket</td>
+                            <td>{{ $cetak->kategoriTiket->nama }}</td>
                             <td>{{ $cetak->user->nama }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.print', ['id' => $simulasi->id, 'idCetak' => $cetak->id]) }}" class="btn btn-xs btn-default print" title="Cetak Tiket" data-jumlahtiket="{{ $cetak->tiket->count() }}"><i class="mdi mdi-print"></i></a>
@@ -71,16 +74,32 @@ Tiket Peserta {{ $simulasi->judul }}
             </div>
             <form class="modal-body" action="{{ route('adminsimulasi.simulasi.kelola.tiket.tambah', $simulasi->id) }}" method="post">
                 @csrf
-                <label for="">Masukan jumlah tiket yang ingin dicetak</label>
-                <div class="form-group">
-                    <input type="number" max="999" class="form-control" placeholder="Jumlah Tiket" name="jumlah" value="{{ old('jumlah') }}" required>
-                    @if ($errors->has('jumlah'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('jumlah') }}</strong>
-                    </span>
-                    @endif
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Jumlah Tiket</label>
+                            <input type="number" max="999" class="form-control input-sm" placeholder="Jumlah Tiket" name="jumlah" value="{{ old('jumlah') }}" required>
+                            @if ($errors->has('jumlah'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('jumlah') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">Kategori Tiket</label>
+                            <select name="id_kategori_tiket" class="form-control input-sm">
+                                <option value="1101">Tiket Member</option>
+                                <option value="1102">Tiket User</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    <label for="">&nbsp;</label>
+                        <button type="submit" id="btnSubmit" class="btn btn-primary btn-block btn-sm">Buat Cetak Tiket</button>
+                    </div>
                 </div>
-                <button type="submit" id="btnSubmit" class="btn btn-primary btn-block btn-sm">Cetak Tiket Member</button>
             </form>
             <hr>
             <div class="modal-footer">

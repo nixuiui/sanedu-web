@@ -14,6 +14,9 @@ class Tiket extends Model {
     protected $dates        = ['deleted_at'];
 
     //RELATION table
+  	public function kategoriTiket() {
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_tiket');
+  	}
   	public function cetakTiket() {
   		return $this->belongsTo('App\Models\CetakTiket', 'id_kategori_tiket');
     }
