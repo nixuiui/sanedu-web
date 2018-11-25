@@ -9,6 +9,8 @@ use Uuid;
 use DB;
 use PDF;
 use Excel;
+use App\Models\CetakTiket;
+use App\Models\Tiket;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Ujian;
@@ -1120,6 +1122,73 @@ class SimulasiController extends Controller
             'soshum' => ceil($soshum/50)
         ]);
 
+    }
+
+    public function tiket($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $cetakTiket = CetakTiket::where("id_kategori_tiket", 1101)
+                                ->where("id_simulasi", $simulasi->id)
+                                ->orderBy("created_at", "desc")
+                                ->get();
+        $jumlahTiket = collect(DB::select(
+            "SELECT
+            SUM(jumlah_tiket) as jumlah
+            FROM
+            tbl_cetak_tiket
+            WHERE
+            id_kategori_tiket=1101 &&
+            id_simulasi='$id' &&
+            deleted_at IS NULL"
+        ))->first();
+        $jumlahPeserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->get()->count();
+        return view('adminsimulasi.simulasi.tiket')->with([
+            "simulasi" => $simulasi,
+            "cetakTiket" => $cetakTiket,
+            "jumlahTiket" => $jumlahTiket->jumlah,
+            "jumlahPeserta" => $jumlahPeserta
+        ]);
+    }
+
+    public function generateTiket(Request $input, $id){
+        $simulasi = Simulasi::findOrFail($id);
+        $this->validate($input, [
+            'jumlah'         => 'required|max:1000|numeric',
+        ]);
+        $cetakTiket                     = new CetakTiket;
+        $cetakTiket->id                 = Uuid::generate();
+        $cetakTiket->id_kategori_tiket  = 1101;
+        $cetakTiket->id_user            = Auth::id();
+        $cetakTiket->id_simulasi        = $simulasi->id;
+        if($cetakTiket->save()) {
+            foreach (range(1,$input->jumlah) as $i => $key) {
+                $date                   = date("ymdhis");
+                $kap                    = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
+                $pin                    = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
+                $tiket                  = new Tiket;
+                $tiket->id              = Uuid::generate();
+                $tiket->id_cetak_tiket  = $cetakTiket->id;
+                $tiket->id_simulasi     = $simulasi->id;
+                $tiket->kap             = $kap;
+                $tiket->pin             = $pin;
+                $tiket->save();
+            }
+        }
+        return back()->with('success', 'Tiket berhasil dibuat.');
+    }
+
+    public function deleteCetakTiket($id, $idCetakTiket) {
+        $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
+        $cetakTiket->delete();
+        return back()->with('success', 'Berhasil Menghapus.');
+    }
+
+    public function printTiket($id, $idCetakTiket) {
+        $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
+        $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();
+        // return view('template.tiket')->with('tiket', $tiket);
+        $pdf        = PDF::loadView('template.tiket', compact(['tiket']))->setPaper('a4');
+        return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
 }

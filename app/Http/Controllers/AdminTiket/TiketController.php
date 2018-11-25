@@ -108,8 +108,8 @@ class TiketController extends Controller
         if($cetakTiket->save()) {
             foreach (range(1,$input->jumlah) as $i => $key) {
                 $date                   = date("ymdhis");
-                $kap                    = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  $this->randomNumber(2) . $this->angkaUrut($i);
-                $pin                    = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  $this->randomNumber(3) . $this->angkaUrut($i);
+                $kap                    = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
+                $pin                    = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
                 $tiket                  = new Tiket;
                 $tiket->id              = Uuid::generate();
                 $tiket->id_cetak_tiket  = $cetakTiket->id;
@@ -152,24 +152,6 @@ class TiketController extends Controller
         $cetakTiket = CetakTiket::findOrFail($id);
         $cetakTiket->delete();
         return back()->with('success', 'Berhasil Menghapus.');
-    }
-
-    private function randomNumber($jumlah){
-        $a='';
-        for ($i = 0; $i<$jumlah; $i++) {
-            $a .= mt_rand(0,9);
-        }
-        return $a;
-    }
-
-    private function angkaUrut($angka){
-        if(strlen($angka) == 1)
-        return "00" . $angka;
-        else if(strlen($angka) == 2)
-        return "0" . $angka;
-        else if(strlen($angka >= 3))
-        return substr($angka, -3);
-        return $angka;
     }
 
     public function printTiket($id) {

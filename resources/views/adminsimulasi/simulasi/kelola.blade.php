@@ -27,6 +27,7 @@ Kelola Simulasi
 </div>
 <div class="row">
     <div class="col-md-12">
+        <a href="{{ route('adminsimulasi.simulasi.kelola.tiket', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-ticket-star mr-3"></i>Tiket</a>
         <a href="{{ route('adminsimulasi.simulasi.kelola.hasil.sementara', $simulasi->id) }}" class="btn btn-sm btn-default btn-space"><i class="mdi mdi-eye mr-3"></i>Lihat Hasil Sementara</a>
         <div class="btn-group btn-space">
             <button type="button" data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">

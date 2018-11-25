@@ -112,3 +112,21 @@ function plusMinute($startTime, $minute) {
     date_add($date, date_interval_create_from_date_string($minute . ' minutes'));
     return date_format($date, 'Y-m-d H:i:s');
 }
+
+function randomNumber($jumlah){
+    $a='';
+    for ($i = 0; $i<$jumlah; $i++) {
+        $a .= mt_rand(0,9);
+    }
+    return $a;
+}
+
+function angkaUrut($angka){
+    if(strlen($angka) == 1)
+        return "00" . $angka;
+    else if(strlen($angka) == 2)
+        return "0" . $angka;
+    else if(strlen($angka >= 3))
+        return substr($angka, -3);
+    return $angka;
+}
