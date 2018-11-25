@@ -25,7 +25,13 @@ class Simulasi extends Model {
     //RELATION table
   	public function creator() {
   		return $this->belongsTo('App\Models\User', 'id_creator');
-  	}
+	}
+	public function cetakTiket() {
+		return $this->hasMany('App\Models\CetakTiket', 'id_simulasi');
+	}
+	public function tiket() {
+		return $this->hasMany('App\Models\Tiket', 'id_simulasi');
+	}
   	public function tingkatSekolah() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
   	}

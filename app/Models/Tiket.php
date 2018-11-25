@@ -16,6 +16,9 @@ class Tiket extends Model {
     //RELATION table
   	public function cetakTiket() {
   		return $this->belongsTo('App\Models\CetakTiket', 'id_kategori_tiket');
+    }
+  	public function simulasi() {
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
   	}
   	public function user() {
   		return $this->belongsTo('App\Models\User', 'id_user');

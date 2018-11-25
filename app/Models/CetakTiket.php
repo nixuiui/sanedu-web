@@ -27,6 +27,9 @@ class CetakTiket extends Model {
   	public function user() {
   		return $this->belongsTo('App\Models\User', 'id_user');
   	}
+  	public function simulasi() {
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  	}
   	public function tiket() {
   		return $this->hasMany('App\Models\Tiket', 'id_cetak_tiket');
   	}
