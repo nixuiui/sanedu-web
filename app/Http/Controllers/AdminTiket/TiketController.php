@@ -107,14 +107,15 @@ class TiketController extends Controller
         $cetakTiket->id_user            = Auth::id();
         if($cetakTiket->save()) {
             foreach (range(1,$input->jumlah) as $i => $key) {
-                $date                   = date("ymdhis");
-                $kap                    = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
-                $pin                    = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
-                $tiket                  = new Tiket;
-                $tiket->id              = Uuid::generate();
-                $tiket->id_cetak_tiket  = $cetakTiket->id;
-                $tiket->kap             = $kap;
-                $tiket->pin             = $pin;
+                $date                       = date("ymdhis");
+                $kap                        = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
+                $pin                        = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
+                $tiket                      = new Tiket;
+                $tiket->id                  = Uuid::generate();
+                $tiket->id_kategori_tiket   = 1101;
+                $tiket->id_cetak_tiket      = $cetakTiket->id;
+                $tiket->kap                 = $kap;
+                $tiket->pin                 = $pin;
                 $tiket->save();
             }
         }
