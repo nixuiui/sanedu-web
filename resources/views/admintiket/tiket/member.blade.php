@@ -23,6 +23,7 @@ Tiket Member
                     <thead>
                         <tr>
                             <th>Waktu</th>
+                            <th>Simulasi</th>
                             <th>Jumlah Tiket</th>
                             <th>Dibuat Oleh</th>
                             <th class="text-right">Aksi</th>
@@ -31,6 +32,7 @@ Tiket Member
                     <tfoot>
                         <tr>
                             <th>Waktu</th>
+                            <th>Simulasi</th>
                             <th>Jumlah Tiket</th>
                             <th>Dibuat Oleh</th>
                             <th class="text-right">Aksi</th>
@@ -40,6 +42,7 @@ Tiket Member
                         @foreach($cetakTiket as $cetak)
                         <tr>
                             <td>{{ hariTanggalWaktu($cetak->created_at) }}</td>
+                            <td>{{ $cetak->simulasi->judul }}</td>
                             <td>{{ $cetak->jumlah_tiket }} tiket</td>
                             <td>{{ $cetak->user->nama }}</td>
                             <td class="text-right">
