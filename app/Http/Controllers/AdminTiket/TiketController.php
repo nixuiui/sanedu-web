@@ -159,7 +159,7 @@ class TiketController extends Controller
         $cetakTiket = CetakTiket::findOrFail($id);
         $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();
         // return view('template.tiket')->with('tiket', $tiket);
-        $pdf        = PDF::loadView('template.tiket', compact(['tiket']))->setPaper('a4');
+        $pdf        = PDF::loadView('template.tiket.member-feb', compact(['tiket']))->setPaper('a4');
         return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 }

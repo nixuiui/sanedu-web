@@ -14,20 +14,20 @@
         height: 100%;
         font-family: helvetica;
         position: absolute;
-        font-size: 7px;
+        font-size: 13px;
         letter-spacing: 0px;
         top: 0;
         right: 0;
-        left: 280px;
+        left: 565px;
     }
     .kap {
         position: absolute;
-        top: 76px;
+        top: 151px;
         left: 0px;
     }
     .pin {
         position: absolute;
-        top: 94px;
+        top: 187px;
         left: 0px;
         letter-spacing: 0px;
     }
@@ -38,19 +38,15 @@
     <div class="wrapper">
         <table width="100%">
             @foreach($tiket as $key => $val)
-            @if($key % 2 == 0)
             <tr>
-            @endif
                 <td class="tiket-wrapper">
-                    <img class="tiket" src="{{ asset('image/tiket_member_feb.png')}}" width="383px" />
+                    <img class="tiket" src="{{ asset('image/tiket_member_feb.png')}}" width="766px" />
                     <div class="field">
                         <span class="kap">{{ substr($val->kap, -12, 6) }} - {{ substr($val->kap, -6, 6) }}</span>
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
                     </div>
                 </td>
-            @if($key % 2 == 1)
             </tr>
-            @endif
             @endforeach
         </table>
     </div>
