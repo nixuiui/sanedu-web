@@ -14,20 +14,20 @@
         height: 100%;
         font-family: helvetica;
         position: absolute;
-        font-size: 13px;
+        font-size: 12px;
         letter-spacing: 0px;
         top: 0;
         right: 0;
-        left: 572px;
+        left: 475px;
     }
     .kap {
         position: absolute;
-        top: 95px;
+        top: 78px;
         left: 0px;
     }
     .pin {
         position: absolute;
-        top: 129px;
+        top: 107px;
         left: 0px;
         letter-spacing: 0px;
     }
@@ -40,7 +40,7 @@
             @foreach($tiket as $key => $val)
             <tr>
                 <td class="tiket-wrapper">
-                    <img class="tiket" src="{{ asset('image/tiket_user_feb.png')}}" width="766px" />
+                    <img class="tiket" src="{{ asset('image/tiket_user_feb.png')}}" width="640px" />
                     <div class="field">
                         <span class="kap">{{ substr($val->kap, -12, 6) }} - {{ substr($val->kap, -6, 6) }}</span>
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
