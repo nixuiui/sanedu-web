@@ -18,7 +18,7 @@ Pengerjaan Soal Selesai
                 <div class="text-nilai-announcement mb-5">
                     {{ $attempt->jumlah_benar }}
                 </div>
-                <p>Nilai tertinggi adalah 100</p>
+                <p>Nilai maksimum adalah {{ $attempt->ujian->jumlah_soal}}</p>
             </div>
         </div>
         <div class="card-info text-center">

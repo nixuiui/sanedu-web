@@ -1199,10 +1199,7 @@ class SimulasiController extends Controller
         $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
         $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();
         // return view('template.tiket')->with('tiket', $tiket);
-        if($cetakTiket->id_kategori_tiket == 1101)
-            $pdf = PDF::loadView('template.tiket.member-feb', compact(['tiket']))->setPaper('a4');
-        if($cetakTiket->id_kategori_tiket == 1102)
-            $pdf = PDF::loadView('template.tiket.user-feb', compact(['tiket']))->setPaper('a4');
+        $pdf = PDF::loadView('template.tiket.user-feb', compact(['tiket']))->setPaper('a4');
         return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
