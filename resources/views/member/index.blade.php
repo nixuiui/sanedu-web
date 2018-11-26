@@ -42,9 +42,15 @@ $(document).ready(function(){
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
-        <a href="{{ route('member.passgrade') }}" class="menu-item new-fitur">
+        <a href="{{ route('member.informasi') }}" class="menu-item new-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_informasi.png') }}" alt="">
             <div class="menu-title">Informasi</div>
+        </a>
+    </div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <a href="{{ route('member.passgrade') }}" class="menu-item new-fitur">
+            <img class="menu-icon" src="{{ asset('asset-member/img/menu_informasi.png') }}" alt="">
+            <div class="menu-title">Passing Grade</div>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">

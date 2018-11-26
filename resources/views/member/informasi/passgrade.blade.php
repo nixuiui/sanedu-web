@@ -22,24 +22,6 @@ $(document).ready(function(){
 @endsection
 
 @section('content')
-<div class="main-gallery" style="border-radius: 15px;">
-    <div class="gallery-cell">
-        <img width="100%" alt="First slide [800x400]" src="{{ asset('asset-member/img/banner3.jpg') }}">
-    </div>
-    <div class="gallery-cell">
-        <img width="100%" alt="First slide [800x400]" src="{{ asset('asset-member/img/banner1.jpg') }}">
-    </div>
-    <div class="gallery-cell">
-        <img width="100%" alt="First slide [800x400]" src="{{ asset('asset-member/img/banner2.jpg') }}">
-    </div>
-</div>
-<hr>
-<ul class="nav nav-pills nav-justified mb-5 nav-informasi">
-    <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1701 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1701']) }}">Beasiswa</a></li>
-    <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1702 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1702']) }}">Universitas</a></li>
-    <li role="presentation" class="{{ isset($_GET['kategori']) && $_GET['kategori'] == 1703 ? "active" : "" }}"><a href="{{ route('member.informasi', ['kategori' => '1703']) }}">Prospek Kerja</a></li>
-    <li role="presentation" class="{{ active('member.passgrade') }}"><a href="{{ route('member.passgrade') }}">PG</a></li>
-</ul>
 <div class="row">
     <div class="col-md-3">
         <form class="panel panel-default" action="" method="get">

@@ -18,6 +18,9 @@
                 <li class="{{ active(['member.informasi', 'member.informasi.*']) }}" title="Informasi">
                     <a href="{{ route('member.informasi') }}"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>
                 </li>
+                <li class="{{ active(['member.passgrade', 'member.passgrade.*']) }}" title="Informasi">
+                    <a href="{{ route('member.passgrade') }}"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
+                </li>
                 <li class="{{ active(['member.simulasi', 'member.simulasi.*']) }}" title="Informasi">
                     <a href="{{ route('member.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
                 </li>
