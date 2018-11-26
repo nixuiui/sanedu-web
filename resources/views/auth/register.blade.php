@@ -2,9 +2,11 @@
 @section('title')
 Daftar
 @endsection
+
 @section('style')
 <link rel="stylesheet" href="{{ asset('asset-landing/css/login.css')}}">
 @endsection
+
 @section('content')
 <div class='wrapper fadeInDown'>
     <div id='formContent'>
@@ -30,8 +32,8 @@ Daftar
                     {!! $danger !!}
                 </div>
             @endif
-            <input type="text" class="fadeIn second" name="kap" placeholder="KAP" value="{{ old('kap') }}" autofocus required>
-            <input type="text" class="fadeIn first" name="pin" placeholder="PIN" value="{{ old('pin') }}"  required>
+            <input type="text" class="fadeIn second input-kap" name="kap" value="{{ old('kap') }}" autofocus required>
+            <input type="text" class="fadeIn first input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}"  required>
             <input type="submit" class="fadeIn fourth" value="LANJUTKAN">
         </form>
         @else
@@ -123,4 +125,11 @@ Daftar
 
     </div>
 </div>
+
+<script src="{{ asset('asset-beagle/lib/jquery/jquery.min.js')}}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('.input-kap').mask('000000-000000', {placeholder: "KAP"});
+    $('.input-pin').mask('0000-0000-0000-0000', {placeholder: "PIN"});
+</script>
 @endsection

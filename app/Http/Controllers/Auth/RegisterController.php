@@ -76,9 +76,11 @@ class RegisterController extends Controller
     }
 
     public function registerForm(Request $input) {
-        if($input->pin == null || $input->kap == null)
+        $kap = str_replace("-", "", $input->kap);
+        $pin = str_replace("-", "", $input->pin);
+        if($pin == null || $kap == null)
             return view('auth.register')->with('step', 1);
-        $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
+        $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
         if($tiket->first() == null)
             return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP tidak tersedia']);
         $tiket = $tiket->where('id_user', null);
