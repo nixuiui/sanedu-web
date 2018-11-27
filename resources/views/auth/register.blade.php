@@ -32,8 +32,8 @@ Daftar
                     {!! $danger !!}
                 </div>
             @endif
-            <input type="text" class="fadeIn first input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}"  required>
-            <input type="text" class="fadeIn second input-kap" name="kap" value="{{ old('kap') }}" autofocus required>
+            <input type="text" class="fadeIn first input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}" autofocus required>
+            <input type="text" class="fadeIn second input-kap" name="kap" value="{{ old('kap') }}" required>
             <input type="submit" class="fadeIn fourth" value="LANJUTKAN">
         </form>
         @else
