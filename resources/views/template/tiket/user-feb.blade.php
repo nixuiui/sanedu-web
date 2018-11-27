@@ -22,12 +22,12 @@
     }
     .kap {
         position: absolute;
-        top: 74px;
+        top: 101px;
         left: 0px;
     }
     .pin {
         position: absolute;
-        top: 101px;
+        top: 74px;
         left: 0px;
         letter-spacing: 0px;
     }

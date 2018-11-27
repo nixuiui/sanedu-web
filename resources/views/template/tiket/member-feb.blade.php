@@ -22,12 +22,12 @@
     }
     .kap {
         position: absolute;
-        top: 76px;
+        top: 94px;
         left: 0px;
     }
     .pin {
         position: absolute;
-        top: 94px;
+        top: 76px;
         left: 0px;
         letter-spacing: 0px;
     }
@@ -44,8 +44,8 @@
                 <td class="tiket-wrapper">
                     <img class="tiket" src="{{ asset('image/tiket_member_feb.png')}}" width="383px" />
                     <div class="field">
-                        <span class="kap">{{ substr($val->kap, -12, 6) }} - {{ substr($val->kap, -6, 6) }}</span>
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
+                        <span class="kap">{{ substr($val->kap, -12, 6) }} - {{ substr($val->kap, -6, 6) }}</span>
                     </div>
                 </td>
             @if($key % 2 == 1)

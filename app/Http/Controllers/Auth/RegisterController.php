@@ -108,8 +108,8 @@ class RegisterController extends Controller
         $user = new User;
         $user->id = Uuid::generate();
         $user->id_role = 1004;
-        $user->pin = $input->pin;
-        $user->kap = $input->kap;
+        $user->pin = str_replace("-", "", $input->kap);
+        $user->kap = str_replace("-", "", $input->pin);
         $user->nama = $input->nama;
         $user->email = $input->email;
         $user->username = $input->username;
