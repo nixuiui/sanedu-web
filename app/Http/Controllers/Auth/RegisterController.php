@@ -94,11 +94,11 @@ class RegisterController extends Controller
             'nama'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:tbl_users,email',
             'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
-            'pin'               => 'required|exists:tbl_tiket,pin',
-            'kap'               => 'required|exists:tbl_tiket,kap',
             'password'          => 'required|string|min:6',
         ]);
-        $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
+        $kap = str_replace("-", "", $input->kap);
+        $pin = str_replace("-", "", $input->pin);
+        $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
         if($tiket->first() == null)
             return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
         $tiket = $tiket->where('id_user', null);
@@ -108,8 +108,8 @@ class RegisterController extends Controller
         $user = new User;
         $user->id = Uuid::generate();
         $user->id_role = 1004;
-        $user->pin = str_replace("-", "", $input->kap);
-        $user->kap = str_replace("-", "", $input->pin);
+        $user->pin = $pin;
+        $user->kap = $kap;
         $user->nama = $input->nama;
         $user->email = $input->email;
         $user->username = $input->username;
@@ -120,7 +120,7 @@ class RegisterController extends Controller
         $user->tempat_lahir = $input->tempat_lahir;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){
-            $tiket = Tiket::where("kap", $input->kap)->where("pin", $input->pin)->first();
+            $tiket = Tiket::where("kap", $kap)->where("pin", $pin)->first();
             $tiket->id_user = $user->id;
             if($tiket->save()) {
                 $dataEmail = [
