@@ -111,6 +111,12 @@ Daftar
                 <span>{{ $errors->first('no_hp') }}</span>
             </span>
             @endif
+            <input type="number" class="fadeIn" name="no_hp_ortu" placeholder="NO. HANDPHONE ORANG TUA" value="{{ old('no_hp_ortu') }}" required>
+            @if($errors->has('no_hp_ortu'))
+            <span class="help-block">
+                <span>{{ $errors->first('no_hp_ortu') }}</span>
+            </span>
+            @endif
             <input type="text" class="fadeIn" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir') }}" required>
             @if($errors->has('tempat_lahir'))
             <span class="help-block">

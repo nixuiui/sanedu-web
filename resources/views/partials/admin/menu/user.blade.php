@@ -15,8 +15,8 @@
                 <li class="{{ active(['user.passgrade', 'user.passgrade.*']) }}" title="Informasi">
                     <a href="{{ route('user.passgrade') }}"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
                 </li>
-                <li class="{{ active(['member.simulasi', 'member.simulasi.*']) }}" title="Informasi">
-                    <a href="{{ route('member.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
+                <li class="{{ active(['user.simulasi', 'user.simulasi.*']) }}" title="Informasi">
+                    <a href="{{ route('user.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
                 </li>
                 <li class="{{ active(['member.grupchat', 'member.grupchat.*']) }}" title="Join Grup Chat">
                     <a href="{{ route('member.grupchat') }}"><i class="icon mdi mdi-accounts-add"></i><span>Join Grup Chat</span></a>

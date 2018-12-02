@@ -6,9 +6,6 @@
         <nav class="navbar navbar-default navbar-fixed-top be-top-header">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <!-- <a href="{{ route('guest.home') }}" class="navbar-brand">
-                        <img src="{{ asset('asset-beagle/img/logo-san.png') }}" style="width: 50px; margin-top: 7px">
-                    </a> -->
                 </div>
                 @include('partials.admin.navbar-right')
                 <a href="#" data-toggle="collapse" data-target="#be-navbar-collapse" class="be-toggle-top-header-menu collapsed">No Sidebar Left</a>

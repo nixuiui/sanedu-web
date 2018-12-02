@@ -80,6 +80,19 @@ class SimulasiController extends Controller
             else return back()->with('danger', 'Gambar tidak terupload');
         }
         $simulasi->save();
+
+        $simulasiSaintek = new SimulasiUjian;
+        $simulasiSaintek->id = Uuid::generate();
+        $simulasiSaintek->id_simulasi = $simulasi->id;
+        $simulasiSaintek->id_mapel = 1516;
+        $simulasiSaintek->save();
+
+        $simulasiSoshum = new SimulasiUjian;
+        $simulasiSoshum->id = Uuid::generate();
+        $simulasiSoshum->id_simulasi = $simulasi->id;
+        $simulasiSoshum->id_mapel = 1517;
+        $simulasiSoshum->save();
+
         return redirect()->route('adminsimulasi.simulasi.kelola', $simulasi->id)->with('success', 'Simulasi berhasil dibuat');
     }
 

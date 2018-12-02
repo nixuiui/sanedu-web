@@ -58,6 +58,7 @@ class ProfilController extends Controller {
         $user               = User::find(Auth::id());
         $user->nama         = $data->nama;
         $user->no_hp        = $data->no_hp;
+        $user->no_hp_ortu   = $data->no_hp_ortu;
         $user->alamat       = $data->alamat;
         $user->id_tingkat_sekolah = $data->id_tingkat_sekolah;
         $user->asal_sekolah = $data->asal_sekolah;

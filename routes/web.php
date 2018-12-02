@@ -275,7 +275,7 @@ Route::group(['middleware' => 'pengawas', 'prefix' => 'pengawas'], function(){
 /*--------------------------------------------------------------------------
 MEMBER
 -------------------------------------------------------------------------*/
-Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
+Route::group(['middleware' => 'member'], function(){
     Route::get('/', 'Member\HomeController@index')->name('member');
 
     Route::group(['prefix' => 'profil'], function(){
@@ -343,7 +343,7 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
 });
 
 /*--------------------------------------------------------------------------
-MEMBER
+USER
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
     Route::get('/', 'User\HomeController@index')->name('user');
@@ -361,6 +361,23 @@ Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
         Route::post('/edit-password',   'User\ProfilController@editPassword')->name('user.profil.edit.password');
         Route::get('/photo',            'User\ProfilController@photo')->name('user.profil.photo');
         Route::post('/photo',           'User\ProfilController@uploadPhoto')->name('user.profil.photo.post');
+    });
+
+    Route::group(['prefix' => 'simulasi'], function(){
+        Route::get('/',                 'User\SimulasiController@index')->name('user.simulasi');
+        Route::group(['prefix' => '{id}'], function(){
+            Route::get('/register',             'User\SimulasiController@register')->name('user.simulasi.register');
+            Route::post('/register',            'User\SimulasiController@registerPost')->name('user.simulasi.register.post');
+            Route::get('/passgrade',            'User\SimulasiController@passGrade')->name('user.simulasi.passgrade');
+            Route::post('/passgrade',           'User\SimulasiController@passGradePost')->name('user.simulasi.passgrade.post');
+            Route::get('/o',                    'User\SimulasiController@open')->name('user.simulasi.open');
+            Route::get('/kartuujian',           'User\SimulasiController@kartuUjian')->name('user.simulasi.kartuujian');
+            Route::post('/aturjadwal',          'User\SimulasiController@aturJadwal')->name('user.simulasi.aturjadwal');
+            Route::get('/attempt/{idUjian}',    'User\SimulasiController@attempt')->name('user.simulasi.ujian.attempt');
+            Route::get('/openujian/{idAttempt}','User\SimulasiController@openUjian')->name('user.simulasi.ujian.open');
+            Route::get('/finish/{idAttempt}',   'User\SimulasiController@finish')->name('user.simulasi.ujian.finish');
+            Route::get('/lihathasil',           'User\SimulasiController@lihatHasil')->name('user.simulasi.lihat.hasil');
+        });
     });
 
 });

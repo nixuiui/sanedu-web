@@ -12,6 +12,26 @@ class HomeController extends Controller
 {
 
     public function index() {
+        if(Auth::check()) {
+            if (Auth::user()->id_role == 1001)
+            return redirect()->route("superadmin");
+            else if(Auth::user()->id_role == 1002)
+            return redirect()->route("admin");
+            else if(Auth::user()->id_role == 1003)
+            return redirect()->route('admintiket');
+            else if(Auth::user()->id_role == 1004)
+            return redirect()->route('member');
+            else if(Auth::user()->id_role == 1005)
+            return redirect()->route('user');
+            else if(Auth::user()->id_role == 1006)
+            return redirect()->route('adminujian');
+            else if(Auth::user()->id_role == 1007)
+            return redirect()->route('adminsimulasi');
+            else if(Auth::user()->id_role == 1008)
+            return redirect()->route('pengawas');
+            else
+            return  "WRONG TURN!";
+        }
         return view('guest.landing.index');
     }
 

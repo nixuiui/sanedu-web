@@ -7,33 +7,6 @@ Pengaturan Profil
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <form class="panel panel-default" action="{{ route('user.profil.edit.tiket') }}" method="post">
-            <div class="panel-heading">Nomor Tiket Anda</div>
-            <div class="panel-body">
-                {{ csrf_field() }}
-                <label for="">PIN</label>
-                <div class="form-group">
-                    <input type="number" class="form-control input-sm" placeholder="PIN" name="pin"  value="{{ $user->pin }}" {{ Auth::user()->tiket != null ? "disabled" : "" }}>
-                    @if ($errors->has('pin'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('pin') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <label for="">KAP</label>
-                <div class="form-group">
-                    <input type="number" class="form-control input-sm" placeholder="KAP" name="kap"  value="{{ $user->kap }}" {{ Auth::user()->tiket != null ? "disabled" : "" }}>
-                    @if ($errors->has('kap'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('kap') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                @if(Auth::user()->tiket == null)
-                <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan Perubahan</button>
-                @endif
-            </div>
-        </form>
         <form class="panel panel-default" action="{{ route('user.profil.edit.profil') }}" method="post">
             <div class="panel-heading">
                 Profil Anda
@@ -51,7 +24,7 @@ Pengaturan Profil
                 </div>
                 <div class="form-group">
                     <label>Nomor HP</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="no_hp"  value="{{ $user->no_hp }}" required>
+                    <input type="text" class="form-control input-sm" placeholder="Nomor HP" name="no_hp"  value="{{ $user->no_hp }}" required>
                     @if ($errors->has('no_hp'))
                     <span class="help-block">
                         <strong>{{ $errors->first('no_hp') }}</strong>
@@ -59,8 +32,17 @@ Pengaturan Profil
                     @endif
                 </div>
                 <div class="form-group">
+                    <label>Nomor HP Orang Tua</label>
+                    <input type="text" class="form-control input-sm" placeholder="Nomor HP Orang Tua" name="no_hp_ortu"  value="{{ $user->no_hp_ortu }}" required>
+                    @if ($errors->has('no_hp_ortu'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('no_hp_ortu') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label>Alamat</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="alamat"  value="{{ $user->alamat }}" required>
+                    <input type="text" class="form-control input-sm" placeholder="Alamat" name="alamat"  value="{{ $user->alamat }}" required>
                     @if ($errors->has('alamat'))
                     <span class="help-block">
                         <strong>{{ $errors->first('alamat') }}</strong>
@@ -83,7 +65,7 @@ Pengaturan Profil
                 </div>
                 <div class="form-group">
                     <label>Asal Sekolah</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="asal_sekolah"  value="{{ $user->asal_sekolah }}" required>
+                    <input type="text" class="form-control input-sm" placeholder="Asal Sekolah" name="asal_sekolah"  value="{{ $user->asal_sekolah }}" required>
                     @if ($errors->has('asal_sekolah'))
                     <span class="help-block">
                         <strong>{{ $errors->first('asal_sekolah') }}</strong>
@@ -92,7 +74,7 @@ Pengaturan Profil
                 </div>
                 <div class="form-group">
                     <label>Tempat Lahir</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="tempat_lahir"  value="{{ $user->tempat_lahir }}" required>
+                    <input type="text" class="form-control input-sm" placeholder="Tempat Lahir" name="tempat_lahir"  value="{{ $user->tempat_lahir }}" required>
                     @if ($errors->has('tempat_lahir'))
                     <span class="help-block">
                         <strong>{{ $errors->first('tempat_lahir') }}</strong>

@@ -125,6 +125,7 @@ class RegisterController extends Controller
         $user->username = $input->username;
         $user->password = bcrypt($input->password);
         $user->no_hp = $input->no_hp;
+        $user->no_hp_ortu = $input->no_hp_ortu;
         $user->alamat = $input->alamat;
         $user->asal_sekolah = $input->asal_sekolah;
         $user->tempat_lahir = $input->tempat_lahir;
