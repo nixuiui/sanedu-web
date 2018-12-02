@@ -342,6 +342,17 @@ Route::group(['middleware' => 'member', 'prefix' => 'member'], function(){
 
 });
 
+/*--------------------------------------------------------------------------
+MEMBER
+-------------------------------------------------------------------------*/
+Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
+    Route::get('/', 'User\HomeController@index')->name('user');
+
+    Route::group(['prefix' => 'passinggrade'], function(){
+        Route::get('/',     'User\InformasiController@passGrade')->name('user.passgrade');
+    });
+    
+});
 
 //AJAX
 
