@@ -351,7 +351,18 @@ Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
     Route::group(['prefix' => 'passinggrade'], function(){
         Route::get('/',     'User\InformasiController@passGrade')->name('user.passgrade');
     });
-    
+
+    Route::group(['prefix' => 'profil'], function(){
+        Route::get('/edit',             'User\ProfilController@edit')->name('user.profil.edit');
+        Route::post('/edit-tiket',      'User\ProfilController@editTiket')->name('user.profil.edit.tiket');
+        Route::post('/edit-profil',     'User\ProfilController@editProfil')->name('user.profil.edit.profil');
+        Route::post('/edit-email',      'User\ProfilController@editEmail')->name('user.profil.edit.email');
+        Route::post('/edit-username',   'User\ProfilController@editUsername')->name('user.profil.edit.username');
+        Route::post('/edit-password',   'User\ProfilController@editPassword')->name('user.profil.edit.password');
+        Route::get('/photo',            'User\ProfilController@photo')->name('user.profil.photo');
+        Route::post('/photo',           'User\ProfilController@uploadPhoto')->name('user.profil.photo.post');
+    });
+
 });
 
 //AJAX

@@ -9,6 +9,8 @@
         @include('partials.admin.menu.admintiket')
         @elseif(Auth::user()->id_role == 1004)
         @include('partials.admin.menu.member')
+        @elseif(Auth::user()->id_role == 1005)
+        @include('partials.admin.menu.user')
         @elseif(Auth::user()->id_role == 1006)
         @include('partials.admin.menu.adminujian')
         @elseif(Auth::user()->id_role == 1007)

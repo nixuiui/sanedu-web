@@ -13,26 +13,16 @@
                     </div>
                 </li>
                 @if(Auth::user()->id_role == 1004)
-                <li>
-                    <div class="user-info-second" style="background: #FFF; margin-bottom: 0;">
-                        @if(Auth::user()->pin == null || Auth::user()->kap == null)
-                        <a href="{{ route('member.profil.edit') }}" class="btn btn-md btn-warning">Masukan No Tiket</a>
-                        @else
-                        <strong>PIN: </strong> {{ Auth::user()->pin }} <br>
-                        <strong>KAP: </strong> {{ Auth::user()->kap }}
-                        @endif
-                    </div>
-                </li>
-                <hr>
-                <li>
+                <!-- <li>
                     <div class="user-info-second" style="background: #FFF; margin-bottom: 0; padding-top: 0;">
                         Saldo: <span class="text-success text-bold">{{ formatUang(Auth::user()->saldo) }}</span>
                     </div>
                 </li>
-                <hr>
+                <hr> -->
                 <li><a href="{{ route('member.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
-                @endif
-                @if(Auth::user()->id_role == 1001 || Auth::user()->id_role == 1002 || Auth::user()->id_role == 1003)
+                @elseif(Auth::user()->id_role == 1005)
+                <li><a href="{{ route('user.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
+                @elseif(Auth::user()->id_role == 1001 || Auth::user()->id_role == 1002 || Auth::user()->id_role == 1003)
                 <li><a href="{{ route('alladmin.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
                 @endif
                 <li><a href="{{ route('auth.logout') }}"><span class="icon mdi mdi-power"></span> Logout</a></li>
