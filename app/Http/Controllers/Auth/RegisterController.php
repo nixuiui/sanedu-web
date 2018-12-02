@@ -78,15 +78,26 @@ class RegisterController extends Controller
     public function registerForm(Request $input) {
         $kap = str_replace("-", "", $input->kap);
         $pin = str_replace("-", "", $input->pin);
-        if($pin == null || $kap == null)
-            return view('auth.register')->with('step', 1);
-        $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
-        if($tiket->first() == null)
-            return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP tidak tersedia']);
-        $tiket = $tiket->where('id_user', null);
-        if($tiket->first() == null)
-            return view('auth.register')->with(['step' => 1, 'danger' => 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran']);
-        return view('auth.register')->with('step', 2);
+        if(!isset($_GET['email'])) {
+            if($pin == null || $kap == null)
+                return view('auth.register')->with('step', 1);
+            $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
+            if($tiket->first() == null)
+                return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP tidak tersedia']);
+            $tiket = $tiket->where('id_user', null);
+            if($tiket->first() == null)
+                return view('auth.register')->with(['step' => 1, 'danger' => 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran']);
+            return view('auth.register')->with('step', 2);
+        }
+        else {
+            $user = User::where("email", $input->email)->first();
+            if($user != null) {
+                return view('auth.register')->with(["step" => 2, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
+            }
+            else {
+                return view('auth.register')->with('step', 3);
+            }
+        }
     }
 
     public function register(Request $input) {
@@ -105,11 +116,10 @@ class RegisterController extends Controller
         if($tiket->first() == null)
             return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
         $tiket = $tiket->first();
+        $id_role = $tiket->id_kategori_tiket == 1102 ? 1005 : 1004;
         $user = new User;
         $user->id = Uuid::generate();
-        $user->id_role = 1004;
-        $user->pin = $pin;
-        $user->kap = $kap;
+        $user->id_role = $id_role;
         $user->nama = $input->nama;
         $user->email = $input->email;
         $user->username = $input->username;

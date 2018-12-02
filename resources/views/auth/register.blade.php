@@ -14,7 +14,7 @@ Daftar
         <h2 class='active'> DAFTAR MEMBER SANEDU</h2>
 
         <!-- Icon -->
-        <div class='fadeIn first'>
+        <div class='fadeIn'>
             <a href='index.php'>
                 <img src="{{ asset('asset-landing/img/main/icon.svg')}}" alt='User Icon' style='height: 130px; width: 130px;' />
             </a>
@@ -32,89 +32,109 @@ Daftar
                     {!! $danger !!}
                 </div>
             @endif
-            <input type="text" class="fadeIn first input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}" autofocus required>
-            <input type="text" class="fadeIn second input-kap" name="kap" value="{{ old('kap') }}" required>
-            <input type="submit" class="fadeIn fourth" value="LANJUTKAN">
+            <input type="text" class="fadeIn input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}" autofocus required>
+            <input type="text" class="fadeIn input-kap" name="kap" value="{{ old('kap') }}" required>
+            <input type="submit" class="fadeIn" value="LANJUTKAN">
+        </form>
+        @elseif($step == 2)
+        <form action="{{ route('auth.register') }}" method="GET">
+            @if(isset($success))
+                <div class="alert alert-success" style="width:85%; margin: 0 auto 15px;">
+                    {!! $success !!}
+                </div>
+            @elseif(isset($danger))
+                <div class="alert alert-danger" style="width:85%; margin: 0 auto 15px;">
+                    {!! $danger !!}
+                </div>
+            @endif
+            <input type="text" class="fadeIn" value="{{ $_GET['kap'] }}" disabled required>
+            <input type="hidden" class="fadeIn" name="kap" placeholder="KAP" value="{{ $_GET['kap'] }}" required>
+            <input type="text" class="fadeIn" value="{{ $_GET['pin'] }}" disabled required>
+            <input type="hidden" class="fadeIn" name="pin" placeholder="PIN" value="{{ $_GET['pin'] }}" required>
+            <hr>
+            <input type="text" class="fadeIn" name="email" value="{{ old('email') }}" placeholder="EMAIL" required>
+            <input type="submit" class="fadeIn" value="LANJUTKAN">
         </form>
         @else
         <form action="{{ route('auth.register.post') }}" method="POST">
             @csrf
-            <input type="text" class="fadeIn second" value="{{ $_GET['kap'] }}" disabled required>
-            <input type="hidden" class="fadeIn second" name="kap" placeholder="KAP" value="{{ $_GET['kap'] }}" required>
+            <input type="text" class="fadeIn" value="{{ $_GET['kap'] }}" disabled required>
+            <input type="hidden" class="fadeIn" name="kap" placeholder="KAP" value="{{ $_GET['kap'] }}" required>
             @if($errors->has('kap'))
             <span class="help-block">
                 <span>{{ $errors->first('kap') }}</span>
             </span>
             @endif
-            <input type="text" class="fadeIn first" value="{{ $_GET['pin'] }}" disabled required>
-            <input type="hidden" class="fadeIn first" name="pin" placeholder="PIN" value="{{ $_GET['pin'] }}" required>
+            <input type="text" class="fadeIn" value="{{ $_GET['pin'] }}" disabled required>
+            <input type="hidden" class="fadeIn" name="pin" placeholder="PIN" value="{{ $_GET['pin'] }}" required>
             @if($errors->has('pin'))
             <span class="help-block">
                 <span>{{ $errors->first('pin') }}</span>
             </span>
             @endif
-            <hr>
-            <h2 class='active'> INFORMASI ANDA</h2>
-            <input type="text" class="fadeIn third" name="nama" placeholder="NAMA ANDA" autofocus value="{{ old('nama') }}" required>
-            @if($errors->has('nama'))
-            <span class="help-block">
-                <span>{{ $errors->first('nama') }}</span>
-            </span>
-            @endif
-            <input type="text" class="fadeIn fourth" name="alamat" placeholder="ALAMAT" value="{{ old('alamat') }}" required>
-            @if($errors->has('alamat'))
-            <span class="help-block">
-                <span>{{ $errors->first('alamat') }}</span>
-            </span>
-            @endif
-            <input type="text" class="fadeIn fifth" name="asal_sekolah" placeholder="ASAL SEKOLAH" value="{{ old('asal_sekolah') }}" required>
-            @if($errors->has('asal_sekolah'))
-            <span class="help-block">
-                <span>{{ $errors->first('asal_sekolah') }}</span>
-            </span>
-            @endif
-            <input type="text" class="fadeIn sixth" name="kota" placeholder="KOTA / KABUPATEN" value="{{ old('kota') }}" required>
-            @if($errors->has('kota'))
-            <span class="help-block">
-                <span>{{ $errors->first('kota') }}</span>
-            </span>
-            @endif
-            <input type="number" class="fadeIn seventh" name="no_hp" placeholder="NO. HANDPHONE" value="{{ old('no_hp') }}" required>
-            @if($errors->has('no_hp'))
-            <span class="help-block">
-                <span>{{ $errors->first('no_hp') }}</span>
-            </span>
-            @endif
-            <input type="text" class="fadeIn seventh" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir') }}" required>
-            @if($errors->has('tempat_lahir'))
-            <span class="help-block">
-                <span>{{ $errors->first('tempat_lahir') }}</span>
-            </span>
-            @endif
-            <input type="text" class="fadeIn eight" name="email" placeholder="EMAIL" value="{{ old('email') }}" required>
+            <input type="text" class="fadeIn" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" disabled required>
+            <input type="hidden" class="fadeIn" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" required>
             @if($errors->has('email'))
             <span class="help-block">
                 <span>{{ $errors->first('email') }}</span>
             </span>
             @endif
             <hr>
+            <h2 class='active'> INFORMASI ANDA</h2>
+            <input type="text" class="fadeIn" name="nama" placeholder="NAMA ANDA" autofocus value="{{ old('nama') }}" required>
+            @if($errors->has('nama'))
+            <span class="help-block">
+                <span>{{ $errors->first('nama') }}</span>
+            </span>
+            @endif
+            <input type="text" class="fadeIn" name="alamat" placeholder="ALAMAT" value="{{ old('alamat') }}" required>
+            @if($errors->has('alamat'))
+            <span class="help-block">
+                <span>{{ $errors->first('alamat') }}</span>
+            </span>
+            @endif
+            <input type="text" class="fadeIn" name="asal_sekolah" placeholder="ASAL SEKOLAH" value="{{ old('asal_sekolah') }}" required>
+            @if($errors->has('asal_sekolah'))
+            <span class="help-block">
+                <span>{{ $errors->first('asal_sekolah') }}</span>
+            </span>
+            @endif
+            <input type="text" class="fadeIn" name="kota" placeholder="KOTA / KABUPATEN" value="{{ old('kota') }}" required>
+            @if($errors->has('kota'))
+            <span class="help-block">
+                <span>{{ $errors->first('kota') }}</span>
+            </span>
+            @endif
+            <input type="number" class="fadeIn" name="no_hp" placeholder="NO. HANDPHONE" value="{{ old('no_hp') }}" required>
+            @if($errors->has('no_hp'))
+            <span class="help-block">
+                <span>{{ $errors->first('no_hp') }}</span>
+            </span>
+            @endif
+            <input type="text" class="fadeIn" name="tempat_lahir" placeholder="Tempat Lahir" value="{{ old('tempat_lahir') }}" required>
+            @if($errors->has('tempat_lahir'))
+            <span class="help-block">
+                <span>{{ $errors->first('tempat_lahir') }}</span>
+            </span>
+            @endif
+            <hr>
             <div class="padd">
                 Username dan Password digunakan untuk melakukan login ke Sanedu. Silahkan diingat untuk username dan password.
             </div>
-            <input type="text" class="fadeIn eight" name="username" placeholder="Username" value="{{ old('username') }}" required>
+            <input type="text" class="fadeIn" name="username" placeholder="Username" value="{{ old('username') }}" required>
             <small class="label">Username: Gunakan huruf, angka tanpa spasi</small>
             @if($errors->has('username'))
             <span class="help-block">
                 <span>{{ $errors->first('username') }}</span>
             </span>
             @endif
-            <input type="password" class="fadeIn nineth" name="password" placeholder="Password" required>
+            <input type="password" class="fadeIn" name="password" placeholder="Password" required>
             @if($errors->has('password'))
             <span class="help-block">
                 <span>{{ $errors->first('password') }}</span>
             </span>
             @endif
-            <input type="submit" class="fadeIn fourth" value="Daftar" required>
+            <input type="submit" class="fadeIn" value="Daftar" required>
         </form>
         @endif
 
