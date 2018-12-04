@@ -10,6 +10,7 @@ use App\Models\Universitas;
 use App\Models\Jurusan;
 use App\Models\Provinsi;
 use App\Models\Kota;
+use App\Models\Sekolah;
 use App\Models\Kecamatan;
 use App\Models\Kelurahan;
 
@@ -173,6 +174,32 @@ class AJAXController extends Controller
                 "success"   => true,
                 "data"      => $data
             );
+        return json_encode($json);
+    }
+
+    public function sekolah() {
+        $data = [];
+        if(isset($_GET['id_kota'])) {
+            $data = Sekolah::where("id_kota", $_GET['id_kota']);
+            if(isset($_GET['id_tingkat_sekolah']))
+                $data = $data->where("id_tingkat_sekolah", $_GET['id_tingkat_sekolah']);
+            $data = $data->orderBy("nama", "asc")->get();
+        }
+        else if(isset($_GET['id_provinsi'])) {
+            $data = Sekolah::where("id_provinsi", $_GET['id_provinsi']);
+            if(isset($_GET['id_tingkat_sekolah']))
+                $data = $data->where("id_tingkat_sekolah", $_GET['id_tingkat_sekolah']);
+            $data = $data->orderBy("nama", "asc")->get();
+        }
+        else if(isset($_GET['id_tingkat_sekolah'])) {
+            $data = Sekolah::where("id_tingkat_sekolah", $_GET['id_tingkat_sekolah'])
+                            ->orderBy("nama", "asc")
+                            ->get();
+        }
+        $json = array(
+            "success"   => true,
+            "data"      => $data
+        );
         return json_encode($json);
     }
 }

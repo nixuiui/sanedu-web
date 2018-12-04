@@ -11,13 +11,26 @@ use Storage;
 use Validator;
 use App\Models\User;
 use App\Models\Tiket;
+use App\Models\Provinsi;
+use App\Models\Kota;
+use App\Models\Sekolah;
 
 class ProfilController extends Controller {
 
     public function edit() {
         $user       = User::find(Auth::id());
+        $provinsi   = Provinsi::all();
+        $kota = [];
+        $sekolah = [];
+        if($user->id_sekolah != null) {
+            $kota = Kota::where("id_provinsi", $user->sekolah->id_provinsi)->get();
+            $sekolah = Sekolah::where("id_kota", $user->sekolah->id_kota)->get();
+        }
         return view('member.profil.edit')->with([
             'user' => $user,
+            'provinsi' => $provinsi,
+            'kota' => $kota,
+            'sekolah' => $sekolah
         ]);
     }
 
@@ -43,28 +56,32 @@ class ProfilController extends Controller {
     }
 
     public function editProfil(Request $data) {
-        // 'alamat'            => 'required|string|email|max:255|unique:users,email,'. Auth::id() .'',
         $this->validate($data, [
             'nama'                  => 'required|string|max:255',
             'no_hp'                 => 'required',
             'alamat'                => 'required',
-            'id_tingkat_sekolah'    => 'required|exists:set_pustaka,id',
-            'asal_sekolah'          => 'required',
             'tempat_lahir'          => 'required',
         ]);
-
-        if($data->id_tingkat_sekolah != 1301 && $data->id_tingkat_sekolah != 1302 && $data->id_tingkat_sekolah != 1303) return back();
 
         $user               = User::find(Auth::id());
         $user->nama         = $data->nama;
         $user->no_hp        = $data->no_hp;
         $user->no_hp_ortu   = $data->no_hp_ortu;
         $user->alamat       = $data->alamat;
-        $user->id_tingkat_sekolah = $data->id_tingkat_sekolah;
-        $user->asal_sekolah = $data->asal_sekolah;
         $user->tempat_lahir = $data->tempat_lahir;
         if($user->save())
         return redirect()->back()->with('success', 'Berhasil Mengubah Profil');
+        return redirect()->back()->with('danger', 'Gagal Mengubah Profil');
+    }
+
+    public function editSekolah(Request $data) {
+        $this->validate($data, [
+            'id_sekolah'    => 'required|exists:tbl_sekolah,id',
+        ]);
+        $user               = User::find(Auth::id());
+        $user->id_sekolah = $data->id_sekolah;
+        if($user->save())
+            return redirect()->back()->with('success', 'Berhasil Mengubah Profil');
         return redirect()->back()->with('danger', 'Gagal Mengubah Profil');
     }
 

@@ -291,6 +291,7 @@ Route::group(['middleware' => 'member'], function(){
         Route::post('/edit-email',      'Member\ProfilController@editEmail')->name('member.profil.edit.email');
         Route::post('/edit-username',   'Member\ProfilController@editUsername')->name('member.profil.edit.username');
         Route::post('/edit-password',   'Member\ProfilController@editPassword')->name('member.profil.edit.password');
+        Route::post('/edit-sekolah',    'Member\ProfilController@editSekolah')->name('member.profil.edit.sekolah');
         Route::get('/photo',            'Member\ProfilController@photo')->name('member.profil.photo');
         Route::post('/photo',           'Member\ProfilController@uploadPhoto')->name('member.profil.photo.post');
     });
@@ -394,9 +395,10 @@ Route::group(['prefix' => 'ajax'], function(){
     Route::group(['prefix' => 'pustaka'], function(){
         Route::get('/create-ujian',  'AJAXController@createUjian')->name('ajax.pustaka.create.ujian');
     });
-    Route::get('/universitas/{id?}',  'AJAXController@universitas')->name('ajax.universitas');
+    Route::get('/universitas/{id?}',        'AJAXController@universitas')->name('ajax.universitas');
     Route::get('/provinsi/{idProvinsi?}',   'AJAXController@provinsi')->name('ajax.lokasi.provinsi');
     Route::get('/kabupaten/{idKabupaten?}', 'AJAXController@kabupaten')->name('ajax.lokasi.kabupaten');
     Route::get('/kecamatan/{idKecamatan?}', 'AJAXController@kecamatan')->name('ajax.lokasi.kecamatan');
     Route::get('/kelurahan/{idKelurahan?}', 'AJAXController@kelurahan')->name('ajax.lokasi.kelurahan');
+    Route::get('/sekolah',                  'AJAXController@sekolah')->name('ajax.sekolah');
 });

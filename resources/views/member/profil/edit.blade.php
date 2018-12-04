@@ -50,29 +50,6 @@ Pengaturan Profil
                     @endif
                 </div>
                 <div class="form-group">
-                    <label>Tingkat Sekolah</label>
-                    <select class="form-control input-sm" name="id_tingkat_sekolah" required>
-                        <option value="">-- Pilih Tingkat Sekolah --</option>
-                        <option value="1301" {{ $user->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
-                        <option value="1302" {{ $user->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
-                        <option value="1303" {{ $user->id_tingkat_sekolah == 1303 ? "selected" : "" }}>SMA</option>
-                    </select>
-                    @if ($errors->has('asal_sekolah'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('asal_sekolah') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <div class="form-group">
-                    <label>Asal Sekolah</label>
-                    <input type="text" class="form-control input-sm" placeholder="Asal Sekolah" name="asal_sekolah"  value="{{ $user->asal_sekolah }}" required>
-                    @if ($errors->has('asal_sekolah'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('asal_sekolah') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <div class="form-group">
                     <label>Tempat Lahir</label>
                     <input type="text" class="form-control input-sm" placeholder="Tempat Lahir" name="tempat_lahir"  value="{{ $user->tempat_lahir }}" required>
                     @if ($errors->has('tempat_lahir'))
@@ -84,10 +61,75 @@ Pengaturan Profil
                 <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan Perubahan</button>
             </div>
         </form>
+        <form class="panel panel-default" action="{{ route('member.profil.edit.sekolah') }}" method="post">
+            <div class="panel-heading"><i class="mdi mdi-balance mr-3"></i> Informasi Sekolah</div>
+            <div class="panel-body">
+                {{ csrf_field() }}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Provinsi</label>
+                            <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi">
+                                @foreach($provinsi as $data)
+                                <option value="{{ $data->id }}" {{ $user->id_sekolah != null && $user->sekolah->id_provinsi == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('id_provinsi'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('id_provinsi') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Kabupaten/Kota</label>
+                            <select class="form-control input-sm" id="inputKota" name="id_kota">
+                                @if($user->id_sekolah != null && $kota->count() > 0)
+                                @foreach($kota as $data)
+                                <option value="{{ $data->id }}" {{ $user->sekolah->id_kota == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                            @if($errors->has('id_kota'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('id_kota') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Tingkat Sekolah</label>
+                    <select class="form-control input-sm" id="inputTingkatSekolah" required {{ $user->id_sekolah == null ? "disabled" : "" }}>
+                        <option value="">-- Pilih Tingkat Sekolah --</option>
+                        <option value="1301" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
+                        <option value="1302" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
+                        <option value="1303" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1303 ? "selected" : "" }}>SMA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Asal Sekolah</label>
+                    <select class="form-control input-sm" id="inputSekolah" name="id_sekolah" required {{ $user->id_sekolah == null ? "disabled" : "" }}>
+                        @if($user->id_sekolah != null && $sekolah->count() > 0)
+                        @foreach($sekolah as $data)
+                        <option value="{{ $data->id }}" {{ $user->id_sekolah == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
+                        @endforeach
+                        @endif
+                    </select>
+                    @if ($errors->has('id_sekolah'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('id_sekolah') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan Perubahan</button>
+            </div>
+        </form>
     </div>
     <div class="col-md-6">
         <form class="panel panel-default" action="{{ route('member.profil.edit.email') }}" method="post">
-            <div class="panel-heading"><i class="mdi mdi-email"></i> Email</div>
+            <div class="panel-heading"><i class="mdi mdi-email mr-3"></i> Email</div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="form-group">
@@ -153,4 +195,92 @@ Pengaturan Profil
         </form>
     </div>
 </div> <!-- end row -->
+@endsection
+
+@section('script')
+<script type="text/javascript">
+$("#inputProvinsi").change(function() {
+	var el = $("#inputProvinsi");
+	if(el.val() != "null") {
+		var url = "{{ route('ajax.lokasi.provinsi', ['idProvinsi' => ':id']) }}";
+		url     = url.replace(':id', el.val());
+		$.ajax({
+			type: 'get',
+			url: url,
+			data: {
+			},
+			success: function(data) {
+				var json 			= jQuery.parseJSON(data);
+				var inputKota 	= $("#inputKota");
+				if(json.success) {
+					inputKota.html("");
+					inputKota.append("<option value=''>Pilih Kabupaten/Kota</option>");
+                    if(json.data.kota.length > 0) {
+                        $.each(json.data.kota, function(i, val) {
+                            inputKota.append("<option value=" + val.id + "> " + val.name + "</option>");
+                        });
+                    }
+    				else {
+    					inputKota.html("");
+    					inputKota.append("<option>Data Kabupaten/Kota Belum Ada</option>");
+    				}
+                    $("#inputTingkatSekolah").prop("disabled", true);
+                    $("#inputSekolah").prop("disabled", true);
+				}
+				else {
+					inputKota.html("");
+					inputKota.append("<option>" + json.message + "</option>");
+				}
+			},
+		});
+	}
+});
+$("#inputKota").change(function() {
+    if($(this).val() != null && $(this).val() != "")
+        $("#inputTingkatSekolah").prop("disabled", false);
+    else
+        $("#inputTingkatSekolah").prop("disabled", true);
+});
+$("#inputTingkatSekolah").change(function() {
+    if($(this).val() != null && $(this).val() != "")
+        $("#inputSekolah").prop("disabled", false);
+    else
+        $("#inputSekolah").prop("disabled", true);
+    
+	var tingkatSekolah = $("#inputTingkatSekolah");
+	var kota = $("#inputKota");
+    var url = "{{ route('ajax.sekolah') }}?id_kota=" + kota.val() + "&id_tingkat_sekolah=" + tingkatSekolah.val();
+    $.ajax({
+        type: 'get',
+        url: url,
+        data: {
+        },
+        success: function(data) {
+            var json 			= jQuery.parseJSON(data);
+            var inputSekolah 	= $("#inputSekolah");
+            if(json.success) {
+                inputSekolah.html("");
+                inputSekolah.append("<option value=''>Pilih Sekolah</option>");
+                if(json.data.length > 0) {
+                    $.each(json.data, function(i, val) {
+                        inputSekolah.append("<option value=" + val.id + "> " + val.nama + "</option>");
+                    });
+                }
+                else {
+                    inputSekolah.html("");
+                    inputSekolah.append("<option>Data Sekolah Belum Ada</option>");
+                }
+                if(inputSekolah.val() != null && inputSekolah.val() != "")
+                    $("#inputTingkatSekolah").prop("disabled", false);
+                else
+                    $("#inputTingkatSekolah").prop("disabled", true);
+            }
+            else {
+                inputSekolah.html("");
+                inputSekolah.append("<option>" + json.message + "</option>");
+            }
+        },
+    });
+});
+</script>
 @endsection

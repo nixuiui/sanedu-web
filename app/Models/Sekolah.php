@@ -9,6 +9,9 @@ class Sekolah extends Model
 {
     use SoftDeletes;
     protected $table    = 'tbl_sekolah';
+    protected $primaryKey   = 'id';
+    protected $keyType      = 'string';
+    public $incrementing    = false;
     protected $dates 	= ['deleted_at'];
 
     protected static function boot() {

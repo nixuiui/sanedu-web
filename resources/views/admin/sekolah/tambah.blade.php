@@ -37,9 +37,10 @@ Tambah Sekolah
                 <div class="form-group">
                     <label>Tingkat Sekolah</label>
                     <select class="form-control input-sm" name="id_tingkat_sekolah">
-                        @foreach($tingkatSekolah as $data)
-                        <option value="{{ $data->id }}" {{ old('id_tingkat_sekolah') == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
-                        @endforeach
+                        <option value="">-- Pilih Tingkat Sekolah --</option>
+                        <option value="1301">SD</option>
+                        <option value="1302">SMP</option>
+                        <option value="1303">SMA</option>
                     </select>
                     @if($errors->has('id_tingkat_sekolah'))
                     <span class="help-block">
@@ -95,6 +96,5 @@ $("#inputProvinsi").change(function() {
 		});
 	}
 });
-$("")
 </script>
 @endsection
