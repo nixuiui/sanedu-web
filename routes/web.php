@@ -295,22 +295,22 @@ Route::group(['middleware' => 'member'], function(){
         Route::get('/photo',            'Member\ProfilController@photo')->name('member.profil.photo');
         Route::post('/photo',           'Member\ProfilController@uploadPhoto')->name('member.profil.photo.post');
     });
-
+    
     Route::group(['prefix' => 'grup-chat'], function(){
         Route::get('/',             'Member\GrupChatController@index')->name('member.grupchat');
         Route::get('/join/wa',      'Member\GrupChatController@joinWa')->name('member.grupchat.join.wa');
         Route::get('/join/line',    'Member\GrupChatController@joinLine')->name('member.grupchat.join.line');
     });
-
+    
     Route::group(['prefix' => 'informasi'], function(){
         Route::get('/',             'Member\InformasiController@index')->name('member.informasi');
         Route::get('/p/{id}',       'Member\InformasiController@view')->name('member.informasi.view');
     });
-
+    
     Route::group(['prefix' => 'passinggrade'], function(){
         Route::get('/',             'Member\InformasiController@passGrade')->name('member.passgrade');
     });
-
+    
     Route::group(['prefix' => 'ujian'], function(){
         Route::get('/',                     'Member\UjianController@index')->name('member.ujian.soal');
         Route::get('/sbmptn/passgrade/{id}','Member\UjianController@sbmptnPassGrade')->name('member.ujian.soal.sbmptn.passgrade');
@@ -324,12 +324,12 @@ Route::group(['middleware' => 'member'], function(){
         Route::get('/finish/{idAttempt}',   'Member\UjianController@finish')->name('member.ujian.soal.finish');
         Route::get('/history/{idAttempt?}', 'Member\UjianController@history')->name('member.ujian.history');
     });
-
+    
     Route::group(['prefix' => 'attempt'], function(){
         Route::get('/reqsoal/{idUjian}',    'Member\AttemptController@reqSoal')->name('member.ujian.attempt.request.soal');
         Route::post('/sendjawaban',         'Member\AttemptController@sendJawaban')->name('member.ujian.attempt.sendJawaban');
     });
-
+    
     Route::group(['prefix' => 'simulasi'], function(){
         Route::get('/',                 'Member\SimulasiController@index')->name('member.simulasi');
         Route::group(['prefix' => '{id}'], function(){
@@ -346,7 +346,7 @@ Route::group(['middleware' => 'member'], function(){
             Route::get('/lihathasil',           'Member\SimulasiController@lihatHasil')->name('member.simulasi.lihat.hasil');
         });
     });
-
+    
 });
 
 /*--------------------------------------------------------------------------
@@ -354,11 +354,11 @@ USER
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
     Route::get('/', 'User\HomeController@index')->name('user');
-
+    
     Route::group(['prefix' => 'passinggrade'], function(){
         Route::get('/',     'User\InformasiController@passGrade')->name('user.passgrade');
     });
-
+    
     Route::group(['prefix' => 'profil'], function(){
         Route::get('/edit',             'User\ProfilController@edit')->name('user.profil.edit');
         Route::post('/edit-tiket',      'User\ProfilController@editTiket')->name('user.profil.edit.tiket');
@@ -366,10 +366,11 @@ Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
         Route::post('/edit-email',      'User\ProfilController@editEmail')->name('user.profil.edit.email');
         Route::post('/edit-username',   'User\ProfilController@editUsername')->name('user.profil.edit.username');
         Route::post('/edit-password',   'User\ProfilController@editPassword')->name('user.profil.edit.password');
+        Route::post('/edit-sekolah',    'User\ProfilController@editSekolah')->name('user.profil.edit.sekolah');
         Route::get('/photo',            'User\ProfilController@photo')->name('user.profil.photo');
         Route::post('/photo',           'User\ProfilController@uploadPhoto')->name('user.profil.photo.post');
     });
-
+    
     Route::group(['prefix' => 'simulasi'], function(){
         Route::get('/',                 'User\SimulasiController@index')->name('user.simulasi');
         Route::group(['prefix' => '{id}'], function(){
