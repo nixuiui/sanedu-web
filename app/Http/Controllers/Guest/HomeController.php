@@ -20,7 +20,8 @@ class HomeController extends Controller
             else if(Auth::user()->id_role == 1003)
             return redirect()->route('admintiket');
             else if(Auth::user()->id_role == 1004)
-            return redirect()->route('member');
+            return view('member.index');
+            //return redirect()->route('member');
             else if(Auth::user()->id_role == 1005)
             return redirect()->route('user');
             else if(Auth::user()->id_role == 1006)
@@ -44,7 +45,7 @@ class HomeController extends Controller
             else if(Auth::user()->id_role == 1003)
             return redirect()->route('admintiket');
             else if(Auth::user()->id_role == 1004)
-            return redirect()->route('member');
+            return  redirect()->route('guest.home');
             else if(Auth::user()->id_role == 1005)
             return redirect()->route('user');
             else if(Auth::user()->id_role == 1006)

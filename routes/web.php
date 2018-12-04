@@ -276,7 +276,7 @@ Route::group(['middleware' => 'pengawas', 'prefix' => 'pengawas'], function(){
 MEMBER
 -------------------------------------------------------------------------*/
 Route::group(['middleware' => 'member'], function(){
-    Route::get('/', 'Member\HomeController@index')->name('member');
+    //Route::get('/', 'Member\HomeController@index')->name('member');
 
     Route::group(['prefix' => 'profil'], function(){
         Route::get('/edit',             'Member\ProfilController@edit')->name('member.profil.edit');

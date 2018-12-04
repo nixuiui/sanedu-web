@@ -9,8 +9,8 @@
                     </a>
                 </li>
                 <li class="divider">Menu</li>
-                <li class="{{ active(['member']) }}">
-                    <a href="{{ route('member') }}"><i class="icon mdi mdi-home"></i><span>Beranda</span></a>
+                <li class="{{ active(['guest.home']) }}">
+                    <a href="{{ route('guest.home') }}"><i class="icon mdi mdi-home"></i><span>Beranda</span></a>
                 </li>
                 <li class="parent">
                     <a href="#"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
