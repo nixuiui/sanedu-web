@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Provinsi extends Model
+class Sekolah extends Model
 {
     use SoftDeletes;
-    protected $table    = 'set_provinsi';
+    protected $table    = 'tbl_sekolah';
     protected $dates 	= ['deleted_at'];
 
     protected static function boot() {
@@ -19,9 +19,9 @@ class Provinsi extends Model
 
     //RELATION table
   	public function kota() {
-  		return $this->hasMany('App\Models\Kota', 'id_provinsi');
+        return $this->belongsTo('App\Models\Kota', 'id_kota');
   	}
-  	public function laporan() {
-  		return $this->hasMany('App\Models\Laporan', 'id_provinsi');
+  	public function provinsi() {
+        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
   	}
 }

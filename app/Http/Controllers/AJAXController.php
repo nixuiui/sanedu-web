@@ -8,6 +8,10 @@ use App\Models\User;
 use App\Models\SetPustaka;
 use App\Models\Universitas;
 use App\Models\Jurusan;
+use App\Models\Provinsi;
+use App\Models\Kota;
+use App\Models\Kecamatan;
+use App\Models\Kelurahan;
 
 class AJAXController extends Controller
 {
@@ -101,5 +105,74 @@ class AJAXController extends Controller
         }
         $jurusan = $jurusan->orderBy('jurusan', 'asc')->get();
         return response()->json($jurusan);
+    }
+
+
+    public function provinsi($id = null) {
+        if($id == null)
+            $data = Provinsi::orderBy('name', 'desc')->get();
+        else
+            $data = Provinsi::with('kota')->where('id', $id)->first();
+        $json = array(
+            "success" => false,
+            "message" => "Data Provinsi Belum Ada"
+        );
+        if($data != null)
+            $json = array(
+                "success"   => true,
+                "data"      => $data
+            );
+        return json_encode($json);
+    }
+
+    public function kota($id = null) {
+        if($id == null)
+            $data = Kota::orderBy('name', 'desc')->get();
+        else
+            $data = Kota::with('kecamatan')->where('id', $id)->first();
+        $json = array(
+            "success" => false,
+            "message" => "Data kota Belum Ada"
+        );
+        if($data != null)
+            $json = array(
+                "success"   => true,
+                "data"      => $data
+            );
+        return json_encode($json);
+    }
+
+    public function kecamatan($id = null) {
+        if($id == null)
+            $data = Kecamatan::orderBy('name', 'desc')->get();
+        else
+            $data = Kecamatan::with('kelurahan')->where('id', $id)->first();
+        $json = array(
+            "success" => false,
+            "message" => "Data Kecamatan Belum Ada"
+        );
+        if($data != null)
+            $json = array(
+                "success"   => true,
+                "data"      => $data
+            );
+        return json_encode($json);
+    }
+
+    public function kelurahan($id = null) {
+        if($id == null)
+            $data = Kelurahan::orderBy('name', 'desc')->get();
+        else
+            $data = Kelurahan::with('rw')->where('id', $id)->first();
+        $json = array(
+            "success" => false,
+            "message" => "Data Kelurahan Belum Ada"
+        );
+        if($data != null)
+            $json = array(
+                "success"   => true,
+                "data"      => $data
+            );
+        return json_encode($json);
     }
 }

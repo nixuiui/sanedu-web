@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -19,10 +19,10 @@ class Kota extends Model
 
     //RELATION table
   	public function kecamatan() {
-  		return $this->hasMany('App\Model\Kecamatan', 'id_kabupaten');
+  		return $this->hasMany('App\Models\Kecamatan', 'id_kabupaten');
   	}
   	public function provinsi() {
-  		return $this->belongsTo('App\Model\Provinsi', 'id_provinsi');
+  		return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
   	}
 
     //SCOPE

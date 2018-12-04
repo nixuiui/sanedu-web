@@ -23,6 +23,9 @@
                 <li class="{{ active(['admin.passgrade', 'admin.passgrade.*']) }}">
                     <a href="{{ route('admin.passgrade') }}"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
                 </li>
+                <li class="{{ active(['admin.sekolah', 'admin.sekolah.*']) }}">
+                    <a href="{{ route('admin.sekolah') }}"><i class="icon mdi mdi-balance"></i><span>Passing Grade</span></a>
+                </li>
                 <li class="{{ active(['admin.ujian.soal', 'admin.ujian.soal.*']) }}">
                     <a href="{{ route('admin.ujian.soal') }}"><i class="icon mdi mdi-desktop-mac"></i><span>Ujian</span></a>
                 </li>

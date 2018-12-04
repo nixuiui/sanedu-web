@@ -114,6 +114,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::post('/openuniv/{id}/savejur/{idJur?}',  'Admin\PassingGradeController@saveJurusan')->name('admin.passgrade.save.jurusan');
     });
 
+    Route::group(['prefix' => 'sekolah'], function(){
+        Route::get('/',         'Admin\SekolahController@index')->name('admin.sekolah');
+        Route::get('/tambah',   'Admin\SekolahController@tambahForm')->name('admin.sekolah.tambah');
+        Route::post('/tambah',  'Admin\SekolahController@tambahPost')->name('admin.sekolah.tambah.post');
+    });
+
 });
 
 
@@ -389,4 +395,8 @@ Route::group(['prefix' => 'ajax'], function(){
         Route::get('/create-ujian',  'AJAXController@createUjian')->name('ajax.pustaka.create.ujian');
     });
     Route::get('/universitas/{id?}',  'AJAXController@universitas')->name('ajax.universitas');
+    Route::get('/provinsi/{idProvinsi?}',   'AJAXController@provinsi')->name('ajax.lokasi.provinsi');
+    Route::get('/kabupaten/{idKabupaten?}', 'AJAXController@kabupaten')->name('ajax.lokasi.kabupaten');
+    Route::get('/kecamatan/{idKecamatan?}', 'AJAXController@kecamatan')->name('ajax.lokasi.kecamatan');
+    Route::get('/kelurahan/{idKelurahan?}', 'AJAXController@kelurahan')->name('ajax.lokasi.kelurahan');
 });
