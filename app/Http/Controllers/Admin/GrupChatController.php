@@ -14,17 +14,12 @@ use App\Models\SetPustaka;
 class GrupChatController extends Controller
 {
     public function index() {
-        $grupLine = GrupChat::where('id_kategori_grup_chat', 1201)
-                            ->orderBy("jumlah_member", "desc")
-                            ->orderBy("created_at", "asc")
-                            ->get();
-        $grupWA = GrupChat::where('id_kategori_grup_chat', 1202)
+        $grub = GrupChat::whereNull('id_simulasi')
                             ->orderBy("jumlah_member", "desc")
                             ->orderBy("created_at", "asc")
                             ->get();
         return view('admin.grupchat.index')->with([
-            'line' => $grupLine,
-            'wa' => $grupWA
+            'grub' => $grub
         ]);
     }
 
@@ -36,21 +31,16 @@ class GrupChatController extends Controller
     }
 
     public function formTambah() {
-        $grupKategori = SetPustaka::kategoriGrupChat();
-        return view('admin.grupchat.tambah')->with([
-            'grupKategori' => $grupKategori
-        ]);
+        return view('admin.grupchat.tambah');
     }
 
     public function prosesTambah(Request $input) {
         $this->validate($input, [
-            'kategori'  => 'required|string|exists:set_pustaka,id',
             'nama'      => 'required|string|max:255',
             'link'      => 'required|url',
         ]);
         $grup = new GrupChat;
         $grup->id = Uuid::generate();
-        $grup->id_kategori_grup_chat = $input->kategori;
         $grup->nama = $input->nama;
         $grup->link = $input->link;
         if($grup->save())

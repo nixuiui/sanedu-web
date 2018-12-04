@@ -14,21 +14,13 @@ class GrupChatController extends Controller
 {
 
     public function index() {
-        $line = GrupChatMember::where('id_kategori_grup_chat', 1201)->where('id_user', Auth::id())->first();
-        $grupLine = GrupChat::where('id_kategori_grup_chat', 1201)
-                ->where('jumlah_member', '<', 40)
-                ->orderBy('jumlah_member', 'desc')->get();
-
-        $wa = GrupChatMember::where('id_kategori_grup_chat', 1202)->where('id_user', Auth::id())->first();
-        $grupWa = GrupChat::where('id_kategori_grup_chat', 1202)
-                ->where('jumlah_member', '<', 40)
+        $wa = GrupChatMember::where('id_user', Auth::id())->first();
+        $grupWa = GrupChat::where('jumlah_member', '<', 40)
                 ->orderBy('jumlah_member', 'desc')->get();
 
         return view('member.grupchat.index')->with([
             'wa' => $wa,
-            'line' => $line,
             'grupWa' => $grupWa,
-            'grupLine' => $grupLine
         ]);
     }
 

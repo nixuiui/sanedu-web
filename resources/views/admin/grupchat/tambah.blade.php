@@ -12,19 +12,6 @@ Edit Grup Chat
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <label>Kategori Grup Chat</label>
-                    <select class="form-control input-sm" name="kategori">
-                        @foreach($grupKategori as $grup)
-                        <option value="{{ $grup->id }}" {{ old('kategori') == $grup->id ? "selected" : "" }}>{{ $grup->nama }}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('kategori'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('kategori') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <div class="form-group">
                     <label>Nama Grup</label>
                     <input type="text" class="form-control input-sm" placeholder="Nama Grup" name="nama"  value="{{ old('nama') }}">
                     @if($errors->has('nama'))
