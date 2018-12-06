@@ -106,7 +106,6 @@ class SimulasiController extends Controller
             FROM
             tbl_cetak_tiket
             WHERE
-            id_kategori_tiket=1101 &&
             id_simulasi='$id' &&
             deleted_at IS NULL"
         ))->first();
@@ -1159,7 +1158,6 @@ class SimulasiController extends Controller
             FROM
             tbl_cetak_tiket
             WHERE
-            id_kategori_tiket=1101 &&
             id_simulasi='$id' &&
             deleted_at IS NULL"
         ))->first();
