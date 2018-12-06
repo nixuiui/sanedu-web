@@ -287,32 +287,6 @@ Kelola Simulasi
                         </table>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="data-card">
-                                <i class="mdi mdi-assignment mb-3"></i>
-                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "KUNCI JAWABAN & SOAL BELUM DIBUAT" : "KELOLA KUNCI JAWABAN & SOAL" }}</p>
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT SOAL & KUNCI JAWABAN" : "UBAH SOAL & KUNCI JAWABAN" }}</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="data-card">
-                                <i class="mdi mdi-account-box mb-3"></i>
-                                <p>{{ $simulasi->pengawas->count() <= 0 ? "BELUM ADA PENGAWAS" : "SUDAH ADA " . $simulasi->pengawas->count() . " PENGAWAS" }}</p>
-                                @if($simulasi->pengawas->count() <= 0)
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-warning">TAMBAH PENGAWAS</a>
-                                @else
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA PENGAWAS</a>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -352,6 +326,41 @@ Kelola Simulasi
                                 @endif
                             </tbody>
                         </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-assignment mb-3"></i>
+                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "JAWABAN & SOAL BELUM DIBUAT" : "JAWABAN & SOAL" }}</p>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT SOAL & KUNCI JAWABAN" : "UBAH SOAL & KUNCI JAWABAN" }}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-account-box mb-3"></i>
+                                <p>{{ $simulasi->pengawas->count() <= 0 ? "BELUM ADA PENGAWAS" : "SUDAH ADA " . $simulasi->pengawas->count() . " PENGAWAS" }}</p>
+                                @if($simulasi->pengawas->count() <= 0)
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-warning">TAMBAH PENGAWAS</a>
+                                @else
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA PENGAWAS</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-whatsapp mb-3"></i>
+                                <p>GRUB CHAT WHATSAPP</p>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.grupchat', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA GRUB</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

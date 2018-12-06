@@ -255,6 +255,17 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
                 // Route::get('/download',                 'AdminTiket\TiketController@download')->name('admintiket.tiket.member.download');
                 // Route::post('/importcsv',               'AdminTiket\TiketController@import')->name('admintiket.tiket.member.importcsv');
             });
+
+            Route::group(['prefix' => 'grupchat'], function(){
+                Route::get('/',                     'AdminSimulasi\SimulasiController@grupChat')->name('adminsimulasi.simulasi.kelola.grupchat');
+                Route::get('/view/{idGrup}',        'AdminSimulasi\SimulasiController@grupChatView')->name('adminsimulasi.simulasi.kelola.grupchat.view');
+                Route::get('/tambah',               'AdminSimulasi\SimulasiController@grupChatTambah')->name('adminsimulasi.simulasi.kelola.grupchat.tambah');
+                Route::post('/tambah',              'AdminSimulasi\SimulasiController@grupChatTambahPost')->name('adminsimulasi.simulasi.kelola.grupchat.tambah.post');
+                Route::get('/edit/{idGrup}',        'AdminSimulasi\SimulasiController@grupChatEdit')->name('adminsimulasi.simulasi.kelola.grupchat.edit');
+                Route::post('/edit/{idGrup}',       'AdminSimulasi\SimulasiController@grupChatEditPost')->name('adminsimulasi.simulasi.kelola.grupchat.edit.post');
+                Route::get('/delete/{idGrup}',      'AdminSimulasi\SimulasiController@grupChatDelete')->name('adminsimulasi.simulasi.kelola.grupchat.delete');
+                Route::get('/member/kick/{idMember}',   'AdminSimulasi\SimulasiController@grupChatKick')->name('adminsimulasi.simulasi.kelola.grupchat.member.kick');
+            });
         });
     });
 });

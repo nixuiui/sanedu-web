@@ -15,7 +15,7 @@
                     </ul>
                 </li>
                 <li class="{{ active(['admin.grupchat']) }}">
-                    <a href="{{ route('admin.grupchat') }}"><i class="icon mdi mdi-comments"></i><span>Grup Chat</span></a>
+                    <a href="{{ route('admin.grupchat') }}"><i class="icon mdi mdi-whatsapp"></i><span>Grup Chat</span></a>
                 </li>
                 <li class="{{ active(['admin.informasi', 'admin.informasi.*']) }}">
                     <a href="{{ route('admin.informasi') }}"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>

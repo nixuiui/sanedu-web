@@ -38,7 +38,7 @@ Grup Chat
                             <td>{{ $w->user->no_hp }}</td>
                             <td>{{ hariTanggalWaktu($w->created_at) }}</td>
                             <td class="text-right">
-                                <a href="{{ route('admin.grupchat.member.kick', $w->id) }}" class="btn btn-xs btn-danger delete btn-icon"><i class="mdi mdi-delete"></i> keluarkan dari grub</a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.grupchat.kick', ['id' => $simulasi->id, 'idMember' => $w->id]) }}" class="btn btn-xs btn-danger delete btn-icon"><i class="mdi mdi-delete"></i> keluarkan dari grub</a>
                             </td>
                         </tr>
                         @endforeach

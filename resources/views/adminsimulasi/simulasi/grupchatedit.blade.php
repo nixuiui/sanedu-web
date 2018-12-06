@@ -7,7 +7,7 @@ Edit Grup Chat
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <form class="panel panel-default" action="{{ route('admin.grupchat.edit.post', $grup->id) }}" method="post">
+        <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.kelola.grupchat.edit.post', ['id' => $simulasi->id, 'idGrup' => $grup->id]) }}" method="post">
             <div class="panel-heading"><i class="mdi mdi-comments"></i> Grup Chat</div>
             <div class="panel-body">
                 {{ csrf_field() }}

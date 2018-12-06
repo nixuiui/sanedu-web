@@ -7,13 +7,13 @@ Edit Grup Chat
 @section('content')
 <div class="row">
     <div class="col-md-6">
-        <form class="panel panel-default" action="{{ route('admin.grupchat.edit.post', $grup->id) }}" method="post">
-            <div class="panel-heading"><i class="mdi mdi-comments"></i> Grup Chat</div>
+        <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.kelola.grupchat.tambah.post', $simulasi->id) }}" method="post">
+            <div class="panel-heading"><i class="mdi mdi-comments"></i> Tambah Grup Chat</div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Nama Grup</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Grup" name="nama"  value="{{ $grup->nama }}">
+                    <input type="text" class="form-control input-sm" placeholder="Nama Grup" name="nama"  value="{{ old('nama') }}">
                     @if($errors->has('nama'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -22,7 +22,7 @@ Edit Grup Chat
                 </div>
                 <div class="form-group">
                     <label>Link Grup</label>
-                    <input type="text" class="form-control input-sm" placeholder="Link Grup" name="link"  value="{{ $grup->link }}">
+                    <input type="text" class="form-control input-sm" placeholder="http:// Grup" name="link"  value="{{ old('link') }}">
                     @if($errors->has('link'))
                     <span class="help-block">
                         <strong>{{ $errors->first('link') }}</strong>

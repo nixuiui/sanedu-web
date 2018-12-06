@@ -26,6 +26,8 @@ use App\Models\SimulasiPeserta;
 use App\Models\SimulasiAgenda;
 use App\Models\SimulasiRuang;
 use App\Models\SimulasiKunciJawaban;
+use App\Models\GrupChat;
+use App\Models\GrupChatMember;
 
 class SimulasiController extends Controller
 {
@@ -1214,4 +1216,89 @@ class SimulasiController extends Controller
         return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
+
+    public function grupChat($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $grub = GrupChat::where('id_simulasi', $simulasi->id)
+                            ->orderBy("jumlah_member", "desc")
+                            ->orderBy("created_at", "asc")
+                            ->get();
+        return view('adminsimulasi.simulasi.grupchat')->with([
+            'grub' => $grub,
+            'simulasi' => $simulasi
+        ]);
+    }
+
+    public function grupChatTambah($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        return view('adminsimulasi.simulasi.grupchattambah')->with([
+            'simulasi' => $simulasi
+        ]);
+    }
+
+    public function grupChatTambahPost(Request $input, $id) {
+        $this->validate($input, [
+            'nama'      => 'required|string|max:255',
+            'link'      => 'required|url',
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $grup = new GrupChat;
+        $grup->id = Uuid::generate();
+        $grup->id_simulasi = $simulasi->id;
+        $grup->nama = $input->nama;
+        $grup->link = $input->link;
+        if($grup->save())
+            return redirect()->route('adminsimulasi.simulasi.kelola.grupchat', $simulasi->id)->with('success', 'Berhasil menambah Grup Chat');
+        return back()->with('danger', 'Terjadi kesalahan saat menambah Grup Chat');
+    }
+
+    public function grupChatView($id, $idGrup) {
+        $simulasi = Simulasi::findOrFail($id);
+        $grup = GrupChat::findOrFail($idGrup);
+        $member = GrupChatMember::where("id_grup_chat", $grup->id)->get();
+        return view('adminsimulasi.simulasi.grupchatview')->with([
+            'simulasi' => $simulasi,
+            'grup' => $grup,
+            'member' => $member
+        ]);
+    }
+
+    public function grupChatEdit($id, $idGrup) {
+        $simulasi = Simulasi::findOrFail($id);
+        $grup = GrupChat::findOrFail($idGrup);
+        return view('adminsimulasi.simulasi.grupchatedit')->with([
+            'simulasi' => $simulasi,
+            'grup' => $grup
+        ]);
+    }
+
+    public function grupChatEditPost(Request $input, $id, $idGrup) {
+        $this->validate($input, [
+            'nama'  => 'required|string|max:255',
+            'link'  => 'required|url',
+        ]);
+        $simulasi = Simulasi::findOrFail($id);
+        $grup = GrupChat::findOrFail($idGrup);
+        $grup->nama = $input->nama;
+        $grup->link = $input->link;
+        if($grup->save())
+            return redirect()->route('adminsimulasi.simulasi.kelola.grupchat', $simulasi->id)->with('success', 'Berhasil menambah Grup Chat');
+        return back()->with('danger', 'Terjadi kesalahan saat menambah Grup Chat');
+    }
+
+    public function grupChatDelete($id, $idGrup) {
+        $simulasi = Simulasi::findOrFail($id);
+        $grup = GrupChat::findOrFail($idGrup);
+        if($grup->delete())
+            return back()->with('success', 'Berhasil menghapus Grup Chat');
+        return back()->with('danger', 'Terjadi kesalahan saat menghapus Grup Chat');
+    }
+
+    public function grupChatKick($id, $idMember) {
+        $simulasi = Simulasi::findOrFail($id);
+        $member = GrupChatMember::where('id', $idMember)->first();
+        if($member->delete())
+            return back()->with('success', "Berhasil menghapus " . $member->user->nama . " dari Grup Chat");
+        return back()->with('danger', 'Terjadi kesalahan saat menghapus member dari Grup Chat');
+    }
 }

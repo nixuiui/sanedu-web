@@ -25,8 +25,10 @@ class GrupChatController extends Controller
 
     public function viewGrup($id) {
         $grup = GrupChat::findOrFail($id);
+        $member = GrupChatMember::where("id_grup_chat", $grup->id)->get();
         return view('admin.grupchat.view')->with([
-            'grup' => $grup
+            'grup' => $grup,
+            'member' => $member
         ]);
     }
 
@@ -76,7 +78,7 @@ class GrupChatController extends Controller
     }
 
     public function kick($id) {
-        $member = GrupChatMember::where('id_user', $id)->first();
+        $member = GrupChatMember::where('id', $id)->first();
         if($member->delete())
             return back()->with('success', "Berhasil menghapus " . $member->user->nama . " dari Grup Chat");
         return back()->with('danger', 'Terjadi kesalahan saat menghapus member dari Grup Chat');
