@@ -93,12 +93,6 @@ Daftar
                 <span>{{ $errors->first('alamat') }}</span>
             </span>
             @endif
-            <input type="text" class="fadeIn" name="asal_sekolah" placeholder="ASAL SEKOLAH" value="{{ old('asal_sekolah') }}" required>
-            @if($errors->has('asal_sekolah'))
-            <span class="help-block">
-                <span>{{ $errors->first('asal_sekolah') }}</span>
-            </span>
-            @endif
             <input type="text" class="fadeIn" name="kota" placeholder="KOTA / KABUPATEN" value="{{ old('kota') }}" required>
             @if($errors->has('kota'))
             <span class="help-block">

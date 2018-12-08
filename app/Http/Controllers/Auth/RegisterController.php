@@ -127,7 +127,6 @@ class RegisterController extends Controller
         $user->no_hp = $input->no_hp;
         $user->no_hp_ortu = $input->no_hp_ortu;
         $user->alamat = $input->alamat;
-        $user->asal_sekolah = $input->asal_sekolah;
         $user->tempat_lahir = $input->tempat_lahir;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){
