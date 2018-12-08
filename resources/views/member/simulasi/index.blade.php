@@ -58,7 +58,7 @@ Simulasi
 @else
 <div class="row">
     @foreach($simulasi as $data)
-    <div class="col-md-3 col-sm-4 col-simulasi mb-3">
+    <div class="col-md-4 col-sm-6 col-simulasi mb-3">
         <div class="card">
             <div class="card-image">
                 <img class="card-img-top fix-height" src="{{ $data->image_url }}" alt="Placeholder">

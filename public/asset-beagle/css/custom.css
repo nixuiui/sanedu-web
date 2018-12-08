@@ -247,13 +247,17 @@ div.dataTables_wrapper div.dataTables_filter input {
 }
 .card .card-img-top {
     width: 100%;
-    object-fit: cover;
     border-top-left-radius: calc(3px - 1px);
     border-top-right-radius: calc(3px - 1px);
 }
-.card .card-img-top.fix-height {
-    height: 200px;
+@media (min-width: 576px) {
+    .card .card-img-top { object-fit: cover; }
 }
+@media (min-width: 768px) {
+    .card .card-img-top.fix-height { height: 200px; }
+    .card .card-img-top { object-fit: cover; }
+}
+
 .card .card-header {
     font-size: 18px;
     font-weight: 300;
