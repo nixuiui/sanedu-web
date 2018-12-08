@@ -21,8 +21,6 @@ Data Member
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>PIN</th>
-                            <th>KAP</th>
                             <th>Nama</th>
                             <th>Asal Sekolah</th>
                             <th>No. Telp</th>
@@ -33,8 +31,6 @@ Data Member
                     <tfoot>
                         <tr>
                             <th>No</th>
-                            <th>PIN</th>
-                            <th>KAP</th>
                             <th>Nama</th>
                             <th>Asal Sekolah</th>
                             <th>No. Telp</th>
@@ -46,10 +42,8 @@ Data Member
                         @foreach($member as $no => $val)
                         <tr>
                             <td>{{ $no+1 }}</td>
-                            <td>{{ $val->pin }}</td>
-                            <td>{{ $val->kap }}</td>
                             <td>{{ $val->nama }}</td>
-                            <td>{{ $val->asal_sekolah }}</td>
+                            <td>{{ $val->sekolah }}</td>
                             <td>{{ $val->no_hp }}</td>
                             <td></td>
                             <td>

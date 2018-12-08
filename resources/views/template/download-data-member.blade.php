@@ -28,7 +28,6 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>PIN/KAP</th>
                 <th>Nama</th>
                 <th>Sekolah</th>
                 <th>No. Telp</th>
@@ -36,16 +35,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tiket as $no => $val)
+            @foreach($member as $no => $val)
             <tr>
                 <td>{{ $no+1 }}</td>
-                <td>
-                    <strong class="text-info">PIN</strong>: {{ $val->pin }} <br>
-                    <strong class="text-info">KAP</strong>: {{ $val->kap }}
-                </td>
-                <td>{{ $val->user->nama }}</td>
-                <td>{{ $val->user->asal_sekolah }}</td>
-                <td>{{ $val->user->no_hp }}</td>
+                <td>{{ $val->nama }}</td>
+                <td>{{ $val->sekolah }}</td>
+                <td>{{ $val->no_hp }}</td>
                 <td></td>
             </tr>
             @endforeach
@@ -53,7 +48,6 @@
         <tfoot>
             <tr>
                 <th>No</th>
-                <th>PIN/KAP</th>
                 <th>Nama</th>
                 <th>Sekolah</th>
                 <th>No. Telp</th>

@@ -47,7 +47,19 @@ class TiketController extends Controller
     }
 
     public function dataMember() {
-        $member = User::select(['id', 'pin', 'kap', 'nama', 'asal_sekolah', 'no_hp'])->where('id_role', 1004)->get();
+        $member = DB::select(
+            "SELECT 
+            user.id, 
+            user.nama,
+            user.no_hp,
+            sekolah.nama as sekolah
+            FROM
+            tbl_users as user
+            LEFT JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
+            WHERE 
+            id_role=1004 &&
+            user.deleted_at IS NULL"
+        );
         return view('admintiket.tiket.memberdata')->with([
             "member" => $member
         ]);
@@ -61,27 +73,37 @@ class TiketController extends Controller
     }
 
     public function download() {
-        $tiket = Tiket::where('id_user', '!=', null)->get();
+        $member = DB::select(
+            "SELECT 
+            user.id, 
+            user.nama,
+            user.no_hp,
+            sekolah.nama as sekolah
+            FROM
+            tbl_users as user
+            LEFT JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
+            WHERE 
+            id_role=1004 &&
+            user.deleted_at IS NULL"
+        );
         // return view('template.download-data-member')->with([
         //     "tiket" => $tiket
         // ]);
         $filename = 'datamember-' . hariTanggalWaktu();
         if(isset($_GET['file'])) {
             if($_GET['file'] == "pdf") {
-                $pdf = PDF::loadView('template.download-data-member', ['tiket' => $tiket]);
+                $pdf = PDF::loadView('template.download-data-member', ['member' => $member]);
                 return $pdf->stream($filename.'.pdf');
             }
             else if($_GET['file'] == "excel") {
                 $tiketArray = [];
-                $tiketArray[] = ['No', 'PIN', 'KAP', 'Nama','Asal Sekolah','No. HP', 'Total Point'];
-                foreach ($tiket as $no => $val) {
+                $tiketArray[] = ['No', 'Nama','Asal Sekolah','No. HP', 'Total Point'];
+                foreach ($member as $no => $val) {
                     $tiketArray[] = [
                         $no + 1,
-                        $val->pin,
-                        $val->kap,
-                        $val->user->nama,
-                        $val->user->asal_sekolah,
-                        $val->user->no_hp,
+                        $val->nama,
+                        $val->sekolah,
+                        $val->no_hp,
                         '0'
                     ];
                 }
