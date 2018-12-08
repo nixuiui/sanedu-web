@@ -1,12 +1,32 @@
 @extends('layouts.admin')
 
 @section('title')
-Simulasi
+Simulasi {{ $simulasi->judul }}
 @endsection
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
+        @if(!isset($_GET['pin']) && !isset($_GET['kap']))
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Masukan PIN & KAP Anda
+            </div>
+            <div class="panel-body">
+                <form class="" action="" method="get">
+                    <div class="form-group">
+                        <label for="">PIN</label>
+                        <input type="text" class="form-control input-sm input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">KAP</label>
+                        <input type="text" class="form-control input-sm input-kap" name="kap" placeholder="KAP" value="{{ old('kap') }}">
+                    </div>
+                    <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
+                </form>
+            </div>
+        </div>
+        @else
         <div class="panel panel-default">
             <div class="panel-heading">
                 Pilihan Passing Grade
@@ -14,28 +34,23 @@ Simulasi
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('member.simulasi.register.post', $simulasi->id)}}" method="post">
                     @csrf
+                    <input type="hidden" name="pin" value="{{ $tiket->pin }}">
+                    <input type="hidden" name="kap" value="{{ $tiket->kap }}">
                     <div class="form-group">
                         <label class="col-sm-3 control-label">PILIHAN SIMULASI</label>
                         <div class="col-sm-9">
-                            {{--
+                            @if($simulasi->is_offline)
                             <div class="be-radio inline">
                                 <input type="radio" name="mode" id="OFFLINE" value="offline" checked>
                                 <label for="OFFLINE">OFFLINE</label>
                             </div>
-                            --}}
+                            @endif
+                            @if($simulasi->is_online)
                             <div class="be-radio inline mb-3">
                                 <input type="radio" name="mode" id="ONLINE" value="online">
                                 <label for="ONLINE">ONLINE</label>
                             </div>
-                            <!-- <div role="alert" class="alert alert-primary alert-icon alert-dismissible mb-0">
-                                <div class="icon"><span class="mdi mdi-info-outline"></span></div>
-                                <div class="message">
-                                    <ul class="m-0 p-0 pl-4">
-                                        <li><strong>OFFLINE</strong> Untuk peserta yang akan hadir Simulasi Try Out ditempat.</li>
-                                        <li><strong>ONLINE</strong> Maaf untuk tryout online saat ini sudah tidak tersedia.</li>
-                                    </ul>
-                                </div>
-                            </div> -->
+                            @endif
                         </div>
                     </div>
                     <hr>
@@ -128,15 +143,21 @@ Simulasi
                         </div>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-sm btn-primary">Daftar</button>
+                    <button type="submit" class="btn btn-sm btn-primary btn-block">Daftar</button>
                 </form>
             </div>
         </div>
+        @endif
     </div>
 </div>
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('.input-kap').mask('000000-000000', {placeholder: "KAP"});
+    $('.input-pin').mask('0000-0000-0000-0000', {placeholder: "PIN"});
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
     $("input[name=jurusan]").change(function() {
