@@ -19,6 +19,8 @@ use App\Models\SimulasiJadwalOnline;
 use App\Models\SimulasiRuang;
 use App\Models\SimulasiPeserta;
 use App\Models\PilihanPassingGrade;
+use App\Models\GrupChat;
+use App\Models\GrupChatMember;
 
 class SimulasiController extends Controller
 {
@@ -135,28 +137,59 @@ class SimulasiController extends Controller
         $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)
                                         ->where("id_mapel", $peserta->id_mapel)
                                         ->first();
+
+        //GRUP CHAT
+        $grupChat = GrupChat::select("id")->where("id_simulasi", $simulasi->id)->get();
+        $myGrupChat = GrupChatMember::whereIn("id_grup_chat", $grupChat)
+                                ->where("id_user", Auth::id())
+                                ->first();
+
         if($peserta) {
             if($peserta->mode_simulasi == "offline") {
                 return view('user.simulasi.open')->with([
                     'simulasi' => $simulasi,
                     'simulasiUjian' => $simulasiUjian,
-                    'peserta' => $peserta
+                    'peserta' => $peserta,
+                    'myGrupChat' => $myGrupChat
                 ]);
-        }
-        $soalOnline = null;
-        if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
-            $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
-            ->where("id_mapel", $peserta->id_mapel)
-            ->first();
-        }
-        return view('user.simulasi.open')->with([
-            'simulasi' => $simulasi,
-            'simulasiUjian' => $simulasiUjian,
-            'peserta' => $peserta,
-            'soalOnline' => $soalOnline
+            }
+            $soalOnline = null;
+            if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
+                $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
+                ->where("id_mapel", $peserta->id_mapel)
+                ->first();
+            }
+            return view('user.simulasi.open')->with([
+                'simulasi' => $simulasi,
+                'simulasiUjian' => $simulasiUjian,
+                'peserta' => $peserta,
+                'soalOnline' => $soalOnline,
+                'myGrupChat' => $myGrupChat
             ]);
         }
         return redirect()->route('user.simulasi');
+    }
+
+    public function joinGrupChat($id) {
+        $simulasi = Simulasi::findOrFail($id);
+
+        $grupChat = GrupChat::select("id")->where("id_simulasi", $simulasi->id)->get();
+        $cekSudahJoin = GrupChatMember::whereIn('id_grup_chat', $grupChat)->where('id_user', Auth::id())->first();
+        if($cekSudahJoin != null) return back()->with("danger", "Maaf, Anda sudah bergabung di Grup Chat");
+        
+        $grup = GrupChat::where('id_simulasi', $simulasi->id)
+                        ->where('jumlah_member', '<', 40)
+                        ->orderBy('jumlah_member', 'desc')->first();
+        if($grup == null)
+            return back()->with('danger', "Maaf saat ini Grup Chat WhatsApp belum tersedia");
+
+        $member = new GrupChatMember;
+        $member->id = Uuid::generate();
+        $member->id_user = Auth::id();
+        $member->id_grup_chat = $grup->id;
+        if($member->save())
+            return back()->with("success", "Berhasil mendapatkan link Grup Chat Whatsapp");
+        return back()->with('danger', "Terjadi kesalahan saat ingin join Grup Chat");
     }
 
     public function kartuUjian($id) {

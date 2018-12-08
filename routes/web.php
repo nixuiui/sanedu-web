@@ -391,6 +391,7 @@ Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
             Route::get('/passgrade',            'User\SimulasiController@passGrade')->name('user.simulasi.passgrade');
             Route::post('/passgrade',           'User\SimulasiController@passGradePost')->name('user.simulasi.passgrade.post');
             Route::get('/o',                    'User\SimulasiController@open')->name('user.simulasi.open');
+            Route::get('/joingrupchat',         'User\SimulasiController@joinGrupChat')->name('user.simulasi.join.grup.chat');
             Route::get('/kartuujian',           'User\SimulasiController@kartuUjian')->name('user.simulasi.kartuujian');
             Route::post('/aturjadwal',          'User\SimulasiController@aturJadwal')->name('user.simulasi.aturjadwal');
             Route::get('/attempt/{idUjian}',    'User\SimulasiController@attempt')->name('user.simulasi.ujian.attempt');
