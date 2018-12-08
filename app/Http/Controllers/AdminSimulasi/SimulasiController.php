@@ -330,10 +330,11 @@ class SimulasiController extends Controller
         no_peserta,
         user.nama,
         user.no_hp,
-        user.asal_sekolah
+        sekolah.nama as sekolah
         FROM
         tbl_simulasi_peserta as peserta
         INNER JOIN tbl_users as user ON user.id=peserta.id_user
+        INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
         WHERE id_ruang='".$ruang->id."'
         ORDER BY user.nama ASC
         ");
@@ -341,7 +342,7 @@ class SimulasiController extends Controller
         $pesertaArray = [];
         $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'Tanda Tangan'];
         foreach ($peserta as $data) {
-            $pesertaArray[] = [$data->nama, $data->no_peserta, $data->asal_sekolah, ''];
+            $pesertaArray[] = [$data->nama, $data->no_peserta, $data->sekolah, ''];
         }
         Excel::create('Absen ' . $ruang->nama, function($excel) use ($ruang, $pesertaArray) {
             $excel->setTitle('Absen ' . $ruang->nama);
@@ -1080,10 +1081,11 @@ class SimulasiController extends Controller
         mode_simulasi,
         user.nama,
         user.no_hp,
-        user.asal_sekolah
+        sekolah.nama as sekolah
         FROM
         tbl_simulasi_peserta as peserta
         INNER JOIN tbl_users as user ON user.id=peserta.id_user
+        INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
         WHERE
         " . $where . "
         ORDER BY user.nama ASC
@@ -1092,7 +1094,7 @@ class SimulasiController extends Controller
         $pesertaArray = [];
         $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi'];
         foreach ($peserta as $data) {
-            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->asal_sekolah), $data->no_hp, strtoupper($data->mode_simulasi)];
+            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, strtoupper($data->mode_simulasi)];
         }
         Excel::create($title, function($excel) use ($simulasi, $pesertaArray) {
             $excel->setTitle('Data Peserta Simulasi ' . $simulasi->judul);

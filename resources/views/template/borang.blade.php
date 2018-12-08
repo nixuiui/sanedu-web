@@ -43,7 +43,7 @@
         <tr>
             <td width="170px">Asal Sekolah</td>
             <td>:</td>
-            <td colspan="2">{{ $data->profil->asal_sekolah }}</td>
+            <td colspan="2">{{ $data->profil->id_sekolah != null ? $data->profil->sekolah->nama : "-"  }}</td>
         </tr>
         <tr>
             <td width="170px">Jurusan Ujian</td>
