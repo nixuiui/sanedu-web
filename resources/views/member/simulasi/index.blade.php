@@ -90,30 +90,21 @@ $(document).on("click", ".beli-simulasi", function(e) {
     var hargaori = $(this).data("hargaori");
     var saldo = $(this).data("saldo");
     var judul = $(this).data("judul");
-    if(hargaori > saldo) {
-        swal(
-            'Saldo Tidak Cukup',
-            "Maaf Saldo Anda tidak mencukupi untuk membeli tiket simulasi ini",
-            'warning'
-        );
-    }
-    else {
-        e.preventDefault();
-        swal({
-            title: "Yakin Ingin Beli?",
-            text: "Anda Akan membeli simulasi 	" + judul + " degnan harga " + harga,
-            type: "success",
-            showCancelButton: true,
-            confirmButtonClass: "btn btn-danger btn-fill",
-            confirmButtonText: "Ya!",
-            cancelButtonClass: "btn btn-danger btn-fill",
-            cancelButtonText: "Tidak!"
-        }).then((result) => {
-            if (result.value) {
-                document.location.href = link;
-            }
-        });
-    }
+    e.preventDefault();
+    swal({
+        title: "Yakin Ingin Beli?",
+        text: "Anda Akan membeli simulasi 	" + judul + " degnan harga " + harga,
+        type: "success",
+        showCancelButton: true,
+        confirmButtonClass: "btn btn-danger btn-fill",
+        confirmButtonText: "Ya!",
+        cancelButtonClass: "btn btn-danger btn-fill",
+        cancelButtonText: "Tidak!"
+    }).then((result) => {
+        if (result.value) {
+            document.location.href = link;
+        }
+    });
 });
 </script>
 @endsection
