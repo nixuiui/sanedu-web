@@ -45,7 +45,6 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Sekolah</th>
                             <th>NA</th>
                             <th>Peringkat</th>
-                            <th>Ruang</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -60,7 +59,6 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Sekolah</th>
                             <th>NA</th>
                             <th>Peringkat</th>
-                            <th>Ruang</th>
                             <th></th>
                         </tr>
                     </tfoot>
@@ -79,19 +77,10 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
                             <td>{{ $data->peringkat }}</td>
                             <td>
-                                @if($data->mode_simulasi == "offline")
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->ruang->id]) }}">{{ $data->ruang->nama }}</a></strong>
-                                @else
-                                -
-                                @endif
-                            </td>
-                            <td>
+                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-download mr-3"></i>Borang</a></strong>
                                 @if($data->mode_simulasi == "offline")
                                 <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-print mr-3"></i>Kartu</a></strong>
-                                @else
-                                -
                                 @endif
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-download mr-3"></i>Borang</a></strong>
 
                             </td>
                         </tr>
