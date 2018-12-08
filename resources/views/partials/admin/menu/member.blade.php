@@ -28,7 +28,7 @@
                     <a href="#"><i class="icon mdi mdi-accounts-alt"></i><span>Privat</span></a>
                 </li>
                 <li class="{{ active(['member.grupchat', 'member.grupchat.*']) }}" title="Join Grup Chat">
-                    <a href="{{ route('member.grupchat') }}"><i class="icon mdi mdi-accounts-add"></i><span>Join Grup Chat</span></a>
+                    <a href="{{ route('member.grupchat') }}"><i class="icon mdi mdi-whatsapp"></i><span>Join Grup Chat</span></a>
                 </li>
                 <li class="" title="Poin">
                     <a href="#"><i class="icon mdi mdi-dot-circle"></i><span>Poin</span></a>

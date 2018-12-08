@@ -32,6 +32,9 @@ class Simulasi extends Model {
 	public function tiket() {
 		return $this->hasMany('App\Models\Tiket', 'id_simulasi');
 	}
+	public function grupChat() {
+		return $this->hasMany('App\Models\GrupChat', 'id_simulasi');
+	}
   	public function tingkatSekolah() {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
   	}

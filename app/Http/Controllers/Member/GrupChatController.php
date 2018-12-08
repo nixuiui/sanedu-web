@@ -25,11 +25,10 @@ class GrupChatController extends Controller
     }
 
     public function joinWa() {
-        $cekSudahJoin = GrupChatMember::where('id_kategori_grup_chat', 1202)->where('id_user', Auth::id())->first();
+        $cekSudahJoin = GrupChatMember::where('id_user', Auth::id())->first();
         if($cekSudahJoin != null) return back();
 
-        $grup = GrupChat::where('id_kategori_grup_chat', 1202)
-                ->where('jumlah_member', '<', 40)
+        $grup = GrupChat::->where('jumlah_member', '<', 40)
                 ->orderBy('jumlah_member', 'desc')->first();
         if($grup == null)
             return back()->with('danger', "Maaf saat ini Grup Chat WhatsApp belum tersedia");
@@ -38,7 +37,6 @@ class GrupChatController extends Controller
         $member->id = Uuid::generate();
         $member->id_user = Auth::id();
         $member->id_grup_chat = $grup->id;
-        $member->id_kategori_grup_chat = 1202;
         if($member->save())
             return back();
         return back()->with('danger', "Terjadi kesalahan saat ingin join Grup Chat");
