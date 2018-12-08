@@ -28,7 +28,7 @@ class GrupChatController extends Controller
         $cekSudahJoin = GrupChatMember::where('id_user', Auth::id())->first();
         if($cekSudahJoin != null) return back();
 
-        $grup = GrupChat::->where('jumlah_member', '<', 40)
+        $grup = GrupChat::where('jumlah_member', '<', 40)
                 ->orderBy('jumlah_member', 'desc')->first();
         if($grup == null)
             return back()->with('danger', "Maaf saat ini Grup Chat WhatsApp belum tersedia");
