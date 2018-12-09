@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\User;
 use App\Models\Tiket;
+use App\Models\Provinsi;
 use Uuid;
 use Mail;
 
@@ -91,11 +92,14 @@ class RegisterController extends Controller
         }
         else {
             $user = User::where("email", $input->email)->first();
+            $provinsi = Provinsi::all();
             if($user != null) {
                 return view('auth.register')->with(["step" => 2, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
             }
             else {
-                return view('auth.register')->with('step', 3);
+                return view('auth.register')->with('step', 3)->with([
+                    'provinsi' => $provinsi
+                ]);
             }
         }
     }
@@ -106,6 +110,8 @@ class RegisterController extends Controller
             'email'             => 'required|string|email|max:255|unique:tbl_users,email',
             'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
             'password'          => 'required|string|min:6',
+            'tanggal_lahir'     => 'required|date',
+            'id_sekolah'        => 'required|exists:tbl_sekolah,id',
         ]);
         $kap = str_replace("-", "", $input->kap);
         $pin = str_replace("-", "", $input->pin);
@@ -128,6 +134,8 @@ class RegisterController extends Controller
         $user->no_hp_ortu = $input->no_hp_ortu;
         $user->alamat = $input->alamat;
         $user->tempat_lahir = $input->tempat_lahir;
+        $user->tanggal_lahir = $input->tanggal_lahir;
+        $user->id_sekolah = $input->id_sekolah;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){
             $tiket = Tiket::where("kap", $kap)->where("pin", $pin)->first();
