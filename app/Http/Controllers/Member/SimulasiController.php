@@ -22,6 +22,10 @@ use App\Models\PilihanPassingGrade;
 use App\Models\Tiket;
 use App\Models\GrupChat;
 use App\Models\GrupChatMember;
+use App\Models\Provinsi;
+use App\Models\Kota;
+use App\Models\User;
+use App\Models\Sekolah;
 
 class SimulasiController extends Controller
 {
@@ -57,12 +61,22 @@ class SimulasiController extends Controller
         if($tiket->first() == null)
             return redirect()->back()->with('danger', 'Nomor tiket sudah digunakan.');
         $tiket = $tiket->first();
-        
+
         $universitas = Universitas::all();
+        $provinsi   = Provinsi::all();
+        $kota = [];
+        $sekolah = [];
+        if(Auth::user()->id_sekolah != null) {
+            $kota = Kota::where("id_provinsi", Auth::user()->sekolah->id_provinsi)->get();
+            $sekolah = Sekolah::where("id_kota", Auth::user()->sekolah->id_kota)->get();
+        }
         return view('member.simulasi.register')->with([
             'simulasi' => $simulasi,
             'universitas' => $universitas,
-            'tiket' => $tiket
+            'tiket' => $tiket,
+            'provinsi' => $provinsi,
+            'kota' => $kota,
+            'sekolah' => $sekolah
         ]);
     }
 
@@ -75,7 +89,13 @@ class SimulasiController extends Controller
             'jurusan_1' => 'required|exists:tbl_jurusan,id',
             'jurusan_2' => 'required|exists:tbl_jurusan,id',
             'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'id_sekolah'    => 'required|exists:tbl_sekolah,id',
         ]);
+
+        $user = User::find(Auth::id());
+        $user->id_sekolah = $input->id_sekolah;
+        $user->save();
+
         $simulasi = Simulasi::where('id', $id)->first();
         if(!$simulasi) return back();
 
@@ -165,6 +185,8 @@ class SimulasiController extends Controller
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                     ->where('id_user', Auth::id())
                                     ->first();
+        if($peserta == null) return redirect()->route("member.simulasi");
+        
         $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)
                                         ->where("id_mapel", $peserta->id_mapel)
                                         ->first();

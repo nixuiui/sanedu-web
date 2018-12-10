@@ -244,6 +244,7 @@ function getSekolah() {
             var inputSekolah 	= $("#inputSekolah");
             if(json.success) {
                 inputSekolah.html("");
+                inputSekolah.prop("disabled", false);
                 inputSekolah.append("<option value=''>Pilih Sekolah</option>");
                 if(json.data.length > 0) {
                     $.each(json.data, function(i, val) {
