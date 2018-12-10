@@ -33,12 +33,6 @@ $(document).ready(function(){
         <img width="100%" alt="First slide [800x400]" src="{{ asset('asset-member/img/banner2.jpg') }}">
     </div>
 </div>
-<div role="alert" class="alert alert-primary alert-icon alert-icon-border alert-dismissible">
-    <div class="icon"><span class="mdi mdi-info-outline"></span></div>
-    <div class="message">
-        <strong>Informasi Penting!</strong> Pendaftaran Simulasi Supernova akan dibuka pada tanggal <strong>5 Februari 2019</strong>.
-    </div>
-</div>
 <div class="row menu-utama">
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="{{ route('member.ujian.soal') }}" class="menu-item new-fitur">
