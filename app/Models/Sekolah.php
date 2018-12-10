@@ -27,4 +27,7 @@ class Sekolah extends Model
   	public function provinsi() {
         return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
   	}
+  	public function siswa() {
+        return $this->hasMany('App\Models\User', 'id_sekolah');
+  	}
 }

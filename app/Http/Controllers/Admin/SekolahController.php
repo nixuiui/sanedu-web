@@ -28,7 +28,7 @@ class SekolahController extends Controller
     }
 
     public function tambahPost(Request $input) {
-    $this->validate($input, [
+        $this->validate($input, [
             'id_provinsi'  => 'nullable|exists:set_provinsi,id',
             'id_kota'  => 'nullable|exists:set_kota,id',
             'nama' => 'required'
@@ -43,5 +43,13 @@ class SekolahController extends Controller
             $sekolah->save();
         }
         return back()->with("success", "Berhasil menambah data");
+    }
+
+    public function delete($id) {
+        $sekolah = Sekolah::findOrFail($id);
+        if($sekolah->siswa->count() > 0)
+            return back()->with("danger", "Maaf, untuk sekolah yang dipilih sudah terdapat siswa yang mendaftar, sebaiknya jangan di hapus karena akan merusak data.");
+        $sekolah->delete();
+        return back()->with("success", "Berhasil menghapus data sekolah");
     }
 }
