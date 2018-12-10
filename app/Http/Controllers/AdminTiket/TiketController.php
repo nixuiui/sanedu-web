@@ -27,22 +27,11 @@ class TiketController extends Controller
             id_kategori_tiket=1101 &&
             deleted_at IS NULL"
         ))->first();
-        $jumlahMember = collect(DB::select(
-            "SELECT
-            COUNT(tbl_users.id) as jumlah
-            FROM
-            tbl_users
-            INNER JOIN tbl_tiket ON tbl_users.kap=tbl_tiket.kap
-            INNER JOIN tbl_cetak_tiket ON tbl_cetak_tiket.id=tbl_tiket.id_cetak_tiket
-            WHERE
-            tbl_users.kap=tbl_tiket.kap &&
-            tbl_cetak_tiket.id_kategori_tiket=1101 &&
-            tbl_users.deleted_at IS NULL"
-        ))->first();
+        $jumlahMember = User::where("id_role", 1004)->get()->count();
         return view('admintiket.tiket.member')->with([
             "cetakTiket" => $cetakTiket,
             "jumlahTiket" => $jumlahTiket->jumlah,
-            "jumlahMember" => $jumlahMember->jumlah
+            "jumlahMember" => $jumlahMember
         ]);
     }
 
