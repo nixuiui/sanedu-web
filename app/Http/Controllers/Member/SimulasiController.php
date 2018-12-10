@@ -100,65 +100,64 @@ class SimulasiController extends Controller
         if($tiket->first() == null)
             return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
         $tiket = $tiket->first();
-        $tiket->id_user = Auth::id();
-        if($tiket->save()) {
-            //CHECK NO PESERTA YANG TERAKHIR
-            $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
-                            ->where('id_mapel', $input->jurusan)
-                            ->orderBy('no_peserta', 'desc')
-                            ->first();
-            switch ($input->jurusan) {
-                case 1516: $kode = 111; break;
-                case 1517: $kode = 211; break;
-                default: $kode = 311; break;
-            }
-    
-            if (empty($checkPeserta)) {
-                $nomor		= sprintf('%05d', 1);
-                $no_peserta	= $kode.'-24-'.$nomor;
-            }
-            else{
-                $pisah		= substr($checkPeserta->no_peserta, -5);
-                $str 		= ltrim($pisah, '0');
-                $new		= intval($str)+1;
-                $nomor		= sprintf('%05d', $new);
-                $no_peserta	= $kode.'-24-'.$nomor;
-            }
-    
-            $peserta = new SimulasiPeserta;
-            $peserta->id = Uuid::generate();
-            $peserta->id_simulasi = $simulasi->id;
-            $peserta->id_user = Auth::id();
-            if($input->mode == 'offline') {
-                $peserta->id_ruang = $ruang->id;
-                $peserta->mode_simulasi = 'offline';
+            
+        //CHECK NO PESERTA YANG TERAKHIR
+        $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
+                        ->where('id_mapel', $input->jurusan)
+                        ->orderBy('no_peserta', 'desc')
+                        ->first();
+        switch ($input->jurusan) {
+            case 1516: $kode = 111; break;
+            case 1517: $kode = 211; break;
+            default: $kode = 311; break;
+        }
+
+        if (empty($checkPeserta)) {
+            $nomor		= sprintf('%05d', 1);
+            $no_peserta	= $kode.'-24-'.$nomor;
+        }
+        else{
+            $pisah		= substr($checkPeserta->no_peserta, -5);
+            $str 		= ltrim($pisah, '0');
+            $new		= intval($str)+1;
+            $nomor		= sprintf('%05d', $new);
+            $no_peserta	= $kode.'-24-'.$nomor;
+        }
+
+        $peserta = new SimulasiPeserta;
+        $peserta->id = Uuid::generate();
+        $peserta->id_simulasi = $simulasi->id;
+        $peserta->id_user = Auth::id();
+        if($input->mode == 'offline') {
+            $peserta->id_ruang = $ruang->id;
+            $peserta->mode_simulasi = 'offline';
+        }
+        else {
+            $peserta->mode_simulasi = 'online';
+        }
+        $peserta->id_mapel = $input->jurusan;
+        $peserta->harga = $simulasi->harga;
+        $peserta->no_peserta = $no_peserta;
+        if($peserta->save()) {
+            $passingGrade = new PilihanPassingGrade;
+            $passingGrade->id = Uuid::generate();
+            $passingGrade->id_simulasi = $simulasi->id;
+            $passingGrade->id_peserta = $peserta->id;
+            $passingGrade->pilihan_1 = $input->jurusan_1;
+            $passingGrade->pilihan_2 = $input->jurusan_2;
+            $passingGrade->pilihan_3 = $input->jurusan_3;
+            $passingGrade->jurusan = $input->jurusan;
+            if($passingGrade->save()) {
+                $tiket->id_user = Auth::id();
+                $tiket->save();
+                return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Berhasil mendaftar pada Simulasi " . $simulasi->judul);
             }
             else {
-                $peserta->mode_simulasi = 'online';
+                $peserta->delete();
+                return back()->with('danger', "Gagal Menyimpan Passing Grade");
             }
-            $peserta->id_mapel = $input->jurusan;
-            $peserta->harga = $simulasi->harga;
-            $peserta->no_peserta = $no_peserta;
-            if($peserta->save()) {
-                $passingGrade = new PilihanPassingGrade;
-                $passingGrade->id = Uuid::generate();
-                $passingGrade->id_simulasi = $simulasi->id;
-                $passingGrade->id_peserta = $peserta->id;
-                $passingGrade->pilihan_1 = $input->jurusan_1;
-                $passingGrade->pilihan_2 = $input->jurusan_2;
-                $passingGrade->pilihan_3 = $input->jurusan_3;
-                $passingGrade->jurusan = $input->jurusan;
-                if($passingGrade->save()) {
-                    return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Berhasil mendaftar pada Simulasi " . $simulasi->judul);
-                }
-                else {
-                    $peserta->delete();
-                    return back()->with('danger', "Gagal Menyimpan Passing Grade");
-                }
-            }
-            return back()->with('danger', "Gagal Menyimpan Data Peserta");
         }
-        return back()->with('danger', "Gagal Mengupdate Tiket");
+        return back()->with('danger', "Gagal Menyimpan Data Peserta");
     }
 
     public function open($id) {
