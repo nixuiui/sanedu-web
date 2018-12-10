@@ -55,7 +55,7 @@ class SimulasiController extends Controller
             return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
         $tiket = $tiket->where('id_user', null);
         if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
+            return redirect()->back()->with('danger', 'Nomor tiket sudah digunakan.');
         $tiket = $tiket->first();
         
         $universitas = Universitas::all();
