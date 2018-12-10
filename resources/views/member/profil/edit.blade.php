@@ -9,7 +9,7 @@ Pengaturan Profil
     <div class="col-md-6">
         <form class="panel panel-default" action="{{ route('member.profil.edit.profil') }}" method="post">
             <div class="panel-heading">
-                Profil Anda
+                Profil Andas
             </div>
             <div class="panel-body">
                 {{ csrf_field() }}
@@ -235,18 +235,27 @@ $("#inputProvinsi").change(function() {
 		});
 	}
 });
+
 $("#inputKota").change(function() {
     if($(this).val() != null && $(this).val() != "")
         $("#inputTingkatSekolah").prop("disabled", false);
     else
         $("#inputTingkatSekolah").prop("disabled", true);
+    var tingkatSekolah = $("#inputTingkatSekolah");
+    if(tingkatSekolah.val() != null && tingkatSekolah.val() != "") {
+        getSekolah();
+    }
 });
+
 $("#inputTingkatSekolah").change(function() {
     if($(this).val() != null && $(this).val() != "")
         $("#inputSekolah").prop("disabled", false);
     else
         $("#inputSekolah").prop("disabled", true);
-    
+    getSekolah();
+});
+
+function getSekolah() {
 	var tingkatSekolah = $("#inputTingkatSekolah");
 	var kota = $("#inputKota");
     var url = "{{ route('ajax.sekolah') }}?id_kota=" + kota.val() + "&id_tingkat_sekolah=" + tingkatSekolah.val();
@@ -270,10 +279,6 @@ $("#inputTingkatSekolah").change(function() {
                     inputSekolah.html("");
                     inputSekolah.append("<option>Data Sekolah Belum Ada</option>");
                 }
-                if(inputSekolah.val() != null && inputSekolah.val() != "")
-                    $("#inputTingkatSekolah").prop("disabled", false);
-                else
-                    $("#inputTingkatSekolah").prop("disabled", true);
             }
             else {
                 inputSekolah.html("");
@@ -281,6 +286,6 @@ $("#inputTingkatSekolah").change(function() {
             }
         },
     });
-});
+}
 </script>
 @endsection
