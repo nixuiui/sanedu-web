@@ -30,7 +30,10 @@ Sekolah
                             <td>{{ $data->kota->name }}</td>
                             <td>{{ $data->nama }}</td>
                             <td>{{ $data->siswa->count() }} orang</td>
-                            <td><a href="{{ route('admin.sekolah.delete', $data->id) }}" class="btn btn-xs btn-danger"><i class="mdi mdi-delete mr-2"></i>Hapus</a></td>
+                            <td>
+                                <a href="{{ route('admin.sekolah.delete', $data->id) }}" class="btn btn-xs btn-danger"><i class="mdi mdi-delete mr-2"></i>Hapus</a>
+                                <a href="{{ route('admin.sekolah.edit', $data->id) }}" class="btn btn-xs btn-success"><i class="mdi mdi-edit mr-2"></i>Edit</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

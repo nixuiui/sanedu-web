@@ -119,6 +119,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/tambah',       'Admin\SekolahController@tambahForm')->name('admin.sekolah.tambah');
         Route::post('/tambah',      'Admin\SekolahController@tambahPost')->name('admin.sekolah.tambah.post');
         Route::get('/delete/{id}',  'Admin\SekolahController@delete')->name('admin.sekolah.delete');
+        Route::get('/edit/{id}',    'Admin\SekolahController@editForm')->name('admin.sekolah.edit');
+        Route::post('/edit/{id}',   'Admin\SekolahController@editPost')->name('admin.sekolah.edit.post');
     });
 
 });

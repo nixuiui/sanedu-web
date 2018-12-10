@@ -6,6 +6,7 @@ use Uuid;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Provinsi;
+use App\Models\Kota;
 use App\Models\Sekolah;
 use App\Models\SetPustaka;
 
@@ -51,5 +52,33 @@ class SekolahController extends Controller
             return back()->with("danger", "Maaf, untuk sekolah yang dipilih sudah terdapat siswa yang mendaftar, sebaiknya jangan di hapus karena akan merusak data.");
         $sekolah->delete();
         return back()->with("success", "Berhasil menghapus data sekolah");
+    }
+
+    public function editForm($id) {
+        $provinsi = Provinsi::all();
+        $sekolah = Sekolah::findOrFail($id);
+        $kota = Kota::where("id_provinsi", $sekolah->id_provinsi)->get();
+        $tingkatSekolah = SetPustaka::tingkatSekolah();
+        return view('admin.sekolah.edit')->with([
+            "provinsi" => $provinsi,
+            "kota" => $kota,
+            "tingkatSekolah" => $tingkatSekolah,
+            "sekolah" => $sekolah
+        ]);
+    }
+
+    public function editPost(Request $input, $id) {
+        $this->validate($input, [
+            'id_provinsi'  => 'nullable|exists:set_provinsi,id',
+            'id_kota'  => 'nullable|exists:set_kota,id',
+            'nama' => 'required'
+        ]);
+        $sekolah = Sekolah::findOrFail($id);
+        $sekolah->id_provinsi = $input->id_provinsi;
+        $sekolah->id_kota = $input->id_kota;
+        $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
+        $sekolah->nama = $input->nama;
+        $sekolah->save();
+        return back()->with("success", "Berhasil menambah data");
     }
 }
