@@ -41,6 +41,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
@@ -55,6 +56,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>Nama Peserta</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
@@ -72,6 +74,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->profil->nama }}</td>
                             <td>{{ $data->profil->username }}</td>
                             <td>{{ $data->profil->email }}</td>
+                            <td>{{ $data->profil->role->nama }}</td>
                             <td>{{ $data->profil->no_hp }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
