@@ -41,7 +41,7 @@ Simulasi - {{ $simulasi->judul }}
                         @if($simulasi->grupChat->count() <= 0)
                         <a href="#" class="btn btn-default btn-md disabled"><i class="mdi mdi-whatsapp mr-2 text-success"></i> Grup WhatsApp Belum Tersedia</a>
                         @else
-                        <a href="{{ route('member.simulasi.join.grup.chat', $simulasi->id) }}" class="btn btn-default btn-md"><i class="mdi mdi-whatsapp mr-2 text-success"></i> Join Grup WhatsApp</a>
+                        <a href="{{ route('user.simulasi.join.grup.chat', $simulasi->id) }}" class="btn btn-default btn-md"><i class="mdi mdi-whatsapp mr-2 text-success"></i> Join Grup WhatsApp</a>
                         @endif
                     @else
                         Link : <a href="{{ $myGrupChat->grupChat->link }}" class="text-bold">{{ $myGrupChat->grupChat->nama }}</a>
