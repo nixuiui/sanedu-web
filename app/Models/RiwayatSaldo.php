@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Ujian extends Model {
+class RiwayatSaldo extends Model {
     use SoftDeletes;
     protected $table        = 'tbl_riwayat_saldo';
     protected $primaryKey   = 'id';
