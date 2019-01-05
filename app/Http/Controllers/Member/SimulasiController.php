@@ -408,4 +408,10 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function listSimulasiDibeli() {
+        $idSimulasi = SimulasiPeserta::select(['id_simulasi'])->where("id_user", Auth::id())->get();
+        $simulasi = Simulasi::whereIn("id", $idSimulasi)->whereIn('id_status', [1902, 1903])->get();
+        return view('member.simulasi.index')->with("simulasi", $simulasi);
+    }
+
 }
