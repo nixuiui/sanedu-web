@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-Join Grup Chat
+KONSULTASI
 @endsection
 
 @section('content')

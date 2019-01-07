@@ -73,7 +73,7 @@ $(document).ready(function(){
     <div class="col-md-3 col-sm-6 col-xs-12">
         <a href="{{ route('member.grupchat') }}" class="menu-item new-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_grupchat.png') }}" alt="">
-            <div class="menu-title">Grup Chat</div>
+            <div class="menu-title">Konsultasi</div>
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-12">
