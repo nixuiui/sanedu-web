@@ -19,7 +19,6 @@ class ProfilController extends Controller {
             'nama'              => 'required|string|max:255',
             'no_hp'             => 'required',
             'alamat'            => 'required',
-            'asal_sekolah'      => 'required',
             'tempat_lahir'      => 'required',
         ]);
 
@@ -27,7 +26,6 @@ class ProfilController extends Controller {
         $user->nama         = $data->nama;
         $user->no_hp        = $data->no_hp;
         $user->alamat       = $data->alamat;
-        $user->asal_sekolah = $data->asal_sekolah;
         $user->tempat_lahir = $data->tempat_lahir;
         if($user->save())
             return redirect()->back()->with('success', 'Berhasil Mengubah Profil');

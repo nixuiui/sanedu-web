@@ -424,6 +424,15 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function pesertaEdit($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        $user = SimulasiPeserta::findOrFail($idPeserta)->profil;
+        return view('adminsimulasi.simulasi.pesertaedit')->with([
+            'simulasi' => $simulasi,
+            'user' => $user
+        ]);
+    }
+
     public function pesertaSwicthOnlineOffline($id, $idPeserta) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::findOrFail($idPeserta);

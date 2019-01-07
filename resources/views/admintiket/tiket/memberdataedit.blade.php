@@ -41,15 +41,6 @@ Ubah Data Member
                     @endif
                 </div>
                 <div class="form-group">
-                    <label>Asal Sekolah</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="asal_sekolah"  value="{{ $user->asal_sekolah }}" required>
-                    @if ($errors->has('asal_sekolah'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('asal_sekolah') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <div class="form-group">
                     <label>Tempat Lahir</label>
                     <input type="text" class="form-control input-sm" placeholder="Nama Lengkap" name="tempat_lahir"  value="{{ $user->tempat_lahir }}" required>
                     @if ($errors->has('tempat_lahir'))

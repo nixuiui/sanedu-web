@@ -199,6 +199,13 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/publish',                      'AdminSimulasi\SimulasiController@publish')->name('adminsimulasi.simulasi.kelola.publish');
             Route::get('/closereg',                     'AdminSimulasi\SimulasiController@closeReg')->name('adminsimulasi.simulasi.kelola.closereg');
             Route::get('/peserta',                      'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
+            Route::group(['prefix' => 'peserta/{idPeserta}'], function(){
+                Route::get('/edit',                         'AdminSimulasi\SimulasiController@pesertaEdit')->name('adminsimulasi.simulasi.kelola.peserta.edit');
+                Route::post('/edit-profil',                 'AdminSimulasi\ProfilController@editProfil')->name('adminsimulasi.simulasi.kelola.peserta.edit.profil');
+                Route::post('/edit-email',                  'AdminSimulasi\ProfilController@editEmail')->name('adminsimulasi.simulasi.kelola.peserta.edit.email');
+                Route::post('/edit-username',               'AdminSimulasi\ProfilController@editUsername')->name('adminsimulasi.simulasi.kelola.peserta.edit.username');
+                Route::post('/edit-password',               'AdminSimulasi\ProfilController@editPassword')->name('adminsimulasi.simulasi.kelola.peserta.edit.password');
+            });
             Route::get('/peserta/{idPeserta}/swicth',   'AdminSimulasi\SimulasiController@pesertaSwicthOnlineOffline')->name('adminsimulasi.simulasi.kelola.peserta.switch');
             Route::get('/kartuujian/{idPeserta}',       'AdminSimulasi\SimulasiController@kartuUjian')->name('adminsimulasi.simulasi.kelola.peserta.kartuujian');
             Route::get('/delete',                       'AdminSimulasi\SimulasiController@deleteSimulasi')->name('adminsimulasi.simulasi.kelola.delete');
