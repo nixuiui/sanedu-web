@@ -18,6 +18,7 @@ Grup Chat
                             <th>No</th>
                             <th>Nama Member</th>
                             <th>Nomor Telp</th>
+                            <th>Sekolah</th>
                             <th>Tanggal Bergabung</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -26,6 +27,7 @@ Grup Chat
                         <tr>
                             <th>No</th>
                             <th>Nama Member</th>
+                            <th>Sekolah</th>
                             <th>Tanggal Bergabung</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -36,6 +38,7 @@ Grup Chat
                             <td>{{ $no+1 }}</td>
                             <td>{{ $w->user->nama }}</td>
                             <td>{{ $w->user->no_hp }}</td>
+                            <td>{{ $w->user->id_sekolah != null ? $w->user->sekolah->nama : "" }}</td>
                             <td>{{ hariTanggalWaktu($w->created_at) }}</td>
                             <td class="text-right">
                                 <a href="{{ route('admin.grupchat.member.kick', $w->id) }}" class="btn btn-xs btn-danger delete btn-icon"><i class="mdi mdi-delete"></i> keluarkan dari grub</a>
