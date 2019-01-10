@@ -14,6 +14,7 @@ use App\Models\Tiket;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Sekolah;
+use App\Models\SetPustaka;
 
 class ProfilController extends Controller {
 
@@ -22,15 +23,35 @@ class ProfilController extends Controller {
         $provinsi   = Provinsi::all();
         $kota = [];
         $sekolah = [];
+        $kelas = [];
         if($user->id_sekolah != null) {
             $kota = Kota::where("id_provinsi", $user->sekolah->id_provinsi)->get();
             $sekolah = Sekolah::where("id_kota", $user->sekolah->id_kota)->get();
+            $idTingkatSekolah = $user->sekolah->id_tingkat_sekolah;
+            switch($idTingkatSekolah) {
+                case 1301:
+                    $kelas = SetPustaka::whereIn("id", [1601, 1602, 1603, 1604, 1605, 1606])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+                case 1302:
+                    $kelas = SetPustaka::whereIn("id", [1607, 1608, 1609])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+                case 1303:
+                    $kelas = SetPustaka::whereIn("id", [1610, 1611, 1612])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+            }
         }
         return view('member.profil.edit')->with([
             'user' => $user,
             'provinsi' => $provinsi,
             'kota' => $kota,
-            'sekolah' => $sekolah
+            'sekolah' => $sekolah,
+            'kelas' => $kelas
         ]);
     }
 
@@ -77,9 +98,11 @@ class ProfilController extends Controller {
     public function editSekolah(Request $data) {
         $this->validate($data, [
             'id_sekolah'    => 'required|exists:tbl_sekolah,id',
+            'id_kelas'    => 'required|exists:set_pustaka,id',
         ]);
         $user               = User::find(Auth::id());
         $user->id_sekolah = $data->id_sekolah;
+        $user->id_kelas = $data->id_kelas;
         if($user->save())
             return redirect()->back()->with('success', 'Berhasil Mengubah Profil');
         return redirect()->back()->with('danger', 'Gagal Mengubah Profil');

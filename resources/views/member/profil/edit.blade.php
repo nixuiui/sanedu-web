@@ -99,17 +99,38 @@ Pengaturan Profil
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label>Tingkat Sekolah</label>
-                    <select class="form-control input-sm" id="inputTingkatSekolah" required {{ $user->id_sekolah == null ? "disabled" : "" }}>
-                        <option value="">-- Pilih Tingkat Sekolah --</option>
-                        <option value="1301" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
-                        <option value="1302" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
-                        <option value="1303" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1303 ? "selected" : "" }}>SMA</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Tingkat Sekolah</label>
+                            <select class="form-control input-sm" id="inputTingkatSekolah" required {{ $user->id_sekolah == null ? "disabled" : "" }}>
+                                <option value="">-- Pilih Tingkat Sekolah --</option>
+                                <option value="1301" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
+                                <option value="1302" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
+                                <option value="1303" {{ $user->id_sekolah != null && $user->sekolah->id_tingkat_sekolah == 1303 ? "selected" : "" }}>SMA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Kelas</label>
+                            <select class="form-control input-sm" id="inputKelas" name="id_kelas" required {{ $user->id_kelas == null ? "disabled" : "" }}>
+                                @if($user->id_kelas != null && $sekolah->count() > 0)
+                                @foreach($kelas as $data)
+                                <option value="{{ $data->id }}" {{ $user->id_kelas == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                            @if ($errors->has('id_kelas'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('id_kelas') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label>Asal Sekolah</label>
+                    <label>Sekolah</label>
                     <select class="form-control input-sm" id="inputSekolah" name="id_sekolah" required {{ $user->id_sekolah == null ? "disabled" : "" }}>
                         @if($user->id_sekolah != null && $sekolah->count() > 0)
                         @foreach($sekolah as $data)
@@ -253,6 +274,7 @@ $("#inputTingkatSekolah").change(function() {
     else
         $("#inputSekolah").prop("disabled", true);
     getSekolah();
+    getKelas();
 });
 
 function getSekolah() {
@@ -284,6 +306,39 @@ function getSekolah() {
             else {
                 inputSekolah.html("");
                 inputSekolah.append("<option>" + json.message + "</option>");
+            }
+        },
+    });
+}
+
+function getKelas() {
+	var tingkatSekolah = $("#inputTingkatSekolah");
+    var url = "{{ route('ajax.kelas') }}?id_tingkat_sekolah=" + tingkatSekolah.val();
+    $.ajax({
+        type: 'get',
+        url: url,
+        data: {
+        },
+        success: function(data) {
+            var json 			= jQuery.parseJSON(data);
+            var inputKelas 	= $("#inputKelas");
+            if(json.success) {
+                inputKelas.html("");
+                inputKelas.prop("disabled", false);
+                inputKelas.append("<option value=''>Pilih Kelas</option>");
+                if(json.data.length > 0) {
+                    $.each(json.data, function(i, val) {
+                        inputKelas.append("<option value=" + val.id + "> " + val.nama + "</option>");
+                    });
+                }
+                else {
+                    inputKelas.html("");
+                    inputKelas.append("<option>Data Kelas Belum Ada</option>");
+                }
+            }
+            else {
+                inputKelas.html("");
+                inputKelas.append("<option>" + json.message + "</option>");
             }
         },
     });

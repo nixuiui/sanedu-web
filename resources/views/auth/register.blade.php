@@ -138,6 +138,13 @@ Daftar
                 <span>{{ $errors->first('id_sekolah') }}</span>
             </span>
             @endif
+            <select class="" id="inputKelas" name="id_kelas" disabled required style="height: 50px;">
+            </select>
+            @if ($errors->has('id_kelas'))
+            <span class="help-block">
+                <span>{{ $errors->first('id_kelas') }}</span>
+            </span>
+            @endif
             <hr>
             <div class="padd">
                 Username dan Password digunakan untuk melakukan login ke Sanedu. Silahkan diingat untuk username dan password.
@@ -228,6 +235,7 @@ $("#inputTingkatSekolah").change(function() {
     else
         $("#inputSekolah").prop("disabled", true);
     getSekolah();
+    getKelas();
 });
 
 function getSekolah() {
@@ -259,6 +267,39 @@ function getSekolah() {
             else {
                 inputSekolah.html("");
                 inputSekolah.append("<option>" + json.message + "</option>");
+            }
+        },
+    });
+}
+
+function getKelas() {
+	var tingkatSekolah = $("#inputTingkatSekolah");
+    var url = "{{ route('ajax.kelas') }}?id_tingkat_sekolah=" + tingkatSekolah.val();
+    $.ajax({
+        type: 'get',
+        url: url,
+        data: {
+        },
+        success: function(data) {
+            var json 			= jQuery.parseJSON(data);
+            var inputKelas 	= $("#inputKelas");
+            if(json.success) {
+                inputKelas.html("");
+                inputKelas.prop("disabled", false);
+                inputKelas.append("<option value=''>Pilih Kelas</option>");
+                if(json.data.length > 0) {
+                    $.each(json.data, function(i, val) {
+                        inputKelas.append("<option value=" + val.id + "> " + val.nama + "</option>");
+                    });
+                }
+                else {
+                    inputKelas.html("");
+                    inputKelas.append("<option>Data Kelas Belum Ada</option>");
+                }
+            }
+            else {
+                inputKelas.html("");
+                inputKelas.append("<option>" + json.message + "</option>");
             }
         },
     });

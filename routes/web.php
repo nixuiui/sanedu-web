@@ -426,4 +426,5 @@ Route::group(['prefix' => 'ajax'], function(){
     Route::get('/kecamatan/{idKecamatan?}', 'AJAXController@kecamatan')->name('ajax.lokasi.kecamatan');
     Route::get('/kelurahan/{idKelurahan?}', 'AJAXController@kelurahan')->name('ajax.lokasi.kelurahan');
     Route::get('/sekolah',                  'AJAXController@sekolah')->name('ajax.sekolah');
+    Route::get('/kelas',                    'AJAXController@kelas')->name('ajax.kelas');
 });

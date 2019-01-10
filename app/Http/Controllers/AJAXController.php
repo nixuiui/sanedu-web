@@ -202,4 +202,32 @@ class AJAXController extends Controller
         );
         return json_encode($json);
     }
+
+    public function kelas() {
+        $data = SetPustaka::tingkatKelas();
+        if(isset($_GET['id_tingkat_sekolah'])) {
+            switch($_GET['id_tingkat_sekolah']) {
+                case 1301:
+                    $data = SetPustaka::whereIn("id", [1601, 1602, 1603, 1604, 1605, 1606])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+                case 1302:
+                    $data = SetPustaka::whereIn("id", [1607, 1608, 1609])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+                case 1303:
+                    $data = SetPustaka::whereIn("id", [1610, 1611, 1612])
+                                        ->orderBy("nama", "asc")
+                                        ->get();
+                    break;
+            }
+        }
+        $json = array(
+            "success"   => true,
+            "data"      => $data
+        );
+        return json_encode($json);
+    }
 }

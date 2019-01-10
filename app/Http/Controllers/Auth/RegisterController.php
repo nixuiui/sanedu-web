@@ -112,6 +112,7 @@ class RegisterController extends Controller
             'password'          => 'required|string|min:6',
             'tanggal_lahir'     => 'required|date',
             'id_sekolah'        => 'required|exists:tbl_sekolah,id',
+            'id_kelas'          => 'required|exists:set_pustaka,id',
         ]);
         $kap = str_replace("-", "", $input->kap);
         $pin = str_replace("-", "", $input->pin);
@@ -136,6 +137,7 @@ class RegisterController extends Controller
         $user->tempat_lahir = $input->tempat_lahir;
         $user->tanggal_lahir = $input->tanggal_lahir;
         $user->id_sekolah = $input->id_sekolah;
+        $user->id_kelas = $input->id_kelas;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){
             $tiket = Tiket::where("kap", $kap)->where("pin", $pin)->first();
