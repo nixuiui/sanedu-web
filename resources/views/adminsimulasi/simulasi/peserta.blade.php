@@ -40,7 +40,8 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th width="100px">No</th>
                             <th>Nama</th>
                             <th>Username</th>
-                            <th>Email</th>
+                            <th>PIN</th>
+                            <th>KAP</th>
                             <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
@@ -55,7 +56,8 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No</th>
                             <th>Nama Peserta</th>
                             <th>Username</th>
-                            <th>Email</th>
+                            <th>PIN</th>
+                            <th>KAP</th>
                             <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
@@ -73,19 +75,21 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->no_peserta }}</td>
                             <td>{{ $data->profil->nama }}</td>
                             <td>{{ $data->profil->username }}</td>
-                            <td>{{ $data->profil->email }}</td>
+                            <td>{{ $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first()->pin }}</td>
+                            <td>{{ $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first()->kap }}</td>
                             <td>{{ $data->profil->role->nama }}</td>
                             <td>{{ $data->profil->no_hp }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
                             <td>{{ $data->peringkat }}</td>
                             <td>
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.edit', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-edit mr-3"></i>Edit</a></strong>
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-download mr-3"></i>Borang</a></strong>
-                                @if($data->mode_simulasi == "offline")
-                                <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-md btn-default" target="_blank"><i class="mdi mdi-print mr-3"></i>Kartu</a></strong>
-                                @endif
-
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.edit', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-default" title="Edit"><i class="mdi mdi-edit"></i></a>
+                                    <a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-default" title="Download Borang"><i class="mdi mdi-download"></i></a>
+                                    @if($data->mode_simulasi == "offline")
+                                    <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.kartuujian', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-default" title="Cetak Kartu"><i class="mdi mdi-print"></i></a>
+                                    @endif
+                                </div>
                             </td>
                         </tr>
                         @endforeach

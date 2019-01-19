@@ -51,7 +51,7 @@ class User extends Authenticatable {
         return $this->hasMany('App\Models\CetakTiket', 'id_user');
     }
   	public function tiket() {
-  		return $this->hasOne('App\Models\Tiket', 'id_user');
+  		return $this->hasMany('App\Models\Tiket', 'id_user');
   	}
   	public function grupChat() {
         return $this->belongsToMany('App\Model\GrupChat', 'tbl_grup_chat', 'id_user', 'id_grup_chat')
