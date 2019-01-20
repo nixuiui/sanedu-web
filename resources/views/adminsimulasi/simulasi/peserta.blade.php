@@ -75,8 +75,11 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $data->no_peserta }}</td>
                             <td>{{ $data->profil->nama }}</td>
                             <td>{{ $data->profil->username }}</td>
-                            <td>{{ $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first()->pin }}</td>
-                            <td>{{ $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first()->kap }}</td>
+                            <?php
+                                $tiket = $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first();
+                            ?>
+                            <td>{{ $tiket != null ? $tiket->pin : ""  }}</td>
+                            <td>{{ $tiket != null ? $tiket->kap : ""  }}</td>
                             <td>{{ $data->profil->role->nama }}</td>
                             <td>{{ $data->profil->no_hp }}</td>
                             <td>{{ $data->profil->asal_sekolah }}</td>
