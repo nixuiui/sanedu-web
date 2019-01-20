@@ -162,6 +162,7 @@ Daftar
                 <span>{{ $errors->first('password') }}</span>
             </span>
             @endif
+            <input type="password" class="" name="password_confirmation" placeholder="Password" required>
             <input type="submit" class="" value="Daftar" required>
         </form>
         @endif

@@ -109,7 +109,7 @@ class RegisterController extends Controller
             'nama'              => 'required|string|max:255',
             'email'             => 'required|string|email|max:255|unique:tbl_users,email',
             'username'          => 'required|alpha_dash|unique:tbl_users,username|min:6|max:255',
-            'password'          => 'required|string|min:6',
+            'password'          => 'required|string|min:6|confirmed',
             'tanggal_lahir'     => 'required|date',
             'id_sekolah'        => 'required|exists:tbl_sekolah,id',
             'id_kelas'          => 'required|exists:set_pustaka,id',
