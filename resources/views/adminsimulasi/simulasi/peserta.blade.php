@@ -82,7 +82,7 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <td>{{ $tiket != null ? $tiket->kap : ""  }}</td>
                             <td>{{ $data->profil->role->nama }}</td>
                             <td>{{ $data->profil->no_hp }}</td>
-                            <td>{{ $data->profil->asal_sekolah }}</td>
+                            <td>{{ $data->profil->sekolah != null ? $data->profil->sekolah->nama : "" }}</td>
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
                             <td>{{ $data->peringkat }}</td>
                             <td>
