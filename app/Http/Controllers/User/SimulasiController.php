@@ -27,7 +27,7 @@ class SimulasiController extends Controller
     public function index() {
         $tiket = Auth::user()->tiket;
         if($tiket != null)
-            return redirect()->route("user.simulasi.register", $tiket->id_simulasi);
+            return redirect()->route("user.simulasi.register", $tiket->first()->id_simulasi);
         return back();
     }
 
