@@ -1184,6 +1184,13 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function tiketAll($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        return view('adminsimulasi.simulasi.tiketall')->with([
+            "simulasi" => $simulasi
+        ]);
+    }
+
     public function generateTiket(Request $input, $id){
         $simulasi = Simulasi::findOrFail($id);
         $this->validate($input, [

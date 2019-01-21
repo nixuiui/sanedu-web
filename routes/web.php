@@ -255,8 +255,9 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
                 Route::get('/peserta',      'AdminSimulasi\SimulasiController@downloadPeserta')->name('adminsimulasi.simulasi.kelola.download.peserta');
                 Route::get('/borang',       'AdminSimulasi\SimulasiController@downloadBorang')->name('adminsimulasi.simulasi.kelola.download.borang');
             });
-            Route::prefix('tiket-member')->group(function () {
+            Route::prefix('tiket')->group(function () {
                 Route::get('/',                         'AdminSimulasi\SimulasiController@tiket')->name('adminsimulasi.simulasi.kelola.tiket');
+                Route::get('/all',                      'AdminSimulasi\SimulasiController@tiketAll')->name('adminsimulasi.simulasi.kelola.tiket.all');
                 Route::post('/tambah',                  'AdminSimulasi\SimulasiController@generateTiket')->name('adminsimulasi.simulasi.kelola.tiket.tambah');
                 Route::get('/delete/{idCetak}',         'AdminSimulasi\SimulasiController@deleteCetakTiket')->name('adminsimulasi.simulasi.kelola.tiket.delete');
                 Route::get('/print/{idCetak}',          'AdminSimulasi\SimulasiController@printTiket')->name('adminsimulasi.simulasi.kelola.tiket.print');

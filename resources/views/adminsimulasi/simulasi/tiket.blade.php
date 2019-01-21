@@ -20,6 +20,7 @@ Tiket Peserta {{ $simulasi->judul }}
         <button type="button" id="btnCetakTiket" class="btn btn-md btn-fill btn-primary btn-space btn-icon" data-toggle="modal" data-target="#modalTambahCetakTiket"><i class="mdi mdi-plus"></i> Cetak Tiket</button>
         <button type="button" id="btnKustomTiket" class="btn btn-md btn-fill btn-success btn-space btn-icon" data-toggle="modal" data-target="#modalCustomTiket"><i class="mdi mdi-image"></i> Custom Tiket</button>
         <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Peserta ({{ $jumlahPeserta }})</a>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.all', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Semua Tiket ({{ $simulasi->tiket->count() }})</a>
 
         <div class="panel panel-default panel-table">
             <div class="panel-body">
