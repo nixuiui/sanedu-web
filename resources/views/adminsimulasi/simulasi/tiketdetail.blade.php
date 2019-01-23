@@ -13,7 +13,8 @@ Tiket Peserta {{ $simulasi->judul }}
                         <tr>
                             <th>PIN</th>
                             <th>KAP</th>
-                            <th>Nama Pengguna</th>
+                            <th>Nama</th>
+                            <th>Username</th>
                             <th>Sekolah</th>
                         </tr>
                     </thead>
@@ -21,7 +22,8 @@ Tiket Peserta {{ $simulasi->judul }}
                         <tr>
                             <th>PIN</th>
                             <th>KAP</th>
-                            <th>Nama Pengguna</th>
+                            <th>Nama</th>
+                            <th>Username</th>
                             <th>Sekolah</th>
                         </tr>
                     </tfoot>
@@ -31,6 +33,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <td>{{ $data->pin }}</td>
                             <td>{{ $data->kap }}</td>
                             <td>{{ $data->user != null ? $data->user->nama : "-" }}</td>
+                            <td>{{ $data->user != null ? $data->user->username : "-" }}</td>
                             <td>{{ $data->user != null ? ($data->user->sekolah != null ? $data->user->sekolah->nama : "-") : "-" }}</td>
                         </tr>
                         @endforeach
