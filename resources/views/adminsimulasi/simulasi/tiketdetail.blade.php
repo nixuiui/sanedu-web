@@ -26,12 +26,12 @@ Tiket Peserta {{ $simulasi->judul }}
                         </tr>
                     </tfoot>
                     <tbody>
-                        @foreach($simulasi->tiket as $tiket)
+                        @foreach($tiket as $data)
                         <tr>
-                            <td>{{ $tiket->pin }}</td>
-                            <td>{{ $tiket->kap }}</td>
-                            <td>{{ $tiket->user != null ? $tiket->user->nama : "-" }}</td>
-                            <td>{{ $tiket->user != null ? ($tiket->user->sekolah != null ? $tiket->user->sekolah->nama : "-") : "-" }}</td>
+                            <td>{{ $data->pin }}</td>
+                            <td>{{ $data->kap }}</td>
+                            <td>{{ $data->user != null ? $data->user->nama : "-" }}</td>
+                            <td>{{ $data->user != null ? ($data->user->sekolah != null ? $data->user->sekolah->nama : "-") : "-" }}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -1184,10 +1184,14 @@ class SimulasiController extends Controller
         ]);
     }
 
-    public function tiketAll($id) {
+    public function tiketDetail($id, $idCetak = null) {
         $simulasi = Simulasi::findOrFail($id);
-        return view('adminsimulasi.simulasi.tiketall')->with([
-            "simulasi" => $simulasi
+        $tiket = Tiket::where("id_simulasi", $id)->get();
+        if($idCetak != null)
+        $tiket = Tiket::where("id_simulasi", $id)->where("id_cetak_tiket", $idCetak)->get();
+        return view('adminsimulasi.simulasi.tiketdetail')->with([
+            "simulasi" => $simulasi,
+            "tiket" => $tiket
         ]);
     }
 
