@@ -173,4 +173,13 @@ class TiketController extends Controller
         $pdf        = PDF::loadView('template.tiket.member-feb', compact(['tiket']))->setPaper('a4');
         return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
+
+    public function tiketDetail($idCetak = null) {
+        $tiket = Tiket::where("id_kategori_tiket", 1101)->get();
+        if($idCetak != null)
+        $tiket = Tiket::where("id_kategori_tiket", 1101)->where("id_cetak_tiket", $idCetak)->get();
+        return view('admintiket.tiket.detail')->with([
+            "tiket" => $tiket
+        ]);
+    }
 }

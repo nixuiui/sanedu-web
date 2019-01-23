@@ -15,6 +15,7 @@ Tiket Member
         <button type="button" id="btnCetakTiket" class="btn btn-md btn-fill btn-primary btn-space btn-icon" data-toggle="modal" data-target="#modalTambahCetakTiket"><i class="mdi mdi-plus"></i> Cetak Tiket</button>
         <button type="button" id="btnKustomTiket" class="btn btn-md btn-fill btn-success btn-space btn-icon" data-toggle="modal" data-target="#modalCustomTiket"><i class="mdi mdi-image"></i> Custom Tiket</button>
         <a href="{{ route('admintiket.tiket.member.data') }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Member ({{ $jumlahMember }})</a>
+        <a href="{{ route('admintiket.tiket.member.detail') }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Semua Data Tiket Member</a>
 
 
         <div class="panel panel-default panel-table">
@@ -46,6 +47,7 @@ Tiket Member
                             <td>{{ $cetak->jumlah_tiket }} tiket</td>
                             <td>{{ $cetak->user->nama }}</td>
                             <td class="text-right">
+                                <a href="{{ route('admintiket.tiket.member.detail', $cetak->id) }}" class="btn btn-xs btn-default" title="Detail Tiket"><i class="mdi mdi-eye"></i></a>
                                 <a href="{{ route('admintiket.tiket.member.print', $cetak->id) }}" class="btn btn-xs btn-default print" title="Cetak Tiket" data-jumlahtiket="{{ $cetak->tiket->count() }}"><i class="mdi mdi-print"></i></a>
                                 <a href="{{ route('admintiket.tiket.member.delete', $cetak->id) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
                             </td>

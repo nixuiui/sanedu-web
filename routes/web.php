@@ -179,6 +179,7 @@ Route::group(['middleware' => 'admintiket', 'prefix' => 'admintiket'], function(
         Route::get('/data-member',              'AdminTiket\TiketController@dataMember')->name('admintiket.tiket.member.data');
         Route::get('/data-member/{id}/edit',    'AdminTiket\TiketController@dataMemberEdit')->name('admintiket.tiket.member.data.edit');
         Route::get('/download',                 'AdminTiket\TiketController@download')->name('admintiket.tiket.member.download');
+        Route::get('/detail/{idCetak?}',        'AdminTiket\TiketController@tiketDetail')->name('admintiket.tiket.member.detail');
     });
 
 });
