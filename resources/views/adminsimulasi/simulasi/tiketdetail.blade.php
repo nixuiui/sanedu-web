@@ -13,6 +13,8 @@ Tiket Peserta {{ $simulasi->judul }}
                         <tr>
                             <th>PIN</th>
                             <th>KAP</th>
+                            <th>Kategori</th>
+                            <th>Tanggal Cetak</th>
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
@@ -22,6 +24,8 @@ Tiket Peserta {{ $simulasi->judul }}
                         <tr>
                             <th>PIN</th>
                             <th>KAP</th>
+                            <th>Kategori</th>
+                            <th>Tanggal Cetak</th>
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
@@ -32,6 +36,10 @@ Tiket Peserta {{ $simulasi->judul }}
                         <tr>
                             <td>{{ $data->pin }}</td>
                             <td>{{ $data->kap }}</td>
+                            <td>{{ $data->kategoriTiket->nama }}</td>
+                            <td>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', ['id' => $simulasi->id, 'idCetak' => $data->id_cetak_tiket]) }}" title="Detail Tiket">{{ hariTanggalWaktu($data->cetakTiket->created_at) }}</a>
+                            </td>
                             <td>{{ $data->user != null ? $data->user->nama : "-" }}</td>
                             <td>{{ $data->user != null ? $data->user->username : "-" }}</td>
                             <td>{{ $data->user != null ? ($data->user->sekolah != null ? $data->user->sekolah->nama : "-") : "-" }}</td>

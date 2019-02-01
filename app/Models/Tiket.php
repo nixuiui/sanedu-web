@@ -18,7 +18,7 @@ class Tiket extends Model {
   		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_tiket');
   	}
   	public function cetakTiket() {
-  		return $this->belongsTo('App\Models\CetakTiket', 'id_kategori_tiket');
+  		return $this->belongsTo('App\Models\CetakTiket', 'id_cetak_tiket');
     }
   	public function simulasi() {
   		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
