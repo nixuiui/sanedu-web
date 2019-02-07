@@ -17,6 +17,7 @@ Tiket Member
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -28,6 +29,7 @@ Tiket Member
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
+                            <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -42,6 +44,11 @@ Tiket Member
                             <td>{{ $data->user != null ? $data->user->nama : "-" }}</td>
                             <td>{{ $data->user != null ? $data->user->username : "-" }}</td>
                             <td>{{ $data->user != null ? ($data->user->sekolah != null ? $data->user->sekolah->nama : "-") : "-" }}</td>
+                            <td>
+                                @if($data->user != null)
+                                <a href="{{ route('admintiket.tiket.member.data.edit', $data->user->id) }}" class="btn btn-xs btn-success" title="Edit Data Member"> <i class="mdi mdi-edit"></i> </a>
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>
