@@ -51,9 +51,9 @@ class LoginController extends Controller
             if (Auth::attempt(['email' => $input->username, 'password' => $input->password], true) || Auth::attempt(['username' => $input->username, 'password' => $input->password], true)) {
                 return redirect()->route('guest.checkrole');
             }
-            return redirect()->back()->with('danger', 'Email/Username yang Anda masukkan tidak cocok');
+            return redirect()->back()->with('danger', 'Maaf, Password yang Anda masukkan salah.');
         }
-        return redirect()->back()->with('danger', 'Anda tidak diizinkan login');
+        return redirect()->back()->with('danger', 'Maaf, email/username yang Anda masukkan belum terdaftar');
     }
 
     public function loginAdminForm() {
