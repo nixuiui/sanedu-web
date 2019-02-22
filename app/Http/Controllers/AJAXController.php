@@ -45,6 +45,7 @@ class AJAXController extends Controller
             //UJIAN NASIONAL
             if($idUjian == 1401) {
                 $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
+                $kelas = SetPustaka::whereIn('id', [1606, 1609, 1612])->get();
             }
             //UTS & UAS
             else if($idUjian == 1402 || $idUjian == 1403) {

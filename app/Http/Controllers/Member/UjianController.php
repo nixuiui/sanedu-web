@@ -198,7 +198,7 @@ class UjianController extends Controller
         $kategori   = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran])->orderBy('id', 'desc')->get();
         $jenisUjian = SetPustaka::whereIn('id', $idJenisUjian)->orderBy('id', 'desc')->get();
         $kategori['jenis_ujian'] = $jenisUjian; 
-        // return $kategori;
+
         $mapel      = $this->getMapel($idSekolah, $idJenisUjian);
 
         return view('member.ujian.list')->with([
