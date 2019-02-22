@@ -291,6 +291,11 @@ div.dataTables_wrapper div.dataTables_filter input {
 .col-ujian .card-body {
     height: calc(100% - 200px);
 }
+@media (min-width: 768px) {
+    .col-ujian .card-body {
+        height: 130px;
+    }
+}
 .ujian-info {
     height: 37px;
     display: flex;

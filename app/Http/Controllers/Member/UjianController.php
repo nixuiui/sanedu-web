@@ -179,9 +179,12 @@ class UjianController extends Controller
         $idMataPelajaran = isset($_GET['idMataPelajaran']) && $_GET['idMataPelajaran'] != null ? $_GET['idMataPelajaran'] : null;
         $idJenisUjian = isset($_GET['idJenisUjian']) && $_GET['idJenisUjian'] != null ? $_GET['idJenisUjian'] : null;
 
+        //split id jenis ujian
+        $idJenisUjian = explode(",", $idJenisUjian);
+
         if($idJenisUjian == null || $idSekolah == null) return redirect()->route('member.ujian.soal');
 
-        $ujian = Ujian::where('id_jenis_ujian', $idJenisUjian)
+        $ujian = Ujian::whereIn('id_jenis_ujian', $idJenisUjian)
                         ->where('is_published', 1)
                         ->where('id_tingkat_sekolah', $idSekolah);
         if($idKelas != null)
@@ -192,7 +195,10 @@ class UjianController extends Controller
         }
         $ujian      = $ujian->orderBy("created_at", "desc")->get();
 
-        $kategori   = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran, $idJenisUjian])->get();
+        $kategori   = SetPustaka::whereIn('id', [$idSekolah, $idKelas, $idMataPelajaran])->orderBy('id', 'desc')->get();
+        $jenisUjian = SetPustaka::whereIn('id', $idJenisUjian)->orderBy('id', 'desc')->get();
+        $kategori['jenis_ujian'] = $jenisUjian; 
+        // return $kategori;
         $mapel      = $this->getMapel($idSekolah, $idJenisUjian);
 
         return view('member.ujian.list')->with([

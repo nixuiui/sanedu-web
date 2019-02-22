@@ -65,11 +65,23 @@ Contoh Soal
         <div role="alert" class="alert alert-primary alert-icon alert-icon-border alert-dismissible">
             <div class="icon"><span class="mdi mdi-info-outline"></span></div>
             <div class="message">
-                <strong>Filter</strong>
+                <strong>[FILTER]</strong>
                 @foreach($filter as $key => $fil)
-                {{ $key > 0 ? ", " : ""}}
-                {{ $fil->kategori->nama }} :
-                {{ $fil->nama }}
+                    @if($key == "0")
+                        {{ $key > 0 ? " - " : ""}}
+                        <strong>{{ $fil->kategori->nama }}</strong> :
+                        {{ $fil->nama }}
+                    @elseif($key == "jenis_ujian")
+                        - <strong>Jenis Ujian</strong> :
+                        @foreach($fil as $i => $val)
+                        {{ $i > 0 ? ", " : ""}}
+                        {{$val->nama}}
+                        @endforeach
+                    @else
+                        {{ $key > 0 ? " - " : ""}}
+                        <strong>{{ $fil->kategori->nama }}</strong> :
+                        {{ $fil->nama }}
+                    @endif
                 @endforeach
             </div>
         </div>
