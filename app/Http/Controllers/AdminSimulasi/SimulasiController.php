@@ -1323,4 +1323,58 @@ class SimulasiController extends Controller
             return back()->with('success', "Berhasil menghapus " . $member->user->nama . " dari Grup Chat");
         return back()->with('danger', 'Terjadi kesalahan saat menghapus member dari Grup Chat');
     }
+    
+    public function scanView($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)->get();
+        return view('adminsimulasi.simulasi.scan')->with([
+            "simulasi" => $simulasi,
+            "simulasiUjian" => $simulasiUjian
+        ]);
+    }
+    
+    public function scanProcess(Request $input, $id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $id)->where("id_mapel", $input->id_mapel)->get();
+        $jumlahSoal = $kunciJawaban->count();
+        if($jumlahSoal <= 0) 
+            return back()->with('danger', 'Kunci Jawaban Belum Dibuat');
+        if($input->hasFile('fileUpload')){
+            $path = $input->file('fileUpload')->getRealPath();
+            $data = Excel::load($path, function($header) {})->get();
+            if(!empty($data) && $data->count()){
+                foreach($data as $val) {
+                    $noPeserta = $val["no_peserta"];
+                    $peserta = SimulasiPeserta::where("id_simulasi", $id)
+                                                ->where("id_mapel", $input->id_mapel)
+                                                ->where("no_peserta", $noPeserta)
+                                                ->first();
+                    if($peserta == null) continue;
+                    for($i=1; $i<=$jumlahSoal; $i++) {
+                        $soal = $kunciJawaban->where("no", $i)->first();
+                        $koreksi = SimulasiKoreksi::where("id_simulasi", $simulasi->id)
+                                                    ->where("id_peserta", $peserta->id)
+                                                    ->where("id_soal", $soal->id)
+                                                    ->first();
+                        if($koreksi == null)
+                            $koreksi = new SimulasiKoreksi;
+
+                        $koreksi->id = Uuid::generate();
+                        $koreksi->id_simulasi = $simulasi->id;
+                        $koreksi->id_peserta = $peserta->id;
+                        $koreksi->id_soal = $soal->id;
+                        $koreksi->no_soal = $soal->no;
+                        $koreksi->jawaban = 'a';
+                        $koreksi->kunci_jawaban = $soal->jawaban;
+                        $koreksi->is_correct = $val["$i"];
+                        if($koreksi->save())
+                        echo $i . " ";
+                    }
+                    $peserta->is_corrected = 1;
+                    $peserta->save();
+                    echo $val['no_peserta'] . " Berhasil <br>";
+                }
+            }
+        }
+    }
 }

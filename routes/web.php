@@ -215,27 +215,41 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::post('/kuncijawaban',                'AdminSimulasi\SimulasiController@saveKunciJawaban')->name('adminsimulasi.simulasi.kelola.kunci.jawaban.post');
             Route::post('/simpanlinksoal/{idMapel}',     'AdminSimulasi\SimulasiController@simpanLinkSoal')->name('adminsimulasi.simulasi.kelola.link.soal.post');
             Route::post('/tautsoal',                    'AdminSimulasi\SimulasiController@tautSoal')->name('adminsimulasi.simulasi.kelola.taut.soal');
+            
+            // pengawas
             Route::get('/pengawas',                     'AdminSimulasi\SimulasiController@pengawas')->name('adminsimulasi.simulasi.kelola.pengawas');
             Route::get('/pengawas/f/{idPengawas?}',     'AdminSimulasi\SimulasiController@pengawasForm')->name('adminsimulasi.simulasi.kelola.pengawas.form');
             Route::post('/pengawas/f/{idPengawas?}',    'AdminSimulasi\SimulasiController@pengawasPost')->name('adminsimulasi.simulasi.kelola.pengawas.post');
             Route::post('/pengawas/addaccount',         'AdminSimulasi\SimulasiController@pengawasAddAccount')->name('adminsimulasi.simulasi.kelola.pengawas.post.account');
             Route::get('/pengawas/hapus/{idPengawas}',  'AdminSimulasi\SimulasiController@pengawasHapus')->name('adminsimulasi.simulasi.kelola.pengawas.hapus');
+            
+            // agenda
             Route::get('/agenda/f/{idAgenda?}',         'AdminSimulasi\SimulasiController@agendaForm')->name('adminsimulasi.simulasi.kelola.agenda.form');
             Route::post('/agenda/post/{idAgenda?}',     'AdminSimulasi\SimulasiController@agendaPost')->name('adminsimulasi.simulasi.kelola.agenda.post');
             Route::get('/agenda/delete/{idAgenda?}',    'AdminSimulasi\SimulasiController@agendaDelete')->name('adminsimulasi.simulasi.kelola.agenda.delete');
+            
+            // jadwal
             Route::get('/jadwal/f/{idJadwal?}',         'AdminSimulasi\SimulasiController@jadwalForm')->name('adminsimulasi.simulasi.kelola.jadwal.form');
             Route::post('/jadwal/post/{idJadwal?}',     'AdminSimulasi\SimulasiController@jadwalPost')->name('adminsimulasi.simulasi.kelola.jadwal.post');
             Route::get('/jadwal/delete/{idJadwal?}',    'AdminSimulasi\SimulasiController@jadwalDelete')->name('adminsimulasi.simulasi.kelola.jadwal.delete');
             Route::get('/jadwal/{idJadwal?}',           'AdminSimulasi\SimulasiController@jadwal')->name('adminsimulasi.simulasi.kelola.jadwal');
+            
+            // peserta online
             Route::get('/aturpesertaonline',            'AdminSimulasi\SimulasiController@aturPesertaOnline')->name('adminsimulasi.simulasi.kelola.peserta.online.form');
             Route::post('/aturpesertaonline',           'AdminSimulasi\SimulasiController@aturPesertaOnlinePost')->name('adminsimulasi.simulasi.kelola.peserta.online.post');
+            
+            // push nilai
             Route::get('/pushnilai/{idJadwal?}',        'AdminSimulasi\SimulasiController@pushNilai')->name('adminsimulasi.simulasi.kelola.push.nilai');
+            
+            // ruang
             Route::get('/ruang/f/{idRuang?}',           'AdminSimulasi\SimulasiController@ruangForm')->name('adminsimulasi.simulasi.kelola.ruang.form');
             Route::post('/ruang/post/{idRuang?}',       'AdminSimulasi\SimulasiController@ruangPost')->name('adminsimulasi.simulasi.kelola.ruang.post');
             Route::get('/ruang/delete/{idRuang?}',      'AdminSimulasi\SimulasiController@ruangDelete')->name('adminsimulasi.simulasi.kelola.ruang.delete');
             Route::get('/ruang/borang/{idRuang?}',      'AdminSimulasi\SimulasiController@ruangBorang')->name('adminsimulasi.simulasi.kelola.ruang.borang');
             Route::get('/ruang/absen/{idRuang?}',       'AdminSimulasi\SimulasiController@ruangAbsen')->name('adminsimulasi.simulasi.kelola.ruang.absen');
             Route::get('/ruang/{idRuang?}',             'AdminSimulasi\SimulasiController@ruang')->name('adminsimulasi.simulasi.kelola.ruang');
+            
+            // hasil
             Route::get('/hasilsementara',               'AdminSimulasi\SimulasiController@hasilSementara')->name('adminsimulasi.simulasi.kelola.hasil.sementara');
             Route::get('/hasilsementara/d/{idPeserta}', 'AdminSimulasi\SimulasiController@hasilSementaraDelete')->name('adminsimulasi.simulasi.kelola.hasil.sementara.delete');
             Route::get('/lihatjawaban/{idPeserta}',     'AdminSimulasi\SimulasiController@lihatJawaban')->name('adminsimulasi.simulasi.kelola.lihat.jawaban');
@@ -244,18 +258,26 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/koreksi',                      'AdminSimulasi\SimulasiController@koreksi')->name('adminsimulasi.simulasi.kelola.koreksi');
             Route::get('/generateattempt',              'AdminSimulasi\SimulasiController@generateAttempt');
             Route::post('/koreksi',                     'AdminSimulasi\SimulasiController@koreksiPost')->name('adminsimulasi.simulasi.kelola.koreksi.post');
+            
+            // kriteria soal
             Route::get('/kriteriasoal',                 'AdminSimulasi\SimulasiController@kriteriaSoal')->name('adminsimulasi.simulasi.kelola.kriteria.soal');
             Route::get('/kriteriasoalgenerate',         'AdminSimulasi\SimulasiController@kriteriaSoalgenerate')->name('adminsimulasi.simulasi.kelola.generate.kriteria.soal');
             Route::get('/kriteriasoalfill',             'AdminSimulasi\SimulasiController@kriteriaSoalFill')->name('adminsimulasi.simulasi.kelola.fill.kriteria.soal');
+            
+            // hitung nilai akhir
             Route::get('/hitungnilaiakhir',             'AdminSimulasi\SimulasiController@hitungNilaiAkhir')->name('adminsimulasi.simulasi.kelola.hitung.nilai.akhir');
             Route::get('/hitungnilaiakhir/{idPeserta}', 'AdminSimulasi\SimulasiController@hitungNilaiAkhirPeserta')->name('adminsimulasi.simulasi.kelola.hitung.nilai.akhir.proses');
             Route::get('/generatePeringkat',            'AdminSimulasi\SimulasiController@generatePeringkat')->name('adminsimulasi.simulasi.kelola.generate.peringkat');
             Route::get('/generatePeringkat/{idPeserta}','AdminSimulasi\SimulasiController@generatePeringkatPeserta')->name('adminsimulasi.simulasi.kelola.generate.peringkat.proses');
             Route::get('/borangrekomendasi',            'AdminSimulasi\SimulasiController@borangRekomendasi')->name('adminsimulasi.simulasi.kelola.borang.rekomendasi');
+            
+            // download
             Route::group(['prefix' => 'download'], function(){
                 Route::get('/peserta',      'AdminSimulasi\SimulasiController@downloadPeserta')->name('adminsimulasi.simulasi.kelola.download.peserta');
                 Route::get('/borang',       'AdminSimulasi\SimulasiController@downloadBorang')->name('adminsimulasi.simulasi.kelola.download.borang');
             });
+            
+            // tiket
             Route::prefix('tiket')->group(function () {
                 Route::get('/',                         'AdminSimulasi\SimulasiController@tiket')->name('adminsimulasi.simulasi.kelola.tiket');
                 Route::get('/detail/{idCetak?}',         'AdminSimulasi\SimulasiController@tiketDetail')->name('adminsimulasi.simulasi.kelola.tiket.detail');
@@ -267,7 +289,8 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
                 // Route::get('/download',                 'AdminTiket\TiketController@download')->name('admintiket.tiket.member.download');
                 // Route::post('/importcsv',               'AdminTiket\TiketController@import')->name('admintiket.tiket.member.importcsv');
             });
-
+            
+            // grubchat
             Route::group(['prefix' => 'grupchat'], function(){
                 Route::get('/',                     'AdminSimulasi\SimulasiController@grupChat')->name('adminsimulasi.simulasi.kelola.grupchat');
                 Route::get('/view/{idGrup}',        'AdminSimulasi\SimulasiController@grupChatView')->name('adminsimulasi.simulasi.kelola.grupchat.view');
@@ -278,6 +301,10 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
                 Route::get('/delete/{idGrup}',      'AdminSimulasi\SimulasiController@grupChatDelete')->name('adminsimulasi.simulasi.kelola.grupchat.delete');
                 Route::get('/member/kick/{idMember}',   'AdminSimulasi\SimulasiController@grupChatKick')->name('adminsimulasi.simulasi.kelola.grupchat.member.kick');
             });
+
+            // scan
+            Route::get('/scan',         'AdminSimulasi\SimulasiController@scanView')->name('adminsimulasi.simulasi.kelola.scan');
+            Route::post('/scan',        'AdminSimulasi\SimulasiController@scanProcess')->name('adminsimulasi.simulasi.kelola.scan.post');
         });
     });
 });

@@ -146,13 +146,13 @@ Kelola Simulasi
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>Pilih cogambar untuk dijadikan cover</label> <br>
+                            <label>Pilih gambar untuk dijadikan cover</label> <br>
                             <input type="hidden" name="featured_image">
                             <input class="inputfile" id="file-1" type="file" name="file-1" data-multiple-caption="{count} files selected" multiple="" accept="image/*">
                             <label class="btn-secondary" for="file-1"> <i class="mdi mdi-upload"></i><span>Pilih Foto...</span></label>
-                            @if($errors->has('kategori'))
+                            @if($errors->has('featured_image'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('kategori') }}</strong>
+                                <strong>{{ $errors->first('featured_image') }}</strong>
                             </span>
                             @endif
                         </div>
@@ -359,6 +359,15 @@ Kelola Simulasi
                                 <i class="mdi mdi-whatsapp mb-3"></i>
                                 <p>GRUB CHAT WHATSAPP</p>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.grupchat', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA GRUB</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="data-card">
+                                <i class="mdi mdi-scanner mb-3"></i>
+                                <p>UPLOAD SCAN JAWABAN</p>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.scan', $simulasi->id) }}" class="btn btn-md btn-default">UPLOAD JAWABAN</a>
                             </div>
                         </div>
                     </div>

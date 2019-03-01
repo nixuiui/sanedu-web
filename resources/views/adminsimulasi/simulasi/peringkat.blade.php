@@ -3,6 +3,8 @@
 Proses Penentuan Peringkat Peserta
 @endsection
 @section('content')
+<a href="{{ route('adminsimulasi.simulasi.kelola', $simulasi->id) }}" class="btn btn-default btn-icon btn-space"><i class="mdi mdi-arrow-back"></i>Kembali</a>
+<button class="btn btn-primary btn-space" v-on:click="runFunction">Generate</button>
 <div class="row">
     <div class="col-md-6">
         <div class="">
@@ -111,11 +113,13 @@ Proses Penentuan Peringkat Peserta
                 .catch(function(error) {
                     console.log(error);
                 });
+            },
+            runFunction: function() {
+                this.peringkatSoshum();
+                this.peringkatSaintek();
             }
         },
         mounted: function() {
-            this.peringkatSaintek();
-            this.peringkatSoshum();
         }
     });
 </script>
