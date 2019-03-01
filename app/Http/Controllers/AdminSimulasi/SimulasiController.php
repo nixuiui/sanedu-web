@@ -1372,8 +1372,8 @@ class SimulasiController extends Controller
                     }
                     $peserta->is_corrected = 1;
                     $peserta->save();
-                    echo $val['no_peserta'] . " Berhasil <br>";
                 }
+                return back()->with('success', "Berhasil mengimport jawaban peserta");
             }
         }
     }
