@@ -1367,11 +1367,11 @@ class SimulasiController extends Controller
                         $koreksi->jawaban = 'a';
                         $koreksi->kunci_jawaban = $soal->jawaban;
                         $koreksi->is_correct = $val["$i"];
-                        if($koreksi->save())
-                        echo $val["no"] . " - " . $noPeserta . "<br>";
+                        $koreksi->save();
                     }
                     $peserta->is_corrected = 1;
-                    $peserta->save();
+                    if($peserta->save())
+                    echo $val["no"] . " - " . $noPeserta . "<br>";
                 }
                 return back()->with('success', "Berhasil mengimport jawaban peserta");
             }
