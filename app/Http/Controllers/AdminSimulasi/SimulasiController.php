@@ -1368,7 +1368,7 @@ class SimulasiController extends Controller
                         $koreksi->kunci_jawaban = $soal->jawaban;
                         $koreksi->is_correct = $val["$i"];
                         if($koreksi->save())
-                        echo $i . " ";
+                        echo $val["no"] . " - " . $noPeserta . "<br>";
                     }
                     $peserta->is_corrected = 1;
                     $peserta->save();
