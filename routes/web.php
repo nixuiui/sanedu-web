@@ -440,6 +440,11 @@ Route::group(['middleware' => 'user', 'prefix' => 'user'], function(){
             Route::get('/lihathasil',           'User\SimulasiController@lihatHasil')->name('user.simulasi.lihat.hasil');
         });
     });
+    
+    Route::group(['prefix' => 'attempt'], function(){
+        Route::get('/reqsoal/{idUjian}',    'User\AttemptController@reqSoal')->name('user.ujian.attempt.request.soal');
+        Route::post('/sendjawaban',         'User\AttemptController@sendJawaban')->name('user.ujian.attempt.sendJawaban');
+    });
 
 });
 
