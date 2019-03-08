@@ -28,6 +28,9 @@ Hasil Sementara - {{ $simulasi->judul }}
 </div>
 <div class="row">
     <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">Data peserta yang sudah dikoreksi jawaban ujiannya.</div>
+        </div>
         <div class="panel panel-default panel-table">
             <div class="panel-body table-responsive">
                 <table class="table datatables table-striped">
