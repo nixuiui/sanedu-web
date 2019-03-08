@@ -1105,9 +1105,48 @@ class SimulasiController extends Controller
         foreach ($peserta as $data) {
             $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, strtoupper($data->mode_simulasi)];
         }
-        Excel::create($title, function($excel) use ($simulasi, $pesertaArray) {
-            $excel->setTitle('Data Peserta Simulasi ' . $simulasi->judul);
+        Excel::create($title, function($excel) use ($simulasi, $title, $pesertaArray) {
+            $excel->setTitle($title);
             $excel->setCreator('Niki Rahmadi Wiharto')->setCompany('Sanedu');
+            $excel->setDescription('Data Peserta');
+            $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
+                $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+            });
+        })->download('xlsx');
+    }
+    
+    public function downloadHasilAkhir($id) {
+        $simulasi = Simulasi::findOrFail($id);
+        $where = "id_simulasi='".$simulasi->id."'";
+        $title = 'Data Nilai Akhir Peserta Simulasi ' . $simulasi->judul;
+        $peserta = DB::select("
+        SELECT
+        no_peserta,
+        mode_simulasi,
+        jumlah_benar,
+        jumlah_salah,
+        peringkat,
+        nilai_akhir,
+        user.nama,
+        user.no_hp,
+        sekolah.nama as sekolah
+        FROM
+        tbl_simulasi_peserta as peserta
+        INNER JOIN tbl_users as user ON user.id=peserta.id_user
+        INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
+        WHERE
+        " . $where . "
+        ORDER BY peserta.peringkat ASC
+        ");
+
+        $pesertaArray = [];
+        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi', 'Benar', 'Salah', 'Nilai Akhir', 'Peringkat'];
+        foreach ($peserta as $data) {
+            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, strtoupper($data->mode_simulasi), $data->jumlah_benar, $data->jumlah_salah, $data->nilai_akhir, $data->peringkat];
+        }
+        Excel::create($title, function($excel) use ($simulasi, $title, $pesertaArray) {
+            $excel->setTitle($title);
+            $excel->setCreator(Auth::user()->nama)->setCompany('Sanedu');
             $excel->setDescription('Data Peserta');
             $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
                 $sheet->fromArray($pesertaArray, null, 'A1', false, false);

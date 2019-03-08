@@ -275,6 +275,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::group(['prefix' => 'download'], function(){
                 Route::get('/peserta',      'AdminSimulasi\SimulasiController@downloadPeserta')->name('adminsimulasi.simulasi.kelola.download.peserta');
                 Route::get('/borang',       'AdminSimulasi\SimulasiController@downloadBorang')->name('adminsimulasi.simulasi.kelola.download.borang');
+                Route::get('/hasilAkhir',   'AdminSimulasi\SimulasiController@downloadHasilAkhir')->name('adminsimulasi.simulasi.kelola.download.hasil.akhir');
             });
             
             // tiket
