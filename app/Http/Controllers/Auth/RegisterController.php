@@ -77,30 +77,15 @@ class RegisterController extends Controller
     }
 
     public function registerForm(Request $input) {
-        $kap = str_replace("-", "", $input->kap);
-        $pin = str_replace("-", "", $input->pin);
-        if(!isset($_GET['email'])) {
-            if($pin == null || $kap == null)
-                return view('auth.register')->with('step', 1);
-            $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
-            if($tiket->first() == null)
-                return view('auth.register')->with(['step' => 1, 'danger' => 'Nomor PIN dan KAP tidak tersedia']);
-            $tiket = $tiket->where('id_user', null);
-            if($tiket->first() == null)
-                return view('auth.register')->with(['step' => 1, 'danger' => 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran']);
-            return view('auth.register')->with('step', 2);
+        $user = User::where("email", $input->email)->first();
+        $provinsi = Provinsi::all();
+        if($user != null) {
+            return view('auth.register')->with(["step" => 1, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
         }
         else {
-            $user = User::where("email", $input->email)->first();
-            $provinsi = Provinsi::all();
-            if($user != null) {
-                return view('auth.register')->with(["step" => 2, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
-            }
-            else {
-                return view('auth.register')->with('step', 3)->with([
-                    'provinsi' => $provinsi
-                ]);
-            }
+            return view('auth.register')->with('step', 2)->with([
+                'provinsi' => $provinsi
+            ]);
         }
     }
 
@@ -114,16 +99,7 @@ class RegisterController extends Controller
             'id_sekolah'        => 'required|exists:tbl_sekolah,id',
             'id_kelas'          => 'required|exists:set_pustaka,id',
         ]);
-        $kap = str_replace("-", "", $input->kap);
-        $pin = str_replace("-", "", $input->pin);
-        $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
-        $tiket = $tiket->where('id_user', null);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
-        $tiket = $tiket->first();
-        $id_role = $tiket->id_kategori_tiket == 1102 ? 1005 : 1004;
+        $id_role = 1004;
         $user = new User;
         $user->id = Uuid::generate();
         $user->id_role = $id_role;
@@ -140,25 +116,19 @@ class RegisterController extends Controller
         $user->id_kelas = $input->id_kelas;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){
-            $tiket = Tiket::where("kap", $kap)->where("pin", $pin)->first();
-            $tiket->id_user = $user->id;
-            if($tiket->save()) {
-                $dataEmail = [
-                    'nama'      => $user->nama,
-                    'username'  => $user->username,
-                    'code'      => $user->email_verification_code
-                ];
-                Mail::send('email.registration', $dataEmail, function ($mail) use ($user)  {
-                    $mail->to($user->email, $user->name);
-                    $mail->subject('Sanedu.id - Konfirmasi Email Anda');
-                });
-                return redirect()->route('auth.login')->with([
-                    'success' => '<strong>Berhasil Daftar!</strong> Silahkan cek email Anda dan lakukan konfirmasi email.
-                                    Belum dapat email? <a href="'.route("email.verification.resend", ["username" => $user->username]).'">Kirim Ulang.</a>'
-                ]);
-            }
-            $user->delete();
-            return redirect()->back()->with('danger', 'Maaf terjadi kesalahan saat mendaftar, silahkan ulang kembali.');
+            $dataEmail = [
+                'nama'      => $user->nama,
+                'username'  => $user->username,
+                'code'      => $user->email_verification_code
+            ];
+            Mail::send('email.registration', $dataEmail, function ($mail) use ($user)  {
+                $mail->to($user->email, $user->name);
+                $mail->subject('Sanedu.id - Konfirmasi Email Anda');
+            });
+            return redirect()->route('auth.login')->with([
+                'success' => '<strong>Berhasil Daftar!</strong> Silahkan cek email Anda dan lakukan konfirmasi email.
+                                Belum dapat email? <a href="'.route("email.verification.resend", ["username" => $user->username]).'">Kirim Ulang.</a>'
+            ]);
         }
         return redirect()->back()->with('danger', 'Maaf pendaftaran Anda gagal, silahkan ulang kembali.');
 

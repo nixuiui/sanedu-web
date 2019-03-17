@@ -32,46 +32,12 @@ Daftar
                     {!! $danger !!}
                 </div>
             @endif
-            <input type="text" class=" input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}" autofocus required>
-            <input type="text" class=" input-kap" name="kap" value="{{ old('kap') }}" required>
-            <input type="submit" class="" value="LANJUTKAN">
-        </form>
-        @elseif($step == 2)
-        <form action="{{ route('auth.register') }}" method="GET">
-            @if(isset($success))
-                <div class="alert alert-success" style="width:85%; margin: 0 auto 15px;">
-                    {!! $success !!}
-                </div>
-            @elseif(isset($danger))
-                <div class="alert alert-danger" style="width:85%; margin: 0 auto 15px;">
-                    {!! $danger !!}
-                </div>
-            @endif
-            <input type="text" class="" value="{{ $_GET['kap'] }}" disabled required>
-            <input type="hidden" class="" name="kap" placeholder="KAP" value="{{ $_GET['kap'] }}" required>
-            <input type="text" class="" value="{{ $_GET['pin'] }}" disabled required>
-            <input type="hidden" class="" name="pin" placeholder="PIN" value="{{ $_GET['pin'] }}" required>
-            <hr>
             <input type="text" class="" name="email" value="{{ old('email') }}" placeholder="EMAIL" required>
             <input type="submit" class="" value="LANJUTKAN">
         </form>
         @else
         <form action="{{ route('auth.register.post') }}" method="POST">
             @csrf
-            <input type="text" class="" value="{{ $_GET['kap'] }}" disabled required>
-            <input type="hidden" class="" name="kap" placeholder="KAP" value="{{ $_GET['kap'] }}" required>
-            @if($errors->has('kap'))
-            <span class="help-block">
-                <span>{{ $errors->first('kap') }}</span>
-            </span>
-            @endif
-            <input type="text" class="" value="{{ $_GET['pin'] }}" disabled required>
-            <input type="hidden" class="" name="pin" placeholder="PIN" value="{{ $_GET['pin'] }}" required>
-            @if($errors->has('pin'))
-            <span class="help-block">
-                <span>{{ $errors->first('pin') }}</span>
-            </span>
-            @endif
             <input type="text" class="" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" disabled required>
             <input type="hidden" class="" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" required>
             @if($errors->has('email'))
