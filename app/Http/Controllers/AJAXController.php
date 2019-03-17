@@ -56,7 +56,7 @@ class AJAXController extends Controller
             }
             //SBMPTN
             else if($idUjian == 1404) {
-                $mapel = SetPustaka::whereIn('id', [1516, 1517, 1518])->get();
+                $mapel = SetPustaka::whereIn('id', [1516, 1517])->get();
             }
             //STAN
             else if($idUjian == 1405) {
