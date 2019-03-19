@@ -46,7 +46,7 @@ class AJAXController extends Controller
             if($idUjian == 1401) {
                 $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504])->get();
                 if($idSekolah == '1303')
-                    $mapel = SetPustaka::whereIn('id', [1527, 1528, 1502, 1503, 1510, 1511, 1512, 1513, 1514, 1515])->get();
+                    $mapel = SetPustaka::whereIn('id', [1527, 1528, 1502, 1503, 1510, 1511, 1512, 1513, 1514, 1515, 1529])->get();
                 $kelas = SetPustaka::whereIn('id', [1606, 1609, 1612])->orderBy('id','asc')->get();
             }
             //UTS & UAS
