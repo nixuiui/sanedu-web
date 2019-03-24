@@ -79,14 +79,17 @@ class RegisterController extends Controller
     public function registerForm(Request $input) {
         $user = User::where("email", $input->email)->first();
         $provinsi = Provinsi::all();
-        if($user != null) {
-            return view('auth.register')->with(["step" => 1, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
+        if(!isset($input->email)) {
+            return view('auth.register')->with(["step" => 1]);
         }
         else {
-            return view('auth.register')->with('step', 2)->with([
-                'provinsi' => $provinsi
-            ]);
+            if($user != null) {
+                return view('auth.register')->with(["step" => 1, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
+            }
         }
+        return view('auth.register')->with('step', 2)->with([
+            'provinsi' => $provinsi
+        ]);
     }
 
     public function register(Request $input) {

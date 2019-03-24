@@ -38,8 +38,8 @@ Daftar
         @else
         <form action="{{ route('auth.register.post') }}" method="POST">
             @csrf
-            <input type="text" class="" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" disabled required>
-            <input type="hidden" class="" name="email" placeholder="EMAIL" value="{{ $_GET['email'] }}" required>
+            <input type="text" class="" name="email" placeholder="EMAIL" value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}" disabled required>
+            <input type="hidden" class="" name="email" placeholder="EMAIL" value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}" required>
             @if($errors->has('email'))
             <span class="help-block">
                 <span>{{ $errors->first('email') }}</span>
