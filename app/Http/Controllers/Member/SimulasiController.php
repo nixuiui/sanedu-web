@@ -40,27 +40,40 @@ class SimulasiController extends Controller
     public function register($id) {
         $simulasi = Simulasi::find($id);
         if(!$simulasi) return back();
+
+        //CHECK JIKA MEMBER SUDAH TERDAFTAR
         $isRegistered = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                                         ->where('id_user', Auth::id())
                                         ->first();
-        if($isRegistered)
-            return redirect()->route('member.simulasi.open', $simulasi->id);
+        if($isRegistered) return redirect()->route('member.simulasi.open', $simulasi->id);
 
-        if(!isset($_GET['kap']) && !isset($_GET['pin'])) {
+        $tiket = null;
+        $enroll = null;
+        //CHECK JIKA PIN & KAP MASIH KOSONG
+        if(!isset($_GET['kap']) && !isset($_GET['pin']) && !isset($_GET['enroll'])) {
             return view('member.simulasi.register')->with([
                 'simulasi' => $simulasi,
             ]);
         }
+        // REGISTER MENGGUNAKAN KAP & PIN
+        else if(isset($_GET['kap']) && isset($_GET['pin'])){
+            $kap = str_replace("-", "", $_GET['kap']);
+            $pin = str_replace("-", "", $_GET['pin']);
+            $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
+            if($tiket->first() == null)
+                return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
+            $tiket = $tiket->where('id_user', null);
+            if($tiket->first() == null)
+                return redirect()->back()->with('danger', 'Nomor tiket sudah digunakan.');
+            $tiket = $tiket->first();
+        }
+        // REGISTER MENGGUNAKAN ENROLL
+        else if(isset($_GET['enroll'])){
+            $enroll = $_GET['enroll'];
+            if($simulasi->enroll != $enroll)
+                return redirect()->back()->with('danger', '<b>KODE ENROLL</b> SALAH');
+        }
 
-        $kap = str_replace("-", "", $_GET['kap']);
-        $pin = str_replace("-", "", $_GET['pin']);
-        $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
-        $tiket = $tiket->where('id_user', null);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Nomor tiket sudah digunakan.');
-        $tiket = $tiket->first();
 
         $universitas = Universitas::all();
         $provinsi   = Provinsi::all();
@@ -74,6 +87,7 @@ class SimulasiController extends Controller
             'simulasi' => $simulasi,
             'universitas' => $universitas,
             'tiket' => $tiket,
+            'enroll' => $_GET['enroll'],
             'provinsi' => $provinsi,
             'kota' => $kota,
             'sekolah' => $sekolah
@@ -82,8 +96,9 @@ class SimulasiController extends Controller
 
     public function registerPost(Request $input, $id) {
         $this->validate($input, [
-            'kap'       => 'required|exists:tbl_tiket,kap',
-            'pin'       => 'required|exists:tbl_tiket,pin',
+            'kap'       => 'nullable|exists:tbl_tiket,kap',
+            'pin'       => 'nullable|exists:tbl_tiket,pin',
+            'enroll'    => 'nullable',
             'mode'      => 'required|in:offline,online',
             'jurusan'   => 'required|exists:set_pustaka,id',
             'jurusan_1' => 'required|exists:tbl_jurusan,id',
@@ -92,34 +107,39 @@ class SimulasiController extends Controller
             'id_sekolah'    => 'required|exists:tbl_sekolah,id',
         ]);
 
+        
         $user = User::find(Auth::id());
         $user->id_sekolah = $input->id_sekolah;
         $user->save();
-
+        
         $simulasi = Simulasi::where('id', $id)->first();
         if(!$simulasi) return back();
-
+        
         //CHECK SUDAH DAFTAR ATAU BELUM?
         $peserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)->where('id_user', Auth::id())->first();
         if($peserta) return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Anda sudah mendaftar pada Simulasi " . $simulasi->judul);
-
-        //CHECK KETERSEDIAAN TIKET
+        
+        //CHECK KETERSEDIAAN KURSI UNTUK SIMULASI OFFLINE
         if($input->mode == "offline") {
             $ruang = SimulasiRuang::where('id_simulasi', $simulasi->id)
-                    ->where('id_mapel', $input->jurusan)
-                    ->where('is_full', false)
-                    ->first();
+            ->where('id_mapel', $input->jurusan)
+            ->where('is_full', false)
+            ->first();
             if(!$ruang) return back()->with("danger", "Tiket Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
         }
-
-        //CHECK TIKET
-        $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
-        $tiket = $tiket->where('id_user', null);
-        if($tiket->first() == null)
-            return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
-        $tiket = $tiket->first();
+        
+        if($input->kap && $input->pin) {
+            //CHECK TIKET KAP & PIN
+            $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
+            if($tiket->first() == null)
+                return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
+            $tiket = $tiket->where('id_user', null);
+            if($tiket->first() == null)
+                return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
+            $tiket = $tiket->first();
+        }
+        else if($input->enroll) {
+        }
             
         //CHECK NO PESERTA YANG TERAKHIR
         $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
@@ -168,8 +188,10 @@ class SimulasiController extends Controller
             $passingGrade->pilihan_3 = $input->jurusan_3;
             $passingGrade->jurusan = $input->jurusan;
             if($passingGrade->save()) {
-                $tiket->id_user = Auth::id();
-                $tiket->save();
+                if($input->kap && $input->pin) {
+                    $tiket->id_user = Auth::id();
+                    $tiket->save();
+                }
                 return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Berhasil mendaftar pada Simulasi " . $simulasi->judul);
             }
             else {

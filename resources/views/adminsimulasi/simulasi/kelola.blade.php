@@ -1,28 +1,21 @@
-@extends('layouts.admin')
-
-@section('title')
-Kelola Simulasi
+@extends('layouts.admin') 
+@section('title') Kelola Simulasi
 @endsection
-
+ 
 @section('content')
 <div class="alert alert-primary alert-icon alert-icon-border alert-dismissible" role="alert">
     <div class="icon"><span class="mdi mdi-mail-send"></span></div>
     <div class="message">
         @if($simulasi->id_status == 1901)
-        <a href="{{ route('adminsimulasi.simulasi.kelola.publish', $simulasi->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>
-        @elseif($simulasi->id_status == 1902 || $simulasi->id_status == 1903)
-        @if( $simulasi->jumlah_peserta > 0)
-        <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->jumlah_peserta }} peserta</strong>, <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
+        <a href="{{ route('adminsimulasi.simulasi.kelola.publish', $simulasi->id) }}" class="btn btn-primary btn-md">Publish Sekarang</a>        @elseif($simulasi->id_status == 1902 || $simulasi->id_status == 1903) @if( $simulasi->jumlah_peserta > 0)
+        <p>Jumlah peserta yang mendaftar pada simulasi ini adalah <strong>{{ $simulasi->jumlah_peserta }} peserta</strong>,
+            <strong><a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}">Lihat peserta</a></strong></p>
         @else
         <p class="">Belum ada peserta yang mendaftar pada simulasi ini.</p>
         @endif
-        <hr>
-        @if($simulasi->id_status == 1902)
-        <a href="{{ route('adminsimulasi.simulasi.kelola.closereg', $simulasi->id) }}" class="btn btn-default btn-md">Tutup Pendaftaran</a>
-        @else
-        <span class="text-muted">PENDAFTARAN TELAH DITUTUP</span>
-        @endif
-        @endif
+        <hr> @if($simulasi->id_status == 1902)
+        <a href="{{ route('adminsimulasi.simulasi.kelola.closereg', $simulasi->id) }}" class="btn btn-default btn-md">Tutup Pendaftaran</a>        @else
+        <span class="text-muted">PENDAFTARAN TELAH DITUTUP</span> @endif @endif
     </div>
 </div>
 <div class="row">
@@ -67,77 +60,85 @@ Kelola Simulasi
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Judul Ujian Simulasi</label>
-                                    <input type="text" class="form-control input-sm" placeholder="Ujian Nasional SMA Matematika" name="judul"  value="{{ $simulasi->judul }}" required>
-                                    @if($errors->has('judul'))
+                                    <input type="text" class="form-control input-sm" placeholder="Ujian Nasional SMA Matematika" name="judul" value="{{ $simulasi->judul }}"
+                                        required> @if($errors->has('judul'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('judul') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Instansi Penyelenggara</label>
-                                    <input type="text" class="form-control input-sm" placeholder="Study & Fun" name="instansi"  value="{{ $simulasi->instansi }}" required>
-                                    @if($errors->has('instansi'))
+                                    <input type="text" class="form-control input-sm" placeholder="Study & Fun" name="instansi" value="{{ $simulasi->instansi }}"
+                                        required> @if($errors->has('instansi'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('instansi') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tempat Pelaksanaan</label>
-                                    <input type="text" class="form-control input-sm" placeholder="Unila" name="tempat_pelaksanaan"  value="{{ $simulasi->tempat_pelaksanaan }}">
-                                    @if($errors->has('tempat_pelaksanaan'))
+                                    <input type="text" class="form-control input-sm" placeholder="Unila" name="tempat_pelaksanaan" value="{{ $simulasi->tempat_pelaksanaan }}">                                    @if($errors->has('tempat_pelaksanaan'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tempat_pelaksanaan') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tanggal Pelaksanaan</label>
-                                    <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pelaksanaan"  value="{{ $simulasi->tanggal_pelaksanaan }}" required>
-                                    @if($errors->has('tanggal_pelaksanaan'))
+                                    <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pelaksanaan" value="{{ $simulasi->tanggal_pelaksanaan }}"
+                                        required> @if($errors->has('tanggal_pelaksanaan'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tanggal_pelaksanaan') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tanggal Pengumuman</label>
-                                    <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pengumuman"  value="{{ $simulasi->tanggal_pengumuman }}" required>
-                                    @if($errors->has('tanggal_pengumuman'))
+                                    <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pengumuman" value="{{ $simulasi->tanggal_pengumuman }}"
+                                        required> @if($errors->has('tanggal_pengumuman'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('tanggal_pengumuman') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Harga (Rp)</label>
-                                    <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ $simulasi->harga }}" required>
-                                    @if($errors->has('harga'))
+                                    <input type="number" class="form-control input-sm" placeholder="1000" name="harga" value="{{ $simulasi->harga }}" required>                                    @if($errors->has('harga'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('harga') }}</strong>
-                                    </span>
-                                    @endif
+                                    </span> @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Kode Enroll</label>
+                                    <div class="input-group xs-mb-15 input-group-sm">
+                                        <div class="input-group-addon">
+                                            <div class="be-checkbox">
+                                                <input type="checkbox" id="checkEnroll" {{ $simulasi->enroll ? "checked" : "" }}>
+                                                <label for="checkEnroll"></label>
+                                            </div>
+                                        </div>
+                                        <input id="enroll" name="enroll" type="text" class="form-control" {{ $simulasi->enroll ? "" : "disabled" }} value="{{ $simulasi->enroll }}">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="be-checkbox be-checkbox-color inline mb-3">
-                                        <input id="offline" name="offline" type="checkbox" {{ $simulasi->is_offline ? "checked" : ""}} value="1">
+                                        <input id="offline" name="offline" type="checkbox" {{ $simulasi->is_offline ? "checked"
+                                        : ""}} value="1">
                                         <label for="offline">OFFLINE</label>
                                     </div>
                                     <div class="be-checkbox be-checkbox-color inline mb-3">
-                                        <input id="online" name="online" type="checkbox" {{ $simulasi->is_online ? "checked" : ""}} value="1">
+                                        <input id="online" name="online" type="checkbox" {{ $simulasi->is_online ? "checked"
+                                        : ""}} value="1">
                                         <label for="online">ONLINE</label>
                                     </div>
                                 </div>
@@ -148,22 +149,19 @@ Kelola Simulasi
                         <div class="form-group">
                             <label>Pilih gambar untuk dijadikan cover</label> <br>
                             <input type="hidden" name="featured_image">
-                            <input class="inputfile" id="file-1" type="file" name="file-1" data-multiple-caption="{count} files selected" multiple="" accept="image/*">
-                            <label class="btn-secondary" for="file-1"> <i class="mdi mdi-upload"></i><span>Pilih Foto...</span></label>
-                            @if($errors->has('featured_image'))
+                            <input class="inputfile" id="file-1" type="file" name="file-1" data-multiple-caption="{count} files selected" multiple=""
+                                accept="image/*">
+                            <label class="btn-secondary" for="file-1"> <i class="mdi mdi-upload"></i><span>Pilih Foto...</span></label>                            @if($errors->has('featured_image'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('featured_image') }}</strong>
-                            </span>
-                            @endif
+                            </span> @endif
                         </div>
                         @if($simulasi->featured_image != null)
-                        <img id="imagePreview" class="img-fluid" width="200px" src="{{ $simulasi->image_url }}">
-                        @else
-                        <img id="imagePreview" class="img-fluid" width="200px">
-                        @endif
+                        <img id="imagePreview" class="img-fluid" width="200px" src="{{ $simulasi->image_url }}"> @else
+                        <img id="imagePreview" class="img-fluid" width="200px"> @endif
                     </div>
                 </div>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-icon"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
+                <button type="submit" class="btn btn-primary btn-fill btn-md btn-icon"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
             </div>
         </form>
 
@@ -189,22 +187,21 @@ Kelola Simulasi
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($simulasi->agenda->count() > 0)
-                                @foreach($simulasi->agenda as $agenda)
+                                @if($simulasi->agenda->count() > 0) @foreach($simulasi->agenda as $agenda)
                                 <tr>
                                     <td>{{ jamMenit($agenda->waktu_mulai) }} - {{ jamMenit($agenda->waktu_selesai) }}</td>
                                     <td>{{ $agenda->tempat }}</td>
                                     <td>
-                                        <strong>{{ $agenda->nama_agenda }}</strong> <br>
-                                        {{ $agenda->deskripsi }}
+                                        <strong>{{ $agenda->nama_agenda }}</strong> <br> {{ $agenda->deskripsi }}
                                     </td>
                                     <td class="text-right">
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', ['id' => $simulasi->id, 'idAgenda' => $agenda->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.delete', ['id' => $simulasi->id, 'idAgenda' => $agenda->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.form', ['id' => $simulasi->id, 'idAgenda' => $agenda->id]) }}" class="btn btn-xs btn-success"
+                                            title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.agenda.delete', ['id' => $simulasi->id, 'idAgenda' => $agenda->id]) }}"
+                                            class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
-                                @endforeach
-                                @else
+                                @endforeach @else
                                 <tr>
                                     <td colspan="4" class="data-is-empty">Belum ada agenda yang dibuat</td>
                                 </tr>
@@ -227,8 +224,10 @@ Kelola Simulasi
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</td>
-                                    <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel',
+                                        1516)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel',
+                                        1517)->sum('kapasitas') }} TIKET</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -257,14 +256,11 @@ Kelola Simulasi
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($simulasi->ruang->count() > 0)
-                                @foreach($ruang as $index => $data)
-                                @if($index >= 5)
+                                @if($simulasi->ruang->count() > 0) @foreach($ruang as $index => $data) @if($index >= 5)
                                 <tr>
                                     <td colspan="6" class="text-center text-bold"><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', $simulasi->id) }}">Lihat Semua Ruang</a></td>
                                 </tr>
-                                @break
-                                @else
+                                @break @else
                                 <tr>
                                     <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
                                     <td>{{ $data->ruangMapel->nama }}</td>
@@ -272,13 +268,13 @@ Kelola Simulasi
                                     <td>{{ $data->pengawas->count() }}</td>
                                     <td>{{ $data->alamat }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success"
+                                            title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.delete', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-danger delete"
+                                            title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
                                     </td>
                                 </tr>
-                                @endif
-                                @endforeach
-                                @else
+                                @endif @endforeach @else
                                 <tr>
                                     <td colspan="6" class="data-is-empty">Belum ada ruangan yang dibuat</td>
                                 </tr>
@@ -307,19 +303,20 @@ Kelola Simulasi
                                 </tr>
                             </thead>
                             <tbody>
-                                @if($simulasi->jadwalOnline->count() > 0)
-                                @foreach($simulasi->jadwalOnline as $jadwal)
+                                @if($simulasi->jadwalOnline->count() > 0) @foreach($simulasi->jadwalOnline as $jadwal)
                                 <tr>
                                     <td><a href="{{ route('adminsimulasi.simulasi.kelola.jadwal', ['simulasi' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}">{{ hariTanggal($jadwal->tanggal) }}</a></td>
                                     <td>{{ $jadwal->jumlah_peserta . "/" . $jadwal->kapasitas }}</td>
                                     <td class="text-right">
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success" title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.delete', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
-                                        <a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-default" title="Borang"><i class="mdi mdi-download mr-3"></i>Borang</a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success"
+                                            title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.delete', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}"
+                                            class="btn btn-xs btn-danger delete" title="Hapus Agenda"><i class="mdi mdi-delete"></i></a>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}"
+                                            class="btn btn-xs btn-default" title="Borang"><i class="mdi mdi-download mr-3"></i>Borang</a>
                                     </td>
                                 </tr>
-                                @endforeach
-                                @else
+                                @endforeach @else
                                 <tr>
                                     <td colspan="4" class="data-is-empty">Belum jadwal online yang dibuat</td>
                                 </tr>
@@ -335,8 +332,9 @@ Kelola Simulasi
                         <div class="panel panel-default">
                             <div class="data-card">
                                 <i class="mdi mdi-assignment mb-3"></i>
-                                <p>{{ $simulasi->kunciJawaban->count() <= 0 ? "JAWABAN & SOAL BELUM DIBUAT" : "JAWABAN & SOAL" }}</p>
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT SOAL & KUNCI JAWABAN" : "UBAH SOAL & KUNCI JAWABAN" }}</a>
+                                <p>{{ $simulasi->kunciJawaban->count()
+                                    <=0 ? "JAWABAN & SOAL BELUM DIBUAT" : "JAWABAN & SOAL" }}</p>
+                                        <a href="{{ route('adminsimulasi.simulasi.kelola.kunci.jawaban', $simulasi->id) }}" class="btn btn-md {{ $simulasi->kunciJawaban->count() <= 0 ? 'btn-warning' : 'btn-default' }}">{{ $simulasi->kunciJawaban->count() <= 0 ? "BUAT SOAL & KUNCI JAWABAN" : "UBAH SOAL & KUNCI JAWABAN" }}</a>
                             </div>
                         </div>
                     </div>
@@ -344,12 +342,12 @@ Kelola Simulasi
                         <div class="panel panel-default">
                             <div class="data-card">
                                 <i class="mdi mdi-account-box mb-3"></i>
-                                <p>{{ $simulasi->pengawas->count() <= 0 ? "BELUM ADA PENGAWAS" : "SUDAH ADA " . $simulasi->pengawas->count() . " PENGAWAS" }}</p>
-                                @if($simulasi->pengawas->count() <= 0)
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-warning">TAMBAH PENGAWAS</a>
-                                @else
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA PENGAWAS</a>
-                                @endif
+                                <p>{{ $simulasi->pengawas->count()
+                                    <=0 ? "BELUM ADA PENGAWAS" : "SUDAH ADA " . $simulasi->pengawas->count() . " PENGAWAS" }}</p>
+                                @if($simulasi->pengawas->count()
+                                <=0 ) <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas.form', $simulasi->id) }}" class="btn btn-md btn-warning">TAMBAH PENGAWAS</a>
+                                    @else
+                                    <a href="{{ route('adminsimulasi.simulasi.kelola.pengawas', $simulasi->id) }}" class="btn btn-md btn-default">KELOLA PENGAWAS</a>                                    @endif
                             </div>
                         </div>
                     </div>
@@ -375,13 +373,25 @@ Kelola Simulasi
             </div>
         </div>
     </div>
-</div> <!-- end row -->
+</div>
+<!-- end row -->
 @endsection
-
+ 
 @section('script')
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+    $("#checkEnroll").click(function() {
+        var isChecked = $(this).prop('checked');
+        if(isChecked) {
+            $("#enroll").removeAttr("disabled");
+        }
+        else {
+            $("#enroll").attr("disabled", "disabled");
+            $("#enroll").val("");
+        }
+    });
+
     $("input[type=file]").click(function(){
         $(this).val("");
     });
@@ -399,5 +409,6 @@ $(document).ready(function() {
         };
     });
 });
+
 </script>
 @endsection

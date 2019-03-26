@@ -126,6 +126,7 @@ class SimulasiController extends Controller
             'tanggal_pelaksanaan'   => 'required|date',
             'tempat_pelaksanaan'    => 'required',
             'harga'                 => 'required|numeric',
+            'enroll'                => 'nullable',
             'link_soal'             => 'nullable|url',
             'link_pembahasan'       => 'nullable|url',
         ]);
@@ -138,6 +139,7 @@ class SimulasiController extends Controller
         $simulasi->link_soal = $input->link_soal;
         $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
+        $simulasi->enroll = $input->enroll;
         $simulasi->is_offline = isset($input->offline) ? 1 : 0;
         $simulasi->is_online = isset($input->online) ? 1 : 0;
         if($input->featured_image != null) {

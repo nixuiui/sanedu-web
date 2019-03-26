@@ -18,7 +18,6 @@ Simulasi
                             <th class="text-center">Pelaksanaan</th>
                             <th class="text-center">Harga</th>
                             <th class="text-center">Peserta</th>
-                            <th class="text-center">Kursi</th>
                             <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -31,7 +30,6 @@ Simulasi
                             <th class="text-center">Pelaksanaan</th>
                             <th class="text-center">Harga</th>
                             <th class="text-center">Peserta</th>
-                            <th class="text-center">Kursi</th>
                             <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
@@ -48,7 +46,6 @@ Simulasi
                             </td>
                             <td>{{ formatUang($data->harga) }}</td>
                             <td class="text-center">{{ $data->jumlah_peserta }}</td>
-                            <td class="text-right"><b>{{ $data->ruang->sum('jumlah_peserta') }}/{{ $data->ruang->sum('kapasitas') }} KURSI</b></td>
                             <td class="text-center">{{ $data->id_status == 1902 ? "Published" :  ($data->id_status == 1903 ? "Pendaftaran Ditutup" : "Draft") }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola', $data->id) }}" class="btn btn-xs btn-warning" title="Edit Soal Ujian" data-jumlahtiket=""><i class="mdi mdi-edit"></i></a>
