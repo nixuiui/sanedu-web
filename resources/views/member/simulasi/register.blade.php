@@ -9,6 +9,24 @@ Simulasi {{ $simulasi->judul }}
         @if(!isset($_GET['pin']) && !isset($_GET['kap']) && !isset($_GET['enroll']))
         <div class="col-md-8">
             <div class="row">
+                @if($simulasi->enroll)
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Masuk Menggunakan Kode Enroll
+                        </div>
+                        <div class="panel-body">
+                            <form class="" action="" method="get">
+                                <div class="form-group">
+                                    <label for="">Enroll</label>
+                                    <input type="text" class="form-control input-sm" name="enroll" placeholder="KODE ENROLL" value="{{ old('enroll') }}">
+                                </div>
+                                <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                @else
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -23,23 +41,6 @@ Simulasi {{ $simulasi->judul }}
                                 <div class="form-group">
                                     <label for="">KAP</label>
                                     <input type="text" class="form-control input-sm input-kap" name="kap" placeholder="KAP" value="{{ old('kap') }}">
-                                </div>
-                                <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                @if($simulasi->enroll)
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            Masuk Menggunakan Kode Enroll
-                        </div>
-                        <div class="panel-body">
-                            <form class="" action="" method="get">
-                                <div class="form-group">
-                                    <label for="">Enroll</label>
-                                    <input type="text" class="form-control input-sm" name="enroll" placeholder="KODE ENROLL" value="{{ old('enroll') }}">
                                 </div>
                                 <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
                             </form>
