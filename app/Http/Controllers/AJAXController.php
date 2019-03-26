@@ -27,13 +27,13 @@ class AJAXController extends Controller
             if($idSekolah != null){
                 switch ($idSekolah) {
                     case '1301':    //SD
-                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403])->get();
+                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1410])->get();
                         break;
                     case '1302':    //SMP
-                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403])->get();
+                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1410])->get();
                         break;
                     case '1303':    //SMA
-                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409])->get();
+                        $jenisUjian = SetPustaka::whereIn('id', [1401, 1402, 1403, 1404, 1405, 1406, 1407, 1408, 1409, 1410])->get();
                         break;
                 }
             }
@@ -49,8 +49,8 @@ class AJAXController extends Controller
                     $mapel = SetPustaka::whereIn('id', [1527, 1528, 1502, 1503, 1510, 1511, 1512, 1513, 1514, 1515])->get();
                 $kelas = SetPustaka::whereIn('id', [1606, 1609, 1612])->orderBy('id','asc')->get();
             }
-            //UTS & UAS
-            else if($idUjian == 1402 || $idUjian == 1403) {
+            //UTS & UAS & LATIHAN SOAL
+            else if($idUjian == 1402 || $idUjian == 1403 || $idUjian == 1410) {
                 $mapel = SetPustaka::whereIn('id', [1501, 1502, 1503, 1504, 1505, 1507, 1508, 1509, 1510, 1511, 1512, 1513, 1514, 1515])->get();
                 if($idSekolah == 1301) $kelas = SetPustaka::whereIn('id', [1601, 1602, 1603, 1604, 1605, 1606])->get();
                 if($idSekolah == 1302) $kelas = SetPustaka::whereIn('id', [1607, 1608, 1609])->get();
