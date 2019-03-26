@@ -6,6 +6,16 @@ Simulasi - {{ $simulasi->judul }}
 
 @section('content')
 <div class="row">
+    @if($peserta->mode_simulasi == "online" && ($peserta->id_jadwal_online == null))
+    <div class="hidden-md hidden-lg col-md-12">
+        <div role="alert" class="alert alert-primary alert-icon alert-icon-colored alert-dismissible">
+            <div class="icon"><span class="mdi mdi-info-outline"></span></div>
+            <div class="message">
+                <strong>Pilih Jadwal Online!</strong> Untuk memilih jadwal simulasi online Anda, <a href="#jadwalOnline">Klik disini</a>.
+            </div>
+        </div>
+    </div>
+    @endif
     <div class="col-md-12 hidden-xs visible-md visible-lg">
         @if($peserta->mode_simulasi == "offline")
         <a href="{{ route('member.simulasi.kartuujian', $simulasi->id) }}" class="btn btn-space btn-default"><i class="icon icon-left mdi mdi-print mr-3"></i>Cetak Kartu Ujian</a>
@@ -233,7 +243,7 @@ Simulasi - {{ $simulasi->judul }}
             </div>
         </div>
         @else
-        <div class="panel panel-default panel-table">
+        <div id="jadwalOnline" class="panel panel-default panel-table">
             <div class="panel-heading">
                 Jadwal Try Out Online
             </div>
