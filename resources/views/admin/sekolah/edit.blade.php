@@ -13,7 +13,7 @@ Tambah Sekolah
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Provinsi</label>
-                    <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi">
+                    <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi" required>
                         @foreach($provinsi as $data)
                         <option value="{{ $data->id }}" {{ $sekolah->id_provinsi == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
                         @endforeach
@@ -26,7 +26,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Kabupaten/Kota</label>
-                    <select class="form-control input-sm" id="inputKota" name="id_kota">
+                    <select class="form-control input-sm" id="inputKota" name="id_kota" required>
                         @foreach($kota as $data)
                         <option value="{{ $data->id }}" {{ $sekolah->id_kota == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
                         @endforeach
@@ -39,7 +39,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Tingkat Sekolah</label>
-                    <select class="form-control input-sm" name="id_tingkat_sekolah">
+                    <select class="form-control input-sm" name="id_tingkat_sekolah" required>
                         <option value="">-- Pilih Tingkat Sekolah --</option>
                         <option value="1301" {{ $sekolah->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
                         <option value="1302" {{ $sekolah->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
@@ -53,7 +53,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Nama Sekolah</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Sekolah" name="nama"  value="{{ $sekolah->nama }}">
+                    <input type="text" class="form-control input-sm" placeholder="Nama Sekolah" name="nama"  value="{{ $sekolah->nama }}" required>
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
             </div>

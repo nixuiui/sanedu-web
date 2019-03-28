@@ -13,7 +13,7 @@ Tambah Sekolah
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Provinsi</label>
-                    <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi">
+                    <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi" required>
                         @foreach($provinsi as $data)
                         <option value="{{ $data->id }}" {{ old('id_provinsi') == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
                         @endforeach
@@ -26,7 +26,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Kabupaten/Kota</label>
-                    <select class="form-control input-sm" id="inputKota" name="id_kota">
+                    <select class="form-control input-sm" id="inputKota" name="id_kota" required>
                     </select>
                     @if($errors->has('id_kota'))
                     <span class="help-block">
@@ -36,7 +36,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Tingkat Sekolah</label>
-                    <select class="form-control input-sm" name="id_tingkat_sekolah">
+                    <select class="form-control input-sm" name="id_tingkat_sekolah" required>
                         <option value="">-- Pilih Tingkat Sekolah --</option>
                         <option value="1301">SD</option>
                         <option value="1302">SMP</option>
@@ -50,7 +50,7 @@ Tambah Sekolah
                 </div>
                 <div class="form-group">
                     <label>Nama Sekolah</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Sekolah" name="nama[]"  value="{{ old('nama') }}">
+                    <input type="text" class="form-control input-sm" placeholder="Nama Sekolah" name="nama[]"  value="{{ old('nama') }}" required>
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
             </div>
