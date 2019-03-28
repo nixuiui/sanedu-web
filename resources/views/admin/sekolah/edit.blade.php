@@ -8,7 +8,7 @@ Tambah Sekolah
 <div class="row">
     <div class="col-md-4">
         <form class="panel panel-default" action="{{ route('admin.sekolah.edit.post', $sekolah->id) }}" method="post">
-            <div class="panel-heading"><i class="mdi mdi-comments"></i> Tambah Grup Chat</div>
+            <div class="panel-heading"><i class="mdi mdi-comments"></i> Tambah Sekolah</div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="form-group">
