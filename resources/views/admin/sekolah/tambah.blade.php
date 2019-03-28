@@ -14,6 +14,7 @@ Tambah Sekolah
                 <div class="form-group">
                     <label>Provinsi</label>
                     <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi" required>
+                        <option value="">-- Pilih Provinsi --</option>
                         @foreach($provinsi as $data)
                         <option value="{{ $data->id }}" {{ old('id_provinsi') == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
                         @endforeach
