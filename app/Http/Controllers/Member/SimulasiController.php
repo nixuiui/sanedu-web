@@ -33,7 +33,10 @@ class SimulasiController extends Controller
         if(!isset($_GET['sekolah']))
         return view('member.simulasi.index');
 
-        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])->whereIn('id_status', [1902, 1903])->get();
+        $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])
+                            ->whereIn('id_status', [1902, 1903])
+                            ->orderBy('tanggal_pelaksanaan', 'DESC')
+                            ->get();
         return view('member.simulasi.index')->with("simulasi", $simulasi);
     }
 
@@ -370,7 +373,7 @@ class SimulasiController extends Controller
         $attempt = new Attempt;
         $attempt->id = Uuid::generate();
         $attempt->start_attempt = $now;
-        $attempt->end_attempt = plusMinute($now, $ujian->durasi);
+        $attempt->end_attempt = plusSecond($now, $ujian->durasi);
         $attempt->id_ujian = $ujian->id;
         $attempt->id_peserta_simulasi = $peserta->id;
         $attempt->id_user = Auth::id();
