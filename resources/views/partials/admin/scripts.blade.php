@@ -54,6 +54,10 @@ $(document).on("click", ".delete", function(e) {
     });
 });
 
+$(document).on("click", ".clickable-row", function() {
+    window.location = $(this).data("href");
+});
+
 $('img').error(function(){
     $(this).attr("src", "{{ asset('asset-beagle/img/empty.png') }}");
 });

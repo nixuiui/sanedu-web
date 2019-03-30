@@ -6,7 +6,6 @@ Ujian
 <div class="row">
     <div class="col-md-12">
         <a href="{{ route('admin.ujian.soal.tambah') }}" class="btn btn-md btn-fill btn-primary btn-space btn-icon"><i class="mdi mdi-plus"></i> Buat Soal Ujian</a>
-
         <div class="panel panel-default panel-table">
             <div class="panel-body">
                 <table id="datatables" class="table table-striped">
@@ -45,7 +44,7 @@ Ujian
                             <td>{{ $val->jumlah_soal }} soal</td>
                             <td>{{ formatUang($val->harga) }}</td>
                             @if($val->attempt->count() > 0)
-                            <td><a href="{{ route('admin.ujian.soal.pembeli', $val->id) }}">{{ $val->diBeliOleh->count() . " member" }}</a></td>
+                            <td><a href="{{ route('admin.ujian.soal.peserta', $val->id) }}">{{ $val->diBeliOleh->count() . " member" }}</a></td>
                             @else
                             <td>-</td>
                             @endif

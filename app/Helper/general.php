@@ -107,9 +107,9 @@ function marker($marker)   {
 function formatUang($nilai) {
     return "Rp. " . number_format($nilai, 0, ".", ".");
 }
-function plusMinute($startTime, $minute) {
+function plusSecond($startTime, $seconds) {
     $date = date_create($startTime);
-    date_add($date, date_interval_create_from_date_string($minute . ' minutes'));
+    date_add($date, date_interval_create_from_date_string($seconds . ' seconds'));
     return date_format($date, 'Y-m-d H:i:s');
 }
 

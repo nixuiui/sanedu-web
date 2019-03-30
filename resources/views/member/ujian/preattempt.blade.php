@@ -6,7 +6,7 @@ Contoh Soal
 
 @section('content')
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
         <div class="panel panel-preattempt">
             <div class="heading">
                 Contoh Soal
@@ -20,14 +20,6 @@ Contoh Soal
             <div class="panel-section">
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
-                        <div class="text-muted">JUMLAH SOAL</div>
-                        <div>{{ $ujian->soal->count() }} Butir</div>
-                    </div>
-                    <div class="col-md-2 col-xs-6 mb-3">
-                        <div class="text-muted">DURASI</div>
-                        <div>{{ $ujian->durasi }} menit</div>
-                    </div>
-                    <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">PEMBAHASAN</div>
                         <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $ujian->link_pembahasan }} Download</a></div>
                     </div>
@@ -35,10 +27,6 @@ Contoh Soal
                         <div class="text-muted">PERCOBAAN PERTAMA</div>
                         <div>Nilai: {{ $ujian->attempt->count() > 0 ? round(($ujian->attempt->first()->jumlah_benar / $ujian->soal->count())*100, 2) : "-" }}</div>
                     </div>
-                </div>
-            </div>
-            <div class="panel-section">
-                <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">HARGA</div>
                         <div class="text-success text-20 text-bold">{{ formatUang($ujian->harga) }}</div>
@@ -53,14 +41,48 @@ Contoh Soal
                             @endif
                         </div>
                     </div>
-                    @if($attempt)
-                    <div class="col-md-6">
-                        <div class="text-muted">ANDA SEDANG UJIAN</div>
-                        <div class="">Berakhir pada <br> <strong>{{ hariTanggalWaktu($attempt->end_attempt) }}</strong></div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    @if($ujian->is_grouped)
+                        @foreach($ujian->group as $group)
+                            <div class="col-md-3 col-sm-4 col-xs-6 mb-3">
+                                <strong>{{ strtoupper($group->nama) }}</strong>
+                            </div>
+                            <div class="col-md-9 col-sm-8 col-xs-6 mb-3">
+                                <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                    <div class="text-muted">JUMLAH SOAL</div>
+                                    <div>{{ $group->jumlah_soal }} Butir</div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                    <div class="text-muted">DURASI</div>
+                                    <div>{{ gmdate("H:i:s", $group->durasi) }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">JUMLAH SOAL</div>
+                        <div>{{ $ujian->jumlah_soal }} Butir</div>
+                    </div>
+                    <div class="col-md-2 col-xs-6 mb-3">
+                        <div class="text-muted">DURASI</div>
+                        <div>{{ gmdate("H:i:s", $ujian->durasi) }}</div>
                     </div>
                     @endif
                 </div>
             </div>
+            @if($attempt)
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="text-muted">ANDA SEDANG UJIAN</div>
+                        <div class="">Berakhir pada <br> <strong>{{ hariTanggalWaktu($attempt->end_attempt) }}</strong></div>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="panel-section">
                 @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
                 <span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block beli-ujian" data-harga="{{ formatUang($ujian->harga) }}" data-hargaori="{{ $ujian->harga }}" data-saldo="{{ Auth::user()->saldo }}" data-judul="{{ $ujian->judul }}">Beli Ujian</span>

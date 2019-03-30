@@ -16,7 +16,7 @@ Kelola Soal Ujian
             <hr>
             <p>Tanggal Rilis: {{ hariTanggalWaktu($ujian->created_at) }}</p>
             @if( $ujian->diBeliOleh->count() > 0)
-            <p>Soal ini sudah dibeli oleh <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">{{ $ujian->diBeliOleh->count() }}x</a></strong> oleh member, <strong><a href="{{ route('admin.ujian.soal.pembeli', $ujian->id) }}">Lihat Member yang membeli</a></strong></p>
+            <p>Soal ini sudah dibeli oleh <strong><a href="{{ route('admin.ujian.soal.peserta', $ujian->id) }}">{{ $ujian->diBeliOleh->count() }}x</a></strong> oleh member, <strong><a href="{{ route('admin.ujian.soal.peserta', $ujian->id) }}">Lihat Member yang membeli</a></strong></p>
             @else
             <p class="">Soal belum ada yang membeli. :(</p>
             @endif
@@ -92,17 +92,34 @@ Kelola Soal Ujian
                             @endif
                         </div>
                     </div>
+                    @if(!$ujian->is_grouped)
                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Durasi (menit)</label>
-                            <input type="number" class="form-control input-sm" placeholder="60" name="durasi"  value="{{ $ujian->durasi }}" required>
-                            @if($errors->has('durasi'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('durasi') }}</strong>
-                            </span>
-                            @endif
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Durasi (menit)</label>
+                                    <input type="number" class="form-control input-sm" placeholder="60" name="menit"  value="{{ floor($ujian->durasi/60) }}" required>
+                                    @if($errors->has('menit'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('menit') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>(detik)</label>
+                                    <input type="number" class="form-control input-sm" placeholder="60" name="detik"  value="{{ ($ujian->durasi%60) }}" required>
+                                    @if($errors->has('detik'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('detik') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md btn-icon btn-hspace"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
                 <a href="{{ route('admin.ujian.soal.up', $ujian->id) }}" class="btn btn-default btn-fill btn-md btn-icon btn-hspace"><i class="mdi mdi-long-arrow-up"></i>Naikan Soal</a>
@@ -111,9 +128,91 @@ Kelola Soal Ujian
         </form>
 
         @if(!$ujian->is_published)
-        <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-warning btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Soal</a>
+            @if($ujian->is_grouped)
+            <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', $ujian->id) }}" class="btn btn-success btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Kelompok Soal Ujian</a>
+            @else
+            <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-success btn-md btn-icon btn-space"><i class="mdi mdi-plus"></i>Tambah Soal</a>
+            @endif
         @endif
         <a href="{{ route('admin.ujian.soal.view', $ujian->id) }}" class="btn btn-default btn-md btn-icon btn-space"><i class="mdi mdi-eye"></i>Review Soal</a>
+            
+        @if($ujian->is_grouped)
+            @if($ujian->group->count() <= 0)
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="data-is-empty">
+                        <p><i class="mdi mdi-close-circle"></i></p>
+                        <p>KELOMPOK SOAL BELUM DIBUAT</p>
+                        <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', $ujian->id) }}" class="btn btn-default">BUAT KELOMPOK SOAL BARU</a>
+                    </div>
+                </div>
+            </div>
+            @endif
+            @foreach($ujian->group as $group)
+            <div class="panel panel-default panel-table" style="border: none">
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    {{ $group->nama }}
+                                    @if(!$ujian->is_published)
+                                    <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id])."?idKelompokSoal=".$group->id }}" class="pull-right mr-5">+ Tambah Soal</a>
+                                    <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-3" style="font-weight: 400">Ubah</a>
+                                    <a href="{{ route('admin.ujian.soal.delete.kelompok.soal', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-3 text-danger delete" style="font-weight: 400">Hapus</a>
+                                    @endif
+                                </th>
+                                <th colspan="6">DURASI : <span>{{ floor($group->durasi/60) }} menit {{ $group->durasi%60 }} detik</span></th>
+                            </tr>
+                            <tr>
+                                <th class="text-valign-center" width="1px">NO</th>
+                                <th class="text-valign-center">SOAL</th>
+                                <th class="text-valign-center" width="50px">A</th>
+                                <th class="text-valign-center" width="50px">B</th>
+                                <th class="text-valign-center" width="50px">C</th>
+                                <th class="text-valign-center" width="50px">D</th>
+                                <th class="text-valign-center" width="50px">E</th>
+                                <th class="text-valign-center" width="100px">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($group->soal->count() <= 0)
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="data-is-empty">
+                                            <p><i class="mdi mdi-close-circle"></i></p>
+                                            <p>SOAL BELUM ADA</p>
+                                            <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-default">BUAT SOAL BARU</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @else
+                            @foreach($group->soal as $i => $data)
+                            <tr>
+                                <td class="text-center">{{ $i + 1 }}</td>
+                                <td><div class="list-soal-in-table">{!! $data->soal !!}</div></td>
+                                <td class="text-center">{!! $data->jawaban == 'a' ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
+                                <td class="text-center">{!! $data->jawaban == 'b' ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
+                                <td class="text-center">{!! $data->jawaban == 'c' ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
+                                <td class="text-center">{!! $data->jawaban == 'd' ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
+                                <td class="text-center">{!! $data->jawaban == 'e' ? "<i class='mdi mdi-check-circle text-success'></i>" : "" !!}</td>
+                                <td class="text-center" class="text-center">
+                                    @if(!$ujian->is_published)
+                                    <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-warning"><i class="mdi mdi-edit"></i></a>
+                                    <a href="{{ route('admin.ujian.soal.delete.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
+                                    @else
+                                    <a href="{{ route('admin.ujian.soal.lihat.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-default"><i class="mdi mdi-eye"></i></a>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            @endforeach
+        @else
         <div class="panel panel-default panel-table" style="border: none">
             <div class="panel-body">
                 <table class="table table-bordered">
@@ -133,18 +232,18 @@ Kelola Soal Ujian
                         </tr>
                     </thead>
                     <tbody>
-                        @if($soal->count() <= 0)
+                        @if($ujian->soal->count() <= 0)
                             <tr>
                                 <td colspan="8">
                                     <div class="data-is-empty">
-                                        <i class="mdi mdi-close-circle"></i>
-                                        SOAL BELUM ADA <br>
-                                        <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}">BUAT SOAL BARU</a>
+                                        <p><i class="mdi mdi-close-circle"></i></p>
+                                        <p>SOAL BELUM ADA</p>
+                                        <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-default">BUAT SOAL BARU</a>
                                     </div>
                                 </td>
                             </tr>
                         @else
-                        @foreach($soal as $i => $data)
+                        @foreach($ujian->soal as $i => $data)
                         <tr>
                             <td class="text-center">{{ $i + 1 }}</td>
                             <td><div class="list-soal-in-table">{!! $data->soal !!}</div></td>
@@ -168,6 +267,7 @@ Kelola Soal Ujian
                 </table>
             </div>
         </div>
+        @endif
     </div>
 </div> <!-- end row -->
 @endsection

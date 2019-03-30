@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
-class Soal extends Model {
+class AttemptGroup extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_soal';
+    protected $table        = 'tbl_attempt_group';
     protected $primaryKey   = 'id';
     protected $keyType      = 'string';
     public $incrementing    = false;
@@ -25,10 +25,13 @@ class Soal extends Model {
     }
 
     //RELATION table
-  	public function ujian() {
-        return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+  	public function attempt() {
+        return $this->belongsTo('App\Models\Attempt', 'id_attempt');
+    }
+    public function correction() {
+        return $this->hasMany('App\Models\AttemptCorrection', 'id_attempt_group');
     }
     public function ujianGroup() {
-        return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group');
-    }
+      return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group');
+  }
 }

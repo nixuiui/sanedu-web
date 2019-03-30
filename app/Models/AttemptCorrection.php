@@ -23,6 +23,9 @@ class AttemptCorrection extends Model {
 
     //RELATION table
   	public function attempt() {
-  		return $this->belongsTo('App\Models\Attempt', 'id_attempt');
-  	}
+        return $this->belongsTo('App\Models\Attempt', 'id_attempt');
+    }
+    public function attemptGroup() {
+        return $this->belongsTo('App\Models\AttemptGroup', 'id_attempt_group');
+    }
 }

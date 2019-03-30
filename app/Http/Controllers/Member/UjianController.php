@@ -11,10 +11,12 @@ use App\Http\Controllers\Controller;
 use App\Models\SetPustaka;
 use App\Models\User;
 use App\Models\Ujian;
+use App\Models\UjianGroup;
 use App\Models\PembelianUjian;
 use App\Models\Universitas;
 use App\Models\PilihanPassingGrade;
 use App\Models\Attempt;
+use App\Models\AttemptGroup;
 use App\Models\AttemptCorrection;
 
 class UjianController extends Controller
@@ -29,9 +31,22 @@ class UjianController extends Controller
                         ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                         ->first();
         if($attempt == null) return redirect()->route('member.ujian.soal');
-        $soal = Ujian::findOrFail($attempt->id_ujian);
+
+        $ujian = Ujian::findOrFail($attempt->id_ujian);
+        if($ujian->is_grouped) {
+            $group = UjianGroup::select("id", "id_ujian", "nama", "jumlah_soal", "durasi")
+                                    ->with("soal")
+                                    ->where("id_ujian", $attempt->ujian->id)
+                                    ->get();
+            return view('member.ujian.soal-group')->with([
+                'group'     => $group,
+                'ujian'     => $ujian,
+                'attempt'   => $attempt
+            ]);
+        }
+
         return view('member.ujian.soal')->with([
-            'soal' => $soal,
+            'ujian' => $ujian,
             'attempt' => $attempt
         ]);
     }
@@ -85,7 +100,7 @@ class UjianController extends Controller
         $attempt = new Attempt;
         $attempt->id = Uuid::generate();
         $attempt->start_attempt = $now;
-        $attempt->end_attempt = plusMinute($now, $ujian->durasi);
+        $attempt->end_attempt = plusSecond($now, $ujian->durasi);
         $attempt->id_ujian = $ujian->id;
         $attempt->id_pembelian = $pembelian->id;
         $attempt->id_user = Auth::id();
@@ -132,6 +147,8 @@ class UjianController extends Controller
 
     public function preAttempt($id) {
         $ujian = Ujian::findOrFail($id);
+        if($ujian->is_published != 1) return redirect()->route("member.ujian.soal");
+        
         $attemptOnGoing = Attempt::where('id_user', Auth::id())
                         ->where('id_ujian', $id)
                         ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
@@ -157,7 +174,7 @@ class UjianController extends Controller
         $attempt = new Attempt;
         $attempt->id = Uuid::generate();
         $attempt->start_attempt = $now;
-        $attempt->end_attempt = plusMinute($now, $ujian->durasi);
+        $attempt->end_attempt = plusSecond($now, $ujian->durasi);
         $attempt->id_ujian = $ujian->id;
         $attempt->id_pembelian = $pembelian->id;
         $attempt->id_user = Auth::id();
@@ -166,6 +183,17 @@ class UjianController extends Controller
         $attempt->jumlah_tidak_jawab = 0;
         $attempt->nilai = 0;
         if($attempt->save()) {
+            $startPointTime = $now;
+            foreach($ujian->group as $group) {
+                $attempGroup = new AttemptGroup;
+                $attempGroup->id = Uuid::generate();
+                $attempGroup->id_attempt = $attempt->id;
+                $attempGroup->id_ujian_group = $group->id;
+                $attempGroup->start_attempt = $startPointTime;
+                $startPointTime = plusSecond($startPointTime, $group->durasi);
+                $attempGroup->end_attempt = $startPointTime;
+                $attempGroup->save();
+            }
             return redirect()->route('member.ujian.soal.open', $attempt->id);
         }
         return redirect()->route('member.ujian.soal');

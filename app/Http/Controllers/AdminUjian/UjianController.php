@@ -8,13 +8,15 @@ use Uuid;
 use DB;
 use App\Models\SetPustaka;
 use App\Models\Ujian;
+use App\Models\UjianGroup;
 use App\Models\Soal;
 use App\Models\Attempt;
+use App\Models\User;
 
 class UjianController extends Controller
 {
     public function index() {
-        $ujian = Ujian::orderby('created_at', 'desc')->get();
+        $ujian = Ujian::where("is_published", "!=" ,3)->orderby('created_at', 'desc')->get();
         return view('adminujian.ujian.index')->with([
             'ujian' => $ujian
         ]);
@@ -34,7 +36,8 @@ class UjianController extends Controller
             'id_kelas'          => 'nullable|exists:set_pustaka,id',
             'id_mata_pelajaran' => 'nullable|exists:set_pustaka,id',
             'judul'             => 'required|string',
-            'durasi'            => 'required|numeric',
+            'menit'             => 'required_if:check_soal,false|numeric',
+            'detik'             => 'required_if:check_soal,false|numeric',
             'harga'             => 'required|numeric',
         ]);
         $ujian = new Ujian;
@@ -45,7 +48,10 @@ class UjianController extends Controller
         $ujian->id_mata_pelajaran = $input->id_mata_pelajaran;
         $ujian->judul = $input->judul;
         $ujian->harga = $input->harga;
-        $ujian->durasi = $input->durasi;
+
+        if($input->check_soal) $ujian->is_grouped = 1;
+        else $ujian->durasi = ($input->menit*60) + $input->detik;
+
         $ujian->save();
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil membuat soal ujian baru');
     }
@@ -55,15 +61,17 @@ class UjianController extends Controller
             'judul'     => 'required|string',
             'harga'     => 'required|numeric',
             'url'       => 'nullable|url',
-            'durasi'    => 'required|numeric',
+            'menit'     => 'numeric',
+            'detik'     => 'numeric',
         ]);
         $ujian = Ujian::find($id);
         $ujian->judul           = $input->judul;
         $ujian->harga           = $input->harga;
         $ujian->link_pembahasan = $input->url;
-        $ujian->durasi          = $input->durasi;
+        if(!$ujian->is_grouped)
+        $ujian->durasi          = ($input->menit*60) + $input->detik;
         $ujian->save();
-        return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menyimpan perubahan');
+        return redirect()->back()->with("success", "Berhasil menyimpan perubahan");
     }
 
     public function upUjian($id) {
@@ -75,7 +83,8 @@ class UjianController extends Controller
 
     public function deleteUjian($id) {
         $ujian = Ujian::find($id);
-        $ujian->delete();
+        $ujian->is_published = 3;
+        $ujian->save();
         return redirect()->back()->with('success', 'Berhasil menghapus '. $ujian->judul);
     }
 
@@ -86,12 +95,54 @@ class UjianController extends Controller
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil dipublish');
     }
 
+    public function formKelompokSoal($id, $idKelompokSoal = null) {
+        $ujian = Ujian::findOrFail($id);
+        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
+
+        $group = null;
+        if($idKelompokSoal)
+        $group = UjianGroup::findOrFail($idKelompokSoal);
+        return view('adminujian.ujian.formkelompoksoal')->with([
+            'ujian' => $ujian,
+            'group' => $group
+        ]);
+    }
+
+    public function prosesKelompokSoal(Request $input, $id, $idKelompokSoal = null) {
+        $this->validate($input, [
+            'nama'  => 'required|string',
+            'menit' => 'required|numeric',
+            'detik' => 'required|numeric',
+        ]);
+
+        $ujian = Ujian::findOrFail($id);
+        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
+
+        if($idKelompokSoal) {
+            $group              = UjianGroup::find($idKelompokSoal);
+        }
+        else {
+            $group              = new UjianGroup;
+            $group->id          = Uuid::generate();
+            $group->id_ujian    = $ujian->id;
+        }
+        $group->nama        = $input->nama;
+        $group->durasi      = ($input->menit*60) + $input->detik;
+        $group->save();return redirect()->route('admin.ujian.soal.kelola', $ujian->id);
+    }
+    
+    public function deleteKelompokSoal($id, $idKelompokSoal) {
+        $ujian = Ujian::findOrFail($id);
+        $group = UjianGroup::findOrFail($idKelompokSoal);
+        $group->forceDelete();
+        $soal = Soal::where("id_ujian_group", $group->id)->forceDelete();
+        return redirect()->route('admin.ujian.soal.kelola', $ujian->id);
+    }
+
     public function kelolaSoal($id) {
         $ujian = Ujian::find($id);
-        $soal = Soal::where('id_ujian', $ujian->id)->orderBy('created_at', 'ASC')->get();
-        return view('adminujian.ujian.kelola')->with([
-            'ujian' => $ujian,
-            'soal' => $soal
+        return view('adminujian.ujian.soal')->with([
+            'ujian' => $ujian
         ]);
     }
 
@@ -111,14 +162,22 @@ class UjianController extends Controller
 
     public function formSoal($id, $idSoal = null) {
         $ujian = Ujian::findOrFail($id);
+        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
+
+        $group = null;
+        if(isset($_GET['idKelompokSoal']) && $_GET['idKelompokSoal'] != "") {
+            $group = UjianGroup::findOrFail($_GET['idKelompokSoal']);
+        }
         if($idSoal == null)
         return view('adminujian.ujian.tambahsoal')->with([
-            'ujian' => $ujian
+            'ujian' => $ujian,
+            'group' => $group
         ]);
 
         $soal = Soal::find($idSoal);
         return view('adminujian.ujian.tambahsoal')->with([
             'ujian' => $ujian,
+            'group' => $group,
             'soal' => $soal
         ]);
     }
@@ -127,14 +186,25 @@ class UjianController extends Controller
         $this->validate($input, [
             'soal'      => 'required',
             'jawaban'   => 'required',
+            'id_group'  => 'nullable|exists:tbl_ujian_group,id',
         ]);
+        
         $ujian = Ujian::findOrFail($id);
+        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
+
         $soal = new Soal;
         $soal->id = UUid::generate();
         $soal->id_ujian = $ujian->id;
+        
+        if($input->id_group) {
+            $group = UjianGroup::findOrFail($input->id_group);
+            $soal->id_ujian_group = $group->id;
+        }
+
         if($idSoal != null) {
             $soal = Soal::find($idSoal);
         }
+
         $soal->soal = $input->soal;
         $soal->a = $input->a;
         $soal->b = $input->b;
@@ -145,7 +215,7 @@ class UjianController extends Controller
         $soal->save();
         if($input->simpan == "simpan")
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
-        return redirect()->route('admin.ujian.soal.form.soal', $ujian->id)->with('success', 'Berhasil menambah butir soal');
+        return redirect(route('admin.ujian.soal.form.soal', ['id' => $ujian->id]) . "?idKelompokSoal=" . $group->id)->with('success', 'Berhasil menambah butir soal');
     }
 
     public function deleteSoal($id, $idSoal) {
@@ -162,14 +232,19 @@ class UjianController extends Controller
     }
 
     public function history($id, $idAttempt = null) {
+        $peserta = null;
         $ujian = Ujian::findOrFail($id);
-        $history = Attempt::where('id_ujian', $id)
-                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
-                            ->get();
+        $history = Attempt::where('id_ujian', $id)->where('end_attempt', '<', date('Y-m-d H:i:s'));
+        if(isset($_GET['idPeserta']) && $_GET['idPeserta']) {
+            $peserta = User::findOrFail($_GET['idPeserta']);
+            $history = $history->where('id_user', $peserta->id);
+        }
+        $history = $history->orderBy("created_at", "desc")->get();
         if($idAttempt == null)
         return view('adminujian.ujian.history')->with([
             'history' => $history,
-            'ujian' => $ujian
+            'ujian' => $ujian,
+            'peserta' => $peserta
         ]);
 
         $attempt = Attempt::findOrFail($idAttempt);
@@ -204,9 +279,16 @@ class UjianController extends Controller
         ]);
     }
 
-    public function pembeli($id) {
+    public function peserta($id) {
         $ujian = Ujian::findOrFail($id);
-        return view('adminujian.ujian.pembeli')->with([
+        return view('adminujian.ujian.peserta')->with([
+            'ujian' => $ujian
+        ]);
+    }
+
+    public function setting($id) {
+        $ujian = Ujian::findOrFail($id);
+        return view('adminujian.ujian.setting')->with([
             'ujian' => $ujian
         ]);
     }

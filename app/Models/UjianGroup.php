@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
-class Attempt extends Model {
+class UjianGroup extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_attempt';
+    protected $table        = 'tbl_ujian_group';
     protected $primaryKey   = 'id';
     protected $keyType      = 'string';
     public $incrementing    = false;
@@ -17,24 +17,18 @@ class Attempt extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            // $data->tiket()->delete();
+            // $data->soal()->delete();
         });
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('start_attempt', 'asc');
-        });
+		static::addGlobalScope('order', function (Builder $builder) {
+			$builder->orderBy('created_at', 'asc');
+		});
     }
 
     //RELATION table
   	public function ujian() {
   		return $this->belongsTo('App\Models\Ujian', 'id_ujian');
   	}
-  	public function user() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
-  	}
-  	public function group() {
-  		return $this->hasMany('App\Models\AttemptGroup', 'id_attempt');
-  	}
-  	public function correction() {
-  		return $this->hasMany('App\Models\AttemptCorrection', 'id_attempt');
+  	public function soal() {
+  		return $this->hasMany('App\Models\Soal', 'id_ujian_group');
   	}
 }

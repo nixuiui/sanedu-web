@@ -295,7 +295,7 @@ class SimulasiController extends Controller
         $attempt = new Attempt;
         $attempt->id = Uuid::generate();
         $attempt->start_attempt = $now;
-        $attempt->end_attempt = plusMinute($now, $ujian->durasi);
+        $attempt->end_attempt = plusSecond($now, $ujian->durasi);
         $attempt->id_ujian = $ujian->id;
         $attempt->id_peserta_simulasi = $peserta->id;
         $attempt->id_user = Auth::id();

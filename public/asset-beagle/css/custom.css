@@ -18,6 +18,13 @@ select.input-sm, .input-sm { height: 36px; }
 .font-soal { font-size: 12px; }
 * .btn-space:last-child { margin-right: 0; }
 
+.no-clickable { pointer-events: none; }
+.clickable-row { cursor: pointer; }
+.no-border { border: none !important; }
+.block { display: block; }
+.no-radius { border-radius: 0px; }
+.hover-underline:hover { text-decoration: underline !important; }
+
 .clear-both { clear: both; }
 .text-20 { font-size: 20px; }
 .text-16 { font-size: 16px; }
@@ -127,6 +134,9 @@ img { max-width: 100%; }
 
 .bg-grey {
     background: #EFEFEF;
+}
+.bg-grey-dark {
+    background: #E9E9E9;
 }
 label {
     cursor: pointer;

@@ -45,7 +45,7 @@
 <div class="" v-show="isFinish && isMounted">
     <div class="panel panel-default">
         <div class="panel-body text-center">
-            <h3>Apakah Anda ingin menyelesaikan ujian?</h3>
+            <h3>Apakah Anda ingin menyelesaikan ujian @{{ group.nama }}?</h3>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
                     <table class="table table-condensed table-hover table-bordered table-striped">
@@ -64,7 +64,8 @@
                     </table>
                 </div>
             </div>
-            <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success">SELESAIKAN SEKARANG</a>
+            <button id="btnNextGroup" @click="nextGroup" class="btn btn-primary" v-if="(indexGroup+1) < groups.length">Lanjutkan ke Ujian @{{ groups[indexGroup+1].nama }}</button>
+            <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success" v-if="(indexGroup+1) >= groups.length">SELESAIKAN SEKARANG</a>
         </div>
     </div>
 </div>
@@ -95,9 +96,15 @@
         <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success btn-block selesai-ujian">SELESAIKAN SEKARANG</a>
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
-        <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (jumlahSoal)" v-bind:class="[{'btn-select': (no == noSoal-1) && !isFinish}, soals[no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
-            <span class="flex" @click="changeSoal(no)"><span>@{{ no+1 }}</span></span>
-        </button>
+        <div v-for="group in groups" class="mb-4">
+            <div class="breadcrumb mb-2" v-bind:class="[{'text-success': group.id_attempt_group == groups[indexGroup].id_attempt_group}]">
+                @{{ group.nama }}
+            <span class="pull-right">@{{ group.waktu }}</span>
+            </div>
+            <button class="btn btn-sm btn-soal" v-for="(soal, index) in group.soal.length" v-bind:class="[{'btn-select': (group.no_start+index == noSoal) && !isFinish && (group.id_attempt_group == groups[indexGroup].id_attempt_group)}, group.soal[index].jawaban == null ? 'btn-default' : 'btn-warning btn-filled', {'no-clickable disabled': group.id_attempt_group != groups[indexGroup].id_attempt_group}]">
+                <span class="flex" @click="changeSoal(index)"><span>@{{ group.no_start+index }}</span></span>
+            </button>
+        </div>
         {{-- <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
             <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
                 <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
@@ -120,14 +127,19 @@ var app = new Vue({
         soals: [],
         soal: {},
         noSoal: 0,
+        noSoalLoop: 0,
         indexSoal: 0,
+        groups: [],
+        group: {},
+        indexGroup: 0,
         jumlahBarisNomor: 0,
         jumlahSoal: 0,
         jawaban: null,
         isErrorExist: false,
         errorMessage: null,
         isFinish: false,
-        isMounted: false
+        isMounted: false,
+        interval: null
     },
     methods: {
         finish: function() {
@@ -142,12 +154,52 @@ var app = new Vue({
             if(index < this.soals.length) {
                 var self = this;
                 self.soal = self.soals[index];
-                self.noSoal = index+1;
+                self.noSoal = self.group.no_start+index;
                 self.indexSoal = index;
                 self.jawaban = self.soal.jawaban;
             }
             $("#btnNext").attr("disabled", false);
             $("#btnHapus").attr("disabled", false);
+        },
+        nextGroup: function() {
+            var self = this;
+            var url = "{{ route('member.ujian.attempt.next.group') }}";
+            $("#btnNextGroup").attr("disabled", true);
+            axios({
+                method: 'post',
+                url: url,
+                data: {
+                    "idAttempt": attemptId,
+                    "idAttemptGroupNow": self.group.id_attempt_group,
+                    "idAttemptGroupNext": self.groups[self.indexGroup+1].id_attempt_group
+                },
+                headers: {}
+            })
+            .then(function(response) {
+                var data = response.data;
+                if(data.success) {
+                    console.log(data.data);
+                    self.indexGroup += 1;
+                    self.group = self.groups[self.indexGroup];
+                    self.group.end_attempt = data.data.end_attempt;
+                    self.soals = self.group.soal;
+                    self.jumlahSoal = self.soals.length;
+                    self.indexSoal = 0;
+                    self.soal = self.soals[0];
+                    self.noSoal = self.group.no_start;
+                    self.isFinish = false;
+                    clearInterval(self.interval);
+                    self.setTimer();
+                }
+                else {
+                    self.isErrorExist = true;
+                    self.errorMessage = data.message;
+                }
+                $("#btnNextGroup").attr("disabled", true);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
         },
         nextSoal: function() {
             $("#btnNext").attr("disabled", true);
@@ -160,6 +212,7 @@ var app = new Vue({
             else {
                 this.changeSoal(this.indexSoal+1);
             }
+            console.log(this.jumlahSoal);
         },
         hapusJawaban: function() {
             $("#btnHapus").attr("disabled", true);
@@ -207,6 +260,29 @@ var app = new Vue({
                 console.log(error);
             });
         },
+        setTimer: function() {
+            var self = this;
+            var countDownDate = new Date(self.group.end_attempt).getTime();
+            self.interval = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
+                if (distance < 0) {
+                    clearInterval(self.interval);
+                    if((self.indexGroup+1) < self.groups.length){
+                        self.nextGroup();
+                    }
+                    else {
+                        location.reload();
+                        document.getElementById("timer").innerHTML = "EXPIRED";
+                    }
+                }
+            }, 1000);
+        },
         reqSoal: function() {
             var self = this;
             var url = linkRequestSoal + "?attempt=" + attemptId;
@@ -221,13 +297,22 @@ var app = new Vue({
             .then(function(response) {
                 if(response.data.success){
                     self.isMounted = true;
-                    self.soals = response.data.data;
-                    self.soal = self.soals[0];
-                    self.noSoal = 1;
+                    self.groups = response.data.data;
+                    for(var i=0; i<self.groups.length; i++){
+                        if(self.groups[i].is_finished == 0){
+                            self.group = self.groups[i];
+                            self.indexGroup = i;
+                            self.soals = self.groups[i].soal;
+                            self.jumlahSoal = self.soals.length;
+                            self.soal = self.soals[0];
+                            self.noSoal = self.group.no_start;
+                            break;
+                        }
+                    }
                     self.indexSoal = 0;
                     self.jawaban = self.soal.jawaban;
-                    self.jumlahSoal = self.soals.length;
                     self.jumlahBarisNomor = self.soals.length%5 == 0 ? Math.floor(self.soals.length/5) : (Math.floor(self.soals.length/5)) + 1;
+                    self.setTimer();
                 }
                 else {
                     self.isErrorExist = true;
@@ -243,23 +328,6 @@ var app = new Vue({
         this.reqSoal();
     }
 });
-
-
-var countDownDate = new Date('{{ date("Y-m-d H:i:s", strtotime($attempt->end_attempt)) }}').getTime();
-var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDownDate - now;
-    var days    = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
-    if (distance < 0) {
-        location.reload();
-        clearInterval(x);
-        document.getElementById("timer").innerHTML = "EXPIRED";
-    }
-}, 1000);
 
 $(document).on("click", ".selesai-ujian", function(e) {
     var link = $(this).attr("href");

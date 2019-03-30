@@ -134,24 +134,28 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
 
     Route::group(['prefix' => 'ujian'], function(){
         Route::get('/',                     'AdminUjian\UjianController@index')->name('admin.ujian.soal');
-        Route::get('/soal/tambah',          'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
-        Route::post('/soal/tambah',         'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
-        Route::post('/soal/edit/{id}',      'AdminUjian\UjianController@prosesEditUjian')->name('admin.ujian.soal.edit.post');
-        Route::get('/soal/up/{id}',         'AdminUjian\UjianController@upUjian')->name('admin.ujian.soal.up');
-        Route::get('/soal/delete/{id}',     'AdminUjian\UjianController@deleteUjian')->name('admin.ujian.soal.delete');
-        Route::get('/soal/pembeli/{id}',    'AdminUjian\UjianController@pembeli')->name('admin.ujian.soal.pembeli');
-        Route::get('/soal/history/{id}/{idAttempt?}',   'AdminUjian\UjianController@history')->name('admin.ujian.soal.history');
-        Route::group(['prefix' => 'soal/kelola'], function(){
-            Route::get('/{id}',                         'AdminUjian\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
-            Route::get('/{id}/publish',                 'AdminUjian\UjianController@publish')->name('admin.ujian.soal.publish');
-            Route::get('/{id}/view',                    'AdminUjian\UjianController@view')->name('admin.ujian.soal.view');
-            Route::get('/{id}/reqsoal',                      'AdminUjian\UjianController@reqSoal')->name('admin.ujian.soal.req.soal');
-            Route::get('/{id}/formperaturan',           'AdminUjian\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
-            Route::post('/{id}/formperaturan',          'AdminUjian\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
-            Route::get('/{id}/formsoal/{idSoal?}',      'AdminUjian\UjianController@formSoal')->name('admin.ujian.soal.form.soal');
-            Route::post('/{id}/tambahsoal/{idSoal?}',   'AdminUjian\UjianController@prosesTambahSoal')->name('admin.ujian.soal.form.soal.post');
-            Route::get('/{id}/deletesoal/{idSoal}',     'AdminUjian\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
-            Route::get('/{id}/lihatsoal/{idSoal}',      'AdminUjian\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
+        Route::get('/tambah',          'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
+        Route::post('/tambah',         'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
+        Route::group(['prefix' => '{id}'], function(){
+            Route::get('/',                         'AdminUjian\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
+            Route::get('/delete',                   'AdminUjian\UjianController@deleteUjian')->name('admin.ujian.soal.delete');
+            Route::get('/setting',                  'AdminUjian\UjianController@setting')->name('admin.ujian.soal.setting');
+            Route::post('/edit',                    'AdminUjian\UjianController@prosesEditUjian')->name('admin.ujian.soal.edit.post');
+            Route::get('/up',                       'AdminUjian\UjianController@upUjian')->name('admin.ujian.soal.up');
+            Route::get('/history/{idAttempt?}',     'AdminUjian\UjianController@history')->name('admin.ujian.soal.history');
+            Route::get('/peserta',                  'AdminUjian\UjianController@peserta')->name('admin.ujian.soal.peserta');
+            Route::get('/publish',                  'AdminUjian\UjianController@publish')->name('admin.ujian.soal.publish');
+            Route::get('/view',                     'AdminUjian\UjianController@view')->name('admin.ujian.soal.view');
+            Route::get('/reqsoal',                  'AdminUjian\UjianController@reqSoal')->name('admin.ujian.soal.req.soal');
+            Route::get('/formperaturan',            'AdminUjian\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
+            Route::post('/formperaturan',           'AdminUjian\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
+            Route::get('/formsoal/{idSoal?}',       'AdminUjian\UjianController@formSoal')->name('admin.ujian.soal.form.soal');
+            Route::post('/tambahsoal/{idSoal?}',    'AdminUjian\UjianController@prosesTambahSoal')->name('admin.ujian.soal.form.soal.post');
+            Route::get('/deletesoal/{idSoal}',      'AdminUjian\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
+            Route::get('/lihatsoal/{idSoal}',       'AdminUjian\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
+            Route::get('/formkelompoksoal/{idKelompokSoal?}',    'AdminUjian\UjianController@formKelompokSoal')->name('admin.ujian.soal.form.kelompok.soal.get');
+            Route::post('/formkelompoksoal/{idKelompokSoal?}',   'AdminUjian\UjianController@prosesKelompokSoal')->name('admin.ujian.soal.form.kelompok.soal.post');
+            Route::get('/deletekelompoksoal/{idKelompokSoal?}',  'AdminUjian\UjianController@deleteKelompokSoal')->name('admin.ujian.soal.delete.kelompok.soal');
         });
     });
 });
@@ -379,6 +383,7 @@ Route::group(['middleware' => 'member'], function(){
     Route::group(['prefix' => 'attempt'], function(){
         Route::get('/reqsoal/{idUjian}',    'Member\AttemptController@reqSoal')->name('member.ujian.attempt.request.soal');
         Route::post('/sendjawaban',         'Member\AttemptController@sendJawaban')->name('member.ujian.attempt.sendJawaban');
+        Route::post('/nextgroupsoal',       'Member\AttemptController@nextGroupSoal')->name('member.ujian.attempt.next.group');
     });
     
     Route::group(['prefix' => 'simulasi'], function(){

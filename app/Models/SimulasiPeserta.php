@@ -16,7 +16,7 @@ class SimulasiPeserta extends Model {
     protected $dates        = ['deleted_at'];
 
     protected static function boot() {
-        parent::boot();
+		parent::boot();
         static::deleting(function($data) {
             // $data->tiket()->delete();
         });
