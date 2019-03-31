@@ -62,9 +62,13 @@
         <p class="text" v-if="!isMounted">Sedang Load Soal...</p>
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
-        <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
-            <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
-                <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
+        <div v-for="group in groups" class="mb-4">
+            <div class="breadcrumb mb-2">
+                @{{ group.nama }}
+            <span class="pull-right">@{{ group.waktu }}</span>
+            </div>
+            <button class="btn btn-default btn-sm btn-soal" v-for="(soal, index) in group.soal.length" v-bind:class="[{'btn-select': (group.no_start+index == noSoal)}]">
+                <span class="flex" @click="changeSoal(group.no_start+index-1)"><span>@{{ group.no_start+index }}</span></span>
             </button>
         </div>
     </div>
@@ -84,18 +88,15 @@ var app = new Vue({
         soal: {},
         noSoal: 0,
         indexSoal: 0,
+        groups: [],
+        group: {},
         jumlahBarisNomor: 0,
         jumlahSoal: 0,
-        jawaban: null,
         isErrorExist: false,
         errorMessage: null,
-        isFinish: false,
         isMounted: false
     },
     methods: {
-        finish: function() {
-            this.isFinish = true;
-        },
         clearError: function(){
             this.isErrorExist = false;
             this.errorMessage = null;
@@ -107,7 +108,6 @@ var app = new Vue({
                 self.soal = self.soals[index];
                 self.noSoal = index+1;
                 self.indexSoal = index;
-                self.jawaban = self.soal.jawaban;
             }
             $("#btnNext").attr("disabled", false);
             $("#btnHapus").attr("disabled", false);
@@ -116,8 +116,6 @@ var app = new Vue({
             this.changeSoal(this.indexSoal+1);
         },
         changeSoal: function(index) {
-            if(!this.isFinish) this.soal.jawaban = this.jawaban;
-            this.isFinish = false;
             this.getSoal(index);
         },
         reqSoal: function() {
@@ -131,10 +129,17 @@ var app = new Vue({
             .then(function(response) {
                 if(response.data.success){
                     self.isMounted = true;
-                    self.soals = response.data.data;
+                    self.groups = response.data.data;
+                    for(var i=0; i<self.groups.length; i++){
+                        self.soals = self.soals.concat(self.groups[i].soal);
+                        if(self.groups[i].is_finished == 0){
+                            self.group = self.groups[i];
+                            self.jumlahSoal = self.soals.length;
+                            break;
+                        }
+                    }
                     self.soal = self.soals[0];
                     self.noSoal = 1;
-                    self.indexSoal = 0;
                     self.jawaban = self.soal.jawaban;
                     self.jumlahSoal = self.soals.length;
                     self.jumlahBarisNomor = self.soals.length%5 == 0 ? Math.floor(self.soals.length/5) : (Math.floor(self.soals.length/5)) + 1;
