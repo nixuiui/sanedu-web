@@ -113,6 +113,8 @@ var ujianId = "{{ $ujian->id }}";
 var attemptId = "{{ $attempt->id }}";
 var linkRequestSoal = "{{ route('member.ujian.attempt.request.soal', ':id') }}";
 linkRequestSoal = linkRequestSoal.replace(':id', ujianId);
+var linkFinish = "{{ route('member.ujian.soal.finish', ':id') }}";
+linkFinish = linkFinish.replace(':id', attemptId);
 var app = new Vue({
     el: '#app',
     data: {
@@ -255,7 +257,7 @@ var x = setInterval(function() {
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
     document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
     if (distance < 0) {
-        location.reload();
+        window.location = linkFinish;
         clearInterval(x);
         document.getElementById("timer").innerHTML = "EXPIRED";
     }

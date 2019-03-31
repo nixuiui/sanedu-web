@@ -155,11 +155,12 @@ class AttemptController extends Controller {
                                     ->where("end_attempt", ">", $now)
                                     ->get();
         
-        $startPointTime = $now;
+        $startPointTime = plusSecond($now, 1);
         foreach($attemptGroup as $group) {
             $group->start_attempt = $startPointTime;
             $startPointTime = plusSecond($startPointTime, $group->ujianGroup->durasi);
             $group->end_attempt = $startPointTime;
+            $startPointTime = plusSecond($startPointTime, 1); 
             $group->save();
         }
         $attempt->end_attempt = $startPointTime;

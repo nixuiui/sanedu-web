@@ -120,6 +120,8 @@ var ujianId = "{{ $ujian->id }}";
 var attemptId = "{{ $attempt->id }}";
 var linkRequestSoal = "{{ route('member.ujian.attempt.request.soal', ':id') }}";
 linkRequestSoal = linkRequestSoal.replace(':id', ujianId);
+var linkFinish = "{{ route('member.ujian.soal.finish', ':id') }}";
+linkFinish = linkFinish.replace(':id', attemptId);
 var app = new Vue({
     el: '#app',
     data: {
@@ -163,6 +165,8 @@ var app = new Vue({
         },
         nextGroup: function() {
             var self = this;
+            if(self.soal.jawaban != null)
+                self.sendJawaban();
             var url = "{{ route('member.ujian.attempt.next.group') }}";
             $("#btnNextGroup").attr("disabled", true);
             axios({
@@ -195,7 +199,7 @@ var app = new Vue({
                     self.isErrorExist = true;
                     self.errorMessage = data.message;
                 }
-                $("#btnNextGroup").attr("disabled", true);
+                $("#btnNextGroup").attr("disabled", false);
             })
             .catch(function(error) {
                 console.log(error);
@@ -271,13 +275,22 @@ var app = new Vue({
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
+                console.log(distance);
                 if (distance < 0) {
                     clearInterval(self.interval);
                     if((self.indexGroup+1) < self.groups.length){
-                        self.nextGroup();
+                        self.indexGroup += 1;
+                        self.group = self.groups[self.indexGroup];
+                        self.soals = self.group.soal;
+                        self.jumlahSoal = self.soals.length;
+                        self.indexSoal = 0;
+                        self.soal = self.soals[0];
+                        self.noSoal = self.group.no_start;
+                        self.isFinish = false;
+                        self.setTimer();
                     }
                     else {
-                        location.reload();
+                        window.location = linkFinish;
                         document.getElementById("timer").innerHTML = "EXPIRED";
                     }
                 }

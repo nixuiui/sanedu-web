@@ -28,10 +28,9 @@ class UjianController extends Controller
     public function openSoal($idAttempt) {
         $attempt = Attempt::where('id_user', Auth::id())
                         ->where('id', $idAttempt)
-                        ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
+                        ->where('end_attempt', '>', date('Y-m-d H:i:s'))
                         ->first();
         if($attempt == null) return redirect()->route('member.ujian.soal');
-
         $ujian = Ujian::findOrFail($attempt->id_ujian);
         if($ujian->is_grouped) {
             $group = UjianGroup::select("id", "id_ujian", "nama", "jumlah_soal", "durasi")
@@ -192,6 +191,7 @@ class UjianController extends Controller
                 $attempGroup->start_attempt = $startPointTime;
                 $startPointTime = plusSecond($startPointTime, $group->durasi);
                 $attempGroup->end_attempt = $startPointTime;
+                $startPointTime = plusSecond($startPointTime, 1);
                 $attempGroup->save();
             }
             return redirect()->route('member.ujian.soal.open', $attempt->id);
