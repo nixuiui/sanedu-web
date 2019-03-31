@@ -210,6 +210,8 @@
                         </table>
                     </div>
                 </div>
+
+                @if($simulasi->is_offline)
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -233,6 +235,9 @@
                         </table>
                     </div>
                 </div>
+                @endif
+
+                @if($simulasi->in_offline)
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -283,6 +288,9 @@
                         </table>
                     </div>
                 </div>
+                @endif
+
+                @if($simulasi->is_online)
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -325,7 +333,9 @@
                         </table>
                     </div>
                 </div>
+                @endif
             </div>
+
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-6">
