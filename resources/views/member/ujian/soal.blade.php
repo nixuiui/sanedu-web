@@ -64,7 +64,11 @@
                     </table>
                 </div>
             </div>
+            @if(isset($simulasi))
+            <a href="{{ route('member.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-success">SELESAIKAN SEKARANG</a>
+            @else
             <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success">SELESAIKAN SEKARANG</a>
+            @endif
         </div>
     </div>
 </div>
@@ -92,7 +96,11 @@
         <p class="text" v-if="!isMounted">Sedang Load Soal...</p>
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
+        @if(isset($simulasi))
+        <a href="{{ route('member.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-success btn-block selesai-ujian">SELESAIKAN SEKARANG</a>
+        @else
         <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success btn-block selesai-ujian">SELESAIKAN SEKARANG</a>
+        @endif
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
         <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (jumlahSoal)" v-bind:class="[{'btn-select': (no == noSoal-1) && !isFinish}, soals[no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
@@ -113,8 +121,15 @@ var ujianId = "{{ $ujian->id }}";
 var attemptId = "{{ $attempt->id }}";
 var linkRequestSoal = "{{ route('member.ujian.attempt.request.soal', ':id') }}";
 linkRequestSoal = linkRequestSoal.replace(':id', ujianId);
+@if(isset($simulasi))
+var simulasiId = "{{ $simulasi->id }}";
+var linkFinish = "{{ route('member.simulasi.ujian.finish', ['id' => ':id', 'idAttempt' => ':idAttempt'])}}";
+linkFinish = linkFinish.replace(':id', simulasiId);
+linkFinish = linkFinish.replace(':idAttempt', attemptId);
+@else
 var linkFinish = "{{ route('member.ujian.soal.finish', ':id') }}";
 linkFinish = linkFinish.replace(':id', attemptId);
+@endif
 var app = new Vue({
     el: '#app',
     data: {

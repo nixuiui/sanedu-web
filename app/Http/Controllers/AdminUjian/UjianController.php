@@ -195,9 +195,11 @@ class UjianController extends Controller
         $soal = new Soal;
         $soal->id = UUid::generate();
         $soal->id_ujian = $ujian->id;
-        
+            
+        $groupId = null;
         if($input->id_group) {
             $group = UjianGroup::findOrFail($input->id_group);
+            $groupId = $group->id;
             $soal->id_ujian_group = $group->id;
         }
 
@@ -214,8 +216,8 @@ class UjianController extends Controller
         $soal->jawaban = $input->jawaban;
         $soal->save();
         if($input->simpan == "simpan")
-        return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
-        return redirect(route('admin.ujian.soal.form.soal', ['id' => $ujian->id]) . "?idKelompokSoal=" . $group->id)->with('success', 'Berhasil menambah butir soal');
+            return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
+        return redirect(route('admin.ujian.soal.form.soal', ['id' => $ujian->id]) . "?idKelompokSoal=" . $groupId)->with('success', 'Berhasil menambah butir soal');
     }
 
     public function deleteSoal($id, $idSoal) {

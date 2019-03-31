@@ -37,7 +37,7 @@ Jadwal Online
                     @endif
                 </div>
                 <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Buat agenda baru</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan buat jadwal baru</button>
             </div>
         </form>
     </div>

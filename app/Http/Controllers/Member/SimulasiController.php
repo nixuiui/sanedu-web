@@ -424,8 +424,8 @@ class SimulasiController extends Controller
                 'simulasi'  => $simulasi
             ]);
         }
-        return view('member.simulasi.soal')->with([
-            'soal' => $ujian,
+        return view('member.ujian.soal')->with([
+            'ujian' => $ujian,
             'attempt' => $attempt,
             'simulasi' => $simulasi
         ]);
