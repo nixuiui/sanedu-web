@@ -64,7 +64,7 @@
                     </table>
                 </div>
             </div>
-            <a href="{{ route('user.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-primary">SELESAIKAN SEKARANG</a>
+            <a href="{{ route('member.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-primary">SELESAIKAN SEKARANG</a>
         </div>
     </div>
 </div>

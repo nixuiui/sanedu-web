@@ -29,6 +29,7 @@ class AttemptController extends Controller {
                                                 ->where("id_attempt", $idAttempt)
                                                 ->where("id_ujian_group", $group->id)
                                                 ->first();
+
                     $soal = collect(DB::select("
                         SELECT
                             soal.id,

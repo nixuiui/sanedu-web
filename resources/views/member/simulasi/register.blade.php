@@ -73,7 +73,7 @@ Simulasi {{ $simulasi->judul }}
                                 @endif
                                 @if($simulasi->is_online)
                                 <div class="be-radio inline mb-3">
-                                    <input type="radio" name="mode" id="ONLINE" value="online">
+                                    <input type="radio" name="mode" id="ONLINE" value="online" checked>
                                     <label for="ONLINE">ONLINE</label>
                                 </div>
                                 @endif

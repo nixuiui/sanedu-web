@@ -11,7 +11,9 @@ use App\Http\Controllers\Controller;
 
 use App\Models\Universitas;
 use App\Models\Ujian;
+use App\Models\UjianGroup;
 use App\Models\Attempt;
+use App\Models\AttemptGroup;
 use App\Models\Simulasi;
 use App\Models\SimulasiKoreksi;
 use App\Models\SimulasiUjian;
@@ -382,6 +384,18 @@ class SimulasiController extends Controller
         $attempt->jumlah_tidak_jawab = 0;
         $attempt->nilai = 0;
         if($attempt->save()) {
+            $startPointTime = $now;
+            foreach($ujian->group as $group) {
+                $attempGroup = new AttemptGroup;
+                $attempGroup->id = Uuid::generate();
+                $attempGroup->id_attempt = $attempt->id;
+                $attempGroup->id_ujian_group = $group->id;
+                $attempGroup->start_attempt = $startPointTime;
+                $startPointTime = plusSecond($startPointTime, $group->durasi);
+                $attempGroup->end_attempt = $startPointTime;
+                $startPointTime = plusSecond($startPointTime, 1);
+                $attempGroup->save();
+            }
             return redirect()->route('member.simulasi.ujian.open', [
                 'id' => $simulasi->id,
                 'idAttempt' => $attempt->id
@@ -397,9 +411,21 @@ class SimulasiController extends Controller
                         ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                         ->first();
         if($attempt == null) return redirect()->route('member.simulasi.open', $simulasi->id);
-        $soal = Ujian::findOrFail($attempt->id_ujian);
+        $ujian = Ujian::findOrFail($attempt->id_ujian);
+        if($ujian->is_grouped) {
+            $group = UjianGroup::select("id", "id_ujian", "nama", "jumlah_soal", "durasi")
+                                    ->with("soal")
+                                    ->where("id_ujian", $attempt->ujian->id)
+                                    ->get();
+            return view('member.ujian.soal-group')->with([
+                'group'     => $group,
+                'ujian'     => $ujian,
+                'attempt'   => $attempt,
+                'simulasi'  => $simulasi
+            ]);
+        }
         return view('member.simulasi.soal')->with([
-            'soal' => $soal,
+            'soal' => $ujian,
             'attempt' => $attempt,
             'simulasi' => $simulasi
         ]);

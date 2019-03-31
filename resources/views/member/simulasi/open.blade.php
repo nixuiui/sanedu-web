@@ -137,20 +137,7 @@ Simulasi - {{ $simulasi->judul }}
                             <div>{{ hariTanggal($peserta->jadwalOnline->tanggal)}}</div>
                         </div>
                         @endif
-                        @if($soalOnline)
-                        <div class="col-md-6 col-xs-6 mb-3">
-                            <div class="text-muted">SOAL</div>
-                            <div>{{ $soalOnline->ujian->judul }}</div>
-                        </div>
-                        <div class="col-md-3 col-xs-6 mb-3">
-                            <div class="text-muted">JUMLAH SOAL</div>
-                            <div>{{ $soalOnline->ujian->jumlah_soal }}</div>
-                        </div>
-                        <div class="col-md-3 col-xs-6 mb-3">
-                            <div class="text-muted">DURASI</div>
-                            <div>{{ $soalOnline->ujian->durasi }} menit</div>
-                        </div>
-                        @else
+                        @if(!$soalOnline)
                         <div class="col-md-3 col-xs-6 mb-3">
                             <div class="text-muted">SOAL</div>
                             <div>Belum Tersedia</div>
@@ -159,6 +146,36 @@ Simulasi - {{ $simulasi->judul }}
                     </div>
                 </div>
                 @if($soalOnline)
+                <div class="panel-section">
+                    <div class="row">
+                    @if($soalOnline->ujian->is_grouped)
+                        @foreach($soalOnline->ujian->group as $group)
+                            <div class="col-md-3 col-sm-4 col-xs-6 mb-3">
+                                <strong>{{ strtoupper($group->nama) }}</strong>
+                            </div>
+                            <div class="col-md-9 col-sm-8 col-xs-6 mb-3">
+                                <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                    <div class="text-muted">JUMLAH SOAL</div>
+                                    <div>{{ $group->jumlah_soal }} Butir</div>
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
+                                    <div class="text-muted">DURASI</div>
+                                    <div>{{ gmdate("H:i:s", $group->durasi) }}</div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @else
+                    <div class="col-md-3 col-xs-6 mb-3">
+                        <div class="text-muted">JUMLAH SOAL</div>
+                        <div>{{ $soalOnline->ujian->jumlah_soal }} Butir</div>
+                    </div>
+                    <div class="col-md-2 col-xs-6 mb-3">
+                        <div class="text-muted">DURASI</div>
+                        <div>{{ gmdate("H:i:s", $soalOnline->ujian->durasi) }}</div>
+                    </div>
+                    @endif
+                    </div>
+                </div>
                 <div class="panel-section">
                     <div class="row">
                         <div class="col-md-12">
