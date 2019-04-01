@@ -1,36 +1,35 @@
 @extends("layouts.auth")
 @section("title")
-Lupa Password
+Login
 @endsection
-@section("style")
-<link rel="stylesheet" href="{{ asset("asset-landing/css/login.css")}}">
+
+@section("desc")
+Untuk Anda yang lupa password, jangan khawatir...
 @endsection
+
 @section("content")
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <h2 class="active"> MASUK SANEDU</h2>
-
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <a href="index.php">
-                <img src="{{ asset('asset-landing/img/main/icon.svg') }}" alt="User Icon" style="height: 130px; width: 130px;" />
-            </a>
+<div class="form-holder">
+    <div class="form-content">
+        <div class="form-items">
+            <h3>Lupa Password</h3>
+            <p>Tulis email Anda di bawah ini</p>
+            @if(session('success'))
+                <div class="alert alert-success alert-dismissible fade show with-icon" role="alert">
+                    {!! session('success') !!}
+                </div>
+            @elseif(session('danger'))
+                <div class="alert alert-danger alert-dismissible fade show with-icon" role="alert">
+                    {!! session('danger') !!}
+                </div>
+            @endif
+            <form action="{{ route('auth.password.email') }}" method="POST">
+                @csrf
+                <input class="form-control" type="email" name="email" placeholder="E-mail Address" required>
+                <div class="form-button full-width">
+                    <button type="submit" class="ibtn">Kirim</button>
+                </div>
+            </form>
         </div>
-
-        <!-- Login Form -->
-        <form action="{{ route('auth.password.email') }}" method="POST">
-            @csrf
-            <input type="text" class="fadeIn second" name="email" placeholder="Email Anda">
-            <input type="submit" name="login" class="fadeIn fourth" value="Masuk">
-        </form>
-
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            Sudah punya akun ? <a class="underlineHover" href="{{ route('auth.login') }}">LOGIN</a><br>
-            Buat akun ? <a class="underlineHover" href="{{ route('auth.register') }}">DAFTAR</a>
-        </div>
-
     </div>
 </div>
 @endsection

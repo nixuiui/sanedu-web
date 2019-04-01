@@ -1,8 +1,3 @@
-<!-- DEVELOPED BY CAPUNG TECHNOLOGY:-->
-<!-- @faizrekatama -->
-<!-- @saifulanwar -->
-<!-- @nikirahmadi -->
-<!-- START HEAD -->
 <head>
     @include('partials.include.google')
     <meta charset="utf-8">

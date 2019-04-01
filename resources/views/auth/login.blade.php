@@ -1,46 +1,39 @@
 @extends("layouts.auth")
+
 @section("title")
 Login
 @endsection
-@section("style")
-<link rel="stylesheet" href="{{ asset("asset-landing/css/login.css")}}">
+
+@section("desc")
+Kita mulai belajar dengan cara yang menyenangkan...
 @endsection
+
 @section("content")
-<div class="wrapper fadeInDown">
-    <div id="formContent">
-        <!-- Tabs Titles -->
-        <h2 class="active"> MASUK SANEDU</h2>
-
-        <!-- Icon -->
-        <div class="fadeIn first">
-            <a href="index.php">
-                <img src="{{ asset('asset-landing/img/main/icon.svg') }}" alt="User Icon" style="height: 130px; width: 130px;" />
-            </a>
-        </div>
-
-        <!-- Login Form -->
-        <form action="{{ route('auth.login.post') }}" method="POST">
+<div class="form-holder">
+    <div class="form-content">
+        <div class="form-items">
+            <h3>Masuk ke Akun Sanedu.</h3>
             @if(session('success'))
-                <div class="alert alert-success" style="width:85%; margin: 0 auto 15px;">
+                <div class="alert alert-success alert-dismissible fade show with-icon" role="alert">
                     {!! session('success') !!}
                 </div>
             @elseif(session('danger'))
-                <div class="alert alert-danger" style="width:85%; margin: 0 auto 15px;">
+                <div class="alert alert-danger alert-dismissible fade show with-icon" role="alert">
                     {!! session('danger') !!}
                 </div>
             @endif
-            @csrf
-            <input type="text" class="fadeIn second" name="username" placeholder="username">
-            <input type="password" class="fadeIn third" name="password" placeholder="password">
-            <input type="submit" class="fadeIn fourth" value="Masuk">
-        </form>
-
-        <!-- Remind Passowrd -->
-        <div id="formFooter">
-            Lupa Password ? <a class="underlineHover" href="{{ route('auth.password.forgot') }}">RESET PASSWORD</a><br>
-            Buat akun ? <a class="underlineHover" href="{{ route('auth.register') }}">DAFTAR</a>
+            <form action="{{ route('auth.login.post') }}" method="POST">
+                @csrf
+                <input class="form-control" type="text" name="username" placeholder="Email/Username" required>
+                <input class="form-control" type="password" name="password" placeholder="Password" required>
+                <div class="form-button">
+                    <button id="submit" type="submit" class="ibtn">Masuk</button> <a href="{{ route('auth.password.forgot') }}">Lupa password?</a>
+                </div>
+            </form>
+            <div class="other-links">
+                <span>Belum punya akun?</span><a href="{{ route('auth.register') }}">Daftar Sekarang</a>
+            </div>
         </div>
-
     </div>
 </div>
 @endsection
