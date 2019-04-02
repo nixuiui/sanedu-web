@@ -59,7 +59,7 @@ Kelola Ujian
                     <td>{{ $data->user->nama }}</td>
                     <td class="milestone">
                         <span class="completed"><strong>{{ $data->jumlah_benar }}</strong>/{{ $ujian->jumlah_soal }}</span>
-                        <span class="version">-</span>
+                        <span class="version">{{ round($data->nilai, 2) }}</span>
                         <div class="progress">
                             <div style="width: {{ ($data->jumlah_benar/$ujian->jumlah_soal)*100 }}%" class="progress-bar progress-bar-primary"></div>
                         </div>

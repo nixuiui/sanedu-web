@@ -102,10 +102,12 @@
         <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success btn-block selesai-ujian">SELESAIKAN SEKARANG</a>
         @endif
     </div>
-    <div class="col-md-12 mb-3" v-if="isMounted">
-        <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (jumlahSoal)" v-bind:class="[{'btn-select': (no == noSoal-1) && !isFinish}, soals[no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
-            <span class="flex" @click="changeSoal(no)"><span>@{{ no+1 }}</span></span>
-        </button>
+    <div class="col-md-12 mb-3 nosoal-wrap" v-if="isMounted">
+        <div class="nosoal">
+            <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (jumlahSoal)" v-bind:class="[{'btn-select': (no == noSoal-1) && !isFinish}, soals[no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
+                <span class="flex" @click="changeSoal(no)"><span>@{{ no+1 }}</span></span>
+            </button>
+        </div>
         {{-- <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
             <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
                 <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
