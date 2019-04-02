@@ -16,9 +16,9 @@ Ujian Selesai
             </div>
             <div class="panel-body text-center">
                 <div class="text-nilai-announcement mb-5">
-                    {{ $attempt->jumlah_benar }}
+                    {{ $attempt->nilai }}
                 </div>
-                <p>Nilai maksimum adalah {{ $attempt->ujian->jumlah_soal}}</p>
+                <p>Soal yang berhasil Anda jawab dengan benar {{ $attempt->jumlah_benar."/".$attempt->ujian->jumlah_soal}}</p>
             </div>
         </div>
         <div class="card-info text-center">
