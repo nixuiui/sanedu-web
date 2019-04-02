@@ -18,7 +18,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('asset-sanone/css/iofrm-theme4.css') }}">
 </head>
 <body>
-    <div class="form-body">
+    <div class="form-body bg-header">
         <div class="website-logo">
             <a href="{{ route('guest.home') }}">
                 <div class="logo">
@@ -28,14 +28,31 @@
             </a>
         </div>
         <div class="row">
-            <div class="img-holder">
+            <div class="img-holder" style="background: transparent">
                 <div class="bg"></div>
                 <div class="info-holder">
-                    <h3>@yield('desc')</h3>
                     <img src="{{ asset('asset-sanone/images/graphic3.svg') }}" alt="">
                 </div>
             </div>
-            @yield('content')
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Selamat Datang di SANEDU.</h3>
+                        <p>Bimbingan belajar pertama yang mengusung metode multiple intelegence system dan e-learning.</p>
+                        <form action="{{ route('auth.login.post') }}" method="POST">
+                            @csrf
+                            <input class="form-control" type="text" name="username" placeholder="Email/Username" required>
+                            <input class="form-control" type="password" name="password" placeholder="Password" required>
+                            <div class="form-button">
+                                <button id="submit" type="submit" class="ibtn">Masuk</button> <a href="{{ route('auth.password.forgot') }}">Lupa password?</a>
+                            </div>
+                        </form>
+                        <div class="other-links">
+                            <span>Belum punya akun?</span><a href="{{ route('auth.register') }}">Daftar Sekarang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

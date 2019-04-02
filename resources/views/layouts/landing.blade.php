@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- SITE TITLE -->
-    <title>@yield('title') - SANEDU</title>
+    <title>@yield('title') - Sanedu</title>
 
     <!-- =========================
     Meta Information
     ============================== -->
     <meta name="description" content="SANEDU - Generasi cerdas bersama SANEDU">
     <meta name="keywords" content="SAN, EDU, SANEDU, GENERASI CERDAS, Belajar, Kursus, UNBK, UN, Tes">
-    <meta name="author" content="Arie Kurniawan">
+    <meta name="author" content="Niki Rahmadi Wiharto">
 
     <!-- =========================
     favicon and app touch icon

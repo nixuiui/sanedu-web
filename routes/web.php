@@ -11,6 +11,7 @@
 |
 */
 Route::get('/',             'Guest\HomeController@index')->name('guest.home');
+Route::get('/test',         'Guest\HomeController@test');
 Route::get('/phpinfo',      'Guest\HomeController@phpinfo');
 // Route::get('/curl',         'Guest\HomeController@curl')->name('curl');
 Route::get('/tentang-kami', 'Guest\HomeController@tentangkami')->name('guest.tentang');

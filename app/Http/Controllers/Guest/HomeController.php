@@ -36,6 +36,10 @@ class HomeController extends Controller
         return view('guest.landing.index');
     }
 
+    public function test() {
+        return view('guest.landing.test');
+    }
+
     public function checkrole() {
         if(Auth::check()) {
             if (Auth::user()->id_role == 1001)
