@@ -57,7 +57,7 @@ Contoh Soal
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
                                     <div class="text-muted">DURASI</div>
-                                    <div>{{ gmdate("H:i:s", $group->durasi) }}</div>
+                                    <div>{{ durasi($group->durasi) }}</div>
                                 </div>
                             </div>
                         @endforeach
@@ -68,7 +68,7 @@ Contoh Soal
                     </div>
                     <div class="col-md-2 col-xs-6 mb-3">
                         <div class="text-muted">DURASI</div>
-                        <div>{{ gmdate("H:i:s", $ujian->durasi) }}</div>
+                        <div>{{ durasi($ujian->durasi) }}</div>
                     </div>
                     @endif
                 </div>

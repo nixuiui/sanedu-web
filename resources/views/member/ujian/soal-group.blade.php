@@ -107,11 +107,15 @@
         <div v-for="group in groups" class="mb-4">
             <div class="breadcrumb mb-2" v-bind:class="[{'text-success': group.id_attempt_group == groups[indexGroup].id_attempt_group}]">
                 @{{ group.nama }}
-            <span class="pull-right">@{{ group.waktu }}</span>
+                <span class="pull-right">@{{ group.waktu }}</span>
             </div>
-            <button class="btn btn-sm btn-soal" v-for="(soal, index) in group.soal.length" v-bind:class="[{'btn-select': (group.no_start+index == noSoal) && !isFinish && (group.id_attempt_group == groups[indexGroup].id_attempt_group)}, group.soal[index].jawaban == null ? 'btn-default' : 'btn-warning btn-filled', {'no-clickable disabled': group.id_attempt_group != groups[indexGroup].id_attempt_group}]">
-                <span class="flex" @click="changeSoal(index)"><span>@{{ group.no_start+index }}</span></span>
-            </button>
+            <div class="nosoal-wrap">
+                <div class="nosoal">
+                    <button class="btn btn-sm btn-soal" v-for="(soal, index) in group.soal.length" v-bind:class="[{'btn-select': (group.no_start+index == noSoal) && !isFinish && (group.id_attempt_group == groups[indexGroup].id_attempt_group)}, group.soal[index].jawaban == null ? 'btn-default' : 'btn-warning btn-filled', {'no-clickable disabled': group.id_attempt_group != groups[indexGroup].id_attempt_group}]">
+                        <span class="flex" @click="changeSoal(index)"><span>@{{ group.no_start+index }}</span></span>
+                    </button>
+                </div>
+            </div>
         </div>
         {{-- <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
             <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">

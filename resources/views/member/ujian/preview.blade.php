@@ -13,33 +13,41 @@ Preview - {{ $attempt->ujian->judul }}
             </div>
             <div class="panel-body">
                 <table class="table table-condensed table-hover table-bordered table-striped">
-                    <tr>
-                        <th>Ujian</th>
-                        <td>{{ $attempt->ujian->jenisUjian->nama }}</td>
-                    </tr>
-                    <tr>
-                        <th>Soal</th>
-                        <td>{{ $attempt->ujian->judul }}</td>
-                    </tr>
+                    @if(isset($simulasi))
+                        <tr>
+                            <th>Simulasi</th>
+                            <td>{{ $simulasi->judul }}</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <th>Ujian</th>
+                            <td>{{ $attempt->ujian->jenisUjian->nama }}</td>
+                        </tr>
+                        <tr>
+                            <th>Soal</th>
+                            <td><a href="{{ route('member.ujian.soal.preattempt', $attempt->ujian->id) }}">{{ $attempt->ujian->judul }}</a></td>
+                        </tr>
+                    @endif
                     @if($attempt->ujian->id_mata_pelajaran != null)
                     <tr>
-                        <th>Mate Pelajaran</th>
+                        <th>Mata Pelajaran</th>
                         <td>{{ $attempt->ujian->mataPelajaran->nama }}</td>
                     </tr>
                     @endif
+                        
                     <tr>
                         <th>Tingkat Sekolah</th>
                         <td>{{ $attempt->ujian->tingkatSekolah->nama }}</td>
                     </tr>
                     @if($attempt->ujian->id_tingkat_kelas != null)
                     <tr>
-                        <th>Mate Pelajaran</th>
+                        <th>Tingkat Kelas</th>
                         <td>{{ $attempt->ujian->tingkatKelas->nama }}</td>
                     </tr>
                     @endif
                     <tr>
                         <th>Durasi</th>
-                        <td>{{ $attempt->ujian->durasi }} menit</td>
+                        <td>{{ durasi($attempt->ujian->durasi) }}</td>
                     </tr>
                     <tr>
                         <th>Jumlah Soal</th>
@@ -47,7 +55,7 @@ Preview - {{ $attempt->ujian->judul }}
                     </tr>
                     <tr>
                         <th>Nilai</th>
-                        <td class="text-success text-bold">{{ round(($attempt->jumlah_benar / $attempt->ujian->soal->count())*100, 2) }}</td>
+                        <td class="text-success text-bold">{{ round($attempt->nilai, 2) }}</td>
                     </tr>
                     <tr>
                         <th>Pembahasan</th>

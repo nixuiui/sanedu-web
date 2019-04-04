@@ -16,13 +16,13 @@ Ujian Selesai
             </div>
             <div class="panel-body text-center">
                 <div class="text-nilai-announcement mb-5">
-                    {{ $attempt->nilai }}
+                    {{ round($attempt->nilai, 2) }}
                 </div>
                 <p>Soal yang berhasil Anda jawab dengan benar {{ $attempt->jumlah_benar."/".$attempt->ujian->jumlah_soal}}</p>
             </div>
         </div>
         <div class="card-info text-center">
-            Kembali ke <a href="{{ route('member.simulasi.open', $simulasi->id) }}">halaman Simulasi</a>
+            Lihat <a href="{{ route('member.simulasi.history', ['id' => $simulasi->id, 'idAttempt' => $attempt->id]) }}">hasil pengerjaan</a> atau kembali ke <a href="{{ route('member.simulasi.open', $simulasi->id) }}">halaman Simulasi</a>
         </div>
     </div>
 </div>

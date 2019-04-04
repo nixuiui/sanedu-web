@@ -130,3 +130,9 @@ function angkaUrut($angka){
         return substr($angka, -3);
     return $angka;
 }
+
+function durasi($seconds){
+    $durasi = floor($seconds/60) > 0 ? floor($seconds/60) . " menit " : "";
+    $durasi .= $seconds%60 > 0 ? ($seconds%60) . " detik" : "";
+    return $durasi;
+}

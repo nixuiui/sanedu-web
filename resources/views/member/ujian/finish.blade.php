@@ -16,13 +16,13 @@ Pengerjaan Soal Selesai
             </div>
             <div class="panel-body text-center">
                 <div class="text-nilai-announcement mb-5">
-                    {{ $attempt->nilai }}
+                    {{ round($attempt->nilai, 2) }}
                 </div>
                 <p>Soal yang berhasil Anda jawab dengan benar {{ $attempt->jumlah_benar."/".$attempt->ujian->jumlah_soal}}</p>
             </div>
         </div>
         <div class="card-info text-center">
-            Kembali ke <a href="{{ route('member.ujian.soal.preattempt', $attempt->id_ujian) }}">halaman Ujian</a>
+        Lihat <a href="{{ route('member.ujian.history', $attempt->id) }}">hasil pengerjaan</a> atau kembali ke <a href="{{ route('member.ujian.soal.preattempt', $attempt->id_ujian) }}">halaman Ujian</a>
         </div>
     </div>
 </div>

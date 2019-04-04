@@ -59,7 +59,8 @@ Simulasi - {{ $simulasi->judul }}
                 </div>
             </div>
             <div class="panel-section text-center p-5">
-                <div class="text-bold text-20">NO PESERTA {{ $peserta->no_peserta }}</div>
+                <div class="text-muted">NO PESERTA</div>
+                <div class="text-bold text-20">{{ $peserta->no_peserta }}</div>
             </div>
             @if($peserta->nilai_akhir != null)
             <div class="panel-section text-center p-5">
@@ -129,11 +130,11 @@ Simulasi - {{ $simulasi->judul }}
                     <div class="row">
                         <div class="col-md-3 col-xs-6 mb-3">
                             <div class="text-muted">SIMULASI</div>
-                            <div>{{ $peserta->mode_simulasi }}</div>
+                            <div>{{ strtoupper($peserta->mode_simulasi) }}</div>
                         </div>
                         @if($peserta->id_jadwal_online != null)
                         <div class="col-md-3 col-xs-6 mb-3">
-                            <div class="text-muted">WAKTU TO ONLINE</div>
+                            <div class="text-muted">WAKTU TRY OUT</div>
                             <div>{{ hariTanggal($peserta->jadwalOnline->tanggal)}}</div>
                         </div>
                         @endif
@@ -149,6 +150,9 @@ Simulasi - {{ $simulasi->judul }}
                 <div class="panel-section">
                     <div class="row">
                     @if($soalOnline->ujian->is_grouped)
+                        <div class="col-xs-12 mb-4">
+                            <div class="text-muted">SOAL UJIAN</div>
+                        </div>
                         @foreach($soalOnline->ujian->group as $group)
                             <div class="col-md-3 col-sm-4 col-xs-6 mb-3">
                                 <strong>{{ strtoupper($group->nama) }}</strong>
@@ -160,7 +164,7 @@ Simulasi - {{ $simulasi->judul }}
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-12 mb-3">
                                     <div class="text-muted">DURASI</div>
-                                    <div>{{ gmdate("H:i:s", $group->durasi) }}</div>
+                                    <div>{{ durasi($group->durasi) }}</div>
                                 </div>
                             </div>
                         @endforeach
@@ -260,48 +264,50 @@ Simulasi - {{ $simulasi->judul }}
             </div>
         </div>
         @else
-        <div id="jadwalOnline" class="panel panel-default panel-table">
-            <div class="panel-heading">
-                Jadwal Try Out Online
-            </div>
-            <div class="panel-body p-4">
-                Silahkan pilih salah satu hari dibawah ini yang kamu yakini sebagai hari ujian kamu, ujian berlangsung sejak pukul 00.00 sampai 24.00 di setiap harinya
-            </div>
-            <form class="panel-body table-responsive" action="{{ route('member.simulasi.aturjadwal', $simulasi->id) }}" method="post">
-                @csrf
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
+            @if($peserta->jadwalOnline == null)
+            <div id="jadwalOnline" class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    Jadwal Try Out Online
+                </div>
+                <div class="panel-body p-4">
+                    Silahkan pilih salah satu hari dibawah ini yang kamu yakini sebagai hari ujian kamu, ujian berlangsung sejak pukul 00.00 sampai 24.00 di setiap harinya
+                </div>
+                <form class="panel-body table-responsive" action="{{ route('member.simulasi.aturjadwal', $simulasi->id) }}" method="post">
+                    @csrf
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                @if($peserta->id_jadwal_online == null)
+                                <th width="60px"></th>
+                                @endif
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($simulasi->jadwalOnline->count() > 0)
+                            @foreach($simulasi->jadwalOnline as $jadwal)
+                            <tr>
+                                @if($peserta->id_jadwal_online == null)
+                                <td width="60px"> <input type="radio" name="jadwal" value="{{ $jadwal->id }}" {{ $jadwal->is_full ? "disabled" : "" }}> </td>
+                                @endif
+                                <td class={{ $jadwal->is_full ? "text-muted" : "" }} {{ $peserta->id_jadwal_online == $jadwal->id ? "text-bold" : "" }}>{{ hariTanggal($jadwal->tanggal) }} {{ $peserta->id_jadwal_online == $jadwal->id ? " - Jadwal Anda" : "" }}</td>
+                            </tr>
+                            @endforeach
                             @if($peserta->id_jadwal_online == null)
-                            <th width="60px"></th>
+                            <tr>
+                                <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
+                            </tr>
                             @endif
-                            <th>Waktu</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if($simulasi->jadwalOnline->count() > 0)
-                        @foreach($simulasi->jadwalOnline as $jadwal)
-                        <tr>
-                            @if($peserta->id_jadwal_online == null)
-                            <td width="60px"> <input type="radio" name="jadwal" value="{{ $jadwal->id }}" {{ $jadwal->is_full ? "disabled" : "" }}> </td>
+                            @else
+                            <tr>
+                                <td colspan="4" class="data-is-empty">Belum ada jadwal yang dibuat</td>
+                            </tr>
                             @endif
-                            <td class={{ $jadwal->is_full ? "text-muted" : "" }} {{ $peserta->id_jadwal_online == $jadwal->id ? "text-bold" : "" }}>{{ hariTanggal($jadwal->tanggal) }} {{ $peserta->id_jadwal_online == $jadwal->id ? " - Jadwal Anda" : "" }}</td>
-                        </tr>
-                        @endforeach
-                        @if($peserta->id_jadwal_online == null)
-                        <tr>
-                            <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
-                        </tr>
-                        @endif
-                        @else
-                        <tr>
-                            <td colspan="4" class="data-is-empty">Belum ada jadwal yang dibuat</td>
-                        </tr>
-                        @endif
-                    </tbody>
-                </table>
-            </form>
-        </div>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+            @endif
         @endif
     </div>
 </div>

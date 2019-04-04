@@ -400,6 +400,7 @@ Route::group(['middleware' => 'member'], function(){
             Route::get('/kartuujian',           'Member\SimulasiController@kartuUjian')->name('member.simulasi.kartuujian');
             Route::post('/aturjadwal',          'Member\SimulasiController@aturJadwal')->name('member.simulasi.aturjadwal');
             Route::get('/attempt/{idUjian}',    'Member\SimulasiController@attempt')->name('member.simulasi.ujian.attempt');
+            Route::get('/history/{idAttempt?}', 'Member\SimulasiController@history')->name('member.simulasi.history');
             Route::get('/openujian/{idAttempt}','Member\SimulasiController@openUjian')->name('member.simulasi.ujian.open');
             Route::get('/finish/{idAttempt}',   'Member\SimulasiController@finish')->name('member.simulasi.ujian.finish');
             Route::get('/lihathasil',           'Member\SimulasiController@lihatHasil')->name('member.simulasi.lihat.hasil');

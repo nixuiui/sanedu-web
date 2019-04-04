@@ -465,4 +465,50 @@ class SimulasiController extends Controller
         return view('member.simulasi.index')->with("simulasi", $simulasi);
     }
 
+    public function history($idSimulasi, $idAttempt = null) {
+        $simulasi = Simulasi::findOrFail($idSimulasi);
+        $peserta = SimulasiPeserta::where("id_simulasi", $idSimulasi)
+                                    ->where("id_user", Auth::id())
+                                    ->firstOrFail();
+        $history = Attempt::where('id_user', Auth::id())
+                            ->where('id_peserta_simulasi', $peserta->id)
+                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
+                            ->get();
+        if($idAttempt == null)
+        return view('member.ujian.history')->with([
+            'history' => $history
+        ]);
+
+        $attempt = Attempt::findOrFail($idAttempt);
+        $idUjian = $attempt->id_ujian;
+        $soal = collect(DB::select("
+                SELECT
+                soal.id,
+                soal.soal,
+                soal.a,
+                soal.b,
+                soal.c,
+                soal.d,
+                soal.e,
+                soal.jawaban as kunci,
+                correct.jawaban,
+                correct.is_correct
+                FROM
+                tbl_attempt_correction as correct
+                RIGHT JOIN tbl_soal as soal ON
+                correct.id_soal=soal.id AND
+                soal.id_ujian='" . $idUjian. "' AND
+                correct.id_attempt='" . $idAttempt . "'
+                WHERE
+                soal.id_ujian='" . $idUjian . "' &&
+                soal.deleted_at IS NULL &&
+                correct.deleted_at IS NULL
+                ORDER BY soal.created_at ASC"));
+        return view('member.ujian.preview')->with([
+            'simulasi' => $simulasi,
+            'attempt' => $attempt,
+            'soal' => $soal
+        ]);
+    }
+
 }
