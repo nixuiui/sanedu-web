@@ -79,7 +79,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 </div>
 
                 <div class="form-group">
-                    <label for="">No. Handphone Orang Tua</label>
+                    <label for="">Tempat Lahir</label>
                     <input type="text" class="form-control" name="tempat_lahir" placeholder="Jakarta" value="{{ old('tempat_lahir') }}" required>
                     @if($errors->has('tempat_lahir'))
                     <span class="help-block">
@@ -126,7 +126,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
 
                 <div class="form-group">
                     <label for="">Sekolah</label>
-                    <select class="form-control" id="inputTingkatSekolah" name="id_kota" disabled required">
+                    <select class="form-control" id="inputTingkatSekolah" name="id_tingkat_sekolah" disabled required">
                         <option value="">-- Pilih Tingkat Sekolah --</option>
                         <option value="1301" >SD</option>
                         <option value="1302" >SMP</option>
