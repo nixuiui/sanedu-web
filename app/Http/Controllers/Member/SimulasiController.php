@@ -36,7 +36,7 @@ class SimulasiController extends Controller
         return view('member.simulasi.index');
 
         $simulasi = Simulasi::where("id_tingkat_sekolah", $_GET['sekolah'])
-                            ->whereIn('id_status', [1902, 1903])
+                            ->where('id_status', 1902)
                             ->orderBy('tanggal_pelaksanaan', 'DESC')
                             ->get();
         return view('member.simulasi.index')->with("simulasi", $simulasi);
