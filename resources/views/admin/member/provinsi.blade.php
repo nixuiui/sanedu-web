@@ -25,7 +25,7 @@ Member
 
 <div class="panel panel-default panel-table no-border mb-0">
     <div class="panel-body">
-        <table class="table table-borderless table-striped table-hover">
+        <table id="datatables" class="table datatables table-borderless table-striped table-hover">
             <thead>
                 <tr>
                     <th>No</th>
