@@ -60,7 +60,7 @@ Member
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->no_hp }}</td>
                     <td>{{ $data->provinsi != null ? $data->provinsi->name : "" }}</td>
-                    <td>{{ $data->asal_sekolah }}</td>
+                    <td>{{ $data->sekolah != null ? $data->sekolah->nama : "" }}</td>
                 </tr>
                 @endforeach
             </tbody>
