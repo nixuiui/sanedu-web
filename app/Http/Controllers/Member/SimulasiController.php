@@ -292,9 +292,8 @@ class SimulasiController extends Controller
         $simulasi = Simulasi::findOrFail($id);
         $jadwal = SimulasiJadwalOnline::where("id_simulasi", $simulasi->id)
                                         ->where("id", $input->jadwal)
-                                        ->where("is_full", false)
                                         ->first();
-        if(!$jadwal) return back()->with("danger", "Untuk jadwal pada tanggal " . $jadwal->tanggal . " tidak tersedia, coba tanggal lain");
+        if($jadwal->peserta->count() >= $jadwal->kapasitas) return back()->with("danger", "Untuk jadwal pada tanggal " . $jadwal->tanggal . " tidak tersedia, coba tanggal lain");
 
         $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
                                     ->where("id_user", Auth::id())
