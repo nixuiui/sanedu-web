@@ -73,4 +73,10 @@ class User extends Authenticatable {
     public function riwayatSaldo() {
       return $this->hasMany('App\Models\RiwayatSaldo', 'id_user');
     }
+  	public function kota() {
+        return $this->belongsTo('App\Models\Kota', 'id_kota');
+  	}
+  	public function provinsi() {
+        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
+  	}
 }

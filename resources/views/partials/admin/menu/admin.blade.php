@@ -27,6 +27,9 @@
                 <li class="{{ active(['adminsimulasi.simulasi', 'adminsimulasi.simulasi.*']) }}">
                     <a href="{{ route('adminsimulasi.simulasi') }}"><i class="icon mdi mdi-assignment"></i><span>Simulasi</span></a>
                 </li>
+                <li class="{{ active(['admin.member', 'admin.member.*']) }}">
+                    <a href="{{ route('admin.member') }}"><i class="icon mdi mdi-accounts"></i><span>Member</span></a>
+                </li>
             </ul>
         </div>
     </div>

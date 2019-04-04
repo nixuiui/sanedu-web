@@ -124,6 +124,12 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::post('/edit/{id}',   'Admin\SekolahController@editPost')->name('admin.sekolah.edit.post');
     });
 
+    Route::group(['prefix' => 'member'], function(){
+        Route::get('/',                 'Admin\MemberController@index')->name('admin.member');
+        Route::get('/provinsi/{id?}',   'Admin\MemberController@provinsi')->name('admin.member.provinsi');
+        Route::get('/generate',         'Admin\MemberController@generate')->name('admin.member.generate');
+    });
+
 });
 
 

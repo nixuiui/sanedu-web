@@ -19,8 +19,11 @@ class Kota extends Model
 
     //RELATION table
   	public function kecamatan() {
-  		return $this->hasMany('App\Models\Kecamatan', 'id_kabupaten');
-  	}
+        return $this->hasMany('App\Models\Kecamatan', 'id_kabupaten');
+    }
+    public function user() {
+        return $this->hasMany('App\Models\User', 'id_kota');
+    }
   	public function provinsi() {
   		return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
   	}
