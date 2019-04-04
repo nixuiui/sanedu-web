@@ -23,7 +23,6 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
             @endif
             @if($step == 1)
             <form action="{{ route('auth.register') }}" method="GET">
-                @csrf
                 <div class="form-group">
                     <input class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="E-mail Address" required>
                 </div>
