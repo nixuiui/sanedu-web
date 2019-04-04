@@ -163,7 +163,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
 
                 <div class="form-group">
                     <label for="">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username" value="{{ old('username') }}" required>
+                    <input type="text" class="form-control mb-0" name="username" placeholder="Username" value="{{ old('username') }}" required>
                     <small class="label">Username: Gunakan huruf, angka tanpa spasi</small>
                     @if($errors->has('username'))
                     <span class="help-block">
