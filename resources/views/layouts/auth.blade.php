@@ -13,7 +13,6 @@
     <link rel="apple-touch-icon" href="{{ asset('asset-landing/img/main/sanedu-touch.png')}}"/>
     
     <link rel="stylesheet" type="text/css" href="{{ asset('asset-sanone/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('asset-sanone/css/fontawesome-all.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset-sanone/css/iofrm-style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('asset-sanone/css/iofrm-theme4.css') }}">
 </head>

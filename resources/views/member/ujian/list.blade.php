@@ -116,10 +116,10 @@ Contoh Soal
                         <div class="col-md-6 text-ellipsis">
                             {{ $data->mataPelajaran->nama }} <br>
                         </div>
-                        <div class="col-md-6 text-ellipsis text-right">
+                        <div class="col-md-6 text-ellipsis text-md-right text-sm-left">
                             SOAL: {{ $data->jumlah_soal }}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 ellipsis-2">
                             {{ $data->tingkatSekolah->nama . ": " . $data->judul }}
                         </div>
                     </div>

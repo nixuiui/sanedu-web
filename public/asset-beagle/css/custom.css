@@ -14,6 +14,10 @@ select.input-sm, .input-sm { height: 36px; }
 @media (min-width: 768px) {
     .nosoal { width: 200px; }
 }
+.ellipsis-2 {   display: block; display: -webkit-box; max-width: 100%; height: 26px; margin: 0 auto;
+                font-size: 14px; line-height: 1; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+                overflow: hidden; text-overflow: ellipsis; 
+}
 .btn-soal-group { width: 100%; display: table; width: 100%; table-layout: fixed; border-collapse: separate;}
 .btn-soal { width: 35px; height: 35px; display: table-cell; font-weight: 400; padding: 0; margin-right: 5px; margin-bottom:  5px;}
 .btn-soal .flex { width: 100%; height: 100%; display: flex; align-items: center; }
@@ -22,6 +26,11 @@ select.input-sm, .input-sm { height: 36px; }
 .btn-select.btn-filled { background: #dea604; border-color: #dea604; }
 .font-soal { font-size: 12px; }
 * .btn-space:last-child { margin-right: 0; }
+
+@media (min-width:576px){.text-sm-left{text-align:left!important}.text-sm-right{text-align:right!important}.text-sm-center{text-align:center!important}}
+@media (min-width:768px){.text-md-left{text-align:left!important}.text-md-right{text-align:right!important}.text-md-center{text-align:center!important}}
+@media (min-width:992px){.text-lg-left{text-align:left!important}.text-lg-right{text-align:right!important}.text-lg-center{text-align:center!important}}
+@media (min-width:1200px){.text-xl-left{text-align:left!important}.text-xl-right{text-align:right!important}.text-xl-center{text-align:center!important}}
 
 .no-clickable { pointer-events: none; }
 .clickable-row { cursor: pointer; }
