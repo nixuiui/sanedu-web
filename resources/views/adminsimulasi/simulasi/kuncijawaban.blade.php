@@ -130,18 +130,34 @@ Kunci Jawaban Simulasi
                     </tr>
                     <tr>
                         <th width="20px">NO</th>
+                        <th width="80px">SOAL</th>
                         <th colspan="5">Jumlah Benar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($kunciJawaban as $data)
+                    @foreach($kunciJawaban as $key => $data)
                     <?php
                     $percent = $data->jumlah_benar == 0 ? 0 : (($data->jumlah_benar/$kunciJawaban->max("jumlah_benar")) * 100);
+                    $classKriteria = null;
+                    if($data->kriteria == 'mudah') {
+                        $classKriteria = 'primary';
+                    }
+                    else if($data->kriteria == 'sedang') {
+                        $classKriteria = 'warning';
+                    }
+                    else {
+                        $classKriteria = 'danger';
+                    }
                     ?>
                     <tr>
+                        <td>{{ $key+1 }}</td>
                         <td>{{ $data->no }}</td>
-                        <td colspan="5">
-                            <span class="bar-soal {{ $data->kriteria }}" data-percent="{{ $percent }}%">{{ $data->jumlah_benar }}</span>
+                        <td class="milestone" colspan="5">
+                            <span class="completed">{{ $data->kriteria }}</span>
+                            <span class="version">{{ $data->jumlah_benar }}</span>
+                            <div class="progress">
+                                <div style="width: {{ $percent }}%" class="progress-bar progress-bar-{{ $classKriteria }}"></div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
