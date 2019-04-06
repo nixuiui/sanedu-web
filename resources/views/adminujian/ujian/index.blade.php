@@ -11,27 +11,27 @@ Ujian
                 <table id="datatables" class="table table-striped">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Judul Soal</th>
-                            <th>Jenis Ujian</th>
-                            <th>Jumlah Soal</th>
-                            <th>Harga</th>
-                            <th>Dibeli Oleh</th>
-                            <th>Attempt</th>
-                            <th>Publish</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Judul Soal</th>
+                            <th class="text-center">Jenis Ujian</th>
+                            <th class="text-center">Jumlah Soal</th>
+                            <th class="text-center">Harga</th>
+                            <th class="text-center">Peserta</th>
+                            <th class="text-center">Pengerjaan</th>
+                            <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th>Judul Soal</th>
-                            <th>Kategori Soal</th>
-                            <th>Jumlah Soal</th>
-                            <th>Harga</th>
-                            <th>Dibeli Oleh</th>
-                            <th>Attempt</th>
-                            <th>Publish</th>
+                            <th class="text-center"></th>
+                            <th class="text-center">Judul Soal</th>
+                            <th class="text-center">Kategori Soal</th>
+                            <th class="text-center">Jumlah Soal</th>
+                            <th class="text-center">Harga</th>
+                            <th class="text-center">Peserta</th>
+                            <th class="text-center">Pengerjaan</th>
+                            <th class="text-center">Publish</th>
                             <th class="text-right">Aksi</th>
                         </tr>
                     </tfoot>
@@ -44,14 +44,14 @@ Ujian
                             <td>{{ $val->jumlah_soal }} soal</td>
                             <td>{{ formatUang($val->harga) }}</td>
                             @if($val->attempt->count() > 0)
-                            <td><a href="{{ route('admin.ujian.soal.peserta', $val->id) }}">{{ $val->diBeliOleh->count() . " member" }}</a></td>
+                            <td class="text-center"><a href="{{ route('admin.ujian.soal.peserta', $val->id) }}">{{ $val->diBeliOleh->count() . " peserta" }}</a></td>
                             @else
-                            <td>-</td>
+                            <td class="text-center">-</td>
                             @endif
                             @if($val->attempt->count() > 0)
-                            <td><a href="{{ route('admin.ujian.soal.history', $val->id) }}">{{ $val->attempt->count() . "x" }}</a></td>
+                            <td class="text-center"><a href="{{ route('admin.ujian.soal.history', $val->id) }}">{{ $val->attempt->count() }}</a></td>
                             @else
-                            <td>-</td>
+                            <td class="text-center">-</td>
                             @endif
                             <td>{{ $val->is_published ? "Published" : "Draft" }}</td>
                             <td class="text-right">

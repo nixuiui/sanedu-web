@@ -28,7 +28,6 @@ Kelola Ujian
             </div>
         </div>
         <div class="col-md-6">
-            <a href="{{ route('admin.ujian.soal.view', $ujian->id) }}" target="_blank" class="btn btn-md btn-primary btn-rounded pull-right"><i class="mdi mdi-eye mr-3"></i>Review Soal</a>
         </div>
     </div>
 </div>
@@ -41,6 +40,7 @@ Kelola Ujian
             <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-default btn-md btn-icon btn-hspace btn-rounded"><i class="mdi mdi-plus"></i>Tambah Soal</a>
             @endif
         @endif
+        <a href="{{ route('admin.ujian.soal.view', $ujian->id) }}" target="_blank" class="btn btn-md btn-primary btn-rounded pull-right"><i class="mdi mdi-eye mr-3"></i>Review Soal</a>
     </div>
 </div>
 @if($ujian->is_grouped)
