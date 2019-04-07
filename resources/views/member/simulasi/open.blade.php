@@ -146,7 +146,7 @@ Simulasi - {{ $simulasi->judul }}
                         @endif
                     </div>
                 </div>
-                @if($soalOnline)
+                @if($soalOnline && ($soalOnline->ujian != null))
                 <div class="panel-section">
                     <div class="row">
                     @if($soalOnline->ujian->is_grouped)
