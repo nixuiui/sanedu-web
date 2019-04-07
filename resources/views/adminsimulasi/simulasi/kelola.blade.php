@@ -237,7 +237,7 @@
                 </div>
                 @endif
 
-                @if($simulasi->in_offline)
+                @if($simulasi->is_offline)
                 <div class="panel panel-default panel-table">
                     <div class="panel-body table-responsive">
                         <table class="table table-striped">
@@ -269,8 +269,14 @@
                                 <tr>
                                     <td><a href="{{ route('adminsimulasi.simulasi.kelola.ruang', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}"><strong>{{ $data->nama }}</strong></a></td>
                                     <td>{{ $data->ruangMapel->nama }}</td>
-                                    <td>{{ $data->jumlah_peserta }}/{{ $data->kapasitas }} Orang</td>
-                                    <td>{{ $data->pengawas->count() }}</td>
+                                    <td class="milestone">
+                                        <span class="completed">{{ $data->jumlah_peserta }}/{{ $data->kapasitas }}</span> 
+                                        <span class="version">-</span> 
+                                        <div class="progress">
+                                                <div style="width: {{ ($data->jumlah_peserta/$data->kapasitas)*100 }}%" class="progress-bar progress-bar-primary"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ $data->pengawas->count() }}</td>
                                     <td>{{ $data->alamat }}</td>
                                     <td class="text-right">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.ruang.form', ['id' => $simulasi->id, 'idRuang' => $data->id]) }}" class="btn btn-xs btn-success"
@@ -314,7 +320,13 @@
                                 @if($simulasi->jadwalOnline->count() > 0) @foreach($simulasi->jadwalOnline as $jadwal)
                                 <tr>
                                     <td><a href="{{ route('adminsimulasi.simulasi.kelola.jadwal', ['simulasi' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}">{{ hariTanggal($jadwal->tanggal) }}</a></td>
-                                    <td>{{ $jadwal->peserta->count() . "/" . $jadwal->kapasitas }}</td>
+                                    <td class="milestone">
+                                        <span class="completed">{{ $jadwal->peserta->count() . "/" . $jadwal->kapasitas }}</span> 
+                                        <span class="version">-</span> 
+                                        <div class="progress">
+                                                <div style="width: {{ ($jadwal->peserta->count()/$jadwal->kapasitas)*100 }}%" class="progress-bar progress-bar-primary"></div>
+                                        </div>
+                                    </td>
                                     <td class="text-right">
                                         <a href="{{ route('adminsimulasi.simulasi.kelola.jadwal.form', ['id' => $simulasi->id, 'idJadwal' => $jadwal->id]) }}" class="btn btn-xs btn-success"
                                             title="Edit Agenda"><i class="mdi mdi-edit"></i></a>
