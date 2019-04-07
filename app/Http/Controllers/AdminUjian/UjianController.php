@@ -205,6 +205,7 @@ class UjianController extends Controller
 
         if($idSoal != null) {
             $soal = Soal::find($idSoal);
+            $groupId = $soal->id_ujian_group;
         }
 
         $soal->soal = $input->soal;
