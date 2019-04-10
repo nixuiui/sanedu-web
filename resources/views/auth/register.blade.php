@@ -47,6 +47,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 @endif
                 
                 <hr>
+                <div class="mb-3"><strong>INFORMASI PRIBADI</strong></div>
                 <div class="form-group">
                     <label for="">Nama Lengkap</label>
                     <input type="text" class="form-control" name="nama" placeholder="Tulis nama Anda" autofocus value="{{ old('nama') }}" required>
@@ -107,6 +108,8 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     @endif
                 </div>
 
+                <hr>
+                <div class="mb-3"><strong>SEKOLAH ANDA</strong></div>
                 <div class="form-group">
                     <label for="">Provinsi</label>
                     <select class="form-control" id="inputProvinsi" name="id_provinsi" required">
@@ -156,7 +159,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 </div>
                 
                 <hr>
-                
+                <div class="mb-3"><strong>INFORMASI AKUN</strong></div>
                 <p>
                     Username dan Password digunakan untuk melakukan login ke Sanedu. Silahkan diingat untuk username dan password.
                 </p>

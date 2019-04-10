@@ -134,7 +134,8 @@ class RegisterController extends Controller
             });
             return redirect()->route('auth.login')->with([
                 'success' => '<strong>Berhasil Daftar!</strong> Silahkan cek email Anda dan lakukan konfirmasi email.
-                                Belum dapat email? <a href="'.route("email.verification.resend", ["username" => $user->username]).'">Kirim Ulang.</a>'
+                                Belum dapat email? <a href="'.route("email.verification.resend", ["username" => $user->username]).'">Kirim Ulang.</a><br>
+                                Silahkan Login menggunakan <strong>Username</strong> dan <strong>Password</strong>'
             ]);
         }
         return redirect()->back()->with('danger', 'Maaf pendaftaran Anda gagal, silahkan ulang kembali.');
