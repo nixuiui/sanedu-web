@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/gen', 'Guest\HomeController@generateAttemptGroup');
+
 Route::get('/',             'Guest\HomeController@index')->name('guest.home');
 Route::get('/test',         'Guest\HomeController@test');
 Route::get('/phpinfo',      'Guest\HomeController@phpinfo');

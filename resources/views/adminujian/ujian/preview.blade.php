@@ -95,7 +95,7 @@ Preview - {{ $attempt->ujian->judul }}
                     </thead>
                     <tbody>
                         @if(!$ujian->is_grouped)
-                            @foreach($soal as $i => $d)
+                            @foreach($jawaban as $i => $d)
                             <tr>
                                 <td class="text-center">{{ $i+1 }}.</td>
                                 <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
@@ -107,11 +107,11 @@ Preview - {{ $attempt->ujian->judul }}
                             </tr>
                             @endforeach
                         @else
-                            @foreach($ujian->group as $group)
+                            @foreach($jawaban as $k => $group)
                                 <tr>
-                                    <th colspan="7">{{ $group->nama }}</th>
+                                <th colspan="7">{{ $jawaban[$k]['nama'] }}</th>
                                 </tr>
-                                @foreach($soal as $i => $d)
+                                @foreach($group['jawaban'] as $i => $d)
                                 <tr>
                                     <td class="text-center">{{ $i+1 }}.</td>
                                     <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>

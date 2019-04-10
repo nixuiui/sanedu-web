@@ -252,7 +252,7 @@ class UjianController extends Controller
 
         $attempt = Attempt::findOrFail($idAttempt);
         $idUjian = $attempt->id_ujian;
-        $soal = collect(DB::select("
+        $jawaban = collect(DB::select("
                 SELECT
                 soal.id,
                 soal.soal,
@@ -275,9 +275,43 @@ class UjianController extends Controller
                 soal.deleted_at IS NULL &&
                 correct.deleted_at IS NULL
                 ORDER BY soal.created_at ASC"));
+        
+        if($ujian->is_grouped) {
+            $jawaban = $attempt->group->map(function($d) use ($idUjian, $idAttempt){
+                $idUjianGroup = $d->id_ujian_group;
+                $jawaban = collect(DB::select("
+                            SELECT
+                            soal.id,
+                            soal.soal,
+                            soal.a,
+                            soal.b,
+                            soal.c,
+                            soal.d,
+                            soal.e,
+                            soal.jawaban as kunci,
+                            correct.jawaban,
+                            correct.is_correct
+                            FROM
+                            tbl_attempt_correction as correct
+                            RIGHT JOIN tbl_soal as soal ON
+                            correct.id_soal=soal.id AND
+                            soal.id_ujian='" . $idUjian. "' AND
+                            correct.id_attempt='" . $idAttempt . "'
+                            WHERE
+                            soal.id_ujian='" . $idUjian . "' &&
+                            soal.id_ujian_group='" . $idUjianGroup . "' &&
+                            soal.deleted_at IS NULL &&
+                            correct.deleted_at IS NULL
+                            ORDER BY soal.created_at ASC"));
+                return [
+                    'nama' => $d->ujianGroup->nama,
+                    'jawaban' => $jawaban
+                ];
+            });
+        }
         return view('adminujian.ujian.preview')->with([
             'attempt' => $attempt,
-            'soal' => $soal,
+            'jawaban' => $jawaban,
             'ujian' => $ujian
         ]);
     }

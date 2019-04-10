@@ -117,6 +117,7 @@ class AttemptController extends Controller {
                 $correction = new AttemptCorrection;
                 $correction->id = Uuid::generate();
                 $correction->id_attempt = $input->idAttempt;
+                if($attempt->ujian->is_grouped)
                 $correction->jawaban = $input->jawaban;
                 $correction->id_soal = $input->idSoal;
                 if($input->jawaban == $soal->jawaban)

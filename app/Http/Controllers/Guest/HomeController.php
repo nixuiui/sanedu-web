@@ -7,9 +7,31 @@ use Auth;
 use Uuid;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Attempt;
+use App\Models\AttemptGroup;
+use App\Models\AttemptCorrection;
 
 class HomeController extends Controller
 {
+
+    public function generateAttemptGroup(Request $input) {
+        $attemptGroup = AttemptGroup::get();
+        foreach($attemptGroup as $group) {
+            $attempt = Attempt::find($group->id_attempt);
+            foreach($attempt->correction as $k => $correction) {
+                // echo $k . "<br>";
+                // echo $correction->soal . "<br>";
+                if($correction->soal) {
+                    if($correction->soal->id_ujian_group != null){
+                        if($correction->soal->ujianGroup->id == $group->id_ujian_group) {
+                            $correction->id_attempt_group = $group->id;
+                            $correction->save();
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public function index() {
         if(Auth::check()) {
