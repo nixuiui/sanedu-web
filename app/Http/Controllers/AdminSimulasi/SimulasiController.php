@@ -499,12 +499,12 @@ class SimulasiController extends Controller
         $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where('id_mapel', $input->id_mapel)->delete();
         $batas = $input->jumlahSoal < count($input->jawaban) ? $input->jumlahSoal : count($input->jawaban);
         for($i = 0; $i < $batas; $i++) {
-            $kunci = new SimulasiKunciJawaban;
-            $kunci->id = Uuid::generate();
+            $kunci              = new SimulasiKunciJawaban;
+            $kunci->id          = Uuid::generate();
             $kunci->id_simulasi = $simulasi->id;
-            $kunci->id_mapel = $input->id_mapel;
-            $kunci->no = $i+1;
-            $kunci->jawaban = $input->jawaban[$i];
+            $kunci->id_mapel    = $input->id_mapel;
+            $kunci->no          = $i+1;
+            $kunci->jawaban     = $input->jawaban[$i];
             $kunci->save();
         }
         return back()->with("success", "Berhasil Menyimpan Kunci Jawaban");
@@ -528,7 +528,8 @@ class SimulasiController extends Controller
             'id_mapel'  => 'required|exists:set_pustaka,id',
             'id_ujian'  => 'required|exists:tbl_ujian,id',
         ]);
-        $simulasi = Simulasi::findOrFail($id);
+        $simulasi   = Simulasi::findOrFail($id);
+        $ujian      = Ujian::findOrFail($input->id_ujian);
         $simulasiUjian = SimulasiUjian::where("id_simulasi", $simulasi->id)
                                         ->where("id_mapel", $input->id_mapel)
                                         ->first();
@@ -538,8 +539,37 @@ class SimulasiController extends Controller
             $simulasiUjian->id_simulasi = $simulasi->id;
             $simulasiUjian->id_mapel = $input->id_mapel;
         }
-        $simulasiUjian->id_ujian = $input->id_ujian;
+        $simulasiUjian->id_ujian = $ujian->id;
         $simulasiUjian->save();
+        
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where('id_mapel', $input->id_mapel)->delete();
+        if(!$ujian->is_grouped) {
+            foreach($ujian->soal as $i => $soal) {
+                $kunci              = new SimulasiKunciJawaban;
+                $kunci->id          = Uuid::generate();
+                $kunci->id_simulasi = $simulasi->id;
+                $kunci->id_mapel    = $input->id_mapel;
+                $kunci->no          = $i+1;
+                $kunci->jawaban     = $soal->jawaban;
+                $kunci->save();
+            }
+        }
+        else {
+            $no = 1;
+            foreach($ujian->group as $group) {
+                foreach($group->soal as $soal) {
+                    $kunci              = new SimulasiKunciJawaban;
+                    $kunci->id          = Uuid::generate();
+                    $kunci->id_simulasi = $simulasi->id;
+                    $kunci->id_mapel    = $input->id_mapel;
+                    $kunci->no          = $no;
+                    $kunci->jawaban     = $soal->jawaban;
+                    $kunci->save();
+                    $no++;
+                }
+            }
+        }
+
         return back()->with("success", "Berhasil menautkan soal");
     }
 

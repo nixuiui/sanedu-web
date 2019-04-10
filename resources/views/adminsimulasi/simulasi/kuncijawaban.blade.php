@@ -18,6 +18,29 @@ Kunci Jawaban Simulasi
     </ul>
 </div>
 @if(isset($ujianSelected))
+<div class="alert alert-warning alert-icon alert-icon-border alert-dismissible" role="alert">
+    <div class="icon"><span class="mdi mdi-mail-send"></span></div>
+    <div class="message">
+        <p>
+            Perhatikan jumlah <strong>Soal Online</strong> dan <strong>Kunci Jawaban Soal Offline</strong> yang diinput HARUS SAMA
+        </p>
+    </div>
+</div>
+
+    @if($ujianSelected->id_ujian)
+        @if($ujianSelected->ujian->soal->count() != $simulasi->kunciJawaban->where('id_mapel', $ujianSelected->id_mapel)->count())
+        <div class="alert alert-danger alert-icon alert-icon-border alert-dismissible" role="alert">
+            <div class="icon"><span class="mdi mdi-mail-send"></span></div>
+            <div class="message">
+                <p>
+                    Mohon maaf tolong cocokan kunci jawaban untuk soal offline dan online. <br>
+                    Saat ini jumlah Soal Online <strong>{{ $ujianSelected->ujian->soal->count() }} soal</strong> dan jumlah Kunci Jawaban untuk Soal Offline <strong>{{ $simulasi->kunciJawaban->where('id_mapel', $ujianSelected->id_mapel)->count() }} soal</strong>
+                </p>
+            </div>
+        </div>
+        @endif
+    @endif
+
 <div class="row">
     <div class="col-md-4">
         <div class="panel panel-default">
@@ -57,10 +80,10 @@ Kunci Jawaban Simulasi
                     <select class="form-control input-sm select2" name="id_ujian">
                         <option value="">-- Pilih Soal Untuk Ditautkan --</option>
                         @foreach($ujian as $data)
-                        <option value="{{ $data->id }}" {{ $ujianSelected != null ? ($data->id == $ujianSelected->id_ujian ? "selected" : "") : "" }}>{{ strtoupper($data->judul) }}</option>
+                        <option value="{{ $data->id }}" {{ $ujianSelected != null ? ($data->id == $ujianSelected->id_ujian ? "selected" : "") : "" }}>{{ strtoupper($data->judul) }} [<strong>{{ $data->soal->count() }} soal</strong>]</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="btn btn-lg btn-default btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK {{ $ujianSelected->mapel->nama }}</button>
+                    <button type="submit" class="btn btn-md btn-primary btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK {{ $ujianSelected->mapel->nama }}</button>
                 </form>
             </div>
         </div>
@@ -95,7 +118,7 @@ Kunci Jawaban Simulasi
                     <tbody>
                         <tr v-if="jumlahSoal > 0">
                             <td colspan="7">
-                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN</button>
+                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN SOAL OFFLINE</button>
                                 <button type="button" class="btn btn-md btn-primary btn-block disabled" v-if="!isFinish || !isMounted">Loading</button>
                             </td>
                         </tr>
@@ -110,7 +133,7 @@ Kunci Jawaban Simulasi
                         </tr>
                         <tr v-if="jumlahSoal > 0">
                             <td colspan="7">
-                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN</button>
+                                <button type="submit" class="btn btn-md btn-primary btn-block" v-if="isFinish && isMounted">SIMPAN KUNCI JAWABAN SOAL OFFLINE</button>
                                 <button type="button" class="btn btn-md btn-primary btn-block disabled" v-if="!isFinish || !isMounted">Loading</button>
                             </td>
                         </tr>
