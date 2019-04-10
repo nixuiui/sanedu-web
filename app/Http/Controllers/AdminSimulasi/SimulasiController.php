@@ -281,28 +281,68 @@ class SimulasiController extends Controller
             $attempt = Attempt::where('id_peserta_simulasi', $data->id)
                                 ->orderBy('jumlah_benar', 'desc')
                                 ->first();
-            $soal = Soal::select(['id', 'created_at'])
-                            ->where('id_ujian', $attempt->id_ujian)
-                            ->orderBy('created_at', 'asc')
-                            ->get();
-            foreach($soal as $key => $s) {
-                $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
-                                                        ->where('id_soal', $s->id)
+            $ujian = Ujian::findOrFail($attempt->id_ujian);
+            
+            if(!$ujian->is_grouped) {
+                $soal = $ujian->soal->map(function($data) {
+                    return [
+                        'id' => $data->id
+                    ];
+                });
+                foreach($soal as $key => $s) {
+                    $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
+                                                            ->where('id_soal', $s->id)
+                                                            ->first();
+                    $soalOffline = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                                        ->where("id_mapel", $data->id_mapel)
+                                                        ->where('no', $key+1)
                                                         ->first();
-                $soalOffline = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
-                                                    ->where("id_mapel", $data->id_mapel)
-                                                    ->where('no', $key+1)
-                                                    ->first();
-                $koreksi = new SimulasiKoreksi;
-                $koreksi->id = Uuid::generate();
-                $koreksi->id_simulasi = $simulasi->id;
-                $koreksi->id_peserta = $data->id;
-                $koreksi->id_soal = $soalOffline->id;
-                $koreksi->no_soal = $key + 1;
-                $koreksi->kunci_jawaban = $soalOffline->jawaban;
-                $koreksi->jawaban = $attemptCorrection == null ? null : $attemptCorrection->jawaban;
-                $koreksi->is_correct = $attemptCorrection == null ? false : $attemptCorrection->is_correct;
-                $koreksi->save();
+                    $koreksi = new SimulasiKoreksi;
+                    $koreksi->id = Uuid::generate();
+                    $koreksi->id_simulasi = $simulasi->id;
+                    $koreksi->id_peserta = $data->id;
+                    $koreksi->id_soal = $soalOffline->id;
+                    $koreksi->no_soal = $key + 1;
+                    $koreksi->kunci_jawaban = $soalOffline->jawaban;
+                    $koreksi->jawaban = $attemptCorrection == null ? null : $attemptCorrection->jawaban;
+                    $koreksi->is_correct = $attemptCorrection == null ? false : $attemptCorrection->is_correct;
+                    $koreksi->save();
+                }
+            }
+            else {
+                $no = 1;
+                $group = $ujian->group->map(function($data) {
+                    return [
+                        'id' => $data->id,
+                        'soal' => $data->soal->map(function($val){
+                            return [
+                                'id' => $val->id
+                            ];
+                        })
+                    ];
+                });
+                foreach($ujian->group as $g) {
+                    foreach($g->soal as $s) {
+                        $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
+                                                                ->where('id_soal', $s->id)
+                                                                ->first();
+                        $soalOffline = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)
+                                                            ->where("id_mapel", $data->id_mapel)
+                                                            ->where('no', $no)
+                                                            ->first();
+                        $koreksi = new SimulasiKoreksi;
+                        $koreksi->id = Uuid::generate();
+                        $koreksi->id_simulasi = $simulasi->id;
+                        $koreksi->id_peserta = $data->id;
+                        $koreksi->id_soal = $soalOffline->id;
+                        $koreksi->no_soal = $no;
+                        $koreksi->kunci_jawaban = $soalOffline->jawaban;
+                        $koreksi->jawaban = $attemptCorrection == null ? null : $attemptCorrection->jawaban;
+                        $koreksi->is_correct = $attemptCorrection == null ? false : $attemptCorrection->is_correct;
+                        $koreksi->save();
+                        $no++;
+                    }
+                }
             }
             $data->is_corrected = 1;
             $data->save();
