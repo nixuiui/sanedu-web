@@ -132,7 +132,23 @@ function angkaUrut($angka){
 }
 
 function durasi($seconds){
-    $durasi = floor($seconds/60) > 0 ? floor($seconds/60) . " menit " : "";
-    $durasi .= $seconds%60 > 0 ? ($seconds%60) . " detik" : "";
+    $durasi = "";
+    $jam = null;
+    $menit = null;
+    if(floor($seconds/3600)) {
+        $durasi .= floor($seconds/3600) . " jam ";
+        $jam = floor($seconds/3600);
+    }
+    if($jam != null) {
+        $seconds = $seconds - ($jam*3600);
+        if(floor($seconds/60)) {
+            $durasi .= floor($seconds/60) . " menit ";
+            $menit = floor($seconds/60);
+        }
+    }
+    if($menit != null) {
+        $seconds = $seconds - ($menit*60);
+        $durasi .= $seconds . " detik ";
+    }
     return $durasi;
 }
