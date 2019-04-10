@@ -30,9 +30,6 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <button type="submit" class="ibtn">Kirim</button>
                 </div>
             </form>
-            <div class="other-links">
-                <span>Sudah punya akun?</span><a href="{{ route('auth.login') }}">Masuk</a>
-            </div>
             @else
             <form action="{{ route('auth.register.post') }}" method="POST">
                 @csrf
@@ -191,6 +188,9 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 </div>
             </form>
             @endif
+            <div class="other-links">
+                <span>Sudah punya akun?</span><a href="{{ route('auth.login') }}">Masuk</a>
+            </div>
         </div>
     </div>
 </div>
