@@ -85,6 +85,7 @@ Kunci Jawaban Simulasi
                     </select>
                     <button type="submit" class="btn btn-md btn-primary btn-block mt-3" v-if="isFinish && isMounted">TAUTKAN SOAL UNTUK {{ $ujianSelected->mapel->nama }}</button>
                 </form>
+                <div class="text-warning">Kunci jawaban untuk offline akan otomatis diganti sesuai dengan kunci jawaban soal yang dipilih</div>
             </div>
         </div>
     </div>
