@@ -44,7 +44,7 @@ Preview - {{ $attempt->ujian->judul }}
                     @endif
                     <tr>
                         <th>Durasi</th>
-                        <td>{{ $attempt->ujian->durasi }} menit</td>
+                        <td>{{ durasi($attempt->ujian->durasi) }}</td>
                     </tr>
                     <tr>
                         <th>Jumlah Soal</th>
@@ -52,7 +52,7 @@ Preview - {{ $attempt->ujian->judul }}
                     </tr>
                     <tr>
                         <th>Nilai</th>
-                        <td class="text-success text-bold">{{ round(($attempt->jumlah_benar / $attempt->ujian->soal->count())*100, 2) }}</td>
+                        <td class="text-success text-bold">{{ round($attempt->nilai, 2) }}</td>
                     </tr>
                     <tr>
                         <th>Pembahasan</th>
@@ -94,17 +94,36 @@ Preview - {{ $attempt->ujian->judul }}
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($soal as $i => $d)
-                        <tr>
-                            <td class="text-center">{{ $i+1 }}.</td>
-                            <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'b' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'b' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'b' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'c' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'c' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'c' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'd' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'd' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'd' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'e' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'e' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'e' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center text-uppercase text-bold">{{ $d->kunci }}</td>
-                        </tr>
-                        @endforeach
+                        @if(!$ujian->is_grouped)
+                            @foreach($soal as $i => $d)
+                            <tr>
+                                <td class="text-center">{{ $i+1 }}.</td>
+                                <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'b' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'b' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'b' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'c' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'c' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'c' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'd' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'd' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'd' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'e' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'e' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'e' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                <td class="text-center text-uppercase text-bold">{{ $d->kunci }}</td>
+                            </tr>
+                            @endforeach
+                        @else
+                            @foreach($ujian->group as $group)
+                                <tr>
+                                    <th colspan="7">{{ $group->nama }}</th>
+                                </tr>
+                                @foreach($soal as $i => $d)
+                                <tr>
+                                    <td class="text-center">{{ $i+1 }}.</td>
+                                    <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'a' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'a' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'a' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                    <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'b' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'b' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'b' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                    <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'c' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'c' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'c' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                    <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'd' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'd' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'd' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                    <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'e' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'e' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'e' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
+                                    <td class="text-center text-uppercase text-bold">{{ $d->kunci }}</td>
+                                </tr>
+                                @endforeach
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
