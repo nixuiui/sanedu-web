@@ -133,7 +133,7 @@ Contoh Soal
                     </div>
                 </div>
                 <div class="col-xs-4">
-                    <a href="{{ route('member.ujian.soal.preattempt', $data->id) }}" class="btn btn-sm btn-success pull-right">Beli Soal</a>
+                    <a href="{{ route('member.ujian.soal.preattempt', $data->id) }}" class="btn btn-sm btn-success pull-right">{{ $data->harga == 0 ? "Dapatkan Soal" : "Beli Soal" }}</a>
                 </div>
             </div>
             @else
