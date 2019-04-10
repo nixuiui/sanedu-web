@@ -117,7 +117,13 @@ class AttemptController extends Controller {
                 $correction = new AttemptCorrection;
                 $correction->id = Uuid::generate();
                 $correction->id_attempt = $input->idAttempt;
-                if($attempt->ujian->is_grouped)
+                if($attempt->ujian->is_grouped) {
+                    $soal = Soal::find($input->idSoal);
+                    $attemptGroup = AttemptGroup::where("id_attempt", $attempt->id)
+                                                    ->where("id_ujian_group", $soal->ujianGroup->id)
+                                                    ->first();
+                    $correction->id_attempt_group = $attemptGroup->id;
+                }
                 $correction->jawaban = $input->jawaban;
                 $correction->id_soal = $input->idSoal;
                 if($input->jawaban == $soal->jawaban)
