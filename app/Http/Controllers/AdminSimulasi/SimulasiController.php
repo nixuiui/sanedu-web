@@ -311,16 +311,6 @@ class SimulasiController extends Controller
             }
             else {
                 $no = 1;
-                $group = $ujian->group->map(function($data) {
-                    return [
-                        'id' => $data->id,
-                        'soal' => $data->soal->map(function($val){
-                            return [
-                                'id' => $val->id
-                            ];
-                        })
-                    ];
-                });
                 foreach($ujian->group as $g) {
                     foreach($g->soal as $s) {
                         $attemptCorrection = AttemptCorrection::where('id_attempt', $attempt->id)
