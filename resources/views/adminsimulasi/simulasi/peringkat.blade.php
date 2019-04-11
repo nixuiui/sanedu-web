@@ -81,7 +81,7 @@ Proses Penentuan Peringkat Peserta
             peringkatSoshum: function(){
                 var self = this;
                 var peserta = this.pesertaSoshum[this.indexSoshum];
-                var linkRequest = "{{ route('adminsimulasi.simulasi.kelola.generate.peringkat.proses', ['id' => ':id', 'idPeserta' => ':idPeserta']) }}?peringkat=" + (this.indexSaintek+1);
+                var linkRequest = "{{ route('adminsimulasi.simulasi.kelola.generate.peringkat.proses', ['id' => ':id', 'idPeserta' => ':idPeserta']) }}?peringkat=" + (this.indexSoshum+1);
                 linkRequest = linkRequest.replace(":id", "{{ $simulasi->id }}");
                 linkRequest = linkRequest.replace(":idPeserta", peserta.id);
                 this.prosesSoshum.push({
