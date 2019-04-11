@@ -1202,7 +1202,7 @@ class SimulasiController extends Controller
                 'nama' => $data->profil->nama,
                 'no_hp' => $data->profil->no_hp,
                 'sekolah' => $data->profil->sekolah->nama,
-                'passgrade' => $data->passgrade != null ? "Lulus di " . $data->passingGradeLolos->jurusan . " " . $data->passingGradeLolos->jurusan->universitas->nama : "Belum Lulus"
+                'passgrade' => $data->id_passing_grade_lolos != null ? "Lulus di " . $data->passingGradeLolos->jurusan . " " . $data->passingGradeLolos->jurusan->universitas->nama : "Belum Lulus"
             ];
         });
 
