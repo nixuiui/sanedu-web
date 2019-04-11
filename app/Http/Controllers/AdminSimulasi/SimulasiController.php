@@ -1194,7 +1194,7 @@ class SimulasiController extends Controller
         $peserta = $peserta->orderBy("peringkat", "ASC")->get()->map(function($data) {
             return [
                 'no_peserta' => $data->no_peserta,
-                'mode_simulasi' => $data->mode_simulais,
+                'mode_simulasi' => $data->mode_simulasi,
                 'jumlah_benar' => strval($data->jumlah_benar),
                 'jumlah_salah' => strval($data->jumlah_salah),
                 'peringkat' => strval($data->peringkat),
