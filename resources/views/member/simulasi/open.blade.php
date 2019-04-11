@@ -62,7 +62,7 @@ Simulasi - {{ $simulasi->judul }}
                 <div class="text-muted">NO PESERTA</div>
                 <div class="text-bold text-20">{{ $peserta->no_peserta }}</div>
             </div>
-            @if($peserta->nilai_akhir != null)
+            @if($peserta->is_correxted)
             <div class="panel-section text-center p-5">
                 <div class="text-bold text-20">NILAI ANDA: {{ $peserta->nilai_akhir }}</div>
             </div>
