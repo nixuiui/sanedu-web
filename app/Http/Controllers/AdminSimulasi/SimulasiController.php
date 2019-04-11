@@ -965,20 +965,25 @@ class SimulasiController extends Controller
                                             ->get();
         $nilai = 0;
         $kriteria = "";
+        $jumlahSoal = $kunciJawaban->count();
+        $mudah = 0.6;
+        $sedang = 0.8;
+        $sulit = 1;
+        $potensiNilai = (0.2*$jumlahSoal*$sulit)+(0.4*$jumlahSoal*$sedang)+(0.4*$jumlahSoal*$sulit);
         foreach($peserta->koreksi as $data) {
             if($data->is_correct) {
                 switch ($data->soal->kriteria) {
                     case 'sulit':
                         $kriteria = "sulit";
-                        $nilai += 1;
+                        $nilai += $sulit;
                         break;
                     case 'sedang':
                         $kriteria = "sedang";
-                        $nilai += 0.8;
+                        $nilai += $sedang;
                         break;
                     case 'mudah':
                         $kriteria = "mudah";
-                        $nilai += 0.6;
+                        $nilai += $mudah;
                         break;
                     default:
                         $nilai += 0;
@@ -998,7 +1003,7 @@ class SimulasiController extends Controller
         else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
             $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
         }
-        $peserta->nilai_akhir = round($nilai, 2);
+        $peserta->nilai_akhir = round(($nilai/$potensiNilai)*100, 2);
         if($peserta->save()) {
             return response()->json([
                 'success' => true,
