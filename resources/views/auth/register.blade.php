@@ -24,7 +24,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
             @if($step == 1)
             <form action="{{ route('auth.register') }}" method="GET">
                 <div class="form-group">
-                    <input class="form-control" type="email" name="email" value="{{ old('email') }}" placeholder="E-mail Address" required>
+                    <input class="form-control" type="" name="email" value="{{ old('email') }}" placeholder="E-mail Address">
                 </div>
                 <div class="form-button full-width">
                     <button type="submit" class="ibtn">Kirim</button>

@@ -158,7 +158,7 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
             Route::get('/formperaturan',            'AdminUjian\UjianController@formPeraturan')->name('admin.ujian.form.peraturan');
             Route::post('/formperaturan',           'AdminUjian\UjianController@savePeraturan')->name('admin.ujian.save.peraturan');
             Route::get('/formsoal/{idSoal?}',       'AdminUjian\UjianController@formSoal')->name('admin.ujian.soal.form.soal');
-            Route::post('/tambahsoal/{idSoal?}',    'AdminUjian\UjianController@prosesTambahSoal')->name('admin.ujian.soal.form.soal.post');
+            Route::post('/tambahsoal/{idSoal?}',    'AdminUjian\UjianController@prosesFormSoal')->name('admin.ujian.soal.form.soal.post');
             Route::get('/deletesoal/{idSoal}',      'AdminUjian\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
             Route::get('/lihatsoal/{idSoal}',       'AdminUjian\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
             Route::get('/formkelompoksoal/{idKelompokSoal?}',    'AdminUjian\UjianController@formKelompokSoal')->name('admin.ujian.soal.form.kelompok.soal.get');

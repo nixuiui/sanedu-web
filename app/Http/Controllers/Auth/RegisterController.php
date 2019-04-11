@@ -84,7 +84,7 @@ class RegisterController extends Controller
         }
         else {
             if($user != null) {
-                return view('auth.register')->with(["step" => 1, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
+                return back()->with(["step" => 1, "danger" => "Maaf email yang Anda gunakan sudah terdaftar. Silahkan coba email lain!"]);
             }
         }
         return view('auth.register')->with('step', 2)->with([

@@ -29,12 +29,12 @@
                     </div>
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">HARGA</div>
-                        <div class="text-success text-20 text-bold">{{ formatUang($ujian->harga) }}</div>
+                        <div class="text-success text-20 text-bold">{{ $ujian->harga > 0 ? formatUang($ujian->harga) : "Gratis" }}</div>
                     </div>
                     <div class="col-md-2 col-xs-6 mb-3">
                         <div class="text-muted">KETERANGAN</div>
                         <div>
-                            @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null) Belum dibeli @else Sudah dibeli @endif
+                            @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null) Belum dimiliki @else Sudah dimiliki @endif
                         </div>
                     </div>
                 </div>
@@ -81,11 +81,13 @@
                 @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
                 <span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block beli-ujian"
                     data-harga="{{ formatUang($ujian->harga) }}" data-hargaori="{{ $ujian->harga }}" data-saldo="{{ Auth::user()->saldo }}"
-                    data-judul="{{ $ujian->judul }}">Beli Ujian</span> @else @if($attempt)
-                <a href="{{ route('member.ujian.soal.open', $attempt->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary">Lanjut Ujian</a>                @else
+                    data-judul="{{ $ujian->judul }}">{{ $ujian->harga > 0 ? "Beli Soal" : "Dapatkan Soal"}}</span> @else @if($attempt)
+                <a href="{{ route('member.ujian.soal.open', $attempt->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary">Lanjut Ujian</a>                
+                @else
                 <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary mulai-ujian">Mulai Ujian</a>                @endif @endif
             </div>
         </div>
+        @if($history->count() > 0)
         <div class="panel panel-default panel-table">
             <div class="panel-heading">Riwayat Pengerjaan</div>
             <div class="panel-body table-responsive">
@@ -119,6 +121,7 @@
                 </table>
             </div>
         </div>
+        @endif
     </div>
 </div>
 @endsection

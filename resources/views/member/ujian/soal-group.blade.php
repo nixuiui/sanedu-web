@@ -64,11 +64,11 @@
                     </table>
                 </div>
             </div>
-            <button id="btnNextGroup" @click="nextGroup" class="btn btn-primary" v-if="(indexGroup+1) < groups.length">Lanjutkan ke Ujian @{{ groups[indexGroup+1].nama }}</button>
+            <button id="btnNextGroup" class="btn btn-primary next-group" v-if="(indexGroup+1) < groups.length">Lanjutkan ke Ujian @{{ groups[indexGroup+1].nama }}</button>
             @if(isset($simulasi))
-            <a href="{{ route('member.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-success" v-if="(indexGroup+1) >= groups.length">SELESAIKAN SEKARANG</a>
+            <a href="{{ route('member.simulasi.ujian.finish', ['id' => $simulasi->id, 'idAttempt' => $attempt->id])}}" class="btn btn-success selesai-ujian" v-if="(indexGroup+1) >= groups.length">SELESAIKAN SEKARANG</a>
             @else
-            <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success" v-if="(indexGroup+1) >= groups.length">SELESAIKAN SEKARANG</a>
+            <a href="{{ route('member.ujian.soal.finish', $attempt->id)}}" class="btn btn-success selesai-ujian" v-if="(indexGroup+1) >= groups.length">SELESAIKAN SEKARANG</a>
             @endif
         </div>
     </div>
@@ -116,12 +116,10 @@
                     </button>
                 </div>
             </div>
+            <div class="text-sm-left text-md-center">
+                <button id="btnNextGroup" class="btn btn-default btn-rounded next-group" style="margin-top: 10px; padding: 0 15px;" v-if="(group.id_attempt_group == groups[indexGroup].id_attempt_group) && ((indexGroup+1) < groups.length)">Langsung ke Soal Berikutnya</button>
+            </div>
         </div>
-        {{-- <div class="btn-soal-group" v-for="(baris, index) in jumlahBarisNomor" :key="index">
-            <button href="#" class="btn btn-sm btn-soal" v-for="(soal, no) in (index+1 < jumlahBarisNomor ? 5 : (jumlahSoal%5 == 0 ? 5 : jumlahSoal%5))" v-bind:class="[{'btn-select': ((index*5)+no == noSoal-1) && !isFinish}, soals[(index*5)+no].jawaban == null ? 'btn-default' : 'btn-warning btn-filled']" v-bind:class="">
-                <span class="flex" @click="changeSoal((index*5)+no)"><span>@{{ (index*5)+no+1 }}</span></span>
-            </button>
-        </div> --}}
     </div>
 </div>
 @endsection
@@ -235,7 +233,6 @@ var app = new Vue({
             else {
                 this.changeSoal(this.indexSoal+1);
             }
-            console.log(this.jumlahSoal);
         },
         hapusJawaban: function() {
             $("#btnHapus").attr("disabled", true);
@@ -376,6 +373,23 @@ $(document).on("click", ".selesai-ujian", function(e) {
     }).then((result) => {
         if (result.value) {
             document.location.href = link;
+        }
+    });
+});
+$(document).on("click", ".next-group", function(e) {
+    e.preventDefault();
+    swal({
+        title: "Ingin ke Soal Berikutnya?",
+        text: "Anda yakin ingin melanjutkan ke soal berikutnya? Anda tidak bisa lagi mengubah jawaban pada soal yang sekarang",
+        type: "success",
+        showCancelButton: true,
+        confirmButtonClass: "btn btn-danger btn-fill",
+        confirmButtonText: "Ya!",
+        cancelButtonClass: "btn btn-danger btn-fill",
+        cancelButtonText: "Tidak!"
+    }).then((result) => {
+        if (result.value) {
+            app.nextGroup();
         }
     });
 });

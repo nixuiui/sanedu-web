@@ -33,8 +33,8 @@ Soal {{ $ujian->judul }}
         <form class="panel panel-default" action="{{ route('admin.ujian.soal.form.soal.post', $ujian->id) }}" method="post">
         @endif
             <div class="panel-body">
-                <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
+                <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
                 @csrf
                 <input type="hidden" name="id_group" value="{{ $group ? $group->id : "" }}">
                 <div class="form-group">
@@ -118,8 +118,8 @@ Soal {{ $ujian->judul }}
                     </span>
                     @endif
                 </div>
-                <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
-                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
+                <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
             </div>
         </form>
     </div>

@@ -12,6 +12,7 @@ use App\Models\UjianGroup;
 use App\Models\Soal;
 use App\Models\Attempt;
 use App\Models\User;
+use App\Models\AttemptCorrection;
 
 class UjianController extends Controller
 {
@@ -162,7 +163,6 @@ class UjianController extends Controller
 
     public function formSoal($id, $idSoal = null) {
         $ujian = Ujian::findOrFail($id);
-        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
 
         $group = null;
         if(isset($_GET['idKelompokSoal']) && $_GET['idKelompokSoal'] != "") {
@@ -182,7 +182,7 @@ class UjianController extends Controller
         ]);
     }
 
-    public function prosesTambahSoal(Request $input, $id, $idSoal = null) {
+    public function prosesFormSoal(Request $input, $id, $idSoal = null) {
         $this->validate($input, [
             'soal'      => 'required',
             'jawaban'   => 'required',
@@ -190,7 +190,6 @@ class UjianController extends Controller
         ]);
         
         $ujian = Ujian::findOrFail($id);
-        if($ujian->is_published == 1) return redirect()->route("admin.ujian.soal.kelola", $ujian->id);
 
         $soal = new Soal;
         $soal->id = UUid::generate();
@@ -203,8 +202,11 @@ class UjianController extends Controller
             $soal->id_ujian_group = $group->id;
         }
 
+        $jawaban = $input->jawaban;
+        $kunciLama = null;
         if($idSoal != null) {
             $soal = Soal::find($idSoal);
+            $kunciLama = $soal->jawaban;
             $groupId = $soal->id_ujian_group;
         }
 
@@ -214,8 +216,22 @@ class UjianController extends Controller
         $soal->c = $input->c;
         $soal->d = $input->d;
         $soal->e = $input->e;
-        $soal->jawaban = $input->jawaban;
+        $soal->jawaban = $jawaban;
         $soal->save();
+        
+        // UPDATE KUNCI JAWABAN
+        $attemptCorrection = AttemptCorrection::where("id_soal", $idSoal)
+                                ->where(function($query) use ($jawaban) {
+                                    $query->where("is_correct", 1)
+                                            ->orWhere("jawaban", $jawaban); 
+                                })->get();
+        if(($kunciLama != $input->jawaban) && $attemptCorrection->count() > 0) {
+            foreach($attemptCorrection as $data) {
+                $data->is_correct = $data->jawaban == $input->jawaban;
+                $data->save();
+            }
+        }
+
         if($input->simpan == "simpan")
             return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
         return redirect(route('admin.ujian.soal.form.soal', ['id' => $ujian->id]) . "?idKelompokSoal=" . $groupId)->with('success', 'Berhasil menambah butir soal');

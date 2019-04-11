@@ -67,8 +67,8 @@ Kelola Ujian
                             <strong class="mr-5">{{ $group->nama }}</strong>
                             <strong><i class="mdi mdi-timer mr-2"></i>Durasi</strong> : <span>{{ floor($group->durasi/60) }} menit {{ $group->durasi%60 }} detik</span>
                             @if(!$ujian->is_published)
-                            <a href="{{ route('admin.ujian.soal.delete.kelompok.soal', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-5 pull-right hover-underline text-danger delete" style="font-weight: 400"><i class="mdi mdi-delete mr-2"></i>Hapus</a>
                             <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-5 pull-right hover-underline" style="font-weight: 400"><i class="mdi mdi-edit mr-2"></i>Ubah</a>
+                            <a href="{{ route('admin.ujian.soal.delete.kelompok.soal', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-5 pull-right hover-underline text-danger delete" style="font-weight: 400"><i class="mdi mdi-delete mr-2"></i>Hapus</a>
                             <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id])."?idKelompokSoal=".$group->id }}" class="mr-5 pull-right btn btn-xs btn-default"><i class="mdi mdi-plus mr-2"></i> TAMBAH SOAL</a>
                             @endif
                         </td>
@@ -102,17 +102,15 @@ Kelola Ujian
                     <tr>
                         <td class="text-center">{{ $i + 1 }}</td>
                         <td><div class="list-soal-in-table">{!! $data->soal !!}</div></td>
-                        <td class="text-center">{!! $data->jawaban == 'a' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'b' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'c' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'd' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'e' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
+                        <td class="text-center">{!! $data->jawaban == 'a' ? "<strong class='label label-primary'>A</strong>" : "<span class='text-muted'>A</span>" !!}</td>
+                        <td class="text-center">{!! $data->jawaban == 'b' ? "<strong class='label label-primary'>B</strong>" : "<span class='text-muted'>B</span>" !!}</td>
+                        <td class="text-center">{!! $data->jawaban == 'c' ? "<strong class='label label-primary'>C</strong>" : "<span class='text-muted'>C</span>" !!}</td>
+                        <td class="text-center">{!! $data->jawaban == 'd' ? "<strong class='label label-primary'>D</strong>" : "<span class='text-muted'>D</span>" !!}</td>
+                        <td class="text-center">{!! $data->jawaban == 'e' ? "<strong class='label label-primary'>E</strong>" : "<span class='text-muted'>E</span>" !!}</td>
                         <td class="text-center" class="text-center">
-                            @if(!$ujian->is_published)
                             <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-warning"><i class="mdi mdi-edit"></i></a>
+                            @if(!$ujian->is_published)
                             <a href="{{ route('admin.ujian.soal.delete.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
-                            @else
-                            <a href="{{ route('admin.ujian.soal.lihat.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-default"><i class="mdi mdi-eye"></i></a>
                             @endif
                         </td>
                     </tr>
@@ -155,17 +153,15 @@ Kelola Ujian
                 <tr>
                     <td class="text-center">{{ $i + 1 }}</td>
                     <td><div class="list-soal-in-table">{!! $data->soal !!}</div></td>
-                    <td class="text-center">{!! $data->jawaban == 'a' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                    <td class="text-center">{!! $data->jawaban == 'b' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                    <td class="text-center">{!! $data->jawaban == 'c' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                    <td class="text-center">{!! $data->jawaban == 'd' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
-                    <td class="text-center">{!! $data->jawaban == 'e' ? "<i class='mdi mdi-circle text-success'></i>" : "" !!}</td>
+                    <td class="text-center">{!! $data->jawaban == 'a' ? "<strong class='label label-primary'>A</strong>" : "<span class='text-muted'>A</span>" !!}</td>
+                    <td class="text-center">{!! $data->jawaban == 'b' ? "<strong class='label label-primary'>B</strong>" : "<span class='text-muted'>B</span>" !!}</td>
+                    <td class="text-center">{!! $data->jawaban == 'c' ? "<strong class='label label-primary'>C</strong>" : "<span class='text-muted'>C</span>" !!}</td>
+                    <td class="text-center">{!! $data->jawaban == 'd' ? "<strong class='label label-primary'>D</strong>" : "<span class='text-muted'>D</span>" !!}</td>
+                    <td class="text-center">{!! $data->jawaban == 'e' ? "<strong class='label label-primary'>E</strong>" : "<span class='text-muted'>E</span>" !!}</td>
                     <td class="text-center" class="text-center">
-                        @if(!$ujian->is_published)
                         <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-rounded btn-warning"><i class="mdi mdi-edit"></i></a>
+                        @if(!$ujian->is_published)
                         <a href="{{ route('admin.ujian.soal.delete.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-rounded btn-danger delete"><i class="mdi mdi-delete"></i></a>
-                        @else
-                        <a href="{{ route('admin.ujian.soal.lihat.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-rounded btn-default"><i class="mdi mdi-eye"></i></a>
                         @endif
                     </td>
                 </tr>

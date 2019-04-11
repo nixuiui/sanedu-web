@@ -17,10 +17,6 @@
                 @yield('content')
             </div>
         </div>
-        <div class="be-right-sidebar">
-            <!-- Right sidebar -->
-            asd
-        </div>
     </div>
     @include('partials.admin.scripts')
 </body>

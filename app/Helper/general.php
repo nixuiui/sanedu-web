@@ -141,14 +141,14 @@ function durasi($seconds){
     }
     if($jam != null) {
         $seconds = $seconds - ($jam*3600);
-        if(floor($seconds/60)) {
-            $durasi .= floor($seconds/60) . " menit ";
-            $menit = floor($seconds/60);
-        }
+    }
+    if(floor($seconds/60)) {
+        $durasi .= floor($seconds/60) . " menit ";
+        $menit = floor($seconds/60);
     }
     if($menit != null) {
         $seconds = $seconds - ($menit*60);
-        $durasi .= $seconds . " detik ";
     }
+    $durasi .= $seconds . " detik ";
     return $durasi;
 }
