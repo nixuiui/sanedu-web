@@ -201,6 +201,7 @@ Simulasi - {{ $simulasi->judul }}
                             <td width="10px"></td>
                             <th>Universitas</th>
                             <th>Jurusan</th>
+                            <th class="text-center">Passing Grade</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -208,16 +209,19 @@ Simulasi - {{ $simulasi->judul }}
                             <th>#1</th>
                             <td>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->universitas->nama : "-" }}</td>
                             <td>{{ $peserta->passingGrade->pilihan1->universitas != null ? $peserta->passingGrade->pilihan1->jurusan : "-" }}</td>
+                            <td class="text-center">{{ $peserta->passingGrade->pilihan1->passing_grade }}</td>
                         </tr>
                         <tr>
                             <th>#2</th>
                             <td>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->universitas->nama : "-" }}</td>
                             <td>{{ $peserta->passingGrade->pilihan2->universitas != null ? $peserta->passingGrade->pilihan2->jurusan : "-" }}</td>
+                            <td class="text-center">{{ $peserta->passingGrade->pilihan2->passing_grade }}</td>
                         </tr>
                         <tr>
                             <th>#3</th>
                             <td>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->universitas->nama : "-" }}</td>
                             <td>{{ $peserta->passingGrade->pilihan3->universitas != null ? $peserta->passingGrade->pilihan3->jurusan : "-"}}</td>
+                            <td class="text-center">{{ $peserta->passingGrade->pilihan3->passing_grade }}</td>
                         </tr>
                         <tr>
                             <td colspan="3" class="text-center"> <a href="{{ route('member.simulasi.passgrade', $simulasi->id) }}" class="btn btn-md btn-primary">Ubah Pilihan Passing Grade</a> </td>
