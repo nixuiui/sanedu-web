@@ -1205,7 +1205,6 @@ class SimulasiController extends Controller
                 'passgrade' => $data->id_passing_grade_lolos != null ? "Lulus di " . $data->passingGradeLolos->jurusan . " " . $data->passingGradeLolos->universitas->nama : "Belum Lulus"
             ];
         });
-        return $peserta;
 
         $title = 'Data Nilai Akhir Peserta Simulasi ' . $simulasi->judul;
 
