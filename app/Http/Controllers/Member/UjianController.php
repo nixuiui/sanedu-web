@@ -152,9 +152,14 @@ class UjianController extends Controller
                         ->where('id_ujian', $id)
                         ->where('end_attempt', '>=', date('Y-m-d H:i:s'))
                         ->first();
+        $history = Attempt::where('id_user', Auth::id())
+                            ->where('id_ujian', $id)
+                            ->where('end_attempt', '<', date('Y-m-d H:i:s'))
+                            ->orderBy("created_at", "desc")->get();
         return view('member.ujian.preattempt')->with([
             'ujian' => $ujian,
-            'attempt' => $attemptOnGoing
+            'attempt' => $attemptOnGoing,
+            'history' => $history
         ]);
     }
 
@@ -338,32 +343,50 @@ class UjianController extends Controller
 
         $attempt = Attempt::findOrFail($idAttempt);
         $idUjian = $attempt->id_ujian;
-        $soal = collect(DB::select("
-                SELECT
-                soal.id,
-                soal.soal,
-                soal.a,
-                soal.b,
-                soal.c,
-                soal.d,
-                soal.e,
-                soal.jawaban as kunci,
-                correct.jawaban,
-                correct.is_correct
-                FROM
-                tbl_attempt_correction as correct
-                RIGHT JOIN tbl_soal as soal ON
-                correct.id_soal=soal.id AND
-                soal.id_ujian='" . $idUjian. "' AND
-                correct.id_attempt='" . $idAttempt . "'
+        $query   = "SELECT
+                    soal.id,
+                    soal.soal,
+                    soal.a,
+                    soal.b,
+                    soal.c,
+                    soal.d,
+                    soal.e,
+                    soal.jawaban as kunci,
+                    correct.jawaban,
+                    correct.is_correct
+                    FROM
+                    tbl_attempt_correction as correct
+                    RIGHT JOIN tbl_soal as soal ON
+                    correct.id_soal=soal.id AND
+                    soal.id_ujian='" . $idUjian. "' AND
+                    correct.id_attempt='" . $idAttempt . "'";
+        $jawaban = collect(DB::select("
+                $query
                 WHERE
                 soal.id_ujian='" . $idUjian . "' &&
                 soal.deleted_at IS NULL &&
                 correct.deleted_at IS NULL
                 ORDER BY soal.created_at ASC"));
+        if($attempt->ujian->is_grouped) {
+            $jawaban = $attempt->group->map(function($d) use ($idUjian, $query){
+                $idUjianGroup = $d->id_ujian_group;
+                $jawaban = collect(DB::select("
+                            $query
+                            WHERE
+                            soal.id_ujian='" . $idUjian . "' &&
+                            soal.id_ujian_group='" . $idUjianGroup . "' &&
+                            soal.deleted_at IS NULL &&
+                            correct.deleted_at IS NULL
+                            ORDER BY soal.created_at ASC"));
+                return [
+                    'nama' => $d->ujianGroup->nama,
+                    'jawaban' => $jawaban
+                ];
+            });
+        }
         return view('member.ujian.preview')->with([
             'attempt' => $attempt,
-            'soal' => $soal
+            'jawaban' => $jawaban
         ]);
     }
 }
