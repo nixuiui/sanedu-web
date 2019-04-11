@@ -125,7 +125,6 @@ Preview - {{ $attempt->ujian->judul }}
                                     <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'c' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'c' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'c' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
                                     <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'd' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'd' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'd' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
                                     <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ $d->jawaban == 'e' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ $d->jawaban == 'e' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ $d->jawaban != 'e' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                                    <td class="text-center text-uppercase text-bold">{{ $d->kunci }}</td>
                                 </tr>
                                 @endforeach
                             @endforeach
