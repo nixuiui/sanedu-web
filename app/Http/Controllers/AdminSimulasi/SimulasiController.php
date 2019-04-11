@@ -1001,8 +1001,8 @@ class SimulasiController extends Controller
         else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
             $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
         }
-        else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
-            $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
+        else if($nilai >= $peserta->passingGrade->pilihan3->passing_grade) {
+            $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan3->id;
         }
         $peserta->nilai_akhir = round($nilai, 2);
         if($peserta->save()) {
