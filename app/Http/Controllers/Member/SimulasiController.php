@@ -232,19 +232,23 @@ class SimulasiController extends Controller
                     'peserta' => $peserta,
                     'myGrupChat' => $myGrupChat
                 ]);
-        }
-        $soalOnline = null;
-        if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
-            $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
-            ->where("id_mapel", $peserta->id_mapel)
-            ->first();
-        }
-        return view('member.simulasi.open')->with([
-            'simulasi' => $simulasi,
-            'simulasiUjian' => $simulasiUjian,
-            'peserta' => $peserta,
-            'soalOnline' => $soalOnline,
-            'myGrupChat' => $myGrupChat
+            }
+            $soalOnline = null;
+            if(($peserta->id_jadwal_online != null) && (strtotime($peserta->jadwalOnline->tanggal) == strtotime(date("Y-m-d")))) {
+                $soalOnline = SimulasiUjian::where("id_simulasi", $simulasi->id)
+                ->where("id_mapel", $peserta->id_mapel)
+                ->first();
+            }
+            $history = Attempt::where('id_peserta_simulasi', $peserta->id)
+                                ->where('end_attempt', '<', date('Y-m-d H:i:s'))
+                                ->orderBy("created_at", "desc")->get();
+            return view('member.simulasi.open')->with([
+                'simulasi' => $simulasi,
+                'simulasiUjian' => $simulasiUjian,
+                'peserta' => $peserta,
+                'soalOnline' => $soalOnline,
+                'myGrupChat' => $myGrupChat,
+                'history' => $history
             ]);
         }
         return redirect()->route('member.simulasi');

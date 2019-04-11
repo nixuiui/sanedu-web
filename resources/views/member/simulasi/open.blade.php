@@ -64,7 +64,7 @@ Simulasi - {{ $simulasi->judul }}
             </div>
             @if($peserta->is_corrected)
             <div class="panel-section text-center p-5">
-                <div class="text-bold text-20">NILAI ANDA: {{ $peserta->nilai_akhir }}</div>
+                <div class="text-bold text-20">NILAI AKHIR ANDA: {{ $peserta->nilai_akhir }}</div>
             </div>
                 @if($peserta->id_passing_grade_lolos != null)
                 <div class="panel-section text-center p-5">
@@ -308,6 +308,47 @@ Simulasi - {{ $simulasi->judul }}
                 </form>
             </div>
             @endif
+            <div class="panel panel-default panel-table">
+                <div class="panel-heading">
+                    Riwayat Pengerjaan
+                </div>
+                <div class="panel-body table-responsive">
+                    <table class="table table-striped table-borderless">
+                        <thead>
+                            <tr>
+                                <th style="width:25px">No</th>
+                                <th style="min-width:300px">Waktu</th>
+                                <th class="text-left">Nilai Ujian</th>
+                                <th class="text-center">Benar</th>
+                                <th class="text-center">Salah</th>
+                            </tr>
+                        </thead>
+                        <tbody class="no-border-x">
+                            @if($history->count() > 0)
+                                @foreach($history as $i => $data)
+                                <tr class="clickable-row" data-href="{{ route('member.ujian.history', $data->id) }}">
+                                    <td>{{ $i+1 }}</td>
+                                    <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
+                                    <td class="milestone">
+                                        <span class="completed"><strong>{{ $data->jumlah_benar }}</strong>/{{ $data->ujian->jumlah_soal }}</span>
+                                        <span class="version">{{ round($data->nilai, 2) }}</span>
+                                        <div class="progress">
+                                            <div style="width: {{ ($data->jumlah_benar/$data->ujian->jumlah_soal)*100 }}%" class="progress-bar progress-bar-primary"></div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">{{ $data->jumlah_benar }}</td>
+                                    <td class="text-center">{{ $data->jumlah_salah }}</td>
+                                </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td colspan="5" class="text-center">Belum ada pengerjaan soal</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         @endif
     </div>
 </div>

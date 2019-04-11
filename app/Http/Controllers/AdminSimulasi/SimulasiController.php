@@ -279,7 +279,7 @@ class SimulasiController extends Controller
                                         ->get();
         foreach($peserta as $data) {
             $attempt = Attempt::where('id_peserta_simulasi', $data->id)
-                                ->orderBy('created_at', 'asc')
+                                ->orderBy('jumlah_benar', 'desc')
                                 ->first();
             $ujian = Ujian::findOrFail($attempt->id_ujian);
             
