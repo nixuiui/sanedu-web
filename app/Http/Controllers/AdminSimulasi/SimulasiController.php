@@ -1185,25 +1185,29 @@ class SimulasiController extends Controller
     public function downloadHasilAkhir($id) {
         $simulasi = Simulasi::findOrFail($id);
         $where = "id_simulasi='".$simulasi->id."'";
+        if(isset($_GET['idMapel']) && $_GET['idMapel'] != null) {
+            $where .= " && id_mapel='" . $_GET['idMapel'] . "'";
+            $where .= " && nilai_akhir IS NOT NULL";
+        }
         $title = 'Data Nilai Akhir Peserta Simulasi ' . $simulasi->judul;
         $peserta = DB::select("
-        SELECT
-        no_peserta,
-        mode_simulasi,
-        jumlah_benar,
-        jumlah_salah,
-        peringkat,
-        nilai_akhir,
-        user.nama,
-        user.no_hp,
-        sekolah.nama as sekolah
-        FROM
-        tbl_simulasi_peserta as peserta
-        INNER JOIN tbl_users as user ON user.id=peserta.id_user
-        INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
-        WHERE
-        " . $where . "
-        ORDER BY peserta.peringkat ASC
+                    SELECT
+                    no_peserta,
+                    mode_simulasi,
+                    jumlah_benar,
+                    jumlah_salah,
+                    peringkat,
+                    nilai_akhir,
+                    user.nama,
+                    user.no_hp,
+                    sekolah.nama as sekolah
+                    FROM
+                    tbl_simulasi_peserta as peserta
+                    INNER JOIN tbl_users as user ON user.id=peserta.id_user
+                    INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
+                    WHERE
+                    " . $where . "
+                    ORDER BY peserta.peringkat ASC
         ");
 
         $pesertaArray = [];
