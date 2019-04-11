@@ -48,7 +48,7 @@ class SimulasiPeserta extends Model {
   		return $this->hasOne('App\Models\PilihanPassingGrade', 'id_peserta');
   	}
   	public function passingGradeLolos() {
-  		return $this->belongsTo('App\Models\Jurusan', 'id_passing_grade_lolos');
+  		return $this->belongsTo('App\Models\Jurusan', 'id_passing_grade_lolos')->withDefault();
   	}
 
 }

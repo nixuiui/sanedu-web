@@ -1186,35 +1186,43 @@ class SimulasiController extends Controller
     public function downloadHasilAkhir($id) {
         $simulasi = Simulasi::findOrFail($id);
         $where = "id_simulasi='".$simulasi->id."'";
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id);
         if(isset($_GET['idMapel']) && $_GET['idMapel'] != null) {
-            $where .= " && id_mapel='" . $_GET['idMapel'] . "'";
-            $where .= " && nilai_akhir IS NOT NULL";
+            $peserta = $peserta->where("id_mapel", $_GET['idMapel'])
+                                ->whereNotNull("nilai_akhir");
         }
+        $peserta = $peserta->orderBy("peringkat", "ASC")->get()->map(function($data) {
+            return [
+                'no_peserta' => $data->no_peserta,
+                'mode_simulasi' => $data->mode_simulais,
+                'jumlah_benar' => $data->jumlah_benar,
+                'jumlah_salah' => $data->jumlah_salah,
+                'peringkat' => $data->peringkat,
+                'nilai_akhir' => $data->nilai_akhir,
+                'nama' => $data->profil->nama,
+                'no_hp' => $data->profil->no_hp,
+                'sekolah' => $data->profil->sekolah->nama,
+                'passgrade' => $data->passgrade != null ? "Lulus di " . $data->passingGradeLolos->jurusan . " " . $data->passingGradeLolos->jurusan->universitas->nama : "Belum Lulus"
+            ];
+        });
+
         $title = 'Data Nilai Akhir Peserta Simulasi ' . $simulasi->judul;
-        $peserta = DB::select("
-                    SELECT
-                    no_peserta,
-                    mode_simulasi,
-                    jumlah_benar,
-                    jumlah_salah,
-                    peringkat,
-                    nilai_akhir,
-                    user.nama,
-                    user.no_hp,
-                    sekolah.nama as sekolah
-                    FROM
-                    tbl_simulasi_peserta as peserta
-                    INNER JOIN tbl_users as user ON user.id=peserta.id_user
-                    INNER JOIN tbl_sekolah as sekolah ON sekolah.id=user.id_sekolah
-                    WHERE
-                    " . $where . "
-                    ORDER BY peserta.peringkat ASC
-        ");
 
         $pesertaArray = [];
-        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi', 'Benar', 'Salah', 'Nilai Akhir', 'Peringkat'];
+        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi', 'Benar', 'Salah', 'Nilai Akhir', 'Peringkat', 'Keterangan'];
         foreach ($peserta as $data) {
-            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, strtoupper($data->mode_simulasi), $data->jumlah_benar, $data->jumlah_salah, $data->nilai_akhir, $data->peringkat];
+            $pesertaArray[] = [
+                strtoupper($data['nama']), 
+                $data['no_peserta'], 
+                strtoupper($data['sekolah']), 
+                $data['no_hp'], 
+                strtoupper($data['mode_simulasi']), 
+                $data['jumlah_benar'], 
+                $data['jumlah_salah'], 
+                $data['nilai_akhir'], 
+                $data['peringkat'], 
+                $data['passgrade']
+            ];
         }
         Excel::create($title, function($excel) use ($simulasi, $title, $pesertaArray) {
             $excel->setTitle($title);

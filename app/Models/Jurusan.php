@@ -22,7 +22,7 @@ class Jurusan extends Model {
 
     //RELATION table
     public function universitas() {
-        return $this->belongsTo('App\Models\Universitas', 'id_universitas');
+        return $this->belongsTo('App\Models\Universitas', 'id_universitas')->withDefault();
     }
     public function getJurusanAttribute($value) {
         return strtoupper($value);

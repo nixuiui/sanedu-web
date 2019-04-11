@@ -32,13 +32,13 @@ class User extends Authenticatable {
 
     //RELATION table
   	public function role() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_role');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_role')->withDefault();
   	}
   	public function tingkatSekolah() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah')->withDefault();
   	}
   	public function sekolah() {
-  		return $this->belongsTo('App\Models\Sekolah', 'id_sekolah');
+  		return $this->belongsTo('App\Models\Sekolah', 'id_sekolah')->withDefault();
   	}
   	public function simulasi() {
   		return $this->hasMany('App\Models\Simulasi', 'id_creator');
@@ -74,9 +74,9 @@ class User extends Authenticatable {
       return $this->hasMany('App\Models\RiwayatSaldo', 'id_user');
     }
   	public function kota() {
-        return $this->belongsTo('App\Models\Kota', 'id_kota');
+        return $this->belongsTo('App\Models\Kota', 'id_kota')->withDefault();
   	}
   	public function provinsi() {
-        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
+        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi')->withDefault();
   	}
 }
