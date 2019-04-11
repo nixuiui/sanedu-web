@@ -994,6 +994,7 @@ class SimulasiController extends Controller
                 $data->save();
             }
         }
+        $nilai = ($nilai/$potensiNilai)*100;
         if($nilai >= $peserta->passingGrade->pilihan1->passing_grade) {
             $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan1->id;
         }
@@ -1003,7 +1004,7 @@ class SimulasiController extends Controller
         else if($nilai >= $peserta->passingGrade->pilihan2->passing_grade) {
             $peserta->id_passing_grade_lolos = $peserta->passingGrade->pilihan2->id;
         }
-        $peserta->nilai_akhir = round(($nilai/$potensiNilai)*100, 2);
+        $peserta->nilai_akhir = round($nilai, 2);
         if($peserta->save()) {
             return response()->json([
                 'success' => true,
