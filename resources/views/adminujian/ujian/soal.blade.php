@@ -184,10 +184,10 @@ Kelola Ujian
                 <form class="modal-body" action="{{ route('admin.ujian.soal.import.soal.post', $ujian->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label>Import Menggunakan Aiken Format</label> <br>
+                        <label>Import Menggunakan Aiken Format. <a href="https://docs.moodle.org/36/en/Aiken_format" target="_blank">Lihat Format <i class="mdi mdi-open-in-new"></i></a></label><br>
                         <input type="hidden" name="featured_image">
                         <input class="inputfile" id="file" type="file" name="file" data-multiple-caption="{count} files selected" required>
-                        <label class="btn-secondary" for="file"> <i class="mdi mdi-upload"></i><span>Pilih File</span></label>                            
+                        <label class="btn-secondary" for="file"> <i class="mdi mdi-upload"></i><span>Pilih File .txt</span></label>                            
                         @if($errors->has('featured_image'))
                         <span class="help-block">
                             <strong>{{ $errors->first('featured_image') }}</strong>
