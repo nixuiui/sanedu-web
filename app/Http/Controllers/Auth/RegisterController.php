@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Models\User;
-use App\Models\Tiket;
+use App\Models\Sekolah;
 use App\Models\Provinsi;
 use Uuid;
 use Mail;
@@ -101,7 +100,7 @@ class RegisterController extends Controller
             'tanggal_lahir'     => 'required|date',
             'id_provinsi'       => 'required|exists:set_provinsi,id',
             'id_kota'           => 'required|exists:set_kota,id',
-            'id_sekolah'        => 'required|exists:tbl_sekolah,id',
+            'id_sekolah'        => 'required_if:tambah_sekolah, ==, on',
             'id_kelas'          => 'required|exists:set_pustaka,id',
         ]);
         $id_role        = 1004;
@@ -119,7 +118,21 @@ class RegisterController extends Controller
         $user->tempat_lahir = $input->tempat_lahir;
         $user->id_provinsi  = $input->id_provinsi;
         $user->id_kota      = $input->id_kota;
-        $user->id_sekolah   = $input->id_sekolah;
+
+        if($input->tambah_sekolah){
+            $sekolah = new Sekolah;
+            $sekolah->id = Uuid::generate();
+            $sekolah->id_provinsi = $input->id_provinsi;
+            $sekolah->id_kota = $input->id_kota;
+            $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
+            $sekolah->nama = $input->nama_sekolah;
+            $sekolah->save();
+            $user->id_sekolah   = $sekolah->id;
+        }
+        else {
+            $user->id_sekolah   = $input->id_sekolah;
+        }
+
         $user->id_kelas     = $input->id_kelas;
         $user->email_verification_code = bcrypt($user->username . rand(1000,5000));
         if($user->save()){

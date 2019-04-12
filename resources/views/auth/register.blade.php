@@ -109,7 +109,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 <div class="mb-3"><strong>SEKOLAH ANDA</strong></div>
                 <div class="form-group">
                     <label for="">Provinsi</label>
-                    <select class="form-control" id="inputProvinsi" name="id_provinsi" required">
+                    <select class="form-control" id="inputProvinsi" name="id_provinsi" required>
                         <option value="">-- Pilih Provinsi --</option>
                         @foreach($provinsi as $data)
                         <option value="{{ $data->id }}">{{ $data->name }}</option>
@@ -119,13 +119,13 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 
                 <div class="form-group">
                     <label for="">Kabupaten</label>
-                    <select class="form-control" id="inputKota" name="id_kota" required">
+                    <select class="form-control" id="inputKota" name="id_kota" required>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="">Sekolah</label>
-                    <select class="form-control" id="inputTingkatSekolah" name="id_tingkat_sekolah" disabled required">
+                    <select class="form-control" id="inputTingkatSekolah" name="id_tingkat_sekolah" disabled required>
                         <option value="">-- Pilih Tingkat Sekolah --</option>
                         <option value="1301" >SD</option>
                         <option value="1302" >SMP</option>
@@ -134,9 +134,15 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 </div>
 
                 <div class="form-group">
-                    <label for="">Nama Sekolah</label>
-                    <select class="form-control" id="inputSekolah" name="id_sekolah" disabled required">
+                    <label for="">Nama Sekolah. 
+                        <small>
+                            Sekolah Anda tidak ada? (Checklist)
+                        </small>
+                        <input id="checkSekolah" type="checkbox" class="m-0" name="tambah_sekolah">
+                    </label>
+                    <select class="form-control" id="inputSekolah" name="id_sekolah" disabled required>
                     </select>
+                    <input class="form-control d-none" id="inputNamaSekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}" placeholder="Nama Sekolah Anda" disabled/>
                     @if ($errors->has('id_sekolah'))
                     <span class="help-block">
                         <span>{{ $errors->first('id_sekolah') }}</span>
@@ -146,7 +152,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
 
                 <div class="form-group">
                     <label for="">Kelas</label>
-                    <select class="form-control" id="inputKelas" name="id_kelas" disabled required">
+                    <select class="form-control" id="inputKelas" name="id_kelas" disabled required>
                     </select>
                     @if ($errors->has('id_kelas'))
                     <span class="help-block">
@@ -202,6 +208,22 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
     $('.input-pin').mask('0000-0000-0000-0000', {placeholder: "PIN"});
 </script>
 <script type="text/javascript">
+
+$("#checkSekolah").click(function() {
+    var isChecked = $(this).prop('checked');
+    if(isChecked) {
+        $("#inputSekolah").addClass("d-none");
+        $("#inputSekolah").removeAttr("required");
+        $("#inputNamaSekolah").attr("required", "required");
+        $("#inputNamaSekolah").removeClass("d-none");
+    }
+    else {
+        $("#inputNamaSekolah").removeAttr("required");
+        $("#inputSekolah").attr("required", "required");
+        $("#inputSekolah").removeClass("d-none");
+        $("#inputNamaSekolah").addClass("d-none");
+    }
+});
 $("#inputProvinsi").change(function() {
 	var el = $("#inputProvinsi");
 	if(el.val() != "null") {
@@ -229,6 +251,7 @@ $("#inputProvinsi").change(function() {
     				}
                     $("#inputTingkatSekolah").prop("disabled", true);
                     $("#inputSekolah").prop("disabled", true);
+                    $("#inputNamaSekolah").prop("disabled", true);
 				}
 				else {
 					inputKota.html("");
@@ -251,10 +274,14 @@ $("#inputKota").change(function() {
 });
 
 $("#inputTingkatSekolah").change(function() {
-    if($(this).val() != null && $(this).val() != "")
+    if($(this).val() != null && $(this).val() != "") {
         $("#inputSekolah").prop("disabled", false);
-    else
+        $("#inputNamaSekolah").prop("disabled", false);
+    }
+    else {
         $("#inputSekolah").prop("disabled", true);
+        $("#inputNamaSekolah").prop("disabled", true);
+    }
     getSekolah();
     getKelas();
 });
