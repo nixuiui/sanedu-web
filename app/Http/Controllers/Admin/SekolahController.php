@@ -41,6 +41,7 @@ class SekolahController extends Controller
             $sekolah->id_kota = $input->id_kota;
             $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
             $sekolah->nama = $nama;
+            $sekolah->is_approved = 1;
             $sekolah->save();
         }
         return back()->with("success", "Berhasil menambah data");
