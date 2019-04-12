@@ -4,6 +4,7 @@ namespace App\Http\Controllers\AdminUjian;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use File;
 use Uuid;
 use DB;
 use App\Models\SetPustaka;
@@ -235,6 +236,80 @@ class UjianController extends Controller
         if($input->simpan == "simpan")
             return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil menambah butir soal');
         return redirect(route('admin.ujian.soal.form.soal', ['id' => $ujian->id]) . "?idKelompokSoal=" . $groupId)->with('success', 'Berhasil menambah butir soal');
+    }
+
+    public function prosesImportSoal(Request $input, $id) {
+        $this->validate($input, [
+            'file' => 'required|file|max:2000', // max 2MB
+        ]);
+
+        $ujian = Ujian::findOrFail($id);
+
+        $fileInput = $input->file('file');
+        $file = File::get($fileInput);
+        $soals = [];
+        $soal = null;
+        $indexSoal = 0;
+        $pilihan = ["A.", "B.", "C.", "D.", "E."];
+        foreach (explode("\n", $file) as $line){
+            $checkPilihan = substr($line, 0, 2);
+            $checkJawaban = substr($line, 0, 7);
+            if(in_array($checkPilihan, $pilihan)) {
+                $jawaban = substr($line, 3);
+                switch ($checkPilihan) {
+                    case "A.":
+                        $soals[$indexSoal]['a'] = $jawaban;
+                        break;
+                    case "B.":
+                        $soals[$indexSoal]['b'] = $jawaban;
+                        break;
+                    case "C.":
+                        $soals[$indexSoal]['c'] = $jawaban;
+                        break;
+                    case "D.":
+                        $soals[$indexSoal]['d'] = $jawaban;
+                        break;
+                    case "E.":
+                        $soals[$indexSoal]['e'] = $jawaban;
+                        break;
+                }
+            }
+            else if($checkJawaban == "ANSWER:") {
+                $soals[$indexSoal]['answer'] = substr($line, 8);
+                $soals[$indexSoal]['soal'] = $soal;
+
+                $soal = new Soal;
+                $soal->id = UUid::generate();
+                $soal->id_ujian = $ujian->id;
+                $soal->soal = $soals[$indexSoal]['soal'];
+                $soal->a = $soals[$indexSoal]['a'];
+                $soal->b = $soals[$indexSoal]['b'];
+                $soal->c = $soals[$indexSoal]['c'];
+                $soal->d = $soals[$indexSoal]['d'];
+                $soal->e = $soals[$indexSoal]['e'];
+                $soal->jawaban = $soals[$indexSoal]['answer'];
+                $soal->save();
+
+                $indexSoal++;
+                $soal = null;
+            }
+            else if($line == "") {
+                continue;
+            }
+            else {
+                if($soal == null) {
+                    $soal = $line;
+                }
+                else {
+                    $soal .= "\n".$line;
+                }
+            }
+        }
+
+        // return json_encode($soals);
+        
+        return redirect()->back()->with('success', $indexSoal . ' soal berhasil diimport');
+
     }
 
     public function deleteSoal($id, $idSoal) {
