@@ -13,7 +13,32 @@ use App\Models\SetPustaka;
 class SekolahController extends Controller
 {
     public function index() {
-        $sekolah = Sekolah::all();
+        $sekolah = Sekolah::where('is_checked', 1)->get();
+        $sekolah = $sekolah->map(function($data) {
+            return [
+                'id' => $data->id,
+                'nama' => $data->nama,
+                'provinsi' => $data->provinsi->name,
+                'kota' => $data->kota->name,
+                'siswa' => $data->siswa->count()
+            ];
+        });
+        return view('admin.sekolah.index')->with([
+            'sekolah' => $sekolah
+        ]);
+    }
+
+    public function unchecked() {
+        $sekolah = Sekolah::where('is_checked', 0)->get();
+        $sekolah = $sekolah->map(function($data) {
+            return [
+                'id' => $data->id,
+                'nama' => $data->nama,
+                'provinsi' => $data->provinsi->name,
+                'kota' => $data->kota->name,
+                'siswa' => $data->siswa->count()
+            ];
+        });
         return view('admin.sekolah.index')->with([
             'sekolah' => $sekolah
         ]);

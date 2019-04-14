@@ -1,15 +1,29 @@
-@extends('layouts.admin')
+@extends('layouts.adminnopadding')
 
 @section('title')
-Tambah Sekolah
+Kelola Sekolah
+@endsection
+
+@section('navigation')
+    @include('admin.sekolah.menu')
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-4">
-        <form class="panel panel-default" action="{{ route('admin.sekolah.edit.post', $sekolah->id) }}" method="post">
-            <div class="panel-heading"><i class="mdi mdi-comments"></i> Tambah Sekolah</div>
-            <div class="panel-body">
+<div class="email-inbox-header">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="email-title">
+                <span class="icon mdi mdi-plus mr-3"></span> Edit Data Sekolah
+            </div>
+        </div>
+    </div>
+</div>
+
+<form class="panel panel-default no-border mb-0" action="{{ route('admin.sekolah.edit.post', $sekolah->id) }}" method="post">
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 mb-5">
+                @include('partials.admin.helpers.alert')
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Provinsi</label>
@@ -58,9 +72,9 @@ Tambah Sekolah
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
             </div>
-        </form>
+        </div>
     </div>
-</div> <!-- end row -->
+</form>
 @endsection
 
 

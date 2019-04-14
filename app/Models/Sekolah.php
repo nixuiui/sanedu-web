@@ -22,10 +22,10 @@ class Sekolah extends Model
 
     //RELATION table
   	public function kota() {
-        return $this->belongsTo('App\Models\Kota', 'id_kota');
+        return $this->belongsTo('App\Models\Kota', 'id_kota')->withDefault();
   	}
   	public function provinsi() {
-        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
+        return $this->belongsTo('App\Models\Provinsi', 'id_provinsi')->withDefault();
   	}
   	public function siswa() {
         return $this->hasMany('App\Models\User', 'id_sekolah');

@@ -118,6 +118,7 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
 
     Route::group(['prefix' => 'sekolah'], function(){
         Route::get('/',             'Admin\SekolahController@index')->name('admin.sekolah');
+        Route::get('/unchecked',    'Admin\SekolahController@unchecked')->name('admin.sekolah.unchecked');
         Route::get('/tambah',       'Admin\SekolahController@tambahForm')->name('admin.sekolah.tambah');
         Route::post('/tambah',      'Admin\SekolahController@tambahPost')->name('admin.sekolah.tambah.post');
         Route::get('/delete/{id}',  'Admin\SekolahController@delete')->name('admin.sekolah.delete');
