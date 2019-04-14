@@ -125,7 +125,7 @@ class RegisterController extends Controller
             $sekolah->id_provinsi = $input->id_provinsi;
             $sekolah->id_kota = $input->id_kota;
             $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
-            $sekolah->nama = $input->nama_sekolah;
+            $sekolah->nama = strtoupper($input->nama_sekolah);
             $sekolah->save();
             $user->id_sekolah   = $sekolah->id;
         }

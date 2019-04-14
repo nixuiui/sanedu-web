@@ -68,7 +68,7 @@ class SekolahController extends Controller
             $sekolah->id_provinsi = $input->id_provinsi;
             $sekolah->id_kota = $input->id_kota;
             $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
-            $sekolah->nama = $nama;
+            $sekolah->nama = strtoupper($nama);
             $sekolah->is_checked = 1;
             $sekolah->save();
         }
@@ -107,7 +107,7 @@ class SekolahController extends Controller
         $sekolah->id_provinsi = $input->id_provinsi;
         $sekolah->id_kota = $input->id_kota;
         $sekolah->id_tingkat_sekolah = $input->id_tingkat_sekolah;
-        $sekolah->nama = $input->nama;
+        $sekolah->nama = strtoupper($input->nama);
         $sekolah->is_checked = 1;
         $sekolah->save();
         return back()->with("success", "Berhasil menambah data");
