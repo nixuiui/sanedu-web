@@ -5,7 +5,7 @@ Kelola Sekolah
 @endsection
 
 @section('navigation')
-    @include('admin.sekolah.menu')
+    @include('admin.sekolah.menu', ['jumlahSekolahBaru', $jumlahSekolahBaru])
 @endsection
 
 @section('content')

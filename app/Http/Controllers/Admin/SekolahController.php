@@ -24,7 +24,8 @@ class SekolahController extends Controller
             ];
         });
         return view('admin.sekolah.index')->with([
-            'sekolah' => $sekolah
+            'sekolah' => $sekolah,
+            'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
         ]);
     }
 
@@ -40,7 +41,8 @@ class SekolahController extends Controller
             ];
         });
         return view('admin.sekolah.index')->with([
-            'sekolah' => $sekolah
+            'sekolah' => $sekolah,
+            'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
         ]);
     }
 
@@ -49,7 +51,8 @@ class SekolahController extends Controller
         $tingkatSekolah = SetPustaka::tingkatSekolah();
         return view('admin.sekolah.tambah')->with([
             "provinsi" => $provinsi,
-            "tingkatSekolah" => $tingkatSekolah
+            "tingkatSekolah" => $tingkatSekolah,
+            'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
         ]);
     }
 
@@ -89,7 +92,8 @@ class SekolahController extends Controller
             "provinsi" => $provinsi,
             "kota" => $kota,
             "tingkatSekolah" => $tingkatSekolah,
-            "sekolah" => $sekolah
+            "sekolah" => $sekolah,
+            'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
         ]);
     }
 
@@ -107,5 +111,9 @@ class SekolahController extends Controller
         $sekolah->is_checked = 1;
         $sekolah->save();
         return back()->with("success", "Berhasil menambah data");
+    }
+
+    public function jumlahSekolahBaru(Type $var = null) {
+        return $jumlahSekolahBaru = Sekolah::select('id')->where('is_checked', 0)->get()->count();
     }
 }
