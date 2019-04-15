@@ -79,9 +79,11 @@
             @endif
             <div class="panel-section">
                 @if($ujian->diBeliOleh->where('id', Auth::id())->first() == null)
-                <span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block beli-ujian"
+                <a href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block">{{ $ujian->harga > 0 ? "Beli Soal" : "Dapatkan Soal"}}</a> 
+                {{-- <span data-href="{{ route('member.ujian.soal.beli', $ujian->id) }}" class="btn btn-lg btn-success btn-ujian btn-block beli-ujian"
                     data-harga="{{ formatUang($ujian->harga) }}" data-hargaori="{{ $ujian->harga }}" data-saldo="{{ Auth::user()->saldo }}"
-                    data-judul="{{ $ujian->judul }}">{{ $ujian->harga > 0 ? "Beli Soal" : "Dapatkan Soal"}}</span> @else @if($attempt)
+                    data-judul="{{ $ujian->judul }}">{{ $ujian->harga > 0 ? "Beli Soal" : "Dapatkan Soal"}}</span>  --}}
+                @else @if($attempt)
                 <a href="{{ route('member.ujian.soal.open', $attempt->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary">Lanjut Ujian</a>                
                 @else
                 <a href="{{ route('member.ujian.soal.attempt', $ujian->id) }}" class="btn btn-lg btn-ujian btn-block btn-primary mulai-ujian">Mulai Ujian</a>                @endif @endif
