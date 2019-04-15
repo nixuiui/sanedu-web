@@ -24,7 +24,8 @@ Simulasi
                 <div><i class="mdi mdi-pin mr-4 mb-2"></i>{{ $data->tempat_pelaksanaan }}</div>
                 <div class="text-success text-bold mb-3"><i class="mdi mdi-circle mr-4"></i>{{ $data->harga > 0 ? formatUang($data->harga) : "GRATIS"}}</div>
                 @if($data->peserta->where('id_user', Auth::id())->first() == null)
-                <a data-href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success beli-simulasi" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">IKUTI SIMULASI</a>
+                <a href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">IKUTI SIMULASI</a>
+                {{-- <a data-href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success beli-simulasi" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">IKUTI SIMULASI</a> --}}
                 @else
                 <a href="{{ route('member.simulasi.open', $data->id) }}" class="btn btn-lg btn-block btn-primary">BUKA SIMULASI</a>
                 @endif
