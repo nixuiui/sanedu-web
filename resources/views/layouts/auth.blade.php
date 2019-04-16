@@ -8,63 +8,63 @@
     {{-- <meta name="google-signin-client_id" content="799758054471-0ni1243o0qtq17t9b5fu5l4s4c7q9cgh.apps.googleusercontent.com"> --}}
     <script src="https://apis.google.com/js/api:client.js"></script>
     <script>
-    var googleUser = {};
-    var startApp = function() {
-        gapi.load('auth2', function(){
-        auth2 = gapi.auth2.init({
-            client_id: '799758054471-0ni1243o0qtq17t9b5fu5l4s4c7q9cgh.apps.googleusercontent.com',
-            cookiepolicy: 'single_host_origin',
-        });
-        attachSignin(document.getElementById('customBtn'));
-        });
-    };
+    // var googleUser = {};
+    // var startApp = function() {
+    //     gapi.load('auth2', function(){
+    //     auth2 = gapi.auth2.init({
+    //         client_id: '799758054471-0ni1243o0qtq17t9b5fu5l4s4c7q9cgh.apps.googleusercontent.com',
+    //         cookiepolicy: 'single_host_origin',
+    //     });
+    //     attachSignin(document.getElementById('customBtn'));
+    //     });
+    // };
     
-    function attachSignin(element) {
-        auth2.attachClickHandler(element, {},
-            function(googleUser) {
-                var url = "{{ route('auth.login.with.google') }}";
-                var profile = googleUser.getBasicProfile();
-                var name = profile.getName();
-                var givenName = profile.getGivenName();
-                var familyName = profile.getFamilyName();
-                var email = profile.getEmail();
-                var id_token = googleUser.getAuthResponse().id_token;
-                console.log('ID: ' + profile.getId());
-                console.log('Full Name: ' + profile.getName());
-                console.log('Given Name: ' + profile.getGivenName());
-                console.log('Family Name: ' + profile.getFamilyName());
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail());
-                axios({
-                    method: 'post',
-                    url: url,
-                    data: {
-                        "id_token": id_token,
-                        "_token": "{{ csrf_token() }}"
-                    },
-                    headers: {}
-                })
-                .then(function(response) {
-                    var data = response.data;
-                    if(data.success) {
-                        if(data.action == 'login') {
-                            location.reload();
-                        }
-                        else if(data.action == 'register') {
-                            url = "{{ route('auth.register') }}";
-                            url += "?email=" + email + "&name=" + name;
-                            window.location = url;
-                        }
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-            }, function(error) {
-                alert(JSON.stringify(error, undefined, 2));
-            }
-        );
-    }
+    // function attachSignin(element) {
+    //     auth2.attachClickHandler(element, {},
+    //         function(googleUser) {
+    //             var url = "{{ route('auth.login.with.google') }}";
+    //             var profile = googleUser.getBasicProfile();
+    //             var name = profile.getName();
+    //             var givenName = profile.getGivenName();
+    //             var familyName = profile.getFamilyName();
+    //             var email = profile.getEmail();
+    //             var id_token = googleUser.getAuthResponse().id_token;
+    //             console.log('ID: ' + profile.getId());
+    //             console.log('Full Name: ' + profile.getName());
+    //             console.log('Given Name: ' + profile.getGivenName());
+    //             console.log('Family Name: ' + profile.getFamilyName());
+    //             console.log('Image URL: ' + profile.getImageUrl());
+    //             console.log('Email: ' + profile.getEmail());
+    //             axios({
+    //                 method: 'post',
+    //                 url: url,
+    //                 data: {
+    //                     "id_token": id_token,
+    //                     "_token": "{{ csrf_token() }}"
+    //                 },
+    //                 headers: {}
+    //             })
+    //             .then(function(response) {
+    //                 var data = response.data;
+    //                 if(data.success) {
+    //                     if(data.action == 'login') {
+    //                         location.reload();
+    //                     }
+    //                     else if(data.action == 'register') {
+    //                         url = "{{ route('auth.register') }}";
+    //                         url += "?email=" + email + "&name=" + name;
+    //                         window.location = url;
+    //                     }
+    //                 }
+    //             })
+    //             .catch(function(error) {
+    //                 console.log(error);
+    //             });
+    //         }, function(error) {
+    //             alert(JSON.stringify(error, undefined, 2));
+    //         }
+    //     );
+    // }
     </script>
     <style type="text/css">
         #customBtn {
