@@ -26,16 +26,16 @@ Kita mulai belajar dengan cara yang menyenangkan...
                 @csrf
                 <input class="form-control" type="text" name="username" placeholder="Email/Username" required>
                 <input class="form-control" type="password" name="password" placeholder="Password" required>
-                {{-- <div class="form-button full-width">
+                <div class="form-button full-width">
                     <button id="submit" type="submit" class="ibtn mb-2">Masuk</button> 
-                    <div id="customBtn" class="customGPlusSignIn ibtn mb-3">
+                    {{-- <div id="customBtn" class="customGPlusSignIn ibtn mb-3">
                         <img src="{{ asset('asset-sanone/images/g-normal.png') }}" alt="">
                         <span class="buttonText">Google</span>
-                    </div>
+                    </div> --}}
                     <div class="text-center">
                         <a href="{{ route('auth.password.forgot') }}">Lupa password?</a>
                     </div>
-                </div> --}}
+                </div>
                 <script>startApp();</script>
             </form>
             <div class="other-links text-center">

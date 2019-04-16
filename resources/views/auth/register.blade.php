@@ -26,13 +26,13 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 <div class="form-group">
                     <input class="form-control" type="" name="email" value="{{ old('email') }}" placeholder="E-mail Address">
                 </div>
-                {{-- <div class="form-button full-width">
+                <div class="form-button full-width">
                     <button id="submit" type="submit" class="ibtn mb-2">Daftar</button> 
-                    <div id="customBtn" class="customGPlusSignIn ibtn mb-3">
+                    {{-- <div id="customBtn" class="customGPlusSignIn ibtn mb-3">
                         <img src="{{ asset('asset-sanone/images/g-normal.png') }}" alt="">
                         <span class="buttonText">Google</span>
-                    </div>
-                </div> --}}
+                    </div> --}}
+                </div>
                 <script>startApp();</script>
             </form>
             @else
