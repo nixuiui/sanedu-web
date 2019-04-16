@@ -289,19 +289,23 @@ Simulasi - {{ $simulasi->judul }}
                         </thead>
                         <tbody>
                             @if($simulasi->jadwalOnline->count() > 0)
-                            @foreach($simulasi->jadwalOnline as $jadwal)
-                            <tr>
+                                @foreach($simulasi->jadwalOnline as $jadwal)
+                                    <tr>
+                                        @if($peserta->id_jadwal_online == null)
+                                            @if($jadwal->peserta->count() >= $jadwal->kapasitas)
+                                            <td width="60px"><i class="mdi mdi-minus-circle text-danger"></i></td>
+                                            @else
+                                            <td width="60px"><input type="radio" name="jadwal" value="{{ $jadwal->id }}"></td>
+                                            @endif
+                                        @endif
+                                        <td class={{ $jadwal->peserta->count() >= $jadwal->kapasitas ? "text-muted" : "" }} {{ $peserta->id_jadwal_online == $jadwal->id ? "text-bold" : "" }}>{{ hariTanggal($jadwal->tanggal) }} {{ $peserta->id_jadwal_online == $jadwal->id ? " - Jadwal Anda" : "" }}</td>
+                                    </tr>
+                                @endforeach
                                 @if($peserta->id_jadwal_online == null)
-                                <td width="60px"> <input type="radio" name="jadwal" value="{{ $jadwal->id }}" {{ $jadwal->is_full ? "disabled" : "" }}> </td>
+                                    <tr>
+                                        <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
+                                    </tr>
                                 @endif
-                                <td class={{ $jadwal->is_full ? "text-muted" : "" }} {{ $peserta->id_jadwal_online == $jadwal->id ? "text-bold" : "" }}>{{ hariTanggal($jadwal->tanggal) }} {{ $peserta->id_jadwal_online == $jadwal->id ? " - Jadwal Anda" : "" }}</td>
-                            </tr>
-                            @endforeach
-                            @if($peserta->id_jadwal_online == null)
-                            <tr>
-                                <td colspan="2"><button type="submit" class="btn btn-md btn-primary">Tetapkan Jadwal Saya</button></td>
-                            </tr>
-                            @endif
                             @else
                             <tr>
                                 <td colspan="4" class="data-is-empty">Belum ada jadwal yang dibuat</td>
