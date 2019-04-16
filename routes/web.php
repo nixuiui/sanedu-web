@@ -31,6 +31,7 @@ AUTH
 -------------------------------------------------------------------------*/
 Route::get('/login',        'Auth\LoginController@loginForm')->name('auth.login');
 Route::post('/login',       'Auth\LoginController@login')->name('auth.login.post');
+Route::post('/loginWithGoogle', 'Auth\LoginController@loginWithGoogle')->name('auth.login.with.google');
 Route::get('/login-admin',  'Auth\LoginController@loginAdminForm')->name('auth.login.admin');
 Route::post('/login-admin', 'Auth\LoginController@loginAdmin')->name('auth.login.admin.post');
 Route::get('/logout',       'Auth\LoginController@logout')->name('auth.logout');

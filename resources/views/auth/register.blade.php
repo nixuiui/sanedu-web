@@ -27,8 +27,13 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <input class="form-control" type="" name="email" value="{{ old('email') }}" placeholder="E-mail Address">
                 </div>
                 <div class="form-button full-width">
-                    <button type="submit" class="ibtn">Kirim</button>
+                    <button id="submit" type="submit" class="ibtn mb-2">Daftar</button> 
+                    <div id="customBtn" class="customGPlusSignIn ibtn mb-3">
+                        <img src="{{ asset('asset-sanone/images/g-normal.png') }}" alt="">
+                        <span class="buttonText">Google</span>
+                    </div>
                 </div>
+                <script>startApp();</script>
             </form>
             @else
             <form action="{{ route('auth.register.post') }}" method="POST">
@@ -38,7 +43,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <input type="hidden" class="form-control" name="email" placeholder="EMAIL" value="{{ isset($_GET['email']) ? $_GET['email'] : "" }}" required>
                 </div>
                 @if($errors->has('email'))
-                <span class="help-block">
+                <span class="help-block text-danger">
                     <span>{{ $errors->first('email') }}</span>
                 </span>
                 @endif
@@ -47,9 +52,9 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 <div class="mb-3"><strong>INFORMASI PRIBADI</strong></div>
                 <div class="form-group">
                     <label for="">Nama Lengkap</label>
-                    <input type="text" class="form-control" name="nama" placeholder="Tulis nama Anda" autofocus value="{{ old('nama') }}" required>
+                    <input type="text" class="form-control" name="nama" placeholder="Tulis nama Anda" autofocus value="{{ isset($_GET['name']) ? $_GET['name'] : old('nama') }}" required>
                     @if($errors->has('nama'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('nama') }}</span>
                     </span>
                     @endif
@@ -59,7 +64,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">No. Handphone</label>
                     <input type="number" class="form-control" name="no_hp" placeholder="+628xxxxxx" value="{{ old('no_hp') }}" required>
                     @if($errors->has('no_hp'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('no_hp') }}</span>
                     </span>
                     @endif
@@ -69,7 +74,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">No. Handphone Orang Tua</label>
                     <input type="number" class="form-control" name="no_hp_ortu" placeholder="+628xxxxxx" value="{{ old('no_hp_ortu') }}" required>
                     @if($errors->has('no_hp_ortu'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('no_hp_ortu') }}</span>
                     </span>
                     @endif
@@ -79,7 +84,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">Tempat Lahir</label>
                     <input type="text" class="form-control" name="tempat_lahir" placeholder="Jakarta" value="{{ old('tempat_lahir') }}" required>
                     @if($errors->has('tempat_lahir'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('tempat_lahir') }}</span>
                     </span>
                     @endif
@@ -89,7 +94,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">Tanggal Lahir</label>
                     <input type="date" class="form-control" name="tanggal_lahir" placeholder="Tanggal Lahir" value="{{ old('tanggal_lahir') }}" required>
                     @if($errors->has('tanggal_lahir'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('tanggal_lahir') }}</span>
                     </span>
                     @endif
@@ -99,7 +104,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">Alamat</label>
                     <input type="text" class="form-control" name="alamat" placeholder="ALAMAT" value="{{ old('alamat') }}" required>
                     @if($errors->has('alamat'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('alamat') }}</span>
                     </span>
                     @endif
@@ -144,7 +149,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     </select>
                     <input class="form-control d-none" id="inputNamaSekolah" name="nama_sekolah" value="{{ old('nama_sekolah') }}" placeholder="Nama Sekolah Anda" disabled/>
                     @if ($errors->has('id_sekolah'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('id_sekolah') }}</span>
                     </span>
                     @endif
@@ -155,7 +160,7 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <select class="form-control" id="inputKelas" name="id_kelas" disabled required>
                     </select>
                     @if ($errors->has('id_kelas'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('id_kelas') }}</span>
                     </span>
                     @endif
@@ -168,11 +173,10 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                 </p>
 
                 <div class="form-group">
-                    <label for="">Username</label>
+                    <label for="">Username <small class="label">(Gunakan huruf, angka tanpa spasi)</small></label>
                     <input type="text" class="form-control mb-0" name="username" placeholder="Username" value="{{ old('username') }}" required>
-                    <small class="label">Username: Gunakan huruf, angka tanpa spasi</small>
                     @if($errors->has('username'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('username') }}</span>
                     </span>
                     @endif
@@ -182,20 +186,20 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                     <label for="">Password</label>
                     <input type="password" class="form-control" name="password" placeholder="Password" required>
                     @if($errors->has('password'))
-                    <span class="help-block">
+                    <span class="help-block text-danger">
                         <span>{{ $errors->first('password') }}</span>
                     </span>
                     @endif
                     <input type="password" class="form-control" name="password_confirmation" placeholder="Ulangi Password" required>
                 </div>
 
-                <div class="form-button">
+                <div class="form-button full-width">
                     <button id="submit" type="submit" class="ibtn">Daftar</button>
                 </div>
             </form>
             @endif
-            <div class="other-links">
-                <span>Sudah punya akun?</span><a href="{{ route('auth.login') }}">Masuk</a>
+            <div class="other-links text-center">
+                <span>Sudah punya akun? <a href="{{ route('auth.login') }}">Masuk</a></span>
             </div>
         </div>
     </div>

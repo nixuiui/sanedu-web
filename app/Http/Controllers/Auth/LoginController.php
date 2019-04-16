@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Google_Client;
 
 class LoginController extends Controller
 {
@@ -65,6 +66,24 @@ class LoginController extends Controller
             return redirect()->route('guest.checkrole');
         }
         return redirect()->back()->with('danger', 'Email/Username yang Anda masukkan tidak cocok');
+    }
+
+    public function loginWithGoogle(Request $input) {
+        $CLIENT_ID = "799758054471-0ni1243o0qtq17t9b5fu5l4s4c7q9cgh.apps.googleusercontent.com";
+        $client = new Google_Client(['client_id' => $CLIENT_ID]);
+        $payload = $client->verifyIdToken($input->id_token);
+        if ($payload) {
+            $email = $payload['email'];
+            $user = User::where('email', $email)->first();
+            if ($user && Auth::loginUsingId($user->id)) {
+                return json_encode(['success' => true, 'action' => 'login']);
+            }
+            else {
+                return json_encode(['success' => true, 'action' => 'register']);
+            }
+        } else {
+            return json_encode(['success' => false]);
+        }
     }
 
     public function logout() {
