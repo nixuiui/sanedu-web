@@ -38,6 +38,7 @@ Member
                     <th>Nama Peserta</th>
                     <th>Email</th>
                     <th>No HP</th>
+                    <th>No HP Ortu</th>
                     <th>Provinsi</th>
                     <th>Sekolah</th>
                 </tr>
@@ -48,6 +49,7 @@ Member
                     <th>Nama Peserta</th>
                     <th>Email</th>
                     <th>No HP</th>
+                    <th>No HP Ortu</th>
                     <th>Provinsi</th>
                     <th>Sekolah</th>
                 </tr>
@@ -59,6 +61,7 @@ Member
                     <td>{{ $data->nama }}</td>
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->no_hp }}</td>
+                    <td>{{ $data->no_hp_ortu }}</td>
                     <td>{{ $data->provinsi != null ? $data->provinsi->name : "" }}</td>
                     <td>{{ $data->sekolah != null ? $data->sekolah->nama : "" }}</td>
                 </tr>
