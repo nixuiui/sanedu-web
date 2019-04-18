@@ -6,17 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use DB;
-use Auth;
-use Validator;
-use Excel;
-use Uuid;
 use App\Models\User;
 use App\Models\Provinsi;
 
 class MemberController extends Controller {
 
     public function index() {
-        $user = User::select(['id', 'nama', 'email', 'id_sekolah', 'id_provinsi'])
+        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi'])
                     ->where('id_role', 1004)
                     ->orderBy('id_role', 'asc')
                     ->get();
