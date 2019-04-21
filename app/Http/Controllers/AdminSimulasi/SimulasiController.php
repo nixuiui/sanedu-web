@@ -465,6 +465,12 @@ class SimulasiController extends Controller
         ]);
     }
 
+    public function pesertaDelete($id, $idPeserta) {
+        $simulasi = Simulasi::findOrFail($id);
+        SimulasiPeserta::findOrFail($idPeserta)->delete();
+        return back()->with('success', 'Berhasil Menghapus');
+    }
+
     public function pesertaSwicthOnlineOffline($id, $idPeserta) {
         $simulasi = Simulasi::findOrFail($id);
         $peserta = SimulasiPeserta::findOrFail($idPeserta);

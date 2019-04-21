@@ -217,6 +217,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             Route::get('/peserta',                      'AdminSimulasi\SimulasiController@peserta')->name('adminsimulasi.simulasi.kelola.peserta');
             Route::group(['prefix' => 'peserta/{idPeserta}'], function(){
                 Route::get('/edit',                         'AdminSimulasi\SimulasiController@pesertaEdit')->name('adminsimulasi.simulasi.kelola.peserta.edit');
+                Route::get('/delete',                       'AdminSimulasi\SimulasiController@pesertaDelete')->name('adminsimulasi.simulasi.kelola.peserta.delete');
                 Route::post('/edit-profil',                 'AdminSimulasi\ProfilController@editProfil')->name('adminsimulasi.simulasi.kelola.peserta.edit.profil');
                 Route::post('/edit-email',                  'AdminSimulasi\ProfilController@editEmail')->name('adminsimulasi.simulasi.kelola.peserta.edit.email');
                 Route::post('/edit-username',               'AdminSimulasi\ProfilController@editUsername')->name('adminsimulasi.simulasi.kelola.peserta.edit.username');

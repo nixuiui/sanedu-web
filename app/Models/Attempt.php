@@ -17,7 +17,7 @@ class Attempt extends Model {
     protected static function boot() {
         parent::boot();
         static::deleting(function($data) {
-            // $data->tiket()->delete();
+            $data->correction()->delete();
         });
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('start_attempt', 'asc');

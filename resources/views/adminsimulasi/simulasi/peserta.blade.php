@@ -40,9 +40,6 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th width="100px">No</th>
                             <th>Nama</th>
                             <th>Username</th>
-                            <th>PIN</th>
-                            <th>KAP</th>
-                            <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
@@ -56,9 +53,6 @@ Peserta Simulasi - {{ $simulasi->judul }}
                             <th>No</th>
                             <th>Nama Peserta</th>
                             <th>Username</th>
-                            <th>PIN</th>
-                            <th>KAP</th>
-                            <th>Role</th>
                             <th>No HP</th>
                             <th>Sekolah</th>
                             <th>NA</th>
@@ -80,15 +74,13 @@ Peserta Simulasi - {{ $simulasi->judul }}
                                 if($data->profil != null)
                                 $tiket = $data->profil->tiket->where("id_simulasi", $data->id_simulasi)->first();
                             ?>
-                            <td>{{ $tiket != null ? $tiket->pin : ""  }}</td>
-                            <td>{{ $tiket != null ? $tiket->kap : ""  }}</td>
-                            <td>{{ $data->profil != null ? $data->profil->role->nama : ""}}</td>
                             <td>{{ $data->profil != null ? $data->profil->no_hp : ""}}</td>
                             <td>{{ $data->profil != null ? ($data->profil->sekolah != null ? $data->profil->sekolah->nama : "") : "" }}</td>
                             <td>{{ $data->nilai_akhir == null ? "-" : $data->nilai_akhir }}</td>
                             <td>{{ $data->peringkat }}</td>
                             <td>
                                 <div class="btn-group btn-group-sm">
+                                    <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.delete', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-danger delete" title="Edit"><i class="mdi mdi-delete"></i></a>
                                     <a href="{{ route('adminsimulasi.simulasi.kelola.peserta.edit', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-default" title="Edit"><i class="mdi mdi-edit"></i></a>
                                     <a href="{{ route('adminsimulasi.simulasi.kelola.download.borang', ['id' => $simulasi->id, 'idPeserta' => $data->id]) }}" class="btn btn-default" title="Download Borang"><i class="mdi mdi-download"></i></a>
                                     @if($data->mode_simulasi == "offline")

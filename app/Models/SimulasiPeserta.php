@@ -18,7 +18,9 @@ class SimulasiPeserta extends Model {
     protected static function boot() {
 		parent::boot();
         static::deleting(function($data) {
-            // $data->tiket()->delete();
+            $data->attempt()->delete();
+            $data->koreksi()->delete();
+            $data->passingGrade()->delete();
         });
     }
 
