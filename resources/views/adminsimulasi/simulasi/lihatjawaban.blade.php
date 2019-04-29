@@ -81,7 +81,7 @@ Preview - {{ $peserta->simulasi->judul }}
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'c' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'c' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'c' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'd' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'd' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'd' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
                             <td class="text-center"><span class="label label-default"><i class="text-bold mdi {{ strtolower($d->jawaban) == 'e' && $d->is_correct ? ' mdi-check text-success' : '' }}{{ strtolower($d->jawaban) == 'e' && !$d->is_correct ? ' mdi-close text-danger' : '' }}{{ strtolower($d->jawaban) != 'e' ? ' mdi-close text-transparent' : '' }}"></i></span></td>
-                            <td class="text-center text-uppercase text-bold">{{ $d->kunci_jawaban }}</td>
+                            <td class="text-center text-uppercase text-bold">{{ $d->kunci_jawaban }} {{-- $d->jawaban == NULL ? "KOSONG" : ($d->is_correct ? "BENAR" : "SALAH") --}}</td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -277,7 +277,8 @@ class SimulasiController extends Controller
                                         ->where('is_corrected', false)
                                         ->where('is_attempted', true)
                                         ->get();
-        foreach($peserta as $data) {
+        foreach($peserta as $index => $data) {
+            // if($index == 100) break;
             $attempt = Attempt::where('id_peserta_simulasi', $data->id)
                                 ->orderBy('jumlah_benar', 'desc')
                                 ->first();

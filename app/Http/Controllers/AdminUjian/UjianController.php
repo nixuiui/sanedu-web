@@ -170,13 +170,13 @@ class UjianController extends Controller
             $group = UjianGroup::findOrFail($_GET['idKelompokSoal']);
         }
         if($idSoal == null)
-        return view('adminujian.ujian.tambahsoal')->with([
+        return view('adminujian.ujian.formsoal')->with([
             'ujian' => $ujian,
             'group' => $group
         ]);
 
         $soal = Soal::find($idSoal);
-        return view('adminujian.ujian.tambahsoal')->with([
+        return view('adminujian.ujian.formsoal')->with([
             'ujian' => $ujian,
             'group' => $group,
             'soal' => $soal
