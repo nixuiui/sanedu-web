@@ -23,7 +23,7 @@ Kelola Ujian
     </div>
 </div>
 
-<div class="panel panel-default panel-table no-border mb-0">
+<div class="panel panel-default panel-table table-responsive no-border mb-0">
     <div class="panel-body">
         @if($ujian->diBeliOleh->count() <= 0)
         <div class="data-is-empty">
