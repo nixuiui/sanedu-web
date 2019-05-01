@@ -33,7 +33,6 @@ Mari bergabung bersama ribuan siswa lainnya di Indonesia...
                         <span class="buttonText">Google</span>
                     </div> --}}
                 </div>
-                <script>startApp();</script>
             </form>
             @else
             <form action="{{ route('auth.register.post') }}" method="POST">

@@ -36,7 +36,6 @@ Kita mulai belajar dengan cara yang menyenangkan...
                         <a href="{{ route('auth.password.forgot') }}">Lupa password?</a>
                     </div>
                 </div>
-                <script>startApp();</script>
             </form>
             <div class="other-links text-center">
                 <span>Belum punya akun? <a href="{{ route('auth.register') }}">Daftar Sekarang</a></span>
