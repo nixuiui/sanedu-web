@@ -118,6 +118,7 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/id.js"></script>
 <script type="text/javascript">
 var ujianId = "{{ $ujian->id }}";
 var attemptId = "{{ $attempt->id }}";
@@ -264,10 +265,11 @@ var app = new Vue({
 });
 
 
-var countDownDate = new Date('{{ date("Y-m-d H:i:s", strtotime($attempt->end_attempt)) }}').getTime();
+var countDownDate = moment('{{ date("Y-m-d H:i:s", strtotime($attempt->end_attempt)) }}', 'YYYY-MM-DD HH:mm:ss').toDate();
 var x = setInterval(function() {
     var now = new Date().getTime();
     var distance = countDownDate - now;
+    console.log(now);
     var days    = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

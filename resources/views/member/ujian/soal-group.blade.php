@@ -125,6 +125,7 @@
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/id.js"></script>
 <script type="text/javascript">
 var ujianId = "{{ $ujian->id }}";
 var attemptId = "{{ $attempt->id }}";
@@ -282,16 +283,16 @@ var app = new Vue({
         },
         setTimer: function() {
             var self = this;
-            var countDownDate = new Date(self.group.end_attempt).getTime();
             self.interval = setInterval(function() {
+                var countDownDate = moment(self.group.end_attempt, 'YYYY-MM-DD HH:mm:ss').toDate();
                 var now = new Date().getTime();
                 var distance = countDownDate - now;
+                console.log(countDownDate);
                 var days    = Math.floor(distance / (1000 * 60 * 60 * 24));
                 var hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 document.getElementById("timer").innerHTML = "WAKTU " +  hours + ":" + minutes + ":" + seconds;
-                console.log(distance);
                 if (distance < 0) {
                     clearInterval(self.interval);
                     if((self.indexGroup+1) < self.groups.length){
