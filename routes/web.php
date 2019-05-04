@@ -122,9 +122,10 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/unchecked',    'Admin\SekolahController@unchecked')->name('admin.sekolah.unchecked');
         Route::get('/tambah',       'Admin\SekolahController@tambahForm')->name('admin.sekolah.tambah');
         Route::post('/tambah',      'Admin\SekolahController@tambahPost')->name('admin.sekolah.tambah.post');
-        Route::get('/delete/{id}',  'Admin\SekolahController@delete')->name('admin.sekolah.delete');
-        Route::get('/edit/{id}',    'Admin\SekolahController@editForm')->name('admin.sekolah.edit');
-        Route::post('/edit/{id}',   'Admin\SekolahController@editPost')->name('admin.sekolah.edit.post');
+        Route::get('/{id}/siswa',   'Admin\SekolahController@siswa')->name('admin.sekolah.siswa');
+        Route::get('/{id}/delete',  'Admin\SekolahController@delete')->name('admin.sekolah.delete');
+        Route::get('/{id}/edit',    'Admin\SekolahController@editForm')->name('admin.sekolah.edit');
+        Route::post('/{id}/edit',   'Admin\SekolahController@editPost')->name('admin.sekolah.edit.post');
     });
 
     Route::group(['prefix' => 'member'], function(){

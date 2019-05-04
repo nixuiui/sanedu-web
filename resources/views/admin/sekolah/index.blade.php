@@ -21,7 +21,7 @@ Kelola Sekolah
 
 <div class="panel panel-default panel-table no-border mb-0">
     <div class="panel-body table-responsive noSwipe">
-        <table id="datatables" class="table table-striped">
+        <table id="datatables" class="table table-striped table-hover">
             <thead>
                 <tr>
                     <th>Provinsi</th>
@@ -33,7 +33,7 @@ Kelola Sekolah
             </thead>
             <tbody>
                 @foreach($sekolah as $data)
-                <tr>
+                <tr class="clickable-row" data-href='{{ route('admin.sekolah.siswa', ['id' => $data['id']]) }}'>
                     <td>{{ $data['provinsi'] }}</td>
                     <td>{{ $data['kota'] }}</td>
                     <td>{{ $data['nama'] }}</td>

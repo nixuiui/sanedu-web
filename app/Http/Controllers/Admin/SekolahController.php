@@ -9,6 +9,7 @@ use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Sekolah;
 use App\Models\SetPustaka;
+use App\Models\User;
 
 class SekolahController extends Controller
 {
@@ -25,6 +26,19 @@ class SekolahController extends Controller
         });
         return view('admin.sekolah.index')->with([
             'sekolah' => $sekolah,
+            'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
+        ]);
+    }
+
+    public function siswa($id) {
+        $sekolah = Sekolah::findOrFail($id);
+        $siswa = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu'])
+                    ->where('id_role', 1004)
+                    ->where('id_sekolah', $id)
+                    ->orderBy('id_role', 'asc')
+                    ->get();
+        return view('admin.sekolah.siswa')->with([
+            'siswa' => $siswa,
             'jumlahSekolahBaru' => $this->jumlahSekolahBaru()
         ]);
     }
