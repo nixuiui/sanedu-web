@@ -40,6 +40,9 @@ Kita mulai belajar dengan cara yang menyenangkan...
             <div class="other-links text-center">
                 <span>Belum punya akun? <a href="{{ route('auth.register') }}">Daftar Sekarang</a></span>
             </div>
+            {{-- <div class="other-links text-center">
+                <span>Mau analisis nilai UTBK? <a href="{{ route('guest.utbk') }}">Klik disini</a></span>
+            </div> --}}
         </div>
     </div>
 </div>

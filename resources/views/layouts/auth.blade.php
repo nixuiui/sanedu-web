@@ -6,6 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- <meta name="google-signin-client_id" content="799758054471-0ni1243o0qtq17t9b5fu5l4s4c7q9cgh.apps.googleusercontent.com"> --}}
+    
+    <script src="{{ asset('asset-sanone/js/jquery.min.js')}}"></script>
     <script src="https://apis.google.com/js/api:client.js"></script>
     <script>
     // var googleUser = {};
@@ -141,7 +143,6 @@
         </div>
     </div>
 </body>
-<script src="{{ asset('asset-sanone/js/jquery.min.js')}}"></script>
 <script src="{{ asset('asset-sanone/js/popper.min.js')}}"></script>
 <script src="{{ asset('asset-sanone/js/bootstrap.min.js')}}"></script>
 <script src="{{ asset('asset-sanone/js/main.js')}}"></script>

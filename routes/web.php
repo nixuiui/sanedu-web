@@ -38,6 +38,15 @@ Route::get('/logout',       'Auth\LoginController@logout')->name('auth.logout');
 Route::get('/register',     'Auth\RegisterController@registerForm')->name('auth.register');
 Route::post('/register',    'Auth\RegisterController@register')->name('auth.register.post');
 
+/*--------------------------------------------------------------------------
+ANALISIS UTBK
+-------------------------------------------------------------------------*/
+Route::group(['prefix' => 'utbk'], function(){
+    Route::get('/',                 'Guest\UTBKController@index')->name('guest.utbk');
+    Route::get('/input',            'Guest\UTBKController@input')->name('guest.utbk.input');
+    Route::post('/input',           'Guest\UTBKController@inputPost')->name('guest.utbk.input.post');
+});
+
 
 /*--------------------------------------------------------------------------
 RESET PASSWORD
