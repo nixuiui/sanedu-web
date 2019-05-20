@@ -61,13 +61,10 @@ Kelola Ujian
                     </tr>
                     <tr>
                         <th class="text-valign-center" width="1px">NO</th>
-                        <th class="text-valign-center">SOAL</th>
-                        <th class="text-valign-center" width="50px">A</th>
-                        <th class="text-valign-center" width="50px">B</th>
-                        <th class="text-valign-center" width="50px">C</th>
-                        <th class="text-valign-center" width="50px">D</th>
-                        <th class="text-valign-center" width="50px">E</th>
-                        <th class="text-valign-center" width="100px">Aksi</th>
+                        <th class="text-valign-center" rowspan="2" width="600px">SOAL</th>
+                        <th class="text-valign-left" width="50px" colspan="3">Benar</th>
+                        <th class="text-right" width="50px" colspan="3">Salah</th>
+                        <th class="text-valign-center" width="100px"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,16 +85,15 @@ Kelola Ujian
                     <tr>
                         <td class="text-center">{{ $i + 1 }}</td>
                         <td><div class="list-soal-in-table">{!! $data->soal !!}</div></td>
-                        <td class="text-center">{!! $data->jawaban == 'a' ? "<strong class='label label-primary'>A</strong>" : "<span class='text-muted'>A</span>" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'b' ? "<strong class='label label-primary'>B</strong>" : "<span class='text-muted'>B</span>" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'c' ? "<strong class='label label-primary'>C</strong>" : "<span class='text-muted'>C</span>" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'd' ? "<strong class='label label-primary'>D</strong>" : "<span class='text-muted'>D</span>" !!}</td>
-                        <td class="text-center">{!! $data->jawaban == 'e' ? "<strong class='label label-primary'>E</strong>" : "<span class='text-muted'>E</span>" !!}</td>
+                        <td class="milestone" colspan="6">
+                            <span class="completed"><strong>{{ $data->jumlah_salah }}</strong></span>
+                            <span class="version">{{ $data->jumlah_benar }}</span>
+                            <div class="progress">
+                                <div style="width: {{ ($data->jumlah_benar+$data->jumlah_salah > 0) ? ($data->jumlah_benar/($data->jumlah_benar+$data->jumlah_salah))*100 : 0}}%" class="progress-bar progress-bar-primary"></div>
+                            </div>
+                        </td>
                         <td class="text-center" class="text-center">
-                            <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-warning"><i class="mdi mdi-edit"></i></a>
-                            @if(!$ujian->is_published)
-                            <a href="{{ route('admin.ujian.soal.delete.soal', ['id' => $ujian->id, 'idSoal' => $data->id]) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
-                            @endif
+                            {{ $data->kriteria }}
                         </td>
                     </tr>
                     @endforeach
