@@ -17,6 +17,12 @@
             Riwayat Pengerjaan
         </a>
     </li>
+    <li class="{{ active(['admin.ujian.soal.analitik']) }}">
+        <a href="{{ route('admin.ujian.soal.analitik', $ujian->id) }}">
+            <span class="label label-primary"></span><i class="icon mdi mdi-trending-up"></i>
+            Analitik Soal
+        </a>
+    </li>
     <li class="{{ active(['admin.ujian.form.peraturan']) }}">
         <a href="{{ route('admin.ujian.form.peraturan', $ujian->id) }}">
             <i class="icon mdi mdi-grain"></i>

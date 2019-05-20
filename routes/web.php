@@ -174,6 +174,9 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
             Route::post('/importsoal',              'AdminUjian\UjianController@prosesImportSoal')->name('admin.ujian.soal.import.soal.post');
             Route::get('/deletesoal/{idSoal}',      'AdminUjian\UjianController@deleteSoal')->name('admin.ujian.soal.delete.soal');
             Route::get('/lihatsoal/{idSoal}',       'AdminUjian\UjianController@viewSoal')->name('admin.ujian.soal.lihat.soal');
+            Route::get('/analitiksoal',             'AdminUjian\UjianController@analitikSoal')->name('admin.ujian.soal.analitik');
+            Route::get('/analisissoal',             'AdminUjian\UjianController@analisisSoal')->name('admin.ujian.soal.analisis');
+            Route::get('/kriteriasoal',             'AdminUjian\UjianController@kriteriaSoal')->name('admin.ujian.soal.kriteria');
             Route::get('/formkelompoksoal/{idKelompokSoal?}',    'AdminUjian\UjianController@formKelompokSoal')->name('admin.ujian.soal.form.kelompok.soal.get');
             Route::post('/formkelompoksoal/{idKelompokSoal?}',   'AdminUjian\UjianController@prosesKelompokSoal')->name('admin.ujian.soal.form.kelompok.soal.post');
             Route::get('/deletekelompoksoal/{idKelompokSoal?}',  'AdminUjian\UjianController@deleteKelompokSoal')->name('admin.ujian.soal.delete.kelompok.soal');

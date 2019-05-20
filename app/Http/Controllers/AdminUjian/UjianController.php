@@ -453,4 +453,42 @@ class UjianController extends Controller
         return $this->error("Soal gagal di load");
     }
 
+    public function analitikSoal($id) {
+        $ujian = Ujian::find($id);
+        return view('adminujian.ujian.analitiksoal')->with([
+            'ujian' => $ujian
+        ]);
+    }
+
+    public function analisisSoal($id) {
+        $attempt = Attempt::select(['id'])->where("id_ujian", $id)->get();
+        $soal = Soal::where("id_ujian", $id)->get();
+        foreach($soal as $s) {
+            $benar = AttemptCorrection::whereIn("id_attempt", $attempt)->where("id_soal", $s->id)->where("is_correct", 1)->get()->count();
+            $salah = AttemptCorrection::whereIn("id_attempt", $attempt)->where("id_soal", $s->id)->where("is_correct", 0)->get()->count();
+            $s->jumlah_benar = $benar;
+            $s->jumlah_salah = $salah;
+            $s->save();
+        }
+        return redirect()->route('admin.ujian.soal.kriteria', $id);
+    }
+
+    public function kriteriaSoal($id) {
+        $ujian = Ujian::findOrFail($id);
+        $soal = Soal::where("id_ujian", $ujian->id)
+                                        ->orderBy("jumlah_benar", "DESC")
+                                        ->get();
+
+        //SAINTEK
+        $mudah = $soal->count() * (40/100);
+        $sedang = $mudah + $soal->count() * (40/100);
+        $sulit = $sedang + $soal->count() * (20/100);
+        foreach ($soal as $index => $data) {
+            $kriteria = ($index+1) <= $mudah ? "mudah" : (($index+1) <= $sedang ? "sedang" : "sulit");
+            $data->kriteria = $kriteria;
+            $data->save();
+        }
+        return redirect()->route('admin.ujian.soal.analitik', $ujian->id)->with("success", "Proses Analisis Soal Berhasil");
+    }
+
 }
