@@ -24,6 +24,7 @@ $(document).ready(function(){
   	App.init();
     App.dataTables();
   	App.formElements();
+    $(".page-loader").remove();
 });
 </script>
 

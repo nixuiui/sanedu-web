@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<div class="page-loader"></div>
 <div role="alert" class="alert alert-danger alert-icon alert-icon-border alert-dismissible" v-bind:class="{'hide': !isErrorExist}">
     <div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
     <div class="message">

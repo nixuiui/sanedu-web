@@ -1,6 +1,26 @@
 body {
     background: url("../img/bg-pattern-grey.png");
 }
+.page-loader {
+    background: #FFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2000;
+    overflow: scroll;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+.page-loader:after {
+    content: "Tunggu Sebentar...";
+    font-size: 24px;
+    font-weight: 300;
+    width: 100vw;
+    text-align: center;
+}
 .be-top-header .navbar-header { width: auto; }
 .btn-sm { padding: 6px 8px; }
 .btn-space, .label-space { margin-right: 18px; margin-bottom: 18px; display: inline-block; }
