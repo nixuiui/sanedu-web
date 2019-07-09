@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<div class="page-loader"></div>
 <div role="alert" class="alert alert-danger alert-icon alert-icon-border alert-dismissible" v-bind:class="{'hide': !isErrorExist}">
     <div class="icon"><span class="mdi mdi-close-circle-o"></span></div>
     <div class="message">
@@ -18,7 +19,7 @@
     <span v-if="!isMounted">Loading Soal...</span>
 </span>
 <span class="label label-default label-md pull-right label-icon font-soal"><i class="mdi mdi-time-countdown"></i><span id="timer"></span></span>
-<btn class="btn btn-default btn-md pull-right font-soal btn-space btn-icon text-success" data-toggle="modal" data-target="#modalPeraturan"><i class="mdi mdi-settings mr-0"></i><span class="ml-3 hidden-xs">Peraturan</span></btn>
+<button class="btn btn-default btn-md pull-right font-soal btn-space btn-icon text-success" data-toggle="modal" data-target="#modalPeraturan"><i class="mdi mdi-settings mr-0"></i><span class="ml-3 hidden-xs">Peraturan</span></button>
 <div class="" v-show="!isFinish && isMounted">
     <div class="panel panel-default">
         <div class="panel-body font-soal" v-html="soal.soal"></div>
