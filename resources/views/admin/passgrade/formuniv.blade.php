@@ -1,23 +1,35 @@
-@extends('layouts.admin')
+@extends('layouts.adminnopadding')
 
 @section('title')
 Passing Grade
 @endsection
 
+@section('navigation')
+@include('admin.passgrade.menu')
+@endsection
+
 @section('content')
-<div class="row">
-    <div class="col-md-6">
-        @if(isset($universitas))
-        <form class="panel panel-default" action="{{ route('admin.passgrade.save.univ', $universitas) }}" method="post" enctype="multipart/form-data">
-        @else
-        <form class="panel panel-default" action="{{ route('admin.passgrade.save.univ') }}" method="post" enctype="multipart/form-data">
-        @endif
-            <div class="panel-heading">Form Universitas</div>
-            <div class="panel-body">
+<div class="email-inbox-header">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="email-title">
+                <span class="icon mdi mdi-accounts-alt mr-3"></span> Passing Grade
+            </div>
+        </div>
+    </div>
+</div>
+@if(isset($universitas))
+<form class="panel panel-default no-border mb-0" action="{{ route('admin.passgrade.save.univ', $universitas) }}" method="post" enctype="multipart/form-data">
+@else
+<form class="panel panel-default no-border mb-0" action="{{ route('admin.passgrade.save.univ') }}" method="post" enctype="multipart/form-data">
+@endif
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-2">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Nama Universitas*</label>
-                    <input type="text" class="form-control input-sm" placeholder="Nama Universitas" name="nama"  value="{{ isset($universitas) ? $universitas->nama : old('nama') }}">
+                    <input type="text" class="form-control input-md" placeholder="Nama Universitas" name="nama"  value="{{ isset($universitas) ? $universitas->nama : old('nama') }}">
                     @if($errors->has('nama'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -37,9 +49,10 @@ Passing Grade
                     @endif
                 </div>
                 @endif
-                <button type="submit"  class="btn btn-primary btn-fill btn-md">Simpan</button>
+                <button type="submit"  class="btn btn-primary btn-fill btn-lg btn-hspace btn-fill">Simpan</button>
             </div>
-        </form>
+        </div>
     </div>
-</div> <!-- end row -->
+</form>
+
 @endsection
