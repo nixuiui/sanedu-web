@@ -43,9 +43,9 @@ Kelompok Ujian
                         <div class="form-group">
                             <label>Nama Kelompok Soal Ujian</label>
                             <input type="text" class="form-control input-md" placeholder="Matematika" name="nama"  value="{{ $group ? $group->nama : old('judul') }}" required>
-                            @if($errors->has('judul'))
+                            @if($errors->has('nama'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('judul') }}</strong>
+                                <strong>{{ $errors->first('nama') }}</strong>
                             </span>
                             @endif
                         </div>

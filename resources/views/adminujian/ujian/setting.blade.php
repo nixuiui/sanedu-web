@@ -64,7 +64,7 @@ Kelola Ujian
                             <input type="text" class="form-control input-md" value="{{ $ujian->id_mata_pelajaran != null ? $ujian->mataPelajaran->nama : '-'}}" disabled>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 hide">
                         <div class="form-group">
                             <label>Harga (Rp)</label>
                             <input type="number" class="form-control input-md" placeholder="1000" name="harga"  value="{{ $ujian->harga }}" required>

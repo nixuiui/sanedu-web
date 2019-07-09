@@ -117,7 +117,7 @@
                 </div>
             </div>
             <div class="text-sm-left text-md-center">
-                <button id="btnNextGroup" class="btn btn-default btn-rounded next-group" style="margin-top: 10px; padding: 0 15px;" v-if="(group.id_attempt_group == groups[indexGroup].id_attempt_group) && ((indexGroup+1) < groups.length)">Langsung ke Soal Berikutnya</button>
+                <button id="btnNextGroup" class="btn btn-default btn-rounded next-group" style="margin-top: 10px; padding: 0 15px;" v-if="(group.id_attempt_group == groups[indexGroup].id_attempt_group) && ((indexGroup+1) < groups.length)">Lanjut ke Soal Berikutnya</button>
             </div>
         </div>
     </div>

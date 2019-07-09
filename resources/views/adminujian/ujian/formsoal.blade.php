@@ -34,7 +34,9 @@ Soal {{ $ujian->judul }}
         @endif
             <div class="panel-body">
                 <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
+                @if(!isset($soal))
                 <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
+                @endif
                 @csrf
                 <input type="hidden" name="id_group" value="{{ $group ? $group->id : "" }}">
                 <div class="form-group">
@@ -119,7 +121,9 @@ Soal {{ $ujian->judul }}
                     @endif
                 </div>
                 <button type="submit"  class="btn btn-primary btn-fill btn-md btn-space" name="simpan" value="simpan">Simpan</button>
+                @if(!isset($soal))
                 <button type="submit"  class="btn btn-default btn-fill btn-md btn-space" name="simpan" value="simpanandnext">Simpan dan Lanjut Buat Soal</button>
+                @endif
             </div>
         </form>
     </div>

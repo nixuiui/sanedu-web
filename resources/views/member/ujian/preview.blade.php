@@ -25,7 +25,7 @@ Preview - {{ $attempt->ujian->judul }}
                         </tr>
                         <tr>
                             <th>Soal</th>
-                            <td><a href="{{ route('member.ujian.soal.preattempt', $attempt->ujian->id) }}">{{ $attempt->ujian->judul }}</a></td>
+                            <td><a href="{{ route('member.ujian.soal.preattempt', ['idSoal' => $attempt->ujian->id]) }}">{{ $attempt->ujian->judul }}</a></td>
                         </tr>
                     @endif
                     @if($attempt->ujian->id_mata_pelajaran != null)

@@ -23,16 +23,16 @@ class Ujian extends Model {
 
     //RELATION table
   	public function tingkatSekolah() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_sekolah')->withDefault();
   	}
   	public function jenisUjian() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_jenis_ujian');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_jenis_ujian')->withDefault();
   	}
   	public function tingkatKelas() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_kelas');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_tingkat_kelas')->withDefault();
   	}
   	public function mataPelajaran() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_mata_pelajaran');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mata_pelajaran')->withDefault();
   	}
   	public function soal() {
   		return $this->hasMany('App\Models\Soal', 'id_ujian');

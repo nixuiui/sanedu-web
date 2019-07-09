@@ -37,7 +37,7 @@ class UjianController extends Controller
             'id_ujian'          => 'required|exists:set_pustaka,id',
             'id_kelas'          => 'nullable|exists:set_pustaka,id',
             'id_mata_pelajaran' => 'nullable|exists:set_pustaka,id',
-            'judul'             => 'required|string',
+            'judul'             => 'required|string|max:100',
             'menit'             => 'required_if:check_soal,false|numeric',
             'detik'             => 'required_if:check_soal,false|numeric',
             'harga'             => 'required|numeric',
@@ -60,7 +60,7 @@ class UjianController extends Controller
 
     public function prosesEditUjian(Request $input, $id) {
         $this->validate($input, [
-            'judul'     => 'required|string',
+            'judul'     => 'required|string|max:100',
             'harga'     => 'required|numeric',
             'url'       => 'nullable|url',
             'menit'     => 'numeric',
@@ -112,7 +112,7 @@ class UjianController extends Controller
 
     public function prosesKelompokSoal(Request $input, $id, $idKelompokSoal = null) {
         $this->validate($input, [
-            'nama'  => 'required|string',
+            'nama'  => 'required|string|max:50',
             'menit' => 'required|numeric',
             'detik' => 'required|numeric',
         ]);
