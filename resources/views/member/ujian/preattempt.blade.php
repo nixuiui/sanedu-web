@@ -165,8 +165,8 @@ $(document).on("click", ".mulai-ujian", function(e) {
     var link = $(this).attr("href");
     e.preventDefault();
     swal({
-        title: "Ingin Ujian?",
-        text: "Anda yakin ingin mulai ujian sekarang?",
+        title: "Anda yakin ingin mulai ujian sekarang?",
+        text: "Waktu ujian {{ durasi($ujian->durasi) }} tidak dapat dijeda. Pastikan Anda memiliki waktu yang cukup untuk menyelesaikan ujian ini.",
         type: "success",
         showCancelButton: true,
         confirmButtonClass: "btn btn-danger btn-fill",
