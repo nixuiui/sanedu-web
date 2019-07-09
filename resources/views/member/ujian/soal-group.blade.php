@@ -110,7 +110,7 @@
                 @{{ group.nama }}
                 <span class="pull-right">@{{ group.waktu }}</span>
             </div>
-            <div class="nosoal-wrap">
+            <div class="nosoal-wrap" v-bind:class="[{'hide': group.id_attempt_group != groups[indexGroup].id_attempt_group}]">
                 <div class="nosoal">
                     <button class="btn btn-sm btn-soal" v-for="(soal, index) in group.soal.length" v-bind:class="[{'btn-select': (group.no_start+index == noSoal) && !isFinish && (group.id_attempt_group == groups[indexGroup].id_attempt_group)}, group.soal[index].jawaban == null ? 'btn-default' : 'btn-warning btn-filled', {'no-clickable disabled': group.id_attempt_group != groups[indexGroup].id_attempt_group}]">
                         <span class="flex" @click="changeSoal(index)"><span>@{{ group.no_start+index }}</span></span>
