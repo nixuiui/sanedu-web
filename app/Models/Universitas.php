@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Universitas extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_universitas';
+    protected $table        = 'tbl_passing_grade_universitas';
     protected $primaryKey   = 'id';
     protected $keyType      = 'string';
     public $incrementing    = false;

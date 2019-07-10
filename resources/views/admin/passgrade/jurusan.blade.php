@@ -20,6 +20,7 @@ Passing Grade
 </div>
 <div class="panel no-border no-radius mb-0">
     <div class="panel-body">
+        <button type="button" class="btn btn-default btn-md btn-icon btn-space btn-rounded" data-toggle="modal" data-target="#modalImportDataJurusan"><i class="mdi mdi-download"></i>Import Data Jurusan</button>
         <a href="{{ route('admin.passgrade.form.jurusan', $universitas->id) }}" class="btn btn-rounded btn-md btn-primary btn-space btn-icon"> <i class="mdi mdi-plus"></i> Tambah Data Passing Grade</a>
     </div>
 </div>
@@ -75,6 +76,33 @@ Passing Grade
     </div>
 </div>
 
+<div class="modal fade" id="modalImportDataJurusan" tabindex="-1" role="dialog" aria-labelledby="modalFormLabel" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+                <h4 class="modal-title" id="modalFormLabel">Import Soal</h4>
+            </div>
+            <form class="modal-body" action="{{ route('admin.passgrade.save.univ', ['id' => $universitas->id, 'type' => 'import']) }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <label for=""><a href="{{route('admin.passgrade.download.format')}}">Download Format</a></label><br>
+                    <input type="hidden" name="featured_image">
+                    <input class="inputfile" id="file" type="file" name="file" data-multiple-caption="{count} files selected" required>
+                    <label class="btn-secondary" for="file"> <i class="mdi mdi-upload"></i><span>Pilih File .xlsx/.csv</span></label>                            
+                    @if($errors->has('featured_image'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('featured_image') }}</strong>
+                    </span> @endif
+                </div>
+                <button type="submit" id="btnSubmit" class="btn btn-primary btn-block btn-sm">Import Soal</button>
+            </form>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default btn-fill btn-md" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')

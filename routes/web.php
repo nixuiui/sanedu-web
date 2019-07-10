@@ -117,7 +117,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
 
     Route::group(['prefix' => 'passinggrade'], function(){
         Route::get('/',                                 'Admin\PassingGradeController@index')->name('admin.passgrade');
-        Route::get('/tahun',                            'Admin\PassingGradeController@years')->name('admin.passgrade.years');
+        Route::get('/downloadformat',                   'Admin\PassingGradeController@downloadFormat')->name('admin.passgrade.download.format');
+        Route::get('/buat-passgrade',                   'Admin\PassingGradeController@createPassgrade')->name('admin.passgrade.create');
         Route::get('/formuniv/{id?}',                   'Admin\PassingGradeController@formUniv')->name('admin.passgrade.form.univ');
         Route::post('/saveuniv/{id?}',                  'Admin\PassingGradeController@saveUniv')->name('admin.passgrade.save.univ');
         Route::get('/openuniv/{id}',                    'Admin\PassingGradeController@openUniv')->name('admin.passgrade.open.univ');

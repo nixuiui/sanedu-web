@@ -29,7 +29,7 @@ Passing Grade
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label>Nama Universitas*</label>
-                    <input type="text" class="form-control input-md" placeholder="Nama Universitas" name="nama"  value="{{ isset($universitas) ? $universitas->nama : old('nama') }}">
+                    <input type="text" class="form-control input-md" placeholder="Nama Universitas" name="nama"  value="{{ isset($universitas) ? $universitas->nama : old('nama') }}" required>
                     @if($errors->has('nama'))
                     <span class="help-block">
                         <strong>{{ $errors->first('nama') }}</strong>
@@ -39,7 +39,7 @@ Passing Grade
                 @if(!isset($universitas))
                 <div class="form-group">
                     <label>Upload File Passing Grade (Optional)</label> <br>
-                    <label><i class="text-muted">(Kolom: jurusan, kuota, peminat, passing_grade, akreditasi, soshum, saintek)</i></label> <br>
+                    <label for=""><a href="{{route('admin.passgrade.download.format')}}">Download Format</a></label><br>
                     <input class="inputfile" id="file" type="file" name="file" value="{{ old('file') }}">
                     <label class="btn-secondary" for="file"> <i class="mdi mdi-upload"></i><span>Pilih File</span></label>
                     @if($errors->has('file'))

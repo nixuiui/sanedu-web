@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Jurusan extends Model {
+class PassingGradeTahun extends Model {
     use SoftDeletes;
-    protected $table        = 'tbl_passing_grade_jurusan';
-    protected $primaryKey   = 'id';
+    protected $table        = 'tbl_passing_grade_tahun';
+    protected $primaryKey   = 'tahun';
     protected $keyType      = 'string';
     public $incrementing    = false;
     protected $dates        = ['deleted_at'];
@@ -20,12 +20,14 @@ class Jurusan extends Model {
         });
     }
 
-    //RELATION table
-    public function universitas() {
-        return $this->belongsTo('App\Models\Universitas', 'id_universitas')->withDefault();
+    public function scopeActive($query, $id = null) {
+        $query = $query->where("is_active", true)->first();
+        return $query;
     }
-    public function nilaiUTBK() {
-        return $this->hasMany('App\Models\PassingGradeNilaiUTBK', 'id_jurusan');
+
+    //RELATION table
+    public function jurusan() {
+        return $this->hasMany('App\Models\Jurusan', 'tahun');
     }
     public function getJurusanAttribute($value) {
         return strtoupper($value);

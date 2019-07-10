@@ -10,14 +10,39 @@ use Uuid;
 use Excel;
 use App\Models\Universitas;
 use App\Models\Jurusan;
+use App\Models\PassingGradeTahun;
+use App\Models\PassingGradeNilaiUTBK;
 
 class PassingGradeController extends Controller
 {
     public function index() {
+        if(isset($_GET['tahun'])) {
+            PassingGradeTahun::where('is_active', 1)->update(['is_active' => 0]);
+            $tahun = PassingGradeTahun::where("tahun", $_GET['tahun'])->first();
+            $tahun->is_active = 1;
+            $tahun->save();
+        }
         $universitas = Universitas::orderBy("nama", "asc")->get();
+        $tahun = PassingGradeTahun::orderBy("tahun", "asc")->get();
+        $tahunAktif = PassingGradeTahun::active()->tahun;
         return view('admin.passgrade.index')->with([
-            'universitas' => $universitas
+            'universitas' => $universitas,
+            'years' => $tahun,
+            'activeYears' => $tahunAktif
         ]);
+    }
+
+    public function createPassgrade() {
+        $tahun = PassingGradeTahun::where("tahun", $_GET['tahun'])->first();
+        if($tahun != null)
+            return redirect()->back()->with("error", "Passing Grade untuk tahun tersebut sudah tersedia");
+        
+        PassingGradeTahun::where('is_active', 1)->update(['is_active' => 0]);
+        $tahun = new PassingGradeTahun;
+        $tahun->tahun = $_GET['tahun'];
+        $tahun->is_active = 1;
+        $tahun->save();
+        return redirect()->back()->with("success", "Berhasil membuat Passing Grade");
     }
 
     public function openUniv($id) {
@@ -47,20 +72,26 @@ class PassingGradeController extends Controller
 
     public function saveUniv(Request $input, $id=null) {
         $this->validate($input, [
-            'nama' => 'required',
+            'nama' => 'string',
             'file' => 'nullable',
             'peminat' => 'numeric',
             'daya_tampung' => 'numeric'
         ]);
-        $universitas = new Universitas;
-        $universitas->id = Uuid::generate();
-        if($id != null)
-        $universitas = Universitas::find($id);
-        $universitas->nama = $input->nama;
+        $universitas = null;
+        if(!isset($_GET['type'])) {
+            $universitas = new Universitas;
+            $universitas->id = Uuid::generate();
+            if($id != null) $universitas = Universitas::find($id);
+            $universitas->nama = $input->nama;
+            $universitas->save();
+        }
+        else {
+            if($id != null) 
+                $universitas = Universitas::find($id);
+        }
         if($input->hasFile('file')){
             $path = $input->file('file')->getRealPath();
-            $data = collect(Excel::load($path, function($header) {
-            })->get());
+            $data = collect(Excel::load($path, function($header) {})->get());
             if(!empty($data) && $data->count()){
                 foreach ($data as $key => $value) {
                     if( $value->jurusan == null &&
@@ -79,12 +110,30 @@ class PassingGradeController extends Controller
                     $passGrade->akreditasi      = $value->akreditasi;
                     $passGrade->soshum          = $value->soshum;
                     $passGrade->saintek         = $value->saintek;
+                    $passGrade->tahun           = PassingGradeTahun::active()->tahun;
                     $passGrade->save();
+
+                    $nilaiUTBK                      = new PassingGradeNilaiUTBK;
+                    $nilaiUTBK->id                  = Uuid::generate();
+                    $nilaiUTBK->id_jurusan          = $passGrade->id;
+                    $nilaiUTBK->s_penalaran_umum    = $value->s_penalaran_umum;
+                    $nilaiUTBK->s_kuantitatif       = $value->s_kuantitatif;
+                    $nilaiUTBK->s_pemahaman_umum    = $value->s_pemahaman_umum;
+                    $nilaiUTBK->s_baca_menulis      = $value->s_baca_menulis;
+                    $nilaiUTBK->ipa_matematika      = $value->ipa_matematika;
+                    $nilaiUTBK->ipa_fisika          = $value->ipa_fisika;
+                    $nilaiUTBK->ipa_kimia           = $value->ipa_kimia;
+                    $nilaiUTBK->ipa_biologi         = $value->ipa_biologi;
+                    $nilaiUTBK->ips_matematika      = $value->ips_matematika;
+                    $nilaiUTBK->ips_geografi        = $value->ips_geografi;
+                    $nilaiUTBK->ips_sejarah         = $value->ips_sejarah;
+                    $nilaiUTBK->ips_sosiologi       = $value->ips_sosiologi;
+                    $nilaiUTBK->ips_ekonomi         = $value->ips_ekonomi;
+                    $nilaiUTBK->save();
                 }
             }
         }
-        if($universitas->save())
-        return redirect()->route('admin.passgrade')->with("success", "Berhasil menambah Universitas");
+        return redirect()->route('admin.passgrade')->with("success", "Berhasil");
     }
 
     public function formJurusan($id, $idJur=null) {
@@ -131,5 +180,59 @@ class PassingGradeController extends Controller
         $jurusan = Jurusan::find($idJur);
         $jurusan->delete();
         return redirect()->back()->with("success", "Berhasil dihapus");
+    }
+
+    public function downloadFormat() {
+        $pesertaArray = [];
+        $pesertaArray[] = [
+            'jurusan', 
+            'kuota', 
+            'peminat', 
+            'passing_grade', 
+            'akreditasi', 
+            'soshum', 
+            'saintek', 
+            's_penalaran_umum', 
+            's_kuantitatif',
+            's_pemahaman_umum',
+            's_baca_menulis',
+            'ipa_matematika',
+            'ipa_fisika',
+            'ipa_kimia',
+            'ipa_biologi',
+            'ips_matematika',
+            'ips_geografi',
+            'ips_sejarah',
+            'ips_sosiologi',
+            'ips_ekonomi'];
+        $pesertaArray[] = [
+            'Ilmu Komputer', 
+            '130', 
+            '1200', 
+            '30', 
+            'A', 
+            1, 
+            0, 
+            '543', 
+            '432',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342',
+            '342'];
+        Excel::create('Format Import Passing Grade', function($excel) use ($pesertaArray) {
+            $excel->setTitle('Format Import Passing Grade');
+            $excel->setCreator('Niki Rahmadi Wiharto')->setCompany('Sanedu');
+            $excel->setDescription('Format Import Passing Grade');
+            $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
+                $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+            });
+        })->download('xlsx');
     }
 }
