@@ -2,7 +2,7 @@
 <html lang="en">
 @include('partials.admin.htmlheader')
 <body>
-    <div class="be-wrapper be-collapsible-sidebar be-collapsible-sidebar-collapsed be-fixed-sidebar">
+    <div class="be-wrapper be-collapsible-sidebar be-fixed-sidebar">
         <nav class="navbar navbar-default navbar-fixed-top be-top-header">
             <div class="container-fluid">
                 <div class="navbar-header">
