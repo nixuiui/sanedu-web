@@ -61,13 +61,13 @@
                 <div class="row">
                     <div class="col-md-9">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Tingkat Sekolah</label>
                                     <input type="text" class="form-control input-sm" value="{{ $simulasi->tingkatSekolah->nama }}" disabled>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Judul Ujian Simulasi</label>
                                     <input type="text" class="form-control input-sm" placeholder="Ujian Nasional SMA Matematika" name="judul" value="{{ $simulasi->judul }}"
@@ -77,7 +77,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Instansi Penyelenggara</label>
                                     <input type="text" class="form-control input-sm" placeholder="Study & Fun" name="instansi" value="{{ $simulasi->instansi }}"
@@ -87,7 +87,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Tempat Pelaksanaan</label>
                                     <input type="text" class="form-control input-sm" placeholder="Unila" name="tempat_pelaksanaan" value="{{ $simulasi->tempat_pelaksanaan }}">                                    @if($errors->has('tempat_pelaksanaan'))
@@ -96,7 +96,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Tanggal Pelaksanaan</label>
                                     <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pelaksanaan" value="{{ $simulasi->tanggal_pelaksanaan }}"
@@ -106,7 +106,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Tanggal Pengumuman</label>
                                     <input type="date" class="form-control input-sm" placeholder="60" name="tanggal_pengumuman" value="{{ $simulasi->tanggal_pengumuman }}"
@@ -116,7 +116,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Harga (Rp)</label>
                                     <input type="number" class="form-control input-sm" placeholder="1000" name="harga" value="{{ $simulasi->harga }}" required>                                    @if($errors->has('harga'))
@@ -125,7 +125,7 @@
                                     </span> @endif
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-lg-4 col-sm-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Kode Enroll <span class="text-muted">(Digunakan jika tidak menggunakan tiket)</span></label>
                                     <div class="input-group xs-mb-15 input-group-sm">
@@ -222,10 +222,8 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel',
-                                        1516)->sum('kapasitas') }} TIKET</td>
-                                    <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel',
-                                        1517)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1516)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1516)->sum('kapasitas') }} TIKET</td>
+                                    <td>{{ $simulasi->ruang->where('id_mapel', 1517)->sum('jumlah_peserta') }}/{{ $simulasi->ruang->where('id_mapel', 1517)->sum('kapasitas') }} TIKET</td>
                                 </tr>
                             </tbody>
                         </table>

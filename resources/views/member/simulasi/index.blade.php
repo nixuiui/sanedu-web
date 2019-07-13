@@ -19,7 +19,7 @@ Simulasi
                 <img class="card-img-top fix-height" src="{{ $data->image_url }}" alt="Placeholder">
             </div>
             <div class="card-body text-14">
-                <small class="text-muted">
+                <small class="text-muted text-danger">
                     SIMULASI 
                     @if($data->is_online)
                     ONLINE
@@ -31,7 +31,7 @@ Simulasi
                 <div class="text-16 text-ellipsis mb-3 text-bold">{{ $data->judul }}</div>
                 <div><i class="mdi mdi-calendar mr-4 mb-2"></i>{{ hariTanggal($data->tanggal_pelaksanaan) }}</div>
                 <div><i class="mdi mdi-pin mr-4 mb-2"></i>{{ $data->tempat_pelaksanaan }}</div>
-                <div class="text-success text-bold mb-3"><i class="mdi mdi-circle mr-4"></i>{{ $data->harga > 0 ? formatUang($data->harga) : "GRATIS"}}</div>
+                <div class="mb-3"><i class="mdi mdi-circle mr-4"></i>{{ $data->harga > 0 ? formatUang($data->harga) : "GRATIS"}}</div>
                 @if($data->peserta->where('id_user', Auth::id())->first() == null)
                 <a href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">IKUTI SIMULASI</a>
                 {{-- <a data-href="{{ route('member.simulasi.register', $data->id) }}" class="btn btn-lg btn-block btn-success beli-simulasi" data-judul="{{ $data->judul }}" data-hargaori="{{ $data->harga }}" data-harga="{{ formatUang($data->harga) }}" data-saldo="{{ Auth::user()->saldo}}">IKUTI SIMULASI</a> --}}
