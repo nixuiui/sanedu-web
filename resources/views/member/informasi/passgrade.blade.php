@@ -5,50 +5,35 @@ Passing Grade
 @endsection
 
 @section('style')
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
-@endsection
-
-@section('script')
-<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-    $('.main-gallery').slick({
-        autoplay: true,
-        autoplayspeed: 5000
-    });
-});
-</script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 @endsection
 
 @section('content')
-<div class="row">
-    <div class="col-md-3">
-        <form class="panel panel-default" action="" method="get">
+<div class="row" id="passgrade">
+    @if(!isset($jurusan))
+    <div class="col-md-4 col-sm-6">
+        <div class="panel panel-default">
             <div class="panel-body">
-                <div class="form-group">
-                    <label>Jurusan*</label>
-                    <select class="form-control input-sm" name="jurusan">
-                        <option value="">Semua Jurusan</option>
-                        <option value="saintek" {{ isset($_GET['jurusan']) && $_GET['jurusan'] == "saintek" ? "selected" : ""}}>Saintek</option>
-                        <option value="soshum" {{ isset($_GET['jurusan']) && $_GET['jurusan'] == "soshum" ? "selected" : ""}}>Soshum</option>
-                    </select>
+                <input type="text" class="form-control input-md mb-5" placeholder="Cari Universitas" v-model="search">
+                <div v-for="(data, index) in filteredItems">
+                    <div class="row mb-3">
+                        <div class="col-xs-8">
+                            <strong>@{{ data.nama }}</strong>
+                            <div>Akreditasi: @{{ data.akreditasi }}</div>
+                        </div>
+                        <div class="col-xs-4 text-center">
+                            <div class="mb-2"></div>
+                            <a :href="data.url_detail" class="btn btn-xs btn-block" v-bind:class="data.harga > 0 ? 'btn-success' : 'btn-default'">@{{ data.format_harga }}</a>
+                        </div>
+                    </div>
+                    <hr>
                 </div>
-                <div class="form-group">
-                    <label>Nama Universitas*</label>
-                    <select class="form-control input-sm" name="universitas">
-                        <option value="">Pilih Universitas</option>
-                        @foreach($universitas as $data)
-                        <option value="{{ $data->id }}" {{ isset($_GET['universitas']) && $_GET['universitas'] == $data->id ? "selected" : ""}}>{{ $data->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-md btn-primary btn-block">Lihat Passing Grade</button>
             </div>
-        </form>
+        </div>
     </div>
-    @if(isset($jurusan))
-    <div class="col-md-9">
+    @else
+    <div class="col-md-12">
         <div class="panel panel-default panel-table">
             <div class="panel-heading">
             </div>
@@ -56,22 +41,24 @@ $(document).ready(function(){
                 <table id="datatables" class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Jurusan</th>
-                            <th class="text-center">Kuota</th>
-                            <th class="text-center">Peminat</th>
-                            <th class="text-center">Pass Grade</th>
-                            <th class="text-center">Akreditasi</th>
+                            <th width="20">No</th>
+                            <th>Jurusan</th>
+                            <th>Jenis</th>
+                            <th>Kuota</th>
+                            <th>Peminat</th>
+                            <th>Pass Grade</th>
+                            <th>Akreditasi</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th class="text-center">No</th>
-                            <th class="text-center">Jurusan</th>
-                            <th class="text-center">Kuota</th>
-                            <th class="text-center">Peminat</th>
-                            <th class="text-center">Pass Grade</th>
-                            <th class="text-center">Akreditasi</th>
+                            <th width="20">No</th>
+                            <th>Jurusan</th>
+                            <th>Jenis</th>
+                            <th>Kuota</th>
+                            <th>Peminat</th>
+                            <th>Pass Grade</th>
+                            <th>Akreditasi</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -79,10 +66,14 @@ $(document).ready(function(){
                         <tr>
                             <td>{{ $no+1 }}</td>
                             <td>{{ $w->jurusan }}</td>
-                            <td class="text-center">{{ $w->kuota }}</td>
-                            <td class="text-center">{{ $w->peminat }}</td>
-                            <td class="text-center">{{ $w->passing_grade }}</td>
-                            <td class="text-center">{{ $w->akreditasi }}</td>
+                            <td>
+                                {!! $w->saintek ? "<span class='badge badge-primary'>Saintek</span>" : "" !!}
+                                {!! $w->soshum ? "<span class='badge badge-success'>Soshum</span>" : "" !!}
+                            </td>
+                            <td>{{ $w->kuota }}</td>
+                            <td>{{ $w->peminat }}</td>
+                            <td>{{ $w->passing_grade }}</td>
+                            <td>{{ $w->akreditasi }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -92,4 +83,38 @@ $(document).ready(function(){
     </div>
     @endif
 </div>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('.main-gallery').slick({
+        autoplay: true,
+        autoplayspeed: 5000
+    });
+});
+</script>
+<script type="text/javascript">
+    var app = new Vue({
+    el: '#passgrade',
+    data: {
+        search: '',
+        universitas: {!! $universitas !!},
+        test: "ASDSA"
+    },
+    computed: {
+        filteredItems() {
+            return this.universitas.filter(data => {
+                return data.nama.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+            })
+        }
+    },
+    watch: {
+        harga: function() {
+            return 0;
+        }
+    }
+});
+</script>
 @endsection

@@ -47,7 +47,10 @@ class PassingGradeController extends Controller
 
     public function openUniv($id) {
         $universitas    = Universitas::find($id);
-        $jurusan        = Jurusan::where('id_universitas', $id)->orderBy("jurusan", "asc")->get();
+        $jurusan        = Jurusan::where('tahun', PassingGradeTahun::active()->tahun)
+                                ->where('id_universitas', $id)
+                                ->orderBy("jurusan", "asc")
+                                ->get();
         return view('admin.passgrade.jurusan')->with([
             'universitas' => $universitas,
             'jurusan' => $jurusan
@@ -73,6 +76,8 @@ class PassingGradeController extends Controller
     public function saveUniv(Request $input, $id=null) {
         $this->validate($input, [
             'nama' => 'string',
+            'akreditasi' => 'string|max:2',
+            'harga' => 'numeric',
             'file' => 'nullable',
             'peminat' => 'numeric',
             'daya_tampung' => 'numeric'
@@ -83,6 +88,8 @@ class PassingGradeController extends Controller
             $universitas->id = Uuid::generate();
             if($id != null) $universitas = Universitas::find($id);
             $universitas->nama = $input->nama;
+            $universitas->akreditasi = $input->akreditasi;
+            $universitas->harga = $input->harga;
             $universitas->save();
         }
         else {

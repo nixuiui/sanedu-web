@@ -47,6 +47,8 @@ Passing Grade
                 <tr>
                     <th>No</th>
                     <th>Universitas</th>
+                    <th>Harga</th>
+                    <th>Akreditasi</th>
                     <th>Jumlah Jurusan</th>
                     <th class="text-right">Aksi</th>
                 </tr>
@@ -55,6 +57,8 @@ Passing Grade
                 <tr>
                     <th>No</th>
                     <th>Universitas</th>
+                    <th>Harga</th>
+                    <th>Akreditasi</th>
                     <th>Jumlah Jurusan</th>
                     <th class="text-right">Aksi</th>
                 </tr>
@@ -66,6 +70,8 @@ Passing Grade
                     <td>
                         <a href="{{ route('admin.passgrade.open.univ', $w->id) }}">{{ $w->nama }}</a>
                     </td>
+                    <td>{{ formatUang($w->harga) }}</td>
+                    <td>{{ $w->akreditasi }}</td>
                     <td>{{ $w->jurusan->count() }} jurusan</td>
                     <td class="text-right">
                         <a href="{{ route('admin.passgrade.open.univ', $w->id) }}" class="btn btn-xs btn-default"

@@ -36,6 +36,24 @@ Passing Grade
                     </span>
                     @endif
                 </div>
+                <div class="form-group">
+                    <label>Akreditasi Universitas*</label>
+                    <input type="text" class="form-control input-md" placeholder="Akreditasi Universitas" name="akreditasi"  value="{{ isset($universitas) ? $universitas->akreditasi : old('akreditasi') }}" required>
+                    @if($errors->has('akreditasi'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('akreditasi') }}</strong>
+                    </span>
+                    @endif
+                </div>
+                <div class="form-group">
+                    <label>Harga*</label>
+                    <input type="number" class="form-control input-md" placeholder="Harga" name="harga"  value="{{ isset($universitas) ? $universitas->harga : old('harga') }}" required>
+                    @if($errors->has('harga'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('harga') }}</strong>
+                    </span>
+                    @endif
+                </div>
                 @if(!isset($universitas))
                 <div class="form-group">
                     <label>Upload File Passing Grade (Optional)</label> <br>
