@@ -55,7 +55,8 @@ Tiket Peserta {{ $simulasi->judul }}
                             <td>{{ $cetak->user->nama }}</td>
                             <td class="text-right">
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', ['id' => $simulasi->id, 'idCetak' => $cetak->id]) }}" class="btn btn-xs btn-default" title="Detail Tiket"><i class="mdi mdi-eye"></i></a>
-                                <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.print', ['id' => $simulasi->id, 'idCetak' => $cetak->id]) }}" class="btn btn-xs btn-default print" title="Cetak Tiket" data-jumlahtiket="{{ $cetak->tiket->count() }}"><i class="mdi mdi-print"></i></a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.print', ['id' => $simulasi->id, 'idCetak' => $cetak->id]) }}" class="btn btn-xs btn-default print" title="Cetak Tiket" data-jumlahtiket="{{ $cetak->tiket->count() }}">A4</a>
+                                <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.print', ['id' => $simulasi->id, 'idCetak' => $cetak->id, 'paperSize' => 'a3']) }}" class="btn btn-xs btn-default print" title="Cetak Tiket" data-jumlahtiket="{{ $cetak->tiket->count() }}">A3</a>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.delete', ['id' => $simulasi->id, 'idCetak' => $cetak->id]) }}" class="btn btn-xs btn-danger delete"><i class="mdi mdi-delete"></i></a>
                             </td>
                         </tr>
