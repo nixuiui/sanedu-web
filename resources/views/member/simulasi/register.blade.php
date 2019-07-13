@@ -5,51 +5,41 @@
 @section('content')
 <div class="row">
     @if(!isset($_GET['pin']) && !isset($_GET['kap']) && !isset($_GET['enroll']))
-    <div class="col-md-8">
-        <div class="row">
-            @if($simulasi->enroll)
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Masuk Menggunakan Kode Enroll
-                    </div>
-                    <div class="panel-body">
-                        <form class="" action="" method="get">
-                            <div class="form-group">
-                                <label for="">Enroll</label>
-                                <input type="text" class="form-control input-sm" name="enroll" placeholder="KODE ENROLL" value="{{ old('enroll') }}">
-                            </div>
-                            <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
-                        </form>
-                    </div>
-                </div>
+    <div class="col-md-4 col-md-offset-4">
+        @if($simulasi->enroll)
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Masuk Menggunakan Kode Enroll
             </div>
-            @else
-            <div class="col-md-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        Masukan PIN & KAP Anda
+            <div class="panel-body">
+                <form class="" action="" method="get">
+                    <div class="form-group">
+                        <label for="">Enroll</label>
+                        <input type="text" class="form-control input-md" name="enroll" placeholder="KODE ENROLL" value="{{ old('enroll') }}">
                     </div>
-                    <div class="panel-body">
-                        <form class="" action="" method="get">
-                            <div class="form-group">
-                                <label for="">PIN</label>
-                                <input type="text" class="form-control input-sm input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="">KAP</label>
-                                <input type="text" class="form-control input-sm input-kap" name="kap" placeholder="KAP" value="{{ old('kap') }}">
-                            </div>
-                            <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
-                        </form>
-                    </div>
-                </div>
+                    <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
+                </form>
             </div>
-            @endif
         </div>
+        @else
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Masukan PIN Anda
+            </div>
+            <div class="panel-body">
+                <form class="" action="" method="get">
+                    <div class="form-group">
+                        <label for="">PIN</label>
+                        <input type="text" class="form-control input-md input-pin" name="pin" placeholder="PIN" value="{{ old('pin') }}">
+                    </div>
+                    <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
+                </form>
+            </div>
+        </div>
+        @endif
     </div>
     @else
-    <div class="col-md-4 col-md-offset-4">
+    <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Pilihan Passing Grade
@@ -95,18 +85,18 @@
                     <div class="form-group">
                         <label class=" control-label">UNIVERSITAS</label>
                         <div class="">
-                            <select id="univ1" class="select2 input-univ input-sm" name="univ_1" data-parseto="jurusan_1">
-                                    <option value="">Pilih Universitas</option>
-                                    @foreach($universitas as $data)
-                                    <option value="{{ $data->id }}">{{ $data->nama }}</option>
-                                    @endforeach
-                                </select>
+                            <select id="univ1" class="select2 input-univ input-md" name="univ_1" data-parseto="jurusan_1">
+                                <option value="">Pilih Universitas</option>
+                                @foreach($universitas as $data)
+                                <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class=" control-label">JURUSAN</label>
                         <div class="">
-                            <select id="jurusan_1" class="select2 input-jurusan input-sm" name="jurusan_1" required>
+                            <select id="jurusan_1" class="select2 input-jurusan input-md" name="jurusan_1" required>
                                 </select> @if($errors->has('jurusan_1'))
                             <span class="help-block">
                                     <strong>{{ $errors->first('jurusan_1') }}</strong>
@@ -118,7 +108,7 @@
                     <div class="form-group">
                         <label class=" control-label">UNIVERSITAS</label>
                         <div class="">
-                            <select id="univ2" class="select2 input-univ input-sm" data-parseto="jurusan_2">
+                            <select id="univ2" class="select2 input-univ input-md" data-parseto="jurusan_2">
                                     <option value="">Pilih Universitas</option>
                                     @foreach($universitas as $data)
                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
@@ -129,7 +119,7 @@
                     <div class="form-group">
                         <label class=" control-label">JURUSAN</label>
                         <div class="">
-                            <select id="jurusan_2" class="select2 input-jurusan input-sm" name="jurusan_2" required>
+                            <select id="jurusan_2" class="select2 input-jurusan input-md" name="jurusan_2" required>
                                 </select> @if($errors->has('jurusan_2'))
                             <span class="help-block">
                                     <strong>{{ $errors->first('jurusan_2') }}</strong>
@@ -141,7 +131,7 @@
                     <div class="form-group">
                         <label class=" control-label">UNIVERSITAS</label>
                         <div class="">
-                            <select id="univ3" class="select2 input-univ input-sm" data-parseto="jurusan_3">
+                            <select id="univ3" class="select2 input-univ input-md" data-parseto="jurusan_3">
                                     <option value="">Pilih Universitas</option>
                                     @foreach($universitas as $data)
                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
@@ -152,7 +142,7 @@
                     <div class="form-group">
                         <label class=" control-label">JURUSAN</label>
                         <div class="">
-                            <select id="jurusan_3" class="select2 input-jurusan input-sm" name="jurusan_3" required>
+                            <select id="jurusan_3" class="select2 input-jurusan input-md" name="jurusan_3" required>
                                 </select> @if($errors->has('jurusan_3'))
                             <span class="help-block">
                                     <strong>{{ $errors->first('jurusan_3') }}</strong>
@@ -166,7 +156,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Provinsi</label>
-                                <select class="form-control input-sm" id="inputProvinsi" name="id_provinsi">
+                                <select class="form-control input-md" id="inputProvinsi" name="id_provinsi">
                                     @foreach($provinsi as $data)
                                     <option value="{{ $data->id }}" {{ Auth::user()->id_sekolah != null && Auth::user()->sekolah->id_provinsi == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
                                     @endforeach
@@ -179,7 +169,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kabupaten/Kota</label>
-                                <select class="form-control input-sm" id="inputKota" name="id_kota">
+                                <select class="form-control input-md" id="inputKota" name="id_kota">
                                     @if(Auth::user()->id_sekolah != null && $kota->count() > 0)
                                     @foreach($kota as $data)
                                     <option value="{{ $data->id }}" {{ Auth::user()->sekolah->id_kota == $data->id ? "selected" : "" }}>{{ $data->name }}</option>
@@ -194,7 +184,7 @@
                     </div>
                     <div class="form-group">
                         <label>Tingkat Sekolah</label>
-                        <select class="form-control input-sm" id="inputTingkatSekolah" required {{ Auth::user()->id_sekolah == null ? "disabled" : "" }}>
+                        <select class="form-control input-md" id="inputTingkatSekolah" required {{ Auth::user()->id_sekolah == null ? "disabled" : "" }}>
                             <option value="">-- Pilih Tingkat Sekolah --</option>
                             <option value="1301" {{ Auth::user()->id_sekolah != null && Auth::user()->sekolah->id_tingkat_sekolah == 1301 ? "selected" : "" }}>SD</option>
                             <option value="1302" {{ Auth::user()->id_sekolah != null && Auth::user()->sekolah->id_tingkat_sekolah == 1302 ? "selected" : "" }}>SMP</option>
@@ -203,7 +193,7 @@
                     </div>
                     <div class="form-group">
                         <label>Asal Sekolah</label>
-                        <select class="form-control input-sm" id="inputSekolah" name="id_sekolah" required {{ Auth::user()->id_sekolah == null ? "disabled" : "" }}>
+                        <select class="form-control input-md" id="inputSekolah" name="id_sekolah" required {{ Auth::user()->id_sekolah == null ? "disabled" : "" }}>
                             @if(Auth::user()->id_sekolah != null && $sekolah->count() > 0)
                             @foreach($sekolah as $data)
                             <option value="{{ $data->id }}" {{ Auth::user()->id_sekolah == $data->id ? "selected" : "" }}>{{ $data->nama }}</option>

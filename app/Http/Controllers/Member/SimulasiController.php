@@ -55,16 +55,16 @@ class SimulasiController extends Controller
         $tiket = null;
         $enroll = null;
         //CHECK JIKA PIN & KAP MASIH KOSONG
-        if(!isset($_GET['kap']) && !isset($_GET['pin']) && !isset($_GET['enroll'])) {
+        if(!isset($_GET['pin']) && !isset($_GET['enroll'])) {
             return view('member.simulasi.register')->with([
                 'simulasi' => $simulasi,
             ]);
         }
+
         // REGISTER MENGGUNAKAN KAP & PIN
-        else if(isset($_GET['kap']) && isset($_GET['pin'])){
-            $kap = str_replace("-", "", $_GET['kap']);
+        else if(isset($_GET['pin'])){
             $pin = str_replace("-", "", $_GET['pin']);
-            $tiket = Tiket::where('pin', $pin)->where('kap', $kap);
+            $tiket = Tiket::where('pin', $pin);
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
             $tiket = $tiket->where('id_user', null);
@@ -92,7 +92,7 @@ class SimulasiController extends Controller
             'simulasi' => $simulasi,
             'universitas' => $universitas,
             'tiket' => $tiket,
-            'enroll' => $_GET['enroll'],
+            'enroll' => $enroll,
             'provinsi' => $provinsi,
             'kota' => $kota,
             'sekolah' => $sekolah
@@ -106,9 +106,9 @@ class SimulasiController extends Controller
             'enroll'    => 'nullable',
             'mode'      => 'required|in:offline,online',
             'jurusan'   => 'required|exists:set_pustaka,id',
-            'jurusan_1' => 'required|exists:tbl_jurusan,id',
-            'jurusan_2' => 'required|exists:tbl_jurusan,id',
-            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_passing_grade_jurusan,id',
             'id_sekolah'    => 'required|exists:tbl_sekolah,id',
         ]);
 
@@ -326,9 +326,9 @@ class SimulasiController extends Controller
 
     public function passGradePost(Request $input, $id) {
         $this->validate($input, [
-            'jurusan_1' => 'required|exists:tbl_jurusan,id',
-            'jurusan_2' => 'required|exists:tbl_jurusan,id',
-            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_passing_grade_jurusan,id',
         ]);
 
         $simulasi = Simulasi::where('id', $id)->first();

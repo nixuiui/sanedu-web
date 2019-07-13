@@ -81,9 +81,9 @@ class UjianController extends Controller
     public function sbmptnPassGradePost(Request $input, $id) {
         $this->validate($input, [
             'jurusan'   => 'required|exists:set_pustaka,id',
-            'jurusan_1' => 'required|exists:tbl_jurusan,id',
-            'jurusan_2' => 'required|exists:tbl_jurusan,id',
-            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_passing_grade_jurusan,id',
         ]);
         $ujian = Ujian::findOrFail($id);
         $pembelian = PembelianUjian::where('id_user', Auth::id())

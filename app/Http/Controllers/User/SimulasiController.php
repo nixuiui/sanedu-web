@@ -52,9 +52,9 @@ class SimulasiController extends Controller
         $this->validate($input, [
             'mode'      => 'required|in:offline,online',
             'jurusan'   => 'required|exists:set_pustaka,id',
-            'jurusan_1' => 'required|exists:tbl_jurusan,id',
-            'jurusan_2' => 'required|exists:tbl_jurusan,id',
-            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_passing_grade_jurusan,id',
         ]);
         $simulasi = Simulasi::where('id', $id)->first();
         if(!$simulasi) return back();
@@ -243,9 +243,9 @@ class SimulasiController extends Controller
 
     public function passGradePost(Request $input, $id) {
         $this->validate($input, [
-            'jurusan_1' => 'required|exists:tbl_jurusan,id',
-            'jurusan_2' => 'required|exists:tbl_jurusan,id',
-            'jurusan_3' => 'required|exists:tbl_jurusan,id',
+            'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_2' => 'required|exists:tbl_passing_grade_jurusan,id',
+            'jurusan_3' => 'required|exists:tbl_passing_grade_jurusan,id',
         ]);
 
         $simulasi = Simulasi::where('id', $id)->first();

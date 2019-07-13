@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\SetPustaka;
 use App\Models\Universitas;
 use App\Models\Jurusan;
+use App\Models\PassingGradeTahun;
 use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\Sekolah;
@@ -97,7 +98,9 @@ class AJAXController extends Controller
         $universitas = Universitas::select('id', 'nama')->orderBy('nama', 'asc')->get();
         if($id==null) return response()->json($universitas);
 
-        $jurusan = Jurusan::where('id_universitas', $id)->select('id', 'jurusan', 'saintek', 'soshum');
+        $jurusan = Jurusan::where('id_universitas', $id)
+                            ->where('tahun', PassingGradeTahun::active()->tahun)
+                            ->select('id', 'jurusan', 'saintek', 'soshum');
         if(isset($_GET['jurusan']) && $_GET['jurusan'] != null) {
             $idjur = $_GET['jurusan'];
             if($idjur == 1516)

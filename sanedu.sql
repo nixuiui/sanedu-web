@@ -483,10 +483,10 @@ INSERT INTO `tbl_informasi` (`id`, `id_kategori`, `id_author`, `judul`, `foto`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_jurusan`
+-- Table structure for table `tbl_passing_grade_jurusan`
 --
 
-CREATE TABLE `tbl_jurusan` (
+CREATE TABLE `tbl_passing_grade_jurusan` (
   `id` char(36) NOT NULL,
   `id_universitas` char(36) NOT NULL,
   `jurusan` varchar(100) DEFAULT NULL,
@@ -502,10 +502,10 @@ CREATE TABLE `tbl_jurusan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_jurusan`
+-- Dumping data for table `tbl_passing_grade_jurusan`
 --
 
-INSERT INTO `tbl_jurusan` (`id`, `id_universitas`, `jurusan`, `kuota`, `peminat`, `passing_grade`, `akreditasi`, `soshum`, `saintek`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `tbl_passing_grade_jurusan` (`id`, `id_universitas`, `jurusan`, `kuota`, `peminat`, `passing_grade`, `akreditasi`, `soshum`, `saintek`, `created_at`, `updated_at`, `deleted_at`) VALUES
 ('11f16460-9414-11e8-9637-4fcb6361c6d2', 'a6537450-940d-11e8-9318-ad01b8183ce7', 'Fisika', 2000, 3000, 40, '40', 1, 0, '2018-07-30 16:17:35', '2018-07-30 16:17:41', NULL),
 ('294d3ba0-9f00-11e8-a8b1-5fe71d1158e9', '293983e0-9f00-11e8-b316-5db749336d5d', 'ilmu_teknologi_kebumian', 112, 147, 0.45, 'A', 0, 1, '2018-08-13 13:52:47', '2018-08-13 13:52:47', NULL),
 ('29602ae0-9f00-11e8-affd-91796e7e5bd9', '293983e0-9f00-11e8-b316-5db749336d5d', 'teknik_pertambangan_&_perminyakan', 132, 2889, 0.55, 'A', 0, 1, '2018-08-13 13:52:47', '2018-08-13 13:52:47', NULL),
@@ -2429,10 +2429,10 @@ INSERT INTO `tbl_ujian` (`id`, `id_tingkat_sekolah`, `id_jenis_ujian`, `id_tingk
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_universitas`
+-- Table structure for table `tbl_passing_grade_universitas`
 --
 
-CREATE TABLE `tbl_universitas` (
+CREATE TABLE `tbl_passing_grade_universitas` (
   `id` char(36) NOT NULL,
   `nama` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -2441,10 +2441,10 @@ CREATE TABLE `tbl_universitas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `tbl_universitas`
+-- Dumping data for table `tbl_passing_grade_universitas`
 --
 
-INSERT INTO `tbl_universitas` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `tbl_passing_grade_universitas` (`id`, `nama`, `created_at`, `updated_at`, `deleted_at`) VALUES
 ('293983e0-9f00-11e8-b316-5db749336d5d', 'Institude Teknologi Bandung', '2018-08-13 13:52:48', '2018-08-13 14:03:27', '2018-08-13 14:03:27'),
 ('41f580c0-b847-11e8-9dc7-4929524c5748', 'Universitas Diponegoro', '2018-09-14 17:54:48', '2018-09-14 17:54:48', NULL),
 ('6e940130-9415-11e8-b198-4583f8d82b5f', 'Universitas Brawijaya', '2018-07-30 16:27:20', '2018-08-13 13:48:01', '2018-08-13 13:48:01'),
@@ -2569,9 +2569,9 @@ ALTER TABLE `tbl_informasi`
   ADD KEY `id_author` (`id_author`);
 
 --
--- Indexes for table `tbl_jurusan`
+-- Indexes for table `tbl_passing_grade_jurusan`
 --
-ALTER TABLE `tbl_jurusan`
+ALTER TABLE `tbl_passing_grade_jurusan`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_universitas` (`id_universitas`);
 
@@ -2641,9 +2641,9 @@ ALTER TABLE `tbl_ujian`
   ADD KEY `id_mata_pelajaran` (`id_mata_pelajaran`);
 
 --
--- Indexes for table `tbl_universitas`
+-- Indexes for table `tbl_passing_grade_universitas`
 --
-ALTER TABLE `tbl_universitas`
+ALTER TABLE `tbl_passing_grade_universitas`
   ADD PRIMARY KEY (`id`);
 
 --
