@@ -1325,24 +1325,21 @@ class SimulasiController extends Controller
         $simulasi = Simulasi::findOrFail($id);
         $this->validate($input, [
             'jumlah'            => 'required|max:1000|numeric',
-            'id_kategori_tiket' => 'required|exists:set_pustaka,id',
         ]);
         $cetakTiket                     = new CetakTiket;
         $cetakTiket->id                 = Uuid::generate();
-        $cetakTiket->id_kategori_tiket  = $input->id_kategori_tiket;
+        $cetakTiket->id_kategori_tiket  = 1101;
         $cetakTiket->id_user            = Auth::id();
         $cetakTiket->id_simulasi        = $simulasi->id;
         if($cetakTiket->save()) {
             foreach (range(1,$input->jumlah) as $i => $key) {
                 $date                       = date("ymdhis");
-                $kap                        = 1 . substr(time(), -2) . substr(time(), -6, 2) . substr(time(), -1) . substr(time(), -8, 1) .  randomNumber(2) . angkaUrut($i);
                 $pin                        = 1 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
                 $tiket                      = new Tiket;
                 $tiket->id                  = Uuid::generate();
-                $tiket->id_kategori_tiket   = $input->id_kategori_tiket;
+                $tiket->id_kategori_tiket   = 1101;
                 $tiket->id_cetak_tiket      = $cetakTiket->id;
                 $tiket->id_simulasi         = $simulasi->id;
-                $tiket->kap                 = $kap;
                 $tiket->pin                 = $pin;
                 $tiket->save();
             }
@@ -1357,11 +1354,12 @@ class SimulasiController extends Controller
     }
 
     public function printTiket($id, $idCetakTiket) {
+        $simulasi = Simulasi::findOrFail($id);
         $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
         $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();
-        // return view('template.tiket')->with('tiket', $tiket);
-        $pdf = PDF::loadView('template.tiket.user-feb', compact(['tiket']))->setPaper('a4');
-        return $pdf->stream($cetakTiket->kategoriTiket->nama.' - '.tanggal($cetakTiket->created_at).'.pdf');
+        // return view('template.tiket.legacy-2019')->with('tiket', $tiket);
+        $pdf = PDF::loadView('template.tiket.legacy-2019', compact(['tiket']))->setPaper('a4');
+        return $pdf->stream("Tiket Peserta " . $simulasi->judul.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
 

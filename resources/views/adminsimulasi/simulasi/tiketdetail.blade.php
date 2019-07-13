@@ -12,7 +12,6 @@ Tiket Peserta {{ $simulasi->judul }}
                     <thead>
                         <tr>
                             <th>PIN</th>
-                            <th>KAP</th>
                             <th>Kategori</th>
                             <th>Tanggal Cetak</th>
                             <th>Nama</th>
@@ -24,7 +23,6 @@ Tiket Peserta {{ $simulasi->judul }}
                     <tfoot>
                         <tr>
                             <th>PIN</th>
-                            <th>KAP</th>
                             <th>Kategori</th>
                             <th>Tanggal Cetak</th>
                             <th>Nama</th>
@@ -37,7 +35,6 @@ Tiket Peserta {{ $simulasi->judul }}
                         @foreach($tiket as $data)
                         <tr>
                             <td>{{ $data->pin }}</td>
-                            <td>{{ $data->kap }}</td>
                             <td>{{ $data->kategoriTiket->nama }}</td>
                             <td>
                                 <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', ['id' => $simulasi->id, 'idCetak' => $data->id_cetak_tiket]) }}" title="Detail Tiket">{{ hariTanggalWaktu($data->cetakTiket->created_at) }}</a>

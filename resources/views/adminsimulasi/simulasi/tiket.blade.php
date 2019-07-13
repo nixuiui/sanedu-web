@@ -89,15 +89,6 @@ Tiket Peserta {{ $simulasi->judul }}
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="">Kategori Tiket</label>
-                            <select name="id_kategori_tiket" class="form-control input-sm">
-                                <option value="1101">Tiket Member</option>
-                                <option value="1102">Tiket User</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
                     <label for="">&nbsp;</label>
                         <button type="submit" id="btnSubmit" class="btn btn-primary btn-block btn-sm">Buat Cetak Tiket</button>
                     </div>
