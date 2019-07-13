@@ -47,7 +47,15 @@
             </ul>
         </div>
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.edit.post', $simulasi->id) }}" method="post">
-            <div class="panel-heading">Informasi Simulasi</div>
+            <div class="panel-heading">
+                Informasi Simulasi
+                @if($simulasi->is_online)
+                <span class="label label-success">ONLINE</span>
+                @endif
+                @if($simulasi->is_offline)
+                <span class="label label-danger">OFFLINE</span>
+                @endif
+            </div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="row">
@@ -119,7 +127,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Kode Enroll</label>
+                                    <label>Kode Enroll <span class="text-muted">(Digunakan jika tidak menggunakan tiket)</span></label>
                                     <div class="input-group xs-mb-15 input-group-sm">
                                         <div class="input-group-addon">
                                             <div class="be-checkbox">
@@ -128,20 +136,6 @@
                                             </div>
                                         </div>
                                         <input id="enroll" name="enroll" type="text" class="form-control" {{ $simulasi->enroll ? "" : "disabled" }} value="{{ $simulasi->enroll }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="be-checkbox be-checkbox-color inline mb-3">
-                                        <input id="offline" name="offline" type="checkbox" {{ $simulasi->is_offline ? "checked"
-                                        : ""}} value="1">
-                                        <label for="offline">OFFLINE</label>
-                                    </div>
-                                    <div class="be-checkbox be-checkbox-color inline mb-3">
-                                        <input id="online" name="online" type="checkbox" {{ $simulasi->is_online ? "checked"
-                                        : ""}} value="1">
-                                        <label for="online">ONLINE</label>
                                     </div>
                                 </div>
                             </div>

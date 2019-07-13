@@ -80,7 +80,7 @@ class SimulasiController extends Controller
         }
 
 
-        $universitas = Universitas::all();
+        $universitas = Universitas::orderBy('nama', 'asc')->get();
         $provinsi   = Provinsi::all();
         $kota = [];
         $sekolah = [];

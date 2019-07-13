@@ -61,6 +61,7 @@ class SimulasiController extends Controller
             'link_soal'             => 'nullable|url',
             'link_pembahasan'       => 'nullable|url',
             'harga'                 => 'required|numeric',
+            'jenis_simulasi'        => 'required|in:online,offline',
         ]);
         $simulasi = new Simulasi;
         $simulasi->id = UUid::generate();
@@ -69,6 +70,8 @@ class SimulasiController extends Controller
         $simulasi->id_jenis_ujian = 1404;
         $simulasi->id_status = 1901;
         $simulasi->judul = $input->judul;
+        $simulasi->is_offline = $input->jenis_simulasi == 'offline' ? 1 : 0;
+        $simulasi->is_online = $input->jenis_simulasi == 'online' ? 1 : 0;
         $simulasi->instansi = $input->instansi;
         $simulasi->tanggal_pelaksanaan = $input->tanggal_pelaksanaan;
         $simulasi->tempat_pelaksanaan = $input->tempat_pelaksanaan;
@@ -140,8 +143,6 @@ class SimulasiController extends Controller
         $simulasi->link_pembahasan = $input->link_pembahasan;
         $simulasi->harga = $input->harga;
         $simulasi->enroll = $input->enroll;
-        $simulasi->is_offline = isset($input->offline) ? 1 : 0;
-        $simulasi->is_online = isset($input->online) ? 1 : 0;
         if($input->featured_image != null) {
             $upload = $this->uploadImage($input->featured_image);
             if($upload->success) $simulasi->featured_image = $upload->filename;

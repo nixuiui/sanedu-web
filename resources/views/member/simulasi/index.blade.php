@@ -19,6 +19,15 @@ Simulasi
                 <img class="card-img-top fix-height" src="{{ $data->image_url }}" alt="Placeholder">
             </div>
             <div class="card-body text-14">
+                <small class="text-muted">
+                    SIMULASI 
+                    @if($data->is_online)
+                    ONLINE
+                    @endif
+                    @if($data->is_offline)
+                    OFFLINE
+                    @endif
+                </small>
                 <div class="text-16 text-ellipsis mb-3 text-bold">{{ $data->judul }}</div>
                 <div><i class="mdi mdi-calendar mr-4 mb-2"></i>{{ hariTanggal($data->tanggal_pelaksanaan) }}</div>
                 <div><i class="mdi mdi-pin mr-4 mb-2"></i>{{ $data->tempat_pelaksanaan }}</div>

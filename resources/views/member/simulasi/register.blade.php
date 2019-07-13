@@ -50,7 +50,7 @@
                     <input type="hidden" name="pin" value="{{ $tiket ? $tiket->pin : " " }}">
                     <input type="hidden" name="kap" value="{{ $tiket ? $tiket->kap : " " }}">
                     <input type="hidden" name="enroll" value="{{ $enroll ? $enroll : " " }}">
-                    <div class="form-group">
+                    <div class="form-group hide">
                         <label class="control-label">PILIHAN SIMULASI</label>
                         <div>
                             @if($simulasi->is_offline)
@@ -66,7 +66,6 @@
                             @endif
                         </div>
                     </div>
-                    <hr>
                     <div class="form-group">
                         <label class="control-label">JURUSAN</label>
                         <div class="">

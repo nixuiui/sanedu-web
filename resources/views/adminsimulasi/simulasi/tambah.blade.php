@@ -6,13 +6,13 @@ Buat Simulasi Baru
 
 @section('content')
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
         <form class="panel panel-default" action="{{ route('adminsimulasi.simulasi.tambah.post') }}" method="post">
             <div class="panel-heading">Form Buat Simulasi Baru</div>
             <div class="panel-body">
                 {{ csrf_field() }}
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Tingkat Sekolah</label>
                             <select class="form-control input-sm" id="inputSekolah" name="id_sekolah">
@@ -28,7 +28,7 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Judul Simulasi</label>
                             <input type="text" class="form-control input-sm" placeholder="Simulasi SBMPTN" name="judul"  value="{{ old('judul') }}" required>
@@ -39,7 +39,7 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Instansi Pelaksana</label>
                             <input type="text" class="form-control input-sm" placeholder="Study & Fun" name="instansi"  value="{{ old('instansi') }}" required>
@@ -50,7 +50,7 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Harga (Rp)</label>
                             <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ 0 | old('harga') }}" required>
@@ -61,7 +61,21 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Jenis Simulasi</label>
+                            <select name="jenis_simulasi" class="form-control input-sm" required>
+                                <option value="online">ONLINE</option>
+                                <option value="offline">OFFLINE</option>
+                            </select>
+                            @if($errors->has('jenis_simulasi'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('jenis_simulasi') }}</strong>
+                            </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Tanggal Pelaksanaan</label>
                             <input type="date" class="form-control input-sm" name="tanggal_pelaksanaan"  value="{{ old('tanggal_pelaksanaan') }}" required>
@@ -72,7 +86,7 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Tempat Pelaksanaan</label>
                             <input type="text" class="form-control input-sm" placeholder="Nama Tempat" name="tempat_pelaksanaan"  value="{{ old('tempat_pelaksanaan') }}" required>
@@ -83,7 +97,7 @@ Buat Simulasi Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Tanggal Pengumuman</label>
                             <input type="date" class="form-control input-sm" name="tanggal_pengumuman"  value="{{ old('tanggal_pengumuman') }}" required>
