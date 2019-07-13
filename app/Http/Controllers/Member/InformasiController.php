@@ -33,19 +33,16 @@ class InformasiController extends Controller
     public function passGrade() {
         $universitas = Universitas::orderBy("nama", "asc")->get();
         $universitas = $universitas->map(function($data){
-            return (object)[
-                'id' => $data->id,
-                'nama' => $data->nama,
-                'akreditasi' => $data->akreditasi,
-                'harga' => $data->harga,
-                'format_harga' => $data->harga > 0 ? formatUang($data->harga) : "Gratis",
-                'url_detail' => route('member.passgrade', ['universitas' => $data->id])
-            ];
+            return Universitas::mapData($data);
         });
         if(isset($_GET['universitas']) && $_GET['universitas'] != null) {
+            $universitas = Universitas::find($_GET['universitas']);
             $jurusan = Jurusan::where('tahun', PassingGradeTahun::active()->tahun)
                                 ->where('id_universitas', $_GET['universitas']);
             $jurusan = $jurusan->orderBy('jurusan', 'asc')->get();
+            $jurusan = $jurusan->map(function($data){
+                return Jurusan::mapData($data);
+            });
             return view('member.informasi.passgrade')->with([
                 'universitas' => $universitas,
                 'jurusan' => $jurusan

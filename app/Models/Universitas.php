@@ -20,6 +20,17 @@ class Universitas extends Model {
         });
     }
 
+    public static function mapData($data) {
+        return (object)[
+            'id' => $data->id,
+            'nama' => $data->nama,
+            'akreditasi' => $data->akreditasi,
+            'harga' => $data->harga,
+            'format_harga' => $data->harga > 0 ? formatUang($data->harga) : "Gratis",
+            'url_detail' => route('member.passgrade', ['universitas' => $data->id])
+        ];
+    }
+
     //RELATION table
     public function jurusan() {
         return $this->hasMany('App\Models\Jurusan', 'id_universitas');
