@@ -25,6 +25,7 @@
         top: 39px;
         left: 26px;
         letter-spacing: 0px;
+        color: #FFF;
     }
     @page { margin: 10px; }
     </style>

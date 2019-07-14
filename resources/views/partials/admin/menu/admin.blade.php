@@ -6,9 +6,6 @@
                 <li class="{{ active(['admin']) }}">
                     <a href="{{ route('admin') }}"><i class="icon mdi mdi-home"></i><span>Beranda</span></a>
                 </li>
-                <li class="{{ active(['admintiket.tiket.member', 'admintiket.tiket.member.*']) }}">
-                    <a href="{{ route('admintiket.tiket.member') }}"><i class="icon mdi mdi-ticket-star"></i><span>Tiket</span></a>
-                </li>
                 <li class="{{ active(['admin.grupchat']) }}">
                     <a href="{{ route('admin.grupchat') }}"><i class="icon mdi mdi-whatsapp"></i><span>Grup Chat</span></a>
                 </li>
