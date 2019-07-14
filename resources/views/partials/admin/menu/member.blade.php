@@ -19,19 +19,13 @@
                     <a href="{{ route('member.informasi') }}"><i class="icon mdi mdi-info-outline"></i><span>Informasi</span></a>
                 </li>
                 <li class="{{ active(['member.passgrade', 'member.passgrade.*']) }}" title="Informasi">
-                    <a href="{{ route('member.passgrade') }}"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
+                    <a href="#"><i class="icon mdi mdi-graduation-cap"></i><span>Passing Grade</span></a>
                 </li>
                 <li class="{{ active(['member.simulasi', 'member.simulasi.*']) }}" title="Informasi">
                     <a href="{{ route('member.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
                 </li>
-                <li class="" title="Privat">
-                    <a href="#"><i class="icon mdi mdi-accounts-alt"></i><span>Privat</span></a>
-                </li>
                 <li class="{{ active(['member.grupchat', 'member.grupchat.*']) }}" title="Join Grup Chat">
                     <a href="{{ route('member.grupchat') }}"><i class="icon mdi mdi-whatsapp"></i><span>Join Grup Chat</span></a>
-                </li>
-                <li class="" title="Poin">
-                    <a href="#"><i class="icon mdi mdi-dot-circle"></i><span>Poin</span></a>
                 </li>
             </ul>
         </div>

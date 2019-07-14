@@ -47,7 +47,7 @@ $(document).ready(function(){
         </a>
     </div>
     <div class="col-md-3 col-sm-6 col-xs-6">
-        <a href="{{ route('member.passgrade') }}" class="menu-item new-fitur">
+        <a href="#" class="menu-item maintenance-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_informasi.png') }}" alt="">
             <div class="menu-title">Passing Grade</div>
         </a>
