@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Member;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Auth;
+use Uuid;
 use App\Models\Informasi;
 use App\Models\Universitas;
 use App\Models\Jurusan;
 use App\Models\PassingGradeTahun;
+use App\Models\PassingGradeOwned;
+use App\Models\PassingGradeVoucher;
 
 class InformasiController extends Controller
 {
@@ -36,7 +40,18 @@ class InformasiController extends Controller
             return Universitas::mapData($data);
         });
         if(isset($_GET['universitas']) && $_GET['universitas'] != null) {
-            $universitas = Universitas::find($_GET['universitas']);
+            $universitas = Universitas::findOrFail($_GET['universitas']);
+
+            // CEK JIKA PASSGRADE SUDAH DIMILIKI
+            $owned = PassingGradeOwned::where('id_ujian_passing_grade_inuversitas', $universitas->id)
+                                        ->where('id_user', Auth::id())
+                                        ->first();
+            if(!$owned) {
+                return view('member.informasi.passgrade-payment')->with([
+                    'universitas' => $universitas
+                ]);
+            }
+
             $jurusan = Jurusan::where('tahun', PassingGradeTahun::active()->tahun)
                                 ->where('id_universitas', $_GET['universitas']);
             $jurusan = $jurusan->orderBy('jurusan', 'asc')->get();
@@ -51,5 +66,31 @@ class InformasiController extends Controller
         return view('member.informasi.passgrade')->with([
             'universitas' => $universitas
         ]);
+    }
+
+    public function beliPassGrade(Request $request, $id) {
+        $universitas = Universitas::findOrFail($id);
+        if(!$request->voucher && Auth::user()->saldo < $universitas->harga)
+            return back()->with('danger', 'Saldo Anda tidak cukup untuk membeli Passing Grade. Gunakan voucher bila Ada.');
+        else if($request->voucher) {
+            $voucher = PassingGradeVoucher::where('pin', $request->voucher)
+                                            ->whereNull('id_user')
+                                            ->first();
+            if(!$voucher)
+                return back()->with('danger', 'Kode Voucher yang Anda masukan tidak tersedia');
+            else {
+                $voucher->id_user = Auth::id();
+                $voucher->save();
+            }
+        }
+                    
+        $own = new PassingGradeOwned;
+        $own->id = Uuid::generate();
+        $own->id_ujian_passing_grade_inuversitas = $universitas->id;
+        $own->id_user = Auth::id();
+        $own->harga = $universitas->harga;
+        $own->save();
+
+        return redirect(route('member.passgrade', ['universitas' => $universitas->id]));
     }
 }

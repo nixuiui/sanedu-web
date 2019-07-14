@@ -366,6 +366,7 @@ Route::group(['middleware' => 'member'], function(){
     
     Route::group(['prefix' => 'passinggrade'], function(){
         Route::get('/',             'Member\InformasiController@passGrade')->name('member.passgrade');
+        Route::post('/beli/{id}',   'Member\InformasiController@beliPassGrade')->name('member.passgrade.beli');
     });
     
     Route::group(['prefix' => 'ujian'], function(){

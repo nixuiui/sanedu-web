@@ -177,6 +177,8 @@ label {
     cursor: pointer;
 }
 
+.cursor-pointer { cursor: pointer; }
+
 .be-user-nav>li.dropdown .dropdown-menu .user-info-second {
     background-color: #FFF;
     color: #444;

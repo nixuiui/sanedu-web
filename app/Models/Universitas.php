@@ -38,4 +38,7 @@ class Universitas extends Model {
     public function getNamaAttribute($value) {
         return strtoupper($value);
     }
+    public function ownedBy() {
+        return $this->belongsToMany('App\Models\User', 'tbl_passing_grade_owned', 'id_passing_grade_universitas', 'id_user');
+    }
 }

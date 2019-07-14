@@ -275,10 +275,11 @@ class PassingGradeController extends Controller
             foreach (range(1,$input->jumlah) as $i => $key) {
                 $date                       = date("ymdhis");
                 $pin                        = 3 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
-                $voucher                      = new PassingGradeVoucher();
-                $voucher->id                  = Uuid::generate();
-                $voucher->id_cetak_voucher      = $cetakVoucher->id;
-                $voucher->pin                 = $pin;
+                $voucher                    = new PassingGradeVoucher();
+                $voucher->id                = Uuid::generate();
+                $voucher->id_cetak_voucher  = $cetakVoucher->id;
+                $voucher->pin               = $pin;
+                $voucher->harga             = $input->harga;
                 $voucher->save();
             }
         }
@@ -319,6 +320,6 @@ class PassingGradeController extends Controller
             $universitas->is_published = !($universitas->is_published);
             $universitas->save();
         }
-        return back()->with('success', 'Berhasil unpublished.');
+        return back();
     }
 }

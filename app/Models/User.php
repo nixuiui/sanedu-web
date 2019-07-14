@@ -67,6 +67,9 @@ class User extends Authenticatable {
   		return $this->belongsToMany('App\Models\Ujian', 'tbl_pembelian_ujian', 'id_user', 'id_ujian')
                     ->withPivot('id', 'harga', 'created_at');
   	}
+    public function passingGrade() {
+        return $this->belongsToMany('App\Models\Universitas', 'tbl_passing_grade_owned', 'id_user', 'id_passing_grade_universitas');
+    }
     public function attempt() {
       return $this->hasMany('App\Models\Attempt', 'id_user');
     }

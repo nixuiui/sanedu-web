@@ -111,6 +111,7 @@ Voucher Passing Grade
                 <div class="form-group">
                     <label for="">Harga</label>
                     <select name="harga" class="form-control input-sm">
+                        <option value="2000">2000</option>
                         <option value="5000">5000</option>
                         <option value="10000">10000</option>
                         <option value="20000">20000</option>
