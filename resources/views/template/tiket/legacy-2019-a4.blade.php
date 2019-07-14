@@ -29,12 +29,12 @@
     }
     .online, .offline {
         position: absolute;
-        font-size: 4px;
+        font-size: 6px;
         background: #444;
         padding: 1px;
         border-radius: 1px;
-        right: 5px;
-        top: 35px;
+        right: 15px;
+        top: 33px;
         letter-spacing: 0px;
         color: #FFF;
     }
