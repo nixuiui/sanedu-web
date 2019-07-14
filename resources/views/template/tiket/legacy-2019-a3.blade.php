@@ -27,6 +27,17 @@
         letter-spacing: 0px;
         color: #FFF;
     }
+    .online-offline {
+        position: absolute;
+        font-size: 4px;
+        background: #444;
+        padding: 1px;
+        border-radius: 1px;
+        right: 32px;
+        top: 35px;
+        letter-spacing: 0px;
+        color: #FFF;
+    }
     @page { margin: 10px; }
     </style>
 </head>
@@ -38,6 +49,10 @@
                 <td class="tiket-wrapper">
                     <img class="tiket" src="{{ asset('image/tiket_legacy_2019.jpg')}}" width="187px" />
                     <div class="field">
+                        <span class="online-offline">
+                            {{ $simulasi->is_offline ? "OFFLINE":"" }}
+                            {{ $simulasi->is_online ? "ONLINE":"" }}
+                        </span>
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
                     </div>
                 </td>

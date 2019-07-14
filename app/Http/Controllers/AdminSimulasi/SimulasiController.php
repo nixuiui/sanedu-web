@@ -1360,7 +1360,7 @@ class SimulasiController extends Controller
         $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
         $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();
         // return view("template.tiket.legacy-2019-$paperSize")->with('tiket', $tiket);
-        $pdf = PDF::loadView("template.tiket.legacy-2019-$paperSize", compact(['tiket']))->setPaper($paperSize);
+        $pdf = PDF::loadView("template.tiket.legacy-2019-$paperSize", compact(['tiket', 'simulasi']))->setPaper($paperSize);
         return $pdf->stream("Tiket Peserta " . $simulasi->judul.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
