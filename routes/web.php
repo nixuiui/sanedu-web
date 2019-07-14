@@ -126,6 +126,13 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/openuniv/{id}/deljur/{idJur}',     'Admin\PassingGradeController@deleteJurusan')->name('admin.passgrade.delete.jurusan');
         Route::get('/openuniv/{id}/formjur/{idJur?}',   'Admin\PassingGradeController@formJurusan')->name('admin.passgrade.form.jurusan');
         Route::post('/openuniv/{id}/savejur/{idJur?}',  'Admin\PassingGradeController@saveJurusan')->name('admin.passgrade.save.jurusan');
+        Route::prefix('tiket')->group(function () {
+            Route::get('/',                             'Admin\PassingGradeController@tiket')->name('admin.passgrade.tiket');
+            Route::get('/detail/{idCetak?}',            'Admin\PassingGradeController@tiketDetail')->name('admin.passgrade.tiket.detail');
+            Route::post('/tambah',                      'Admin\PassingGradeController@generateTiket')->name('admin.passgrade.tiket.tambah');
+            Route::get('/delete/{idCetak}',             'Admin\PassingGradeController@deleteCetakTiket')->name('admin.passgrade.tiket.delete');
+            Route::get('/print/{idCetak}',              'Admin\PassingGradeController@printTiket')->name('admin.passgrade.tiket.print');
+        });
     });
 
     Route::group(['prefix' => 'sekolah'], function(){
@@ -185,35 +192,6 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
         });
     });
 });
-
-
-/*--------------------------------------------------------------------------
-ADMIN TIKET
--------------------------------------------------------------------------*/
-Route::group(['middleware' => 'admintiket', 'prefix' => 'admintiket'], function(){
-    Route::get('/', 'AdminTiket\HomeController@index')->name('admintiket');
-
-    Route::group(['prefix' => 'user/{id}'], function(){
-        Route::post('/edit-profil',     'AdminTiket\ProfilController@editProfil')->name('admintiket.user.edit.profil');
-        Route::post('/edit-email',      'AdminTiket\ProfilController@editEmail')->name('admintiket.user.edit.email');
-        Route::post('/edit-username',   'AdminTiket\ProfilController@editUsername')->name('admintiket.user.edit.username');
-        Route::post('/edit-password',   'AdminTiket\ProfilController@editPassword')->name('admintiket.user.edit.password');
-    });
-
-    Route::prefix('tiket-member')->group(function () {
-        Route::get('/',                         'AdminTiket\TiketController@index')->name('admintiket.tiket.member');
-        Route::post('/tambah',                  'AdminTiket\TiketController@generateTiket')->name('admintiket.tiket.member.tambah');
-        Route::post('/importcsv',               'AdminTiket\TiketController@import')->name('admintiket.tiket.member.importcsv');
-        Route::get('/delete/{id}',              'AdminTiket\TiketController@delete')->name('admintiket.tiket.member.delete');
-        Route::get('/print/{id}',               'AdminTiket\TiketController@printTiket')->name('admintiket.tiket.member.print');
-        Route::get('/data-member',              'AdminTiket\TiketController@dataMember')->name('admintiket.tiket.member.data');
-        Route::get('/data-member/{id}/edit',    'AdminTiket\TiketController@dataMemberEdit')->name('admintiket.tiket.member.data.edit');
-        Route::get('/download',                 'AdminTiket\TiketController@download')->name('admintiket.tiket.member.download');
-        Route::get('/detail/{idCetak?}',        'AdminTiket\TiketController@tiketDetail')->name('admintiket.tiket.member.detail');
-    });
-
-});
-
 
 /*--------------------------------------------------------------------------
 ADMIN SIMULASI
@@ -316,10 +294,6 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
                 Route::post('/tambah',                  'AdminSimulasi\SimulasiController@generateTiket')->name('adminsimulasi.simulasi.kelola.tiket.tambah');
                 Route::get('/delete/{idCetak}',         'AdminSimulasi\SimulasiController@deleteCetakTiket')->name('adminsimulasi.simulasi.kelola.tiket.delete');
                 Route::get('/print/{idCetak}',          'AdminSimulasi\SimulasiController@printTiket')->name('adminsimulasi.simulasi.kelola.tiket.print');
-                // Route::get('/data-member',              'AdminTiket\TiketController@dataMember')->name('admintiket.tiket.member.data');
-                // Route::get('/data-member/{id}/edit',    'AdminTiket\TiketController@dataMemberEdit')->name('admintiket.tiket.member.data.edit');
-                // Route::get('/download',                 'AdminTiket\TiketController@download')->name('admintiket.tiket.member.download');
-                // Route::post('/importcsv',               'AdminTiket\TiketController@import')->name('admintiket.tiket.member.importcsv');
             });
             
             // grubchat

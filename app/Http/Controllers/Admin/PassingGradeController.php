@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
-use Validator;
+use DB;
 use Uuid;
+use PDF;
 use Excel;
+use Auth;
 use App\Models\Universitas;
 use App\Models\Jurusan;
 use App\Models\PassingGradeTahun;
 use App\Models\PassingGradeNilaiUTBK;
+use App\Models\PassingGradeCetakVoucher;
+use App\Models\PassingGradeVoucher;
 
 class PassingGradeController extends Controller
 {
@@ -241,5 +244,68 @@ class PassingGradeController extends Controller
                 $sheet->fromArray($pesertaArray, null, 'A1', false, false);
             });
         })->download('xlsx');
+    }
+
+    public function tiket() {
+        $cetak = PassingGradeCetakVoucher::orderBy("created_at", "desc")->get();
+        $jumlahVoucher = collect(DB::select(
+            "SELECT
+            SUM(jumlah_voucher) as jumlah
+            FROM
+            tbl_passing_grade_cetak_voucher
+            WHERE
+            deleted_at IS NULL"
+        ))->first();
+        return view('admin.passgrade.tiket')->with([
+            "cetak" => $cetak,
+            "jumlahVoucher" => $jumlahVoucher->jumlah,
+        ]);
+    }
+
+    public function generateTiket(Request $input){
+        $this->validate($input, [
+            'jumlah'    => 'required|max:1000|numeric',
+            'harga'     => 'required|numeric',
+        ]);
+        $cetakVoucher           = new PassingGradeCetakVoucher();
+        $cetakVoucher->id       = Uuid::generate();
+        $cetakVoucher->id_user  = Auth::id();
+        $cetakVoucher->harga    = $input->harga;
+        if($cetakVoucher->save()) {
+            foreach (range(1,$input->jumlah) as $i => $key) {
+                $date                       = date("ymdhis");
+                $pin                        = 3 . date("y") . substr($date, -2) . substr($date, -6, 2) . substr(time(), -6, 2) . substr(time(), -1) .  randomNumber(3) . angkaUrut($i);
+                $voucher                      = new PassingGradeVoucher();
+                $voucher->id                  = Uuid::generate();
+                $voucher->id_cetak_voucher      = $cetakVoucher->id;
+                $voucher->pin                 = $pin;
+                $voucher->save();
+            }
+        }
+        return back()->with('success', 'Voucher berhasil dibuat.');
+    }
+
+    public function deleteCetakTiket($id) {
+        $cetak = PassingGradeCetakVoucher::findOrFail($id);
+        $cetak->delete();
+        return back()->with('success', 'Berhasil Menghapus.');
+    }
+
+    public function printTiket($id) {
+        $paperSize = isset($_GET['paperSize']) && $_GET['paperSize'] == 'a3' ? 'a3' : 'a4';
+        $cetak = PassingGradeCetakVoucher::findOrFail($id);
+        $tiket      = PassingGradeVoucher::where('id_cetak_voucher', $cetak->id)->get();
+        // return view("template.tiket.legacy-2019-$paperSize")->with('tiket', $tiket);
+        $pdf = PDF::loadView("template.tiket.voucher-pg-$paperSize", compact(['tiket', 'cetak']))->setPaper($paperSize);
+        return $pdf->stream("Voucher Passing Grade - ".tanggal($cetak->created_at).'.pdf');
+    }
+
+    public function tiketDetail($idCetak = null) {
+        $voucher = PassingGradeVoucher::get();
+        if($idCetak != null)
+        $voucher = PassingGradeVoucher::where("id_cetak_voucher", $idCetak)->get();
+        return view('admin.passgrade.tiketdetail')->with([
+            "voucher" => $voucher
+        ]);
     }
 }
