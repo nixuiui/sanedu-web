@@ -308,4 +308,17 @@ class PassingGradeController extends Controller
             "voucher" => $voucher
         ]);
     }
+
+    public function publish($id = null) {
+        if($id == null) {
+            $publish = isset($_GET['publish']) && $_GET['publish'] == 0 ? 0 : 1;
+            $universitas = Universitas::whereIn('is_published', [0,1])->update(['is_published' => $publish]);
+        }
+        else {
+            $universitas = Universitas::find($id);
+            $universitas->is_published = !($universitas->is_published);
+            $universitas->save();
+        }
+        return back()->with('success', 'Berhasil unpublished.');
+    }
 }

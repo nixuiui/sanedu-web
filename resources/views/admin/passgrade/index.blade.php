@@ -21,22 +21,37 @@ Passing Grade
 <div class="panel no-border no-radius mb-0">
     <div class="panel-body">
         @include('partials.admin.helpers.alert')
-        <div class="btn-group btn-hspace">
-            <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                Passing Grade Tahun {{ $activeYears }} <span class="icon-dropdown mdi mdi-chevron-down"></span>
-            </button>
-            <ul role="menu" class="dropdown-menu">
-                @foreach($years as $year)
-                <li><a href="{{ route('admin.passgrade', ['tahun' => $year->tahun]) }}">{{$year->tahun}}</a></li>
-                @endforeach
-                <li class="divider"></li>
-                <li><a href="{{ route('admin.passgrade.create', ['tahun' => $years->last()->tahun + 1]) }}">Buat Passing Grade Tahun {{ $years->last()->tahun + 1 }}</a></li>
-            </ul>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group btn-hspace">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        Passing Grade Tahun {{ $activeYears }} <span class="icon-dropdown mdi mdi-chevron-down"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu">
+                        @foreach($years as $year)
+                        <li><a href="{{ route('admin.passgrade', ['tahun' => $year->tahun]) }}">{{$year->tahun}}</a></li>
+                        @endforeach
+                        <li class="divider"></li>
+                        <li><a href="{{ route('admin.passgrade.create', ['tahun' => $years->last()->tahun + 1]) }}">Buat Passing Grade Tahun {{ $years->last()->tahun + 1 }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6 text-right">
+                <div class="btn-group btn-hspace">
+                    <button type="button" data-toggle="dropdown" class="btn btn-default dropdown-toggle">
+                        Pilih Aksi <span class="icon-dropdown mdi mdi-chevron-down"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu">
+                        <li><a href="{{ route('admin.passgrade.publish') }}?publish=1">Publish Semua</a></li>
+                        <li><a href="{{ route('admin.passgrade.publish') }}?publish=0">Unpublish Semua</a></li>
+                    </ul>
+                </div>
+                <a href="{{ route('admin.passgrade.form.univ') }}"
+                    class="btn btn-md btn-primary btn-rounded btn-icon">
+                    <i class="mdi mdi-plus"></i> Tambah Data Universitas
+                </a>
+            </div>
         </div>
-        <a href="{{ route('admin.passgrade.form.univ') }}"
-            class="btn btn-md btn-primary btn-rounded pull-right btn-icon">
-            <i class="mdi mdi-plus"></i> Tambah Data Universitas
-        </a>
     </div>
 </div>
 
@@ -50,6 +65,7 @@ Passing Grade
                     <th>Harga</th>
                     <th>Akreditasi</th>
                     <th>Jumlah Jurusan</th>
+                    <th>Published</th>
                     <th class="text-right">Aksi</th>
                 </tr>
             </thead>
@@ -60,6 +76,7 @@ Passing Grade
                     <th>Harga</th>
                     <th>Akreditasi</th>
                     <th>Jumlah Jurusan</th>
+                    <th>Published</th>
                     <th class="text-right">Aksi</th>
                 </tr>
             </tfoot>
@@ -73,11 +90,14 @@ Passing Grade
                     <td>{{ formatUang($w->harga) }}</td>
                     <td>{{ $w->akreditasi }}</td>
                     <td>{{ $w->jurusan->count() }} jurusan</td>
+                    <td>{{ $w->is_published ? "Published" : "Unpublished" }}</td>
                     <td class="text-right">
-                        <a href="{{ route('admin.passgrade.open.univ', $w->id) }}" class="btn btn-xs btn-default"
-                            title="Lihat Passing Grade"><i class="mdi mdi-eye"></i></a>
-                        <a href="{{ route('admin.passgrade.form.univ', $w->id) }}" class="btn btn-xs btn-success"
-                            title="Lihat Passing Grade"><i class="mdi mdi-edit"></i></a>
+                        <a href="{{ route('admin.passgrade.publish', $w->id) }}" class="btn btn-xs btn-default" title="Lihat Passing Grade">
+                            <i class="mdi mdi-{{ $w->is_published ? 'eye-off' : 'eye' }}"></i>
+                        </a>
+                        <a href="{{ route('admin.passgrade.form.univ', $w->id) }}" class="btn btn-xs btn-success" title="Lihat Passing Grade">
+                            <i class="mdi mdi-edit"></i>
+                        </a>
                         {{-- <a href="{{ route('admin.passgrade.delete.univ', $w->id) }}" class="btn btn-xs
                         btn-danger delete"><i class="mdi mdi-delete"></i></a> --}}
                     </td>
