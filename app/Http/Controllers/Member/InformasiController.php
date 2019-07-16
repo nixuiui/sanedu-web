@@ -35,7 +35,7 @@ class InformasiController extends Controller
     }
 
     public function passGrade() {
-        $universitas = Universitas::orderBy("nama", "asc")->get();
+        $universitas = Universitas::where('is_published', 1)->orderBy("nama", "asc")->get();
         $universitas = $universitas->map(function($data){
             return Universitas::mapData($data);
         });
@@ -43,7 +43,7 @@ class InformasiController extends Controller
             $universitas = Universitas::findOrFail($_GET['universitas']);
 
             // CEK JIKA PASSGRADE SUDAH DIMILIKI
-            $owned = PassingGradeOwned::where('id_ujian_passing_grade_inuversitas', $universitas->id)
+            $owned = PassingGradeOwned::where('id_passing_grade_universitas', $universitas->id)
                                         ->where('id_user', Auth::id())
                                         ->first();
             if(!$owned) {
@@ -86,7 +86,7 @@ class InformasiController extends Controller
                     
         $own = new PassingGradeOwned;
         $own->id = Uuid::generate();
-        $own->id_ujian_passing_grade_inuversitas = $universitas->id;
+        $own->id_passing_grade_universitas = $universitas->id;
         $own->id_user = Auth::id();
         $own->harga = $universitas->harga;
         $own->save();

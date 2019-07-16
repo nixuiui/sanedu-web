@@ -26,7 +26,7 @@ Passing Grade
                     </div>
                     <div class="col-xs-4 text-center">
                         <div class="mb-2"></div>
-                        <a :href="data.url_detail" class="btn btn-sm btn-block btn-success">@{{ data.format_harga }}</a>
+                        <a :href="data.url_detail" class="btn btn-sm btn-block" v-bind:class="data.is_owned ? 'btn-default' : 'btn-success'">@{{ data.is_owned ? "Buka" : data.format_harga }}</a>
                     </div>
                 </div>
             </div>

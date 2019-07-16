@@ -35,7 +35,7 @@ Passing Grade
                     <div class="mb-3 text-muted cursor-pointer" @click="openVoucher">Tutup<i class="mdi mdi-close ml-3"></i></div>
                     <input type="number" name="voucher" class="form-control input-sm" placeholder="Masukan Kode Voucher">
                 </div>
-                <span class="cursor-pointer" @click="openVoucher" v-else>Kode Voucher</span>
+                <span class="cursor-pointer text-primary" @click="openVoucher" v-else>Gunakan Kode Voucher</span>
             </div>
             <div class="panel-section">
                 <button type="submit" class="btn btn-success btn-block">Bayar Sekarang</button>

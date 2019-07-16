@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class Universitas extends Model {
     use SoftDeletes;
@@ -27,6 +28,7 @@ class Universitas extends Model {
             'akreditasi' => $data->akreditasi,
             'harga' => $data->harga,
             'format_harga' => $data->harga > 0 ? formatUang($data->harga) : "Gratis",
+            'is_owned' => $data->ownedBy->where('id', Auth::id())->first() ? true : false,
             'url_detail' => route('member.passgrade', ['universitas' => $data->id])
         ];
     }
