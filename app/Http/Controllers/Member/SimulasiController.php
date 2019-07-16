@@ -28,6 +28,7 @@ use App\Models\Provinsi;
 use App\Models\Kota;
 use App\Models\User;
 use App\Models\Sekolah;
+use App\Models\RiwayatSaldo;
 
 class SimulasiController extends Controller
 {
@@ -133,7 +134,7 @@ class SimulasiController extends Controller
             if(!$ruang) return back()->with("danger", "Tiket Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
         }
         
-        if($input->kap && $input->pin) {
+        if($input->pin) {
             //CHECK TIKET KAP & PIN
             $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
             if($tiket->first() == null)
@@ -142,10 +143,26 @@ class SimulasiController extends Controller
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
             $tiket = $tiket->first();
+            $tiket->id_user = Auth::id();
+            $tiket->save();
+            
+            $user = User::find(Auth::id());
+            $user->saldo = $user->saldo+$simulasi->harga;
+            $user->save();
+
+            $riwayatSaldo = new RiwayatSaldo;
+            $riwayatSaldo->id = Uuid::generate();
+            $riwayatSaldo->id_user = Auth::id();
+            $riwayatSaldo->deb_cr = $simulasi->harga;
+            $riwayatSaldo->id_kategori = 1806;
+            $riwayatSaldo->id_object = $tiket->id;
+            $riwayatSaldo->saldo = Auth::user()->saldo;
+            $riwayatSaldo->save();
+
         }
         else if($input->enroll) {
         }
-            
+        
         //CHECK NO PESERTA YANG TERAKHIR
         $checkPeserta = SimulasiPeserta::where('id_simulasi', $simulasi->id)
                         ->where('id_mapel', $input->jurusan)
@@ -193,10 +210,6 @@ class SimulasiController extends Controller
             $passingGrade->pilihan_3 = $input->jurusan_3;
             $passingGrade->jurusan = $input->jurusan;
             if($passingGrade->save()) {
-                if($input->kap && $input->pin) {
-                    $tiket->id_user = Auth::id();
-                    $tiket->save();
-                }
                 return redirect()->route('member.simulasi.open', $simulasi->id)->with("success", "Berhasil mendaftar pada Simulasi " . $simulasi->judul);
             }
             else {
