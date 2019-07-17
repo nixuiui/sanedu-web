@@ -54,8 +54,8 @@ Passing Grade
                             </div>
                         </div>
                         <div>
-                            <span class='label label-primary mr-1' v-if="data.saintek">Saintek@{{data.saintek}}</span>
-                            <span class='label label-primary mr-1' v-if="data.soshum">Soshum@{{data.soshum}}</span>
+                            <span class='label label-primary mr-1' v-if="data.saintek">Saintek</span>
+                            <span class='label label-success mr-1' v-if="data.soshum">Soshum</span>
                         </div>
                     </div>
                     <div class="col-xs-4 text-center">
