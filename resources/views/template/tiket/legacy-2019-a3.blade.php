@@ -60,6 +60,18 @@
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
                     </div>
                 </td>
+                @if($key+1 == $tiket->count())
+                    @for ($i = 0; $i < 5-($tiket->count()%5); $i++)
+                    <td class="tiket-wrapper" style="visibility:hidden">
+                        <img class="tiket" src="{{ asset('image/tiket_legacy_2019.jpg')}}" width="187px" />
+                        <div class="field">
+                            {!! $simulasi->is_offline ? "<span class='offline'>OFFLINE</span>":"" !!}
+                            {!! $simulasi->is_online ? "<span class='online'>ONLINE</span>":"" !!}
+                            <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
+                        </div>
+                    </td>
+                    @endfor
+                @endif
             {!! $key%5 == 4 ? "</tr>":"" !!}
             @endforeach
         </table>

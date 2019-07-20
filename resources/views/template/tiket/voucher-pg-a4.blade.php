@@ -41,6 +41,16 @@
                         <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
                     </div>
                 </td>
+                @if($key+1 == $tiket->count())
+                    @for ($i = 0; $i < 4-($tiket->count()%4); $i++)
+                    <td class="tiket-wrapper">
+                        <img class="tiket" src="{{ asset("image/voucher_pg_" . $cetak->harga . ".jpg")}}" width="187px" />
+                        <div class="field">
+                            <span class="pin">{{ substr($val->pin, -16, 4) }} - {{ substr($val->pin, -12, 4) }} - {{ substr($val->pin, -8, 4) }} - {{ substr($val->pin, -4, 4) }}</span>
+                        </div>
+                    </td>
+                    @endfor
+                @endif
             {!! $key%4 == 3 ? "</tr>":"" !!}
             @endforeach
         </table>
