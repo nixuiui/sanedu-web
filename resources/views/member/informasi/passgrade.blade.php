@@ -10,6 +10,7 @@ Passing Grade
 @endsection
 
 @section('content')
+<div class="page-loader"></div>
 <div class="row" id="passgrade">
     @if(!isset($jurusan))
     <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offser-2">

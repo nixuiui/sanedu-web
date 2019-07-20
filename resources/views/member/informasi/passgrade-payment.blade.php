@@ -5,6 +5,7 @@ Passing Grade
 @endsection
 
 @section('content')
+<div class="page-loader"></div>
 <div class="row" id="passgrade">
     <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offser-2">
         <form class="panel panel-preattempt" action="{{ route('member.passgrade.beli', $universitas->id) }}" method="POST">
