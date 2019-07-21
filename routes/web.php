@@ -15,8 +15,8 @@ Route::get('/',             'Guest\HomeController@index')->name('guest.home');
 Route::get('/test',         'Guest\HomeController@test');
 Route::get('/phpinfo',      'Guest\HomeController@phpinfo');
 // Route::get('/curl',         'Guest\HomeController@curl')->name('curl');
-Route::get('/tentang-kami', 'Guest\HomeController@tentangkami')->name('guest.tentang');
-Route::get('/hubungi-kami', 'Guest\HomeController@hubungikami')->name('guest.hubungi');
+// Route::get('/tentang-kami', 'Guest\HomeController@tentangkami')->name('guest.tentang');
+// Route::get('/hubungi-kami', 'Guest\HomeController@hubungikami')->name('guest.hubungi');
 Route::get('/home',         'Guest\HomeController@checkrole')->name('guest.checkrole');
 
 //EMAIL
