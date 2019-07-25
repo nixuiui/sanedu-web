@@ -65,7 +65,7 @@ class SimulasiController extends Controller
         // REGISTER MENGGUNAKAN KAP & PIN
         else if(isset($_GET['pin'])){
             $pin = str_replace("-", "", $_GET['pin']);
-            $tiket = Tiket::where('pin', $pin);
+            $tiket = Tiket::where('pin', $pin)->where("id_simulasi", $simulasi->id);
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
             $tiket = $tiket->where('id_user', null);
