@@ -1165,6 +1165,7 @@ class SimulasiController extends Controller
         no_peserta,
         mode_simulasi,
         user.nama,
+        user.email,
         user.no_hp,
         sekolah.nama as sekolah
         FROM
@@ -1177,9 +1178,9 @@ class SimulasiController extends Controller
         ");
 
         $pesertaArray = [];
-        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Simulasi'];
+        $pesertaArray[] = ['Nama', 'No. Peserta', 'Sekolah', 'No. HP', 'Email', 'Simulasi'];
         foreach ($peserta as $data) {
-            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, strtoupper($data->mode_simulasi)];
+            $pesertaArray[] = [strtoupper($data->nama), $data->no_peserta, strtoupper($data->sekolah), $data->no_hp, $data->email, strtoupper($data->mode_simulasi)];
         }
         Excel::create($title, function($excel) use ($simulasi, $title, $pesertaArray) {
             $excel->setTitle($title);
