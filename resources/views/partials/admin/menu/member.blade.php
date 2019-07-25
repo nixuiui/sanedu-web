@@ -24,9 +24,9 @@
                 <li class="{{ active(['member.simulasi', 'member.simulasi.*']) }}" title="Informasi">
                     <a href="{{ route('member.simulasi') }}"><i class="icon mdi mdi-file-text"></i><span>Simulasi</span></a>
                 </li>
-                <li class="{{ active(['member.grupchat', 'member.grupchat.*']) }}" title="Join Grup Chat">
+                {{-- <li class="{{ active(['member.grupchat', 'member.grupchat.*']) }}" title="Join Grup Chat">
                     <a href="{{ route('member.grupchat') }}"><i class="icon mdi mdi-whatsapp"></i><span>Join Grup Chat</span></a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
