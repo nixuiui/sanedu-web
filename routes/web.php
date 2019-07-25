@@ -353,11 +353,11 @@ Route::group(['middleware' => 'member'], function(){
         Route::post('/photo',           'Member\ProfilController@uploadPhoto')->name('member.profil.photo.post');
     });
     
-    Route::group(['prefix' => 'grup-chat'], function(){
-        Route::get('/',             'Member\GrupChatController@index')->name('member.grupchat');
-        Route::get('/join/wa',      'Member\GrupChatController@joinWa')->name('member.grupchat.join.wa');
-        Route::get('/join/line',    'Member\GrupChatController@joinLine')->name('member.grupchat.join.line');
-    });
+    // Route::group(['prefix' => 'grup-chat'], function(){
+    //     Route::get('/',             'Member\GrupChatController@index')->name('member.grupchat');
+    //     Route::get('/join/wa',      'Member\GrupChatController@joinWa')->name('member.grupchat.join.wa');
+    //     Route::get('/join/line',    'Member\GrupChatController@joinLine')->name('member.grupchat.join.line');
+    // });
     
     Route::group(['prefix' => 'informasi'], function(){
         Route::get('/',             'Member\InformasiController@index')->name('member.informasi');

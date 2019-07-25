@@ -70,12 +70,12 @@ $(document).ready(function(){
             <div class="menu-title">Privat</div>
         </span>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6">
+    {{-- <div class="col-md-3 col-sm-6 col-xs-6">
         <a href="{{ route('member.grupchat') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_grupchat.png') }}" alt="">
             <div class="menu-title">Konsultasi</div>
         </a>
-    </div>
+    </div> --}}
     <div class="col-md-3 col-sm-6 col-xs-6 hide">
         <span href="#" class="menu-item soon-fitur">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_poin.png') }}" alt="">
