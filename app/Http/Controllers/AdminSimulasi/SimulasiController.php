@@ -1369,10 +1369,12 @@ class SimulasiController extends Controller
 
     public function hapusPeserta($id, $idTiket) {
         $tiket = Tiket::where("id_simulasi", $id)->where("id", $idTiket)->first();
-        $simulasi = SimulasiPeserta::where("id_simulasi", $id)->where("id_user", $tiket->id_user)->first();
-        $simulasi->forceDelete();
-        $tiket->id_user = null;
-        $tiket->save();
+        if($tiket){
+            $simulasi = SimulasiPeserta::where("id_simulasi", $id)->where("id_user", $tiket->id_user)->first();
+            if($simulasi) $simulasi->forceDelete();
+            $tiket->id_user = null;
+            $tiket->save();
+        }
         return redirect()->route('adminsimulasi.simulasi.kelola.tiket', $id)->with('success', 'Berhasil menghapus peserta');
     }
 
