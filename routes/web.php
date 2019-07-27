@@ -291,10 +291,11 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             // tiket
             Route::prefix('tiket')->group(function () {
                 Route::get('/',                         'AdminSimulasi\SimulasiController@tiket')->name('adminsimulasi.simulasi.kelola.tiket');
-                Route::get('/detail/{idCetak?}',         'AdminSimulasi\SimulasiController@tiketDetail')->name('adminsimulasi.simulasi.kelola.tiket.detail');
+                Route::get('/detail/{idCetak?}',        'AdminSimulasi\SimulasiController@tiketDetail')->name('adminsimulasi.simulasi.kelola.tiket.detail');
                 Route::post('/tambah',                  'AdminSimulasi\SimulasiController@generateTiket')->name('adminsimulasi.simulasi.kelola.tiket.tambah');
                 Route::get('/delete/{idCetak}',         'AdminSimulasi\SimulasiController@deleteCetakTiket')->name('adminsimulasi.simulasi.kelola.tiket.delete');
                 Route::get('/print/{idCetak}',          'AdminSimulasi\SimulasiController@printTiket')->name('adminsimulasi.simulasi.kelola.tiket.print');
+                Route::get('/hapuspeserta/{idTiket}',   'AdminSimulasi\SimulasiController@hapusPeserta')->name('adminsimulasi.simulasi.kelola.tiket.hapus.peserta');
             });
             
             // grubchat

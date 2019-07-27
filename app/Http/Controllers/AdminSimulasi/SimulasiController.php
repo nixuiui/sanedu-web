@@ -1317,6 +1317,8 @@ class SimulasiController extends Controller
         $tiket = Tiket::where("id_simulasi", $id)->get();
         if($idCetak != null)
         $tiket = Tiket::where("id_simulasi", $id)->where("id_cetak_tiket", $idCetak)->get();
+        if(isset($_GET['pin']))
+        $tiket = Tiket::where("id_simulasi", $id)->where("pin", $_GET['pin'])->get();
         return view('adminsimulasi.simulasi.tiketdetail')->with([
             "simulasi" => $simulasi,
             "tiket" => $tiket
@@ -1365,6 +1367,14 @@ class SimulasiController extends Controller
         return $pdf->stream("Tiket Peserta " . $simulasi->judul.' - '.tanggal($cetakTiket->created_at).'.pdf');
     }
 
+    public function hapusPeserta($id, $idTiket) {
+        $tiket = Tiket::where("id_simulasi", $id)->where("id", $idTiket)->first();
+        $simulasi = SimulasiPeserta::where("id_simulasi", $id)->where("id_user", $tiket->id_user)->first();
+        $simulasi->delete();
+        $tiket->id_user = null;
+        $tiket->save();
+        return redirect()->route('adminsimulasi.simulasi.kelola.tiket', $id)->with('success', 'Berhasil menghapus peserta');
+    }
 
     public function grupChat($id) {
         $simulasi = Simulasi::findOrFail($id);

@@ -17,10 +17,20 @@ Tiket Peserta {{ $simulasi->judul }}
             </div>
         </div>
 
-        <button type="button" id="btnCetakTiket" class="btn btn-md btn-fill btn-primary btn-space btn-icon" data-toggle="modal" data-target="#modalTambahCetakTiket"><i class="mdi mdi-plus"></i> Cetak Tiket</button>
-        <button type="button" id="btnKustomTiket" class="btn btn-md btn-fill btn-success btn-space btn-icon" data-toggle="modal" data-target="#modalCustomTiket"><i class="mdi mdi-image"></i> Custom Tiket</button>
-        <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Peserta ({{ $jumlahPeserta }})</a>
-        <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Semua Tiket ({{ $simulasi->tiket->count() }})</a>
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" id="btnCetakTiket" class="btn btn-md btn-fill btn-primary btn-space btn-icon" data-toggle="modal" data-target="#modalTambahCetakTiket"><i class="mdi mdi-plus"></i> Cetak Tiket</button>
+                <button type="button" id="btnKustomTiket" class="btn btn-md btn-fill btn-success btn-space btn-icon" data-toggle="modal" data-target="#modalCustomTiket"><i class="mdi mdi-image"></i> Custom Tiket</button>
+                <a href="{{ route('adminsimulasi.simulasi.kelola.peserta', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Peserta ({{ $jumlahPeserta }})</a>
+                <a href="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', $simulasi->id) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon"><i class="mdi mdi-accounts-alt"></i> Data Semua Tiket ({{ $simulasi->tiket->count() }})</a>
+            </div>
+            <div class="col-md-4">
+                <form action="{{ route('adminsimulasi.simulasi.kelola.tiket.detail', $simulasi->id) }}" class="input-group input-group-sm xs-mb-15" method="GET">
+                    <input type="text" class="form-control" placeholder="16 DIGIT PIN TIKET" name="pin"><span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Cari Tiket</button></span>
+                </form>
+            </div>
+        </div>
 
         <div class="panel panel-default panel-table">
             <div class="panel-body">

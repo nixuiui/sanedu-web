@@ -17,6 +17,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -27,6 +28,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <th>Nama</th>
                             <th>Username</th>
                             <th>Sekolah</th>
+                            <th>Aksi</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -40,6 +42,7 @@ Tiket Peserta {{ $simulasi->judul }}
                             <td>{{ $data->user != null ? $data->user->nama : "-" }}</td>
                             <td>{{ $data->user != null ? $data->user->username : "-" }}</td>
                             <td>{{ $data->user != null ? ($data->user->sekolah != null ? $data->user->sekolah->nama : "-") : "-" }}</td>
+                            <td><a href="{{ route('adminsimulasi.simulasi.kelola.tiket.hapus.peserta', ['id' => $simulasi->id, 'idTiket' => $data->id]) }}" class="btn btn-md btn-default">Hapus Peserta</a></td>
                         </tr>
                         @endforeach
                     </tbody>
