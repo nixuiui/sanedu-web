@@ -3,9 +3,8 @@
         <div class="left-sidebar-content">
             <ul class="sidebar-elements">
                 <li class="#">
-                    <a href="#">
+                    <a href="{{ route('member.saldo') }}">
                         <i class="icon mdi mdi-money-box"></i><span>Saldo <strong class="text-success ml-3">{{ formatUang(Auth::user()->saldo) }}</strong></span>
-
                     </a>
                 </li>
                 <li class="divider">Menu</li>
