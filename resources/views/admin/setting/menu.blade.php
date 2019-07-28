@@ -1,3 +1,6 @@
+@section('menu-title')
+    Pengaturan
+@endsection
 <ul class="nav">
     <li class="{{ active(['admin.setting.metode.pembayaran']) }}">
         <a href="{{ route('admin.setting.metode.pembayaran') }}">

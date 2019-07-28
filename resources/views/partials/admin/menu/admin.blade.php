@@ -28,7 +28,7 @@
                     <a href="{{ route('admin.member') }}"><i class="icon mdi mdi-accounts"></i><span>Member</span></a>
                 </li>
                 <li class="{{ active(['admin.setting', 'admin.setting.*']) }}">
-                    <a href="{{ route('admin.setting') }}"><i class="icon mdi mdi-settings"></i><span>Member</span></a>
+                    <a href="{{ route('admin.setting') }}"><i class="icon mdi mdi-settings"></i><span>Pengaturan</span></a>
                 </li>
             </ul>
         </div>

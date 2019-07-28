@@ -24,7 +24,7 @@ Kelola Ujian
         </div>
     </div>
 </div>
-<div class="panel no-border no-radius {{ $ujian->is_grouped ? 'mb-5' : 'mb-0' }}">
+<div class="panel no-border no-radius mb-0">
     <div class="panel-body">
         <a href="{{ route('admin.ujian.soal.analisis', $ujian->id) }}" class="btn btn-md btn-primary btn-rounded pull-right"><i class="mdi mdi-eye mr-3"></i>Analisis Soal</a>
     </div>
@@ -37,7 +37,7 @@ Kelola Ujian
                 <p><i class="mdi mdi-close-circle"></i></p>
                 <p>KELOMPOK SOAL BELUM DIBUAT</p>
                 @if($ujian->is_published != 1)
-                <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', $ujian->id) }}" class="btn btn-default">BUAT KELOMPOK SOAL BARU</a>
+                <a href="{{ route('admin.ujian.soal.analisis', $ujian->id) }}" class="btn btn-default">Analisis Soal</a>
                 @endif
             </div>
         </div>
@@ -49,17 +49,6 @@ Kelola Ujian
             <table class="table table-striped table-borderedless">
                 <thead>
                     <tr>
-                        <td colspan="8">
-                            <strong class="mr-5">{{ $group->nama }}</strong>
-                            <strong><i class="mdi mdi-timer mr-2"></i>Durasi</strong> : <span>{{ floor($group->durasi/60) }} menit {{ $group->durasi%60 }} detik</span>
-                            @if(!$ujian->is_published)
-                            <a href="{{ route('admin.ujian.soal.form.kelompok.soal.get', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-5 pull-right hover-underline" style="font-weight: 400"><i class="mdi mdi-edit mr-2"></i>Ubah</a>
-                            <a href="{{ route('admin.ujian.soal.delete.kelompok.soal', ['id' => $ujian->id, 'idKelompokSoal' => $group->id]) }}" class="ml-5 pull-right hover-underline text-danger delete" style="font-weight: 400"><i class="mdi mdi-delete mr-2"></i>Hapus</a>
-                            <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id])."?idKelompokSoal=".$group->id }}" class="mr-5 pull-right btn btn-xs btn-default"><i class="mdi mdi-plus mr-2"></i> TAMBAH SOAL</a>
-                            @endif
-                        </td>
-                    </tr>
-                    <tr>
                         <th class="text-valign-center" width="1px">NO</th>
                         <th class="text-valign-center" rowspan="2" width="600px">SOAL</th>
                         <th class="text-valign-left" width="50px" colspan="3">Benar</th>
@@ -70,10 +59,10 @@ Kelola Ujian
                 <tbody>
                     @if($group->soal->count() <= 0)
                         <tr>
-                            <td colspan="8">
+                            <td colspan="9">
                                 <div class="data-is-empty">
                                     <p><i class="mdi mdi-close-circle"></i></p>
-                                    <p>SOAL BELUM ADA</p>
+                                    <p>SOAL BELUM DIANALISIS</p>
                                     @if($ujian->is_published != 1)
                                     <a href="{{ route('admin.ujian.soal.form.soal', ['id' => $ujian->id])."?idKelompokSoal=".$group->id }}" class="btn btn-default btn-rounded">BUAT SOAL BARU</a>
                                     @endif
@@ -119,11 +108,11 @@ Kelola Ujian
             <tbody>
                 @if($ujian->soal->count() <= 0)
                     <tr>
-                        <td colspan="8">
+                        <td colspan="9">
                             <div class="data-is-empty">
                                 <p><i class="mdi mdi-close-circle"></i></p>
-                                <p>SOAL BELUM ADA</p>
-                                <a href="{{ route('admin.ujian.soal.form.soal', $ujian->id) }}" class="btn btn-default btn-rounded">BUAT SOAL BARU</a>
+                                <p>SOAL BELUM DIANALISIS</p>
+                                <a href="{{ route('admin.ujian.soal.analisis', $ujian->id) }}" class="btn btn-default btn-rounded">Analisis Soal</a>
                             </div>
                         </td>
                     </tr>

@@ -21,7 +21,7 @@
                                     <button data-target=".aside-nav" data-toggle="collapse" type="button" class="navbar-toggle">
                                         <span class="icon mdi mdi-caret-down"></span>
                                     </button>
-                                    <h3>@yield('title')</h3>
+                                    <h3>@yield('menu-title')</h3>
                                     <p class="description">@yield('description')</p>
                                 </div>
                             </div>
