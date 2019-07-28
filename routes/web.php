@@ -153,6 +153,15 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/generate',         'Admin\MemberController@generate')->name('admin.member.generate');
     });
 
+    Route::group(['prefix' => 'saldo'], function(){
+        Route::get('/',                     'Admin\SaldoController@index')->name('admin.saldo');
+        Route::get('/topup/approve/{id}',   'Admin\SaldoController@topupApprove')->name('admin.saldo.topup.approve');
+    });
+
+    Route::group(['prefix' => 'saldo'], function(){
+        Route::get('/',                 'Admin\SaldoController@index')->name('admin.saldo');
+    });
+
     Route::group(['prefix' => 'setting'], function(){
         Route::get('/',                         'Admin\SettingController@pembayaran')->name('admin.setting');
         Route::get('/pembayarans/{id?}',        'Admin\SettingController@pembayaran')->name('admin.setting.metode.pembayaran');
@@ -371,6 +380,12 @@ Route::group(['middleware' => 'member'], function(){
     Route::group(['prefix' => 'informasi'], function(){
         Route::get('/',             'Member\InformasiController@index')->name('member.informasi');
         Route::get('/p/{id}',       'Member\InformasiController@view')->name('member.informasi.view');
+    });
+    
+    Route::group(['prefix' => 'saldo'], function(){
+        Route::get('/',                 'Member\SaldoController@index')->name('member.saldo');
+        Route::post('/topup',           'Member\SaldoController@topup')->name('member.saldo.topup');
+        Route::get('/petunjuk/{id}',   'Member\SaldoController@petunjukBayar')->name('member.saldo.petunjuk.bayar');
     });
     
     Route::group(['prefix' => 'passinggrade'], function(){

@@ -33,6 +33,14 @@ $(document).ready(function(){
         <img width="100%" alt="First slide [800x400]" src="{{ asset('asset-member/img/banner2.jpg') }}">
     </div>
 </div>
+<div class="be-booking-promo visible-sm">
+    <div class="be-booking-desc">
+        <h4 class="be-booking-desc-title">Basic</h4><span class="be-booking-desc-details">Lorem ipsum dolor sit amet, Pellen tesque sit amet odio Integer.</span>
+    </div>
+    <div class="be-booking-promo-price">
+        <div class="be-booking-promo-amount"><span class="currency">$</span><span class="price">5</span><span class="frecuency">/mo</span></div><a href="#" class="btn btn-primary be-booking-btn-price">Get Started</a>
+    </div>
+</div>
 <div class="row menu-utama">
     <div class="col-md-3 col-sm-6 col-xs-6">
         <a href="{{ route('member.ujian.soal') }}" class="menu-item">
