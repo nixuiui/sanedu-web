@@ -13,13 +13,9 @@
                     </div>
                 </li>
                 @if(Auth::user()->id_role == 1004)
-                <!-- <li>
-                    <div class="user-info-second" style="background: #FFF; margin-bottom: 0; padding-top: 0;">
-                        Saldo: <span class="text-success text-bold">{{ formatUang(Auth::user()->saldo) }}</span>
-                    </div>
-                </li>
-                <hr> -->
+                <li><a href="{{ route('member.saldo') }}"><span class="icon mdi mdi-circle"></span>{{ formatUang(Auth::user()->saldo) }}</a></li>
                 <li><a href="{{ route('member.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
+                <hr>
                 @elseif(Auth::user()->id_role == 1005)
                 <li><a href="{{ route('user.profil.edit') }}"><span class="icon mdi mdi-settings"></span> Ubah Profil</a></li>
                 @elseif(Auth::user()->id_role == 1001 || Auth::user()->id_role == 1002 || Auth::user()->id_role == 1003)

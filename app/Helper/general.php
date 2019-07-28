@@ -105,7 +105,10 @@ function marker($marker)   {
     return $marker != null ? asset("img/icons/mapmarker/" . $marker) : asset("img/icons/mapmarker/marker_default.png");
 }
 function formatUang($nilai) {
+    if($nilai >= 0)
     return "Rp " . number_format($nilai, 0, ".", ".");
+    else
+    return "- Rp " . number_format(-($nilai), 0, ".", ".");
 }
 function plusSecond($startTime, $seconds) {
     $date = date_create($startTime);

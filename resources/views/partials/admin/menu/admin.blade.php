@@ -27,6 +27,9 @@
                 <li class="{{ active(['admin.member', 'admin.member.*']) }}">
                     <a href="{{ route('admin.member') }}"><i class="icon mdi mdi-accounts"></i><span>Member</span></a>
                 </li>
+                <li class="{{ active(['admin.saldo', 'admin.saldo.*']) }}">
+                    <a href="{{ route('admin.saldo') }}"><i class="icon mdi mdi-card"></i><span>Saldo</span></a>
+                </li>
                 <li class="{{ active(['admin.setting', 'admin.setting.*']) }}">
                     <a href="{{ route('admin.setting') }}"><i class="icon mdi mdi-settings"></i><span>Pengaturan</span></a>
                 </li>

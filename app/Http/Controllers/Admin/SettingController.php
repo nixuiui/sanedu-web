@@ -30,7 +30,7 @@ class SettingController extends Controller {
         $pembayaran->nama = $request->nama;
         $pembayaran->nomor_rekening = $request->nomor_rekening;
         $pembayaran->nama_pemilik = $request->nama_pemilik;
-        $pembayaran->intruksi = $request->instruksi;
+        $pembayaran->intruksi = $request->intruksi;
         $pembayaran->save();
         return redirect()->route('admin.setting.metode.pembayaran')->with("success", "Berhasil menambah metode pembayaran");
     }
