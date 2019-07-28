@@ -153,6 +153,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/generate',         'Admin\MemberController@generate')->name('admin.member.generate');
     });
 
+    Route::group(['prefix' => 'setting'], function(){
+        Route::get('/',                         'Admin\SettingController@pembayaran')->name('admin.setting');
+        Route::get('/pembayarans/{id?}',        'Admin\SettingController@pembayaran')->name('admin.setting.metode.pembayaran');
+        Route::get('/pembayaran/form/{id?}',    'Admin\SettingController@formPembayaran')->name('admin.setting.metode.pembayaran.form');
+        Route::post('/pembayaran/form/{id?}',   'Admin\SettingController@actionPembayaran')->name('admin.setting.metode.pembayaran.action');
+        Route::get('/pembayaran/delete/{id}',   'Admin\SettingController@hapusPembayaran')->name('admin.setting.metode.pembayaran.delete');
+    });
+
 });
 
 
