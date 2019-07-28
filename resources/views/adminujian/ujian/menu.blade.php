@@ -1,3 +1,6 @@
+@section('menu-title')
+    Ujian
+@endsection
 <ul class="nav">
     <li class="{{ active(['admin.ujian.soal.kelola']) }}">
         <a href="{{ route('admin.ujian.soal.kelola', $ujian->id) }}">

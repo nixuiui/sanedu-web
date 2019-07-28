@@ -1,3 +1,6 @@
+@section('menu-title')
+    Member
+@endsection
 <ul class="nav">
     <li class="{{ active(['admin.member']) }}">
         <a href="{{ route('admin.member') }}">
