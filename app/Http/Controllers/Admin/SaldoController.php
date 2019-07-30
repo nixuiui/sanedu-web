@@ -45,4 +45,9 @@ class SaldoController extends Controller {
         return back();
     }
 
+    public function topupDelete($id) {
+        SaldoTopup::findOrFail($id)->forceDelete();
+        return back();
+    }
+
 }

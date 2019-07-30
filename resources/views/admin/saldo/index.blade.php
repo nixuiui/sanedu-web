@@ -62,7 +62,10 @@ Saldo
                     <td>{{ formatUang($data->jumlah_bayar) }}</td>
                     <td>{{ $data->metodePembayaran->nama }}</td>
                     <td>{{ hariTanggalWaktu($data->expired_date) }}</td>
-                    <td><a href="{{ route('admin.saldo.topup.approve', $data->id) }}" class="btn btn-default"><i class="mdi mdi-check-circle text-success mr-3"></i>Setujui</a></td>
+                    <td>
+                        <a href="{{ route('admin.saldo.topup.approve', $data->id) }}" class="btn btn-default"><i class="mdi mdi-check-circle text-success mr-3"></i>Setujui</a>
+                        <a href="{{ route('admin.saldo.topup.delete', $data->id) }}" class="btn btn-danger delete"><i class="mdi mdi-delete"></i></a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
