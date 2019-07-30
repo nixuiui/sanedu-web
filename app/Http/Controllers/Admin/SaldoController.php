@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\SaldoTopup;
 use App\Models\RiwayatSaldo;
+use Auth;
 
 class SaldoController extends Controller {
 
@@ -16,7 +17,16 @@ class SaldoController extends Controller {
         $topup = SaldoTopup::where('id_status_pembayaran', 2001)
                             ->where('expired_date', '>', date("Y-m-d H:i:s"))
                             ->get();
-        return view('admin.saldo.index')->with([
+        return view('admin.saldo.topup-request')->with([
+            'topup' => $topup
+        ]);
+    }
+
+    public function riwayatTopup() {
+        $topup = SaldoTopup::where('id_status_pembayaran', 2002)
+                            ->where('expired_date', '>', date("Y-m-d H:i:s"))
+                            ->get();
+        return view('admin.saldo.topup')->with([
             'topup' => $topup
         ]);
     }
@@ -40,6 +50,8 @@ class SaldoController extends Controller {
         $saldo->save();
 
         $topup->id_status_pembayaran = 2002;
+        $topup->id_acceptor = Auth::id();
+        $topup->approved_date = date("Y-m-d H:i:s");
         $topup->save();
 
         return back();

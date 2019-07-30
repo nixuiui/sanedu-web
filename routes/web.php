@@ -155,8 +155,9 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
 
     Route::group(['prefix' => 'saldo'], function(){
         Route::get('/',                     'Admin\SaldoController@index')->name('admin.saldo');
+        Route::get('/topup',                'Admin\SaldoController@riwayatTopup')->name('admin.saldo.topup');
         Route::get('/topup/approve/{id}',   'Admin\SaldoController@topupApprove')->name('admin.saldo.topup.approve');
-        Route::get('/topup/delete/{id}',   'Admin\SaldoController@topupDelete')->name('admin.saldo.topup.delete');
+        Route::get('/topup/delete/{id}',    'Admin\SaldoController@topupDelete')->name('admin.saldo.topup.delete');
     });
 
     Route::group(['prefix' => 'saldo'], function(){

@@ -8,4 +8,10 @@
             Request Top-up
         </a>
     </li>
+    <li class="{{ active(['admin.saldo.topup']) }}">
+        <a href="{{ route('admin.saldo.topup') }}">
+            <i class="icon mdi mdi-assignment"></i>
+            Riwayat Top-up
+        </a>
+    </li>
 </ul>

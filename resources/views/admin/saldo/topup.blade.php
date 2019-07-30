@@ -17,7 +17,7 @@ Saldo
     <div class="row">
         <div class="col-md-12">
             <div class="email-title">
-                <span class="icon mdi mdi-accounts-alt mr-3"></span> Request Top Up
+                <span class="icon mdi mdi-upload mr-3"></span> Request Top Up
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@ Saldo
         @if($topup->count() <= 0)
         <div class="data-is-empty">
             <p><i class="mdi mdi-close-circle"></i></p>
-            <p>BELUM ADA MEMBER</p>
+            <p>BELUM ADA PERMINTAAN TOP UP</p>
         </div>
         @else
         <table id="datatables" class="table datatables table-borderless table-striped table-hover">
@@ -38,8 +38,7 @@ Saldo
                     <th>Saldo</th>
                     <th>Jumlah Bayar</th>
                     <th>Pembayaran</th>
-                    <th>Expired Date</th>
-                    <th>Aksi</th>
+                    <th>Approved Date</th>
                 </tr>
             </thead>
             <tfoot>
@@ -48,8 +47,7 @@ Saldo
                     <th>Saldo</th>
                     <th>Jumlah Bayar</th>
                     <th>Pembayaran</th>
-                    <th>Expired Date</th>
-                    <th>Aksi</th>
+                    <th>Approved Date</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -61,11 +59,7 @@ Saldo
                     <td>{{ formatUang($data->saldo) }}</td>
                     <td>{{ formatUang($data->jumlah_bayar) }}</td>
                     <td>{{ $data->metodePembayaran->nama }}</td>
-                    <td>{{ hariTanggalWaktu($data->expired_date) }}</td>
-                    <td>
-                        <a href="{{ route('admin.saldo.topup.approve', $data->id) }}" class="btn btn-default"><i class="mdi mdi-check-circle text-success mr-3"></i>Setujui</a>
-                        <a href="{{ route('admin.saldo.topup.delete', $data->id) }}" class="btn btn-danger delete"><i class="mdi mdi-delete"></i></a>
-                    </td>
+                    <td>{{ hariTanggalWaktu($data->approved_date) }}</td>
                 </tr>
                 @endforeach
             </tbody>
