@@ -46,7 +46,7 @@ Pengaturan
                     <td>{{ $i+1 }}</td>
                     <td>{{ $data->logo }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ $data->nomo_rekening }}</td>
+                    <td>{{ $data->nomor_rekening }}</td>
                     <td>{{ $data->nama_pemilik }}</td>
                     <td class="text-right">
                         <a href="{{ route('admin.setting.metode.pembayaran.form', $data->id) }}" class="btn btn-xs btn-default print" title="Cetak Tiket"><i class="mdi mdi-edit"></i></a>
