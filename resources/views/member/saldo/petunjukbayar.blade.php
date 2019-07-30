@@ -22,6 +22,11 @@ Informasi
             </div>
             <hr class="mb-0 mt-0">
             <div class="panel-body text-center">
+                <div class="text-muted mb-3">JUMLAH YANG HARUS DIBAYAR</strong></div>
+                <div style="font-size: 26px; font-weight: 500">{{ formatUang($topup->jumlah_bayar) }}</div>
+            </div>
+            <hr class="mb-0 mt-0">
+            <div class="panel-body text-center">
                 <div class="text-muted mb-3">PEMBAYARAN MELALUI <strong>{{ $topup->metodePembayaran->nama }}</strong></div>
                 <div style="font-size: 26px; font-weight: 500">{{ $topup->metodePembayaran->nomor_rekening }}</div>
                 <div class="text-muted mt-3">a/n {{ strtoupper($topup->metodePembayaran->nama_pemilik) }}</div>
