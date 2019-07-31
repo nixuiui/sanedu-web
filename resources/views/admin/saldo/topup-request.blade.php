@@ -56,7 +56,7 @@ Saldo
                 @foreach($topup as $i => $data)
                 <tr>
                     <td class="user-avatar"> 
-                        <img src="{{asset('asset-beagle/img/avatar7.png')}}" alt="Avatar">{{ $data->user->nama }} ({{ "@".$data->user->username }})
+                        <img src="{{asset('asset-beagle/img/avatar7.png')}}" alt="Avatar">{{ $data->user->nama }} ({{ $data->user->no_hp }})
                     </td>
                     <td>{{ formatUang($data->saldo) }}</td>
                     <td>{{ formatUang($data->jumlah_bayar) }}</td>
