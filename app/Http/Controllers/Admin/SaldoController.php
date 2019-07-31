@@ -23,9 +23,7 @@ class SaldoController extends Controller {
     }
 
     public function riwayatTopup() {
-        $topup = SaldoTopup::where('id_status_pembayaran', 2002)
-                            ->where('expired_date', '>', date("Y-m-d H:i:s"))
-                            ->get();
+        $topup = SaldoTopup::where('id_status_pembayaran', 2002)->get();
         return view('admin.saldo.topup')->with([
             'topup' => $topup
         ]);
