@@ -78,6 +78,9 @@ class InformasiController extends Controller
                                             ->first();
             if(!$voucher)
                 return back()->with('danger', 'Kode Voucher yang Anda masukan tidak tersedia');
+            else if($voucher->harga < $universitas->harga) {
+                return back()->with('danger', 'Anda tidak dapat membeli Passing Grade dengan harga lebih dari ' . formatUang($voucher->harga));
+            }
             else {
                 $voucher->id_user = Auth::id();
                 $voucher->save();
