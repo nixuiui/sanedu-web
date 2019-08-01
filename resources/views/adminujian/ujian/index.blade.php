@@ -6,6 +6,7 @@ Ujian
 <div class="row">
     <div class="col-md-12">
         <a href="{{ route('admin.ujian.soal.tambah') }}" class="btn btn-md btn-fill btn-primary btn-space btn-icon"><i class="mdi mdi-plus"></i> Buat Soal Ujian</a>
+        <a href="{{ route('admin.ujian.unpublish', ['publish' => 0]) }}" class="btn btn-md btn-fill btn-default btn-space btn-icon">Unpublish Semua</a>
         <div class="panel panel-default panel-table table-responsive">
             <div class="panel-body">
                 <table id="datatables" class="table table-striped">

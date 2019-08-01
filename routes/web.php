@@ -11,18 +11,6 @@
 |
 */
 
-use App\Models\RiwayatSaldo;
-
-Route::get('/riwayatsaldo', function(){
-    $riwayat = RiwayatSaldo::orderBy('created_at', 'asc')->get();
-    $id = 1;
-    foreach($riwayat as $data) {
-        echo $id;
-        $data->id = $id;
-        $data->save();
-        $id++;
-    }
-});
 Route::get('/',             'Guest\HomeController@index')->name('guest.home');
 Route::get('/test',         'Guest\HomeController@test');
 Route::get('/phpinfo',      'Guest\HomeController@phpinfo');
@@ -194,9 +182,10 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
     Route::get('/', 'AdminUjian\HomeController@index')->name('adminujian');
 
     Route::group(['prefix' => 'ujian'], function(){
-        Route::get('/',                     'AdminUjian\UjianController@index')->name('admin.ujian.soal');
-        Route::get('/tambah',          'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
-        Route::post('/tambah',         'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
+        Route::get('/',             'AdminUjian\UjianController@index')->name('admin.ujian.soal');
+        Route::get('/unpublish',    'AdminUjian\UjianController@unpublish')->name('admin.ujian.unpublish');
+        Route::get('/tambah',       'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
+        Route::post('/tambah',      'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
         Route::group(['prefix' => '{id}'], function(){
             Route::get('/',                         'AdminUjian\UjianController@kelolaSoal')->name('admin.ujian.soal.kelola');
             Route::get('/delete',                   'AdminUjian\UjianController@deleteUjian')->name('admin.ujian.soal.delete');

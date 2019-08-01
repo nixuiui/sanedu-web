@@ -24,6 +24,12 @@ class UjianController extends Controller
         ]);
     }
 
+    public function unpublish() {
+        $publish = isset($_GET['publish']) && $_GET['publish'] == 0 ? 0 : 1;
+        Ujian::whereIn('is_published', [0,1])->update(['is_published' => $publish]);
+        return back()->with("success", "Berhasil Unpublish semua ujian");
+    }
+
     public function formTambahUjian() {
         $sekolah = SetPustaka::where('id_kategori', 13)->orderBy('id', 'asc')->get();
         return view('adminujian.ujian.tambah')->with([
