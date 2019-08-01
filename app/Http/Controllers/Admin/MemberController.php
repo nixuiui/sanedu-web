@@ -12,7 +12,7 @@ use App\Models\Provinsi;
 class MemberController extends Controller {
 
     public function index() {
-        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi'])
+        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi', 'saldo'])
                     ->where('id_role', 1004)
                     ->orderBy('id_role', 'asc')
                     ->get();

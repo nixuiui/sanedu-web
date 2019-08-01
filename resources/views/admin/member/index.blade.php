@@ -41,6 +41,7 @@ Member
                     <th>No HP Ortu</th>
                     <th>Provinsi</th>
                     <th>Sekolah</th>
+                    <th>Saldo</th>
                 </tr>
             </thead>
             <tfoot>
@@ -52,6 +53,7 @@ Member
                     <th>No HP Ortu</th>
                     <th>Provinsi</th>
                     <th>Sekolah</th>
+                    <th>Saldo</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -64,6 +66,7 @@ Member
                     <td>{{ $data->no_hp_ortu }}</td>
                     <td>{{ $data->provinsi != null ? $data->provinsi->name : "" }}</td>
                     <td>{{ $data->sekolah != null ? $data->sekolah->nama : "" }}</td>
+                    <td>{{ formatUang($data->saldo) }}</td>
                 </tr>
                 @endforeach
             </tbody>
