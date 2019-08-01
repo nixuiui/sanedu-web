@@ -35,7 +35,7 @@ class InformasiController extends Controller
     }
 
     public function passGrade() {
-        $universitas = Universitas::where('is_published', 1)->orderBy("nama", "asc")->get();
+        $universitas = Universitas::where('is_published', 1)->orderBy("updated_at", "desc")->get();
         $universitas = $universitas->map(function($data){
             return Universitas::mapData($data);
         });
