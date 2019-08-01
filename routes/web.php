@@ -183,7 +183,7 @@ Route::group(['middleware' => 'adminujian', 'prefix' => 'adminujian'], function(
 
     Route::group(['prefix' => 'ujian'], function(){
         Route::get('/',             'AdminUjian\UjianController@index')->name('admin.ujian.soal');
-        Route::get('/unpublish',    'AdminUjian\UjianController@unpublish')->name('admin.ujian.unpublish');
+        Route::get('/unpublish',    'AdminUjian\UjianController@unpublish')->name('admin.ujian.soal.unpublish');
         Route::get('/tambah',       'AdminUjian\UjianController@formTambahUjian')->name('admin.ujian.soal.tambah');
         Route::post('/tambah',      'AdminUjian\UjianController@prosesTambahUjian')->name('admin.ujian.soal.tambah.post');
         Route::group(['prefix' => '{id}'], function(){
