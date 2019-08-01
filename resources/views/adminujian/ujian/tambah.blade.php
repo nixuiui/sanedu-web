@@ -78,7 +78,7 @@ Buat Ujian Baru
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-12 hide">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label>Harga (Rp)</label>
                             <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ 0 | old('harga') }}" required>
