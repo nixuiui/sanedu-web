@@ -11,6 +11,18 @@
 |
 */
 
+use App\Models\RiwayatSaldo;
+
+Route::get('/riwayatsaldo', function(){
+    $riwayat = RiwayatSaldo::orderBy('created_at', 'asc')->get();
+    $id = 1;
+    foreach($riwayat as $data) {
+        echo $id;
+        $data->id_ai = $id;
+        $data->save();
+        $id++;
+    }
+});
 Route::get('/',             'Guest\HomeController@index')->name('guest.home');
 Route::get('/test',         'Guest\HomeController@test');
 Route::get('/phpinfo',      'Guest\HomeController@phpinfo');

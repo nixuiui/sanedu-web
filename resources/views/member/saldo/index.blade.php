@@ -120,22 +120,24 @@ $jumlahBayar = $_GET['saldo'] + $kodeUnik;
                     <h5>BELUM ADA RIWAYAT TRANSAKSI</h5>
                 </div>
                 @else
-                <table id="datatables" class="table table-striped table-hover table-borderless">
+                <table class="table table-striped table-hover table-borderless">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Deb/Crd</th>
+                            <th>#</th>
+                            <th>Tanggal</th>
+                            <th>Jml Transaksi</th>
                             <th class="text-left">Saldo</th>
                             <th class="text-center">Keterangan</th>
                         </tr>
                     </thead>
                     <tbody class="no-border-x">
                         @foreach ($riwayat as $key => $val)
-                        <tr class="clickable-row" data-href="">
+                        <tr class="clickable-row" data-href="#">
                             <td>{{ $key+1 }}</td>
-                            <td>{{ formatUang($val->deb_cr) }}</td>
-                            <td>{{ formatUang($val->saldo) }}</td>
-                            <td></td>
+                            <td>{{ hariTanggalWaktu($val['created_at']) }}</td>
+                            <td class="{{ $val['deb_cr'] < 0 ? 'text-danger' : 'text-success' }}">{{ formatUang($val['deb_cr']) }}</td>
+                            <td>{{ formatUang($val['saldo']) }}</td>
+                            <td>{{ $val['id_kategori'] }} - {{ $val['keterangan'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>

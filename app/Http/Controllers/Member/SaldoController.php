@@ -17,8 +17,41 @@ class SaldoController extends Controller
     public function index() {
         $riwayat = RiwayatSaldo::where('id_user', Auth::id())
                                 ->where('deb_cr', '!=', 0)
-                                ->orderBy('created_at', 'desc')
+                                ->orderBy('id_ai', 'desc')
                                 ->get();
+        $riwayat = $riwayat->map(function($data){
+            $keterangan = null;
+            switch($data->id_kategori) {
+                case 1801:
+                    $keterangan = "Topup Saldo";
+                    break;
+                case 1802:
+                    $keterangan = "Membeli Soal Ujian";
+                    break;
+                case 1803:
+                    $keterangan = "Registrasi Simulasi";
+                    break;
+                case 1804:
+                    $keterangan = "Membeli Passing Grade";
+                    break;
+                case 1805:
+                    $keterangan = "Penambahan Saldo";
+                    break;
+                case 1806:
+                    $keterangan = "Penambahan Saldo";
+                    break;
+            }
+            return [
+                "id"            => $data->id,
+                "id_user"       => $data->id_user,
+                "deb_cr"        => $data->deb_cr,
+                "saldo"         => $data->saldo,
+                "id_kategori"   => $data->id_kategori,
+                "id_object"     => $data->id_object,
+                "created_at"    => $data->created_at,
+                "keterangan"    => $keterangan
+            ];
+        });
         $topup = SaldoTopup::where('id_status_pembayaran', 2001)
                             ->where('id_user', Auth::id())
                             ->where('expired_date', '>', date("Y-m-d H:i:s"))

@@ -452,6 +452,22 @@ div.dataTables_wrapper div.dataTables_filter input {
     .page-aside { left: 60px; }
 }
 
+.panel {
+    border-radius: 5px;
+    color: #333;
+}
+.panel-saldo .heading {
+    font-size: 16px;
+    padding: 15px;
+}
+.panel-saldo .heading .amount-saldo {
+    float: right;
+    font-weight: 600;
+}
+.panel-saldo .body {
+    padding: 15px;
+}
+
 .panel-preattempt .heading {
     background: #4285f4;
     color: #FFF;
