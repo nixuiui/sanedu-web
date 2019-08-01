@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">PEMBAHASAN</div>
-                        <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $ujian->link_pembahasan }} Download</a></div>
+                        <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i> Download</a></div>
                     </div>
                     <div class="col-md-4 col-xs-6 mb-3">
                         <div class="text-muted">PERCOBAAN PERTAMA</div>
