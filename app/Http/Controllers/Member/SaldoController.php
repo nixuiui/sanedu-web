@@ -17,7 +17,7 @@ class SaldoController extends Controller
     public function index() {
         $riwayat = RiwayatSaldo::where('id_user', Auth::id())
                                 ->where('deb_cr', '!=', 0)
-                                ->orderBy('id_ai', 'desc')
+                                ->orderBy('id', 'desc')
                                 ->get();
         $riwayat = $riwayat->map(function($data){
             $keterangan = null;

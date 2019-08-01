@@ -9,9 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RiwayatSaldo extends Model {
     use SoftDeletes;
     protected $table        = 'tbl_riwayat_saldo';
-    protected $primaryKey   = 'id';
-    protected $keyType      = 'string';
-    public $incrementing    = false;
     protected $dates        = ['deleted_at'];
 
     protected static function boot() {

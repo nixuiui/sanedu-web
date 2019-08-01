@@ -151,7 +151,6 @@ class SimulasiController extends Controller
             $user->save();
 
             $riwayatSaldo = new RiwayatSaldo;
-            $riwayatSaldo->id = Uuid::generate();
             $riwayatSaldo->id_user = Auth::id();
             $riwayatSaldo->deb_cr = $simulasi->harga;
             $riwayatSaldo->id_kategori = 1806;

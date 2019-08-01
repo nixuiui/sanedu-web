@@ -18,7 +18,7 @@ Route::get('/riwayatsaldo', function(){
     $id = 1;
     foreach($riwayat as $data) {
         echo $id;
-        $data->id_ai = $id;
+        $data->id = $id;
         $data->save();
         $id++;
     }
