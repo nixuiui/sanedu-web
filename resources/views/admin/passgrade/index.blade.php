@@ -63,7 +63,8 @@ Passing Grade
                     <th>No</th>
                     <th>Universitas</th>
                     <th>Harga</th>
-                    <th>Akreditasi</th>
+                    <th class="text-center">Dibeli</th>
+                    <th class="text-center">Akreditasi</th>
                     <th>Jumlah Jurusan</th>
                     <th>Published</th>
                     <th class="text-right">Aksi</th>
@@ -74,7 +75,8 @@ Passing Grade
                     <th>No</th>
                     <th>Universitas</th>
                     <th>Harga</th>
-                    <th>Akreditasi</th>
+                    <th class="text-center">Dibeli</th>
+                    <th class="text-center">Akreditasi</th>
                     <th>Jumlah Jurusan</th>
                     <th>Published</th>
                     <th class="text-right">Aksi</th>
@@ -88,7 +90,8 @@ Passing Grade
                         <a href="{{ route('admin.passgrade.open.univ', $w->id) }}">{{ $w->nama }}</a>
                     </td>
                     <td>{{ formatUang($w->harga) }}</td>
-                    <td>{{ $w->akreditasi }}</td>
+                    <td class="text-center">{{ $w->ownedBy->count() }}x</td>
+                    <td class="text-center">{{ $w->akreditasi }}</td>
                     <td>{{ $w->jurusan->count() }} jurusan</td>
                     <td>{{ $w->is_published ? "Published" : "Unpublished" }}</td>
                     <td class="text-right">
