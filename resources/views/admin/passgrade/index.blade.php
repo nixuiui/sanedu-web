@@ -90,7 +90,7 @@ Passing Grade
                         <a href="{{ route('admin.passgrade.open.univ', $w->id) }}">{{ $w->nama }}</a>
                     </td>
                     <td>{{ formatUang($w->harga) }}</td>
-                    <td class="text-center">{{ $w->ownedBy->count() }}x</td>
+                    <td class="text-center">{{ $w->ownedBy->count() }}</td>
                     <td class="text-center">{{ $w->akreditasi }}</td>
                     <td>{{ $w->jurusan->count() }} jurusan</td>
                     <td>{{ $w->is_published ? "Published" : "Unpublished" }}</td>
