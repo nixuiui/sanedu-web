@@ -60,7 +60,7 @@ Kelola Ujian
                     <td>{{ $data->email }}</td>
                     <td><a href="{{ route('admin.ujian.soal.history', $ujian->id)."?idPeserta=$data->id" }}" class="block hover-underline">{{ $data->attempt->where('id_ujian', $ujian->id)->count() }}x</a></td>
                     <td>{{ $data->no_hp }}</td>
-                    <td>{{ $data->asal_sekolah }}</td>
+                    <td>{{ $data->sekolah->nama }}</td>
                 </tr>
                 @endforeach
             </tbody>
