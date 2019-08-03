@@ -56,7 +56,7 @@ Preview - {{ $attempt->ujian->judul }}
                     </tr>
                     <tr>
                         <th>Pembahasan</th>
-                        <td><a href="{{ $attempt->ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>{{ $attempt->ujian->link_pembahasan }} Download</a></td>
+                        <td><a href="{{ $attempt->ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i>Download</a></td>
                     </tr>
                 </table>
             </div>
