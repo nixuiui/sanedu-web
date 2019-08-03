@@ -20,7 +20,13 @@
                 <div class="row">
                     <div class="col-md-3 col-xs-6 mb-3">
                         <div class="text-muted">PEMBAHASAN</div>
-                        <div><a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i> Download</a></div>
+                        <div>
+                            @if($history->count() > 0)
+                            <a href="{{ $ujian->link_pembahasan }}"><i class="mdi mdi-download mr-2"></i> Download</a>
+                            @else
+                            <span class="text-info">Anda harus mengerjakan ujian dulu.</span>
+                            @endif
+                        </div>
                     </div>
                     <div class="col-md-4 col-xs-6 mb-3">
                         <div class="text-muted">PERCOBAAN PERTAMA</div>
