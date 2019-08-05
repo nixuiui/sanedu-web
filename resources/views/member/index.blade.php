@@ -26,7 +26,7 @@ $(document).ready(function(){
     <div class="panel panel-default panel-saldo">
         <div class="heading border-bottom">
             <span class="label-saldo">Saldoku</span>
-            <span class="amount-saldo">Rp 50.000</span>
+            <span class="amount-saldo">{{ formatUang(Auth::user()->saldo) }}</span>
         </div>
     </div>
 </a>
