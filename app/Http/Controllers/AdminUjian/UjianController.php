@@ -44,9 +44,9 @@ class UjianController extends Controller
             'id_kelas'          => 'nullable|exists:set_pustaka,id',
             'id_mata_pelajaran' => 'nullable|exists:set_pustaka,id',
             'judul'             => 'required|string|max:100',
-            'menit'             => 'required_if:check_soal,false|numeric',
-            'detik'             => 'required_if:check_soal,false|numeric',
-            'harga'             => 'required|numeric',
+            'menit'             => 'required_if:check_soal,false|numeric|min:0',
+            'detik'             => 'required_if:check_soal,false|numeric|min:0|max:60',
+            'harga'             => 'required|numeric|min:0',
         ]);
         $ujian = new Ujian;
         $ujian->id = UUid::generate();
@@ -66,11 +66,11 @@ class UjianController extends Controller
 
     public function prosesEditUjian(Request $input, $id) {
         $this->validate($input, [
-            'judul'     => 'required|string|max:100',
-            'harga'     => 'required|numeric',
-            'url'       => 'nullable|url',
-            'menit'     => 'numeric',
-            'detik'     => 'numeric',
+            'judul' => 'required|string|max:100',
+            'menit' => 'required_if:check_soal,false|numeric|min:0',
+            'detik' => 'required_if:check_soal,false|numeric|min:0|max:60',
+            'harga' => 'required|numeric|min:0',
+            'url'   => 'nullable|url',
         ]);
         $ujian = Ujian::find($id);
         $ujian->judul           = $input->judul;

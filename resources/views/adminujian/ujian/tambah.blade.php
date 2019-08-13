@@ -14,7 +14,7 @@ Buat Ujian Baru
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Judul Ujian</label>
+                            <label>Judul Ujian*</label>
                             <input type="text" class="form-control input-sm" placeholder="Ujian Nasional SMA Matematika" name="judul"  value="{{ old('judul') }}" required>
                             @if($errors->has('judul'))
                             <span class="help-block">
@@ -25,8 +25,8 @@ Buat Ujian Baru
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Tingkat Sekolah</label>
-                            <select class="form-control input-sm" id="inputSekolah" name="id_sekolah">
+                            <label>Tingkat Sekolah*</label>
+                            <select class="form-control input-sm" id="inputSekolah" name="id_sekolah" required>
                                 <option value="">Pilih Sekolah</option>
                                 @foreach($sekolah as $val)
                                 <option value="{{ $val->id }}">{{ $val->nama }}</option>
@@ -41,8 +41,8 @@ Buat Ujian Baru
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Ujian</label>
-                            <select class="form-control input-sm" id="inputUjian" name="id_ujian" disabled>
+                            <label>Ujian*</label>
+                            <select class="form-control input-sm" id="inputUjian" name="id_ujian" required disabled>
                                 <option value=""></option>
                             </select>
                             @if($errors->has('id_ujian'))
@@ -80,7 +80,7 @@ Buat Ujian Baru
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Harga (Rp)</label>
+                            <label>Harga (Rp)*</label>
                             <input type="number" class="form-control input-sm" placeholder="1000" name="harga"  value="{{ 0 | old('harga') }}" required>
                             @if($errors->has('harga'))
                             <span class="help-block">
@@ -101,7 +101,7 @@ Buat Ujian Baru
                     <div class="col-lg-3 col-xs-6">
                         <div class="form-group">
                             <label>(DURASI) Menit</label>
-                            <input type="number" id="durasiMenit" class="form-control input-sm" placeholder="60" name="menit"  value="{{ old('durasi') }}" required>
+                            <input type="number" id="durasiMenit" class="form-control input-sm" placeholder="60" name="menit"  value="{{ old('menit') }}" required>
                             @if($errors->has('menit'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('menit') }}</strong>
@@ -112,7 +112,7 @@ Buat Ujian Baru
                     <div class="col-lg-3 col-xs-6">
                         <div class="form-group">
                             <label>Detik</label>
-                            <input type="number" id="durasiDetik" class="form-control input-sm" placeholder="60" name="detik"  value="{{ old('durasi') }}" required>
+                            <input type="number" id="durasiDetik" class="form-control input-sm" placeholder="60" name="detik"  value="{{ old('detik') }}" required>
                             @if($errors->has('detik'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('detik') }}</strong>

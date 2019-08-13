@@ -86,6 +86,8 @@ Kelola Ujian
                             @endif
                         </div>
                     </div>
+                </div>
+                <div class="row">
                     @if(!$ujian->is_grouped)
                     <div class="col-md-6">
                         <div class="row">
