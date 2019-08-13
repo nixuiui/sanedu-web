@@ -55,29 +55,38 @@ class SimulasiController extends Controller
 
         $tiket = null;
         $enroll = null;
-        //CHECK JIKA PIN & KAP MASIH KOSONG
-        if(!isset($_GET['pin']) && !isset($_GET['enroll'])) {
+        $saldo = false;
+        //CHECK JIKA PIN MASIH KOSONG
+        if(!isset($_GET['pin']) && !isset($_GET['enroll']) && !isset($_GET['saldo'])) {
             return view('member.simulasi.register')->with([
                 'simulasi' => $simulasi,
             ]);
         }
 
-        // REGISTER MENGGUNAKAN KAP & PIN
+        // REGISTER MENGGUNAKAN PIN
         else if(isset($_GET['pin'])){
             $pin = str_replace("-", "", $_GET['pin']);
             $tiket = Tiket::where('pin', $pin)->where("id_simulasi", $simulasi->id);
             if($tiket->first() == null)
-                return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
+                return redirect()->back()->with('danger', 'Nomor PIN tidak tersedia');
             $tiket = $tiket->where('id_user', null);
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Nomor tiket sudah digunakan.');
             $tiket = $tiket->first();
         }
+
         // REGISTER MENGGUNAKAN ENROLL
         else if(isset($_GET['enroll'])){
             $enroll = $_GET['enroll'];
             if($simulasi->enroll != $enroll)
                 return redirect()->back()->with('danger', '<b>KODE ENROLL</b> SALAH');
+        }
+
+        // REGISTER MENGGUNAKAN ENROLL
+        else if(isset($_GET['saldo'])){
+            $saldo = true;
+            if($simulasi->harga > Auth::user()->saldo)
+                return redirect()->back()->with('danger', 'Maaf saldo Anda tidak cukup');
         }
 
 
@@ -93,6 +102,7 @@ class SimulasiController extends Controller
             'simulasi' => $simulasi,
             'universitas' => $universitas,
             'tiket' => $tiket,
+            'saldo' => $saldo,
             'enroll' => $enroll,
             'provinsi' => $provinsi,
             'kota' => $kota,
@@ -102,9 +112,9 @@ class SimulasiController extends Controller
 
     public function registerPost(Request $input, $id) {
         $this->validate($input, [
-            'kap'       => 'nullable|exists:tbl_tiket,kap',
             'pin'       => 'nullable|exists:tbl_tiket,pin',
             'enroll'    => 'nullable',
+            'saldo'     => 'nullable',
             'mode'      => 'required|in:offline,online',
             'jurusan'   => 'required|exists:set_pustaka,id',
             'jurusan_1' => 'required|exists:tbl_passing_grade_jurusan,id',
@@ -134,11 +144,11 @@ class SimulasiController extends Controller
             if(!$ruang) return back()->with("danger", "Tiket Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat tiket tersedia kembali");
         }
         
+        // REGISTER DENGAN PIN TIKET
         if($input->pin) {
-            //CHECK TIKET KAP & PIN
-            $tiket = Tiket::where('pin', $input->pin)->where('kap', $input->kap);
+            $tiket = Tiket::where('pin', $input->pin)->first();
             if($tiket->first() == null)
-                return redirect()->back()->with('danger', 'Nomor PIN dan KAP tidak tersedia');
+                return redirect()->back()->with('danger', 'Nomor PIN tidak tersedia');
             $tiket = $tiket->where('id_user', null);
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Anda sudah melakukan pendaftaran, untuk Login silahkan klik link <a href="' . route('auth.login') . '">Login</a> di bawah dengan menggunakan Username dan Password yang telah Anda isi pada kolom pendaftaran');
@@ -157,9 +167,16 @@ class SimulasiController extends Controller
             $riwayatSaldo->id_object = $tiket->id;
             $riwayatSaldo->saldo = Auth::user()->saldo;
             $riwayatSaldo->save();
-
         }
+        // REGISTER DENGAN KODE ENROLL
         else if($input->enroll) {
+            if($simulasi->enroll != $input->enroll)
+                return redirect()->back()->with('danger', 'Maaf, Kode Enroll yang Anda masukan salah');
+        }
+        // REGISTER DENGAN SALDO
+        else if($input->saldo) {
+            if($simulasi->harga > Auth::user()->saldo)
+                return redirect()->back()->with('danger', 'Maaf saldo Anda tidak cukup');
         }
         
         //CHECK NO PESERTA YANG TERAKHIR

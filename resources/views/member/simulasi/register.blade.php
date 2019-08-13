@@ -3,8 +3,9 @@
 @endsection
 
 @section('content')
-<div class="row">
-    @if(!isset($_GET['pin']) && !isset($_GET['kap']) && !isset($_GET['enroll']))
+<div class="page-loader"></div>
+<div class="row" id="simulasiPage">
+    @if(!isset($_GET['pin']) && !isset($_GET['enroll']) && !isset($_GET['saldo']))
     <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-preattempt">
             <div class="heading">
@@ -12,13 +13,13 @@
             </div>
             <div class="panel-section">
                 <div class="text-muted text-center">
-                    SIMULASI 
+                    SIMULASI
                     @if($simulasi->is_online)
                     ONLINE
                     @endif
                     @if($simulasi->is_offline)
                     OFFLINE
-                    @endif    
+                    @endif
                 </div>
             </div>
             <div class="panel-section">
@@ -91,26 +92,62 @@
                 </div>
             </div>
             @endif
+        </div>
+        <div class="panel panel-preattempt">
+            <div class="panel-section">
+                <strong>DAFTAR SIMULASI</strong>
+            </div>
             @if($simulasi->enroll)
             <div class="panel-section">
-                Masuk Menggunakan Kode Enroll
                 <form class="" action="" method="get">
                     <div class="form-group">
-                        <label for="">Enroll</label>
-                        <input type="text" class="form-control input-md" name="enroll" placeholder="KODE ENROLL"
+                        <label for=""><strong>Masuk Menggunakan Kode Enroll</strong></label>
+                        <input type="text" class="form-control input-sm" name="enroll" placeholder="KODE ENROLL"
                             value="{{ old('enroll') }}">
-                    </div>
-                    <button type="submit" class="btn btn-md btn-primary">Selanjutnya</button>
-                </form>
-            </div>
-            @else
-            <div class="panel-section">
-                <form class="" action="" method="get">
-                    <div class="form-group">
-                        <input type="text" class="form-control input-sm input-pin" name="pin" placeholder="Masukan PIN Untuk Daftar" value="{{ old('pin') }}">
                     </div>
                     <button type="submit" class="btn btn-md btn-primary btn-block">Selanjutnya</button>
                 </form>
+            </div>
+            @else
+            @csrf
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-xs-6">
+                        Harga simulasi
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        {{ formatUang($simulasi->harga) }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-section">
+                <div class="row">
+                    <div class="col-xs-6 text-bold">
+                        SALDO ANDA
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        {{ formatUang(Auth::user()->saldo) }}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-section text-right">
+                <div v-if="voucherOpened">
+                    <div class="mb-3 text-muted cursor-pointer" @click="openVoucher">Tutup<i class="mdi mdi-close ml-3"></i></div>
+                    <form class="" action="" method="get">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm input-pin" name="pin" placeholder="Masukan PIN Untuk Daftar" value="{{ old('pin') }}">
+                        </div>
+                        <button type="submit" class="btn btn-md btn-primary btn-block">Cek PIN Tiket</button>
+                    </form>
+                </div>
+                <span class="cursor-pointer text-primary" @click="openVoucher" v-else>Gunakan Tiket</span>
+            </div>
+            <div class="panel-section" v-if="!voucherOpened">
+                @if(Auth::user()->saldo >= $simulasi->harga)
+                <a href="?saldo=true" class="btn btn-success btn-block">Bayar Pakai Saldo</a>
+                @else
+                <a href="#" class="btn btn-success btn-block disabled">Saldo Anda tidak cukup</a>
+                @endif
             </div>
             @endif
         </div>
@@ -125,8 +162,8 @@
                 <form class="" action="{{ route('member.simulasi.register.post', $simulasi->id)}}" method="post">
                     @csrf
                     <input type="hidden" name="pin" value="{{ $tiket ? $tiket->pin : " " }}">
-                    <input type="hidden" name="kap" value="{{ $tiket ? $tiket->kap : " " }}">
                     <input type="hidden" name="enroll" value="{{ $enroll ? $enroll : " " }}">
+                    <input type="hidden" name="saldo" value="{{ $saldo ? $saldo : " " }}">
                     <div class="form-group hide">
                         <label class="control-label">PILIHAN SIMULASI</label>
                         <div>
@@ -311,8 +348,25 @@
     $('.input-pin').mask('0000-0000-0000-0000', {placeholder: "Masukan PIN Untuk Daftar"});
 
 </script>
+<script>
+    var app = new Vue({
+    el: "#simulasiPage",
+    data: {
+        saldo: {!! Auth::user()->saldo !!},
+        voucherOpened: false
+    },
+    methods: {
+        openVoucher: function() {
+            this.voucherOpened = !this.voucherOpened;
+        }
+    }
+})
+</script>
 <script type="text/javascript">
     $(document).ready(function(){
+    $("#btnTiket").click(function(){
+        $("#sectionTiket").slideToggle("fast");
+    });
     $("input[name=jurusan]").change(function() {
         $(".input-jurusan").html("");
     });
