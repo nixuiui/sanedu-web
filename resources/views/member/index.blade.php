@@ -24,9 +24,29 @@ $(document).ready(function(){
 @section('content')
 <a href="{{ route('member.saldo') }}" class="visible-xs visible-sm">
     <div class="panel panel-default panel-saldo">
-        <div class="heading border-bottom">
+        <div class="heading border-bottom" style="border-bottom: 1px solid #DDD;">
             <span class="label-saldo">Saldoku</span>
             <span class="amount-saldo">{{ formatUang(Auth::user()->saldo) }}</span>
+        </div>
+        <div class="panel-body p-0">
+            <div class="row">
+                <div class="col-xs-4 text-center pt-3 pb-3 ph-5">
+                    <a href="{{ route('member.saldo') }}" style="color: #000; display: block">
+                        <img src="{{ asset('image/icon_topup.svg') }}" style="width:30px; margin-bottom: 10px;">
+                        <div>Topup</div>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center pt-3 pb-3 ph-5">
+                    <a href="{{ route('member.saldo') }}" style="color: #000; display: block">
+                        <img src="{{ asset('image/icon_history.svg') }}" style="width:30px; margin-bottom: 10px;">
+                        <div>History</div>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-center pt-3 pb-3 ph-5">
+                    <img src="{{ asset('image/icon_topup.svg') }}" style="width:30px; margin-bottom: 10px; opacity: 0.2">
+                    <div>Transfer</div>
+                </div>
+            </div>
         </div>
     </div>
 </a>
