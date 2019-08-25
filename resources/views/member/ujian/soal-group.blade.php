@@ -105,8 +105,8 @@
         @endif
     </div>
     <div class="col-md-12 mb-3" v-if="isMounted">
-        <div v-for="group in groups" class="mb-4">
-            <div class="breadcrumb mb-2" v-bind:class="[{'text-success': group.id_attempt_group == groups[indexGroup].id_attempt_group}]">
+        <div v-for="group in groups" class="mb-4" v-bind:class="{'hide': group.id_attempt_group != groups[indexGroup].id_attempt_group}">
+            <div class="breadcrumb mb-2" v-bind:class="{'text-success': group.id_attempt_group == groups[indexGroup].id_attempt_group}">
                 @{{ group.nama }}
                 <span class="pull-right">@{{ group.waktu }}</span>
             </div>
