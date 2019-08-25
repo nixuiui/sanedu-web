@@ -125,7 +125,7 @@ Kelola Ujian
                         <span class="completed"><strong>{{ $data->jumlah_salah }}</strong></span>
                         <span class="version">{{ $data->jumlah_benar }}</span>
                         <div class="progress">
-                            <div style="width: {{ ($data->jumlah_benar/($data->jumlah_benar+$data->jumlah_salah))*100 }}%" class="progress-bar progress-bar-primary"></div>
+                            <div style="width: {{ ($data->jumlah_benar+$data->jumlah_salah > 0) ? ($data->jumlah_benar/($data->jumlah_benar+$data->jumlah_salah))*100 : 0 }}%" class="progress-bar progress-bar-primary"></div>
                         </div>
                     </td>
                     <td class="text-center" class="text-center">
