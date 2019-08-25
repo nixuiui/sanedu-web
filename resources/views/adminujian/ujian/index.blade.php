@@ -61,7 +61,7 @@ Kelola Ujian
                     <td>{{ $val->jumlah_soal }} soal</td>
                     <td>{{ formatUang($val->harga) }}</td>
                     @if($val->attempt->count() > 0)
-                    <td class="text-center"><a href="{{ route('admin.ujian.soal.peserta', $val->id) }}">{{ $val->diBeliOleh->count() . " peserta" }}</a></td>
+                    <td class="text-center"><a href="{{ route('admin.ujian.soal.peserta', $val->id) }}">{{ $val->pembelian->count() . " peserta" }}</a></td>
                     @else
                     <td class="text-center">-</td>
                     @endif
