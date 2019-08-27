@@ -59,4 +59,16 @@ class MemberController extends Controller {
         }
     }
 
+    public function pesertaEdit($id) {
+        $user = User::findOrFail($id);
+        return view('admin.profil.edit')->with([
+            'user' => $user
+        ]);
+    }
+
+    public function pesertaDelete($id) {
+        $user = User::findOrFail($id)->delete();
+        return back()->with('success', 'Berhasil Menghapus');
+    }
+
 }

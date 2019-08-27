@@ -151,6 +151,14 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
         Route::get('/',                 'Admin\MemberController@index')->name('admin.member');
         Route::get('/provinsi/{id?}',   'Admin\MemberController@provinsi')->name('admin.member.provinsi');
         Route::get('/generate',         'Admin\MemberController@generate')->name('admin.member.generate');
+        Route::group(['prefix' => '{id}'], function(){
+            Route::get('/edit',             'Admin\MemberController@pesertaEdit')->name('admin.member.edit');
+            Route::get('/delete',           'Admin\MemberController@pesertaDelete')->name('admin.member.delete');
+            Route::post('/edit-profil',     'Admin\ProfilController@editProfil')->name('admin.member.edit.profil');
+            Route::post('/edit-email',      'Admin\ProfilController@editEmail')->name('admin.member.edit.email');
+            Route::post('/edit-username',   'Admin\ProfilController@editUsername')->name('admin.member.edit.username');
+            Route::post('/edit-password',   'Admin\ProfilController@editPassword')->name('admin.member.edit.password');
+        });
     });
 
     Route::group(['prefix' => 'saldo'], function(){

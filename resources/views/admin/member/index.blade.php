@@ -42,6 +42,7 @@ Member
                     <th>Provinsi</th>
                     <th>Sekolah</th>
                     <th>Saldo</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tfoot>
@@ -54,6 +55,7 @@ Member
                     <th>Provinsi</th>
                     <th>Sekolah</th>
                     <th>Saldo</th>
+                    <th>Aksi</th>
                 </tr>
             </tfoot>
             <tbody>
@@ -67,6 +69,14 @@ Member
                     <td>{{ $data->provinsi != null ? $data->provinsi->name : "" }}</td>
                     <td>{{ $data->sekolah != null ? $data->sekolah->nama : "" }}</td>
                     <td>{{ formatUang($data->saldo) }}</td>
+                    <td>
+                        <a href="{{ route('admin.member.delete', $data->id) }}" class="btn btn-xs btn-danger delete" title="Delete">
+                            <i class="mdi mdi-delete"></i>
+                        </a>
+                        <a href="{{ route('admin.member.edit', $data->id) }}" class="btn btn-xs btn-default" title="Edit">
+                            <i class="mdi mdi-edit"></i>
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
