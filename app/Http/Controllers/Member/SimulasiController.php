@@ -144,9 +144,10 @@ class SimulasiController extends Controller
             if(!$ruang) return back()->with("danger", "Maaf kuota Simulasi Offline belum tersedia atau sudah full, silahkan lakukan pendaftaran saat kuota tersedia kembali");
         }
         
+        $registerMethod = null;
         // REGISTER DENGAN PIN TIKET
         if($input->pin) {
-            $tiket = Tiket::where('pin', $input->pin)->first();
+            $tiket = Tiket::where('pin', $input->pin)->where('id_simulasi', $id);
             if($tiket->first() == null)
                 return redirect()->back()->with('danger', 'Nomor PIN tidak tersedia');
             $tiket = $tiket->where('id_user', null);
@@ -167,16 +168,22 @@ class SimulasiController extends Controller
             $riwayatSaldo->id_object = $tiket->id;
             $riwayatSaldo->saldo = Auth::user()->saldo;
             $riwayatSaldo->save();
+
+            $registerMethod = 2101;
         }
+
         // REGISTER DENGAN KODE ENROLL
         else if($input->enroll) {
             if($simulasi->enroll != $input->enroll)
                 return redirect()->back()->with('danger', 'Maaf, Kode Enroll yang Anda masukan salah');
+            $registerMethod = 2103;
         }
+
         // REGISTER DENGAN SALDO
         else if($input->saldo) {
             if($simulasi->harga > Auth::user()->saldo)
                 return redirect()->back()->with('danger', 'Maaf saldo Anda tidak cukup');
+            $registerMethod = 2102;
         }
         
         //CHECK NO PESERTA YANG TERAKHIR
@@ -215,6 +222,7 @@ class SimulasiController extends Controller
         }
         $peserta->id_mapel = $input->jurusan;
         $peserta->harga = $simulasi->harga;
+        $peserta->register_method = $registerMethod;
         $peserta->no_peserta = $no_peserta;
         if($peserta->save()) {
             $passingGrade = new PilihanPassingGrade;
