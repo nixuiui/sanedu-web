@@ -224,7 +224,7 @@ Simulasi - {{ $simulasi->judul }}
                             <td class="text-center">{{ $peserta->passingGrade->pilihan3->passing_grade }}</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="text-center"> <a href="{{ route('member.simulasi.passgrade', $simulasi->id) }}" class="btn btn-md btn-primary">Ubah Pilihan Passing Grade</a> </td>
+                            <td colspan="4" class="text-center"> <a href="{{ route('member.simulasi.passgrade', $simulasi->id) }}" class="btn btn-md btn-primary">Ubah Pilihan Passing Grade</a> </td>
                         </tr>
                     </tbody>
                 </table>
