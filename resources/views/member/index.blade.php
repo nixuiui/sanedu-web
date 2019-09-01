@@ -49,65 +49,47 @@ $(document).ready(function(){
     </div>
 </div>
 <div class="row menu-utama">
-    <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
         <a href="{{ route('member.ujian.soal') }}" class="menu-item">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_ujian.png') }}" alt="">
-            <div class="menu-title">Contoh Soal</div>
+            <img class="menu-icon" src="{{ asset('image/landing/latihan_kotak.png') }}" alt="">
+            <div class="menu-title">Latihan Soal</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6">
-        <a href="{{ route('member.informasi') }}" class="menu-item">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_informasi.png') }}" alt="">
-            <div class="menu-title">Informasi</div>
-        </a>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
         <a href="{{ route('member.passgrade') }}" class="menu-item">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_informasi.png') }}" alt="">
+            <img class="menu-icon" src="{{ asset('image/landing/pg_kotak.png') }}" alt="">
             <div class="menu-title">Passing Grade</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
         <a href="{{ route('member.simulasi') }}" class="menu-item">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_simulasi.png') }}" alt="">
-            <div class="menu-title">Simulasi</div>
+            <img class="menu-icon" src="{{ asset('image/landing/event_kotak.png') }}" alt="">
+            <div class="menu-title">Event</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 hide">
-        <span href="#" class="menu-item soon-fitur">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_games.png') }}" alt="">
-            <div class="menu-title">Games</div>
-        </span>
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+        <a href="#" class="menu-item">
+            <img class="menu-icon" src="{{ asset('image/landing/rasional_kotak.png') }}" alt="">
+            <div class="menu-title">Rasionalisasi</div>
+        </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 hide">
-        <span href="#" class="menu-item soon-fitur">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_privat.png') }}" alt="">
-            <div class="menu-title">Privat</div>
-        </span>
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+        <a href="#" class="menu-item">
+            <img class="menu-icon" src="{{ asset('image/landing/pendam_kotak.png') }}" alt="">
+            <div class="menu-title">Pendampingan Belajar</div>
+        </a>
     </div>
-    {{-- <div class="col-md-3 col-sm-6 col-xs-6">
+    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+        <a href="#" class="menu-item">
+            <img class="menu-icon" src="{{ asset('image/landing/pg_kotak.png') }}" alt="">
+            <div class="menu-title">Jungle Book</div>
+        </a>
+    </div>
+    {{-- <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
         <a href="{{ route('member.grupchat') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_grupchat.png') }}" alt="">
             <div class="menu-title">Konsultasi</div>
         </a>
     </div> --}}
-    <div class="col-md-3 col-sm-6 col-xs-6 hide">
-        <span href="#" class="menu-item soon-fitur">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_poin.png') }}" alt="">
-            <div class="menu-title">Point</div>
-        </span>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 hide">
-        <span href="#" class="menu-item soon-fitur">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_sanmodul.png') }}" alt="">
-            <div class="menu-title">SANMODUL</div>
-        </span>
-    </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 hide">
-        <span href="#" class="menu-item soon-fitur">
-            <img class="menu-icon" src="{{ asset('asset-member/img/menu_sanlator.png') }}" alt="">
-            <div class="menu-title">SANLATOR</div>
-        </span>
-    </div>
 </div>
 @endsection

@@ -36,7 +36,6 @@ class HomeController extends Controller
             else
             return  "WRONG TURN!";
         }
-        return redirect()->route('auth.login');
         return view('guest.landing.index');
     }
 
