@@ -471,9 +471,9 @@ class UjianController extends Controller
         $soal = Soal::where("id_ujian", $id)->get();
         foreach($soal as $s) {
             $benar = AttemptCorrection::whereIn("id_attempt", $attempt)->where("id_soal", $s->id)->where("is_correct", 1)->get()->count();
-            $salah = AttemptCorrection::whereIn("id_attempt", $attempt)->where("id_soal", $s->id)->where("is_correct", 0)->get()->count();
+            // $salah = AttemptCorrection::whereIn("id_attempt", $attempt)->where("id_soal", $s->id)->where("is_correct", 0)->get()->count();
             $s->jumlah_benar = $benar;
-            $s->jumlah_salah = $salah;
+            $s->jumlah_salah = $soal->count() - $benar;
             $s->save();
         }
         return redirect()->route('admin.ujian.soal.kriteria', $id);
