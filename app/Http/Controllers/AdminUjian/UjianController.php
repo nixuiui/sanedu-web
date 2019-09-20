@@ -98,7 +98,7 @@ class UjianController extends Controller
 
     public function publish($id) {
         $ujian = Ujian::find($id);
-        $ujian->is_published = 1;
+        $ujian->is_published = !$ujian->is_published;
         $ujian->save();
         return redirect()->route('admin.ujian.soal.kelola', $ujian->id)->with('success', 'Berhasil dipublish');
     }

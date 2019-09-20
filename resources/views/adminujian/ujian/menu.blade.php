@@ -41,4 +41,6 @@
 </ul>
 @if(!$ujian->is_published)
 <div class="aside-compose"><a href="{{ route("admin.ujian.soal.publish", $ujian->id) }}" class="btn btn-lg btn-primary btn-block btn-rounded">PUBLISH UJIAN<i class="mdi mdi-mail-send ml-4"></i></a></div>
+@else
+<div class="aside-compose"><a href="{{ route("admin.ujian.soal.publish", $ujian->id) }}" class="btn btn-lg btn-default btn-block btn-rounded">UNPUBLISH UJIAN</a></div>
 @endif
