@@ -36,6 +36,7 @@ Simulasi - {{ $simulasi->judul }}
                 <li><a href="#">Pengumuman</a></li>
             </ul>
         </div>
+        <a href="#riwayatPengerjaan" class="btn btn-default">Lihat Riwayat Pengerjaan</a>
     </div>
 </div>
 <div class="row">
@@ -316,7 +317,7 @@ Simulasi - {{ $simulasi->judul }}
                 </form>
             </div>
             @endif
-            <div class="panel panel-default panel-table">
+            <div class="panel panel-default panel-table" id="riwayatPengerjaan">
                 <div class="panel-heading">
                     Riwayat Pengerjaan
                 </div>
