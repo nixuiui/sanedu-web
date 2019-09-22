@@ -36,7 +36,7 @@ Simulasi - {{ $simulasi->judul }}
                 <li><a href="#">Pengumuman</a></li>
             </ul>
         </div>
-        <a href="#riwayatPengerjaan" class="btn btn-default">Lihat Riwayat Pengerjaan</a>
+        <a href="#riwayatPengerjaan" class="btn btn-default btn-space">Lihat Riwayat Pengerjaan</a>
     </div>
 </div>
 <div class="row">
@@ -337,7 +337,7 @@ Simulasi - {{ $simulasi->judul }}
                                 @foreach($history as $i => $data)
                                 <tr class="clickable-row" data-href="{{ route('member.ujian.history', $data->id) }}">
                                     <td>{{ $i+1 }}</td>
-                                    <td>{{ hariTanggalWaktu($data->start_attempt) }}</td>
+                                    <td><a href="{{ route('member.ujian.history', $data->id) }}">{{ hariTanggalWaktu($data->start_attempt) }}</a></td>
                                     <td class="milestone">
                                         <span class="completed"><strong>{{ $data->jumlah_benar }}</strong>/{{ $data->ujian->jumlah_soal }}</span>
                                         <span class="version">{{ round($data->nilai, 2) }}</span>
