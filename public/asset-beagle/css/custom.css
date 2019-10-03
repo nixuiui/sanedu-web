@@ -215,9 +215,8 @@ label {
     color: #fbbc05;
 }
 .menu-utama .menu-item .menu-title {
-    font-weight: 900;
-    font-size: 12px;
-    padding: 8px;
+    font-size: 6px;
+    padding: 4px;
     background: #fbbc05;
     text-transform: uppercase;
     color: #FFF;
@@ -266,10 +265,16 @@ label {
 }
 @media (min-width: 576px) {
     .menu-utama .menu-item .menu-title {
-        font-size: 18px;
+        font-size: 12px;
+        padding: 8px;
+        font-weight: 700;
     }
 }
 @media (min-width: 768px) {
+    .menu-utama .menu-item .menu-title {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
 
 div.dataTables_wrapper div.dataTables_filter input {

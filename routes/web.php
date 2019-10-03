@@ -340,7 +340,8 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
 
             // scan
             Route::get('/scan',         'AdminSimulasi\SimulasiController@scanView')->name('adminsimulasi.simulasi.kelola.scan');
-            Route::post('/scan',        'AdminSimulasi\SimulasiController@scanProcess')->name('adminsimulasi.simulasi.kelola.scan.post');
+            Route::post('/scan',        'AdminSimulasi\SimulasiController@scanPreview')->name('adminsimulasi.simulasi.kelola.scan.post');
+            Route::post('/scanprocess', 'AdminSimulasi\SimulasiController@scanProcess')->name('adminsimulasi.simulasi.kelola.scan.process');
         });
     });
 });
@@ -388,6 +389,14 @@ Route::group(['middleware' => 'member'], function(){
     //     Route::get('/join/line',    'Member\GrupChatController@joinLine')->name('member.grupchat.join.line');
     // });
     
+    Route::group(['prefix' => 'jungle'], function(){
+        Route::get('/',             'Member\JungleController@index')->name('member.jungle');
+    });
+
+    Route::group(['prefix' => 'pendampingan'], function(){
+        Route::get('/',             'Member\PendampinganController@index')->name('member.pendampingan');
+    });
+
     Route::group(['prefix' => 'informasi'], function(){
         Route::get('/',             'Member\InformasiController@index')->name('member.informasi');
         Route::get('/p/{id}',       'Member\InformasiController@view')->name('member.informasi.view');
