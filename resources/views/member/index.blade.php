@@ -15,7 +15,7 @@ Beranda
 $(document).ready(function(){
     $('.main-gallery').slick({
         autoplay: true,
-        autoplayspeed: 5000
+        autoplayspeed: 1000
     });
 });
 </script>
@@ -49,47 +49,58 @@ $(document).ready(function(){
     </div>
 </div>
 <div class="row menu-utama">
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
         <a href="{{ route('member.ujian.soal') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/latihan_kotak.png') }}" alt="">
             <div class="menu-title">Latihan Soal</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
         <a href="{{ route('member.passgrade') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/pg_kotak.png') }}" alt="">
             <div class="menu-title">Passing Grade</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
         <a href="{{ route('member.simulasi') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/event_kotak.png') }}" alt="">
             <div class="menu-title">Event</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
         <a href="#" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/rasional_kotak.png') }}" alt="">
             <div class="menu-title">Rasionalisasi</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
-        <a href="#" class="menu-item">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
+            <a href="{{ route('member.pendampingan') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/pendam_kotak.png') }}" alt="">
             <div class="menu-title">Pendampingan Belajar</div>
         </a>
     </div>
-    <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
-        <a href="#" class="menu-item">
+    <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
+        <a href="{{ route('member.jungle') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('image/landing/pg_kotak.png') }}" alt="">
             <div class="menu-title">Jungle Book</div>
         </a>
     </div>
-    {{-- <div class="col-md-3 col-sm-6 col-xs-6 mb-4">
+    {{-- <div class="col-md-3 col-sm-4 col-xs-4 mb-4">
         <a href="{{ route('member.grupchat') }}" class="menu-item">
             <img class="menu-icon" src="{{ asset('asset-member/img/menu_grupchat.png') }}" alt="">
             <div class="menu-title">Konsultasi</div>
         </a>
     </div> --}}
 </div>
+<div class="main-gallery" style="margin-bottom: 25px;">
+    <div class="gallery-cell">
+        <img width="100%" alt="First slide [800x400]" src="{{ asset('image/banner_3.png') }}">
+    </div>
+    <div class="gallery-cell">
+        <img width="100%" alt="First slide [800x400]" src="{{ asset('image/banner_1.png') }}">
+    </div>
+    <div class="gallery-cell">
+        <img width="100%" alt="First slide [800x400]" src="{{ asset('image/banner_2.png') }}">
+    </div>
+</div>    
 @endsection
