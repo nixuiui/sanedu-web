@@ -5,7 +5,13 @@
     <li class="{{ active(['admin.member']) }}">
         <a href="{{ route('admin.member') }}">
             <i class="icon mdi mdi-accounts"></i>
-            Member Sanedu
+            Ringkasan
+        </a>
+    </li>
+    <li class="{{ active(['admin.member.data']) }}">
+        <a href="{{ route('admin.member.data') }}">
+            <i class="icon mdi mdi-accounts"></i>
+            Data Member Sanedu
         </a>
     </li>
     <li class="{{ active(['admin.member.provinsi']) }}">

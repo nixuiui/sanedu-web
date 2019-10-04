@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Http\Controllers\Controller;
 use DB;
+use Excel;
 use App\Models\User;
 use App\Models\Provinsi;
 
@@ -15,8 +16,42 @@ class MemberController extends Controller {
         $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi', 'saldo'])
                     ->where('id_role', 1004)
                     ->orderBy('id_role', 'asc')
-                    ->get();
+                    ->get()->count();
         return view('admin.member.index')->with([
+            'jumlah_user' => $user
+        ]);
+    }
+
+    public function export() {
+        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi', 'saldo'])
+                    ->where('id_role', 1004)
+                    ->orderBy('id_role', 'asc')
+                    ->get();
+        $pesertaArray = [];
+        $pesertaArray[] = ['Nama', 'Asal Sekolah'];
+        foreach ($user as $data) {
+            $pesertaArray[] = [
+                strtoupper($data->nama), 
+                $data->sekolah != null ? $data->sekolah->nama : "-"
+            ];
+        }
+        $title = "Data Member Sanedu";
+        Excel::create($title, function($excel) use ($title, $pesertaArray) {
+            $excel->setTitle($title);
+            $excel->setCreator('Niki Rahmadi Wiharto')->setCompany('Sanedu');
+            $excel->setDescription('Data Peserta');
+            $excel->sheet('sheet1', function($sheet) use ($pesertaArray) {
+                $sheet->fromArray($pesertaArray, null, 'A1', false, false);
+            });
+        })->download('xlsx');
+    }
+
+    public function data() {
+        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi', 'saldo'])
+                    ->where('id_role', 1004)
+                    ->orderBy('id_role', 'asc')
+                    ->get();
+        return view('admin.member.data')->with([
             'users' => $user
         ]);
     }

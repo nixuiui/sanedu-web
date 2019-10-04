@@ -149,6 +149,8 @@ Route::group(['middleware' => 'admin', 'prefix' => 'admin'], function(){
 
     Route::group(['prefix' => 'member'], function(){
         Route::get('/',                 'Admin\MemberController@index')->name('admin.member');
+        Route::get('/data',             'Admin\MemberController@data')->name('admin.member.data');
+        Route::get('/export',           'Admin\MemberController@export')->name('admin.member.export');
         Route::get('/provinsi/{id?}',   'Admin\MemberController@provinsi')->name('admin.member.provinsi');
         Route::get('/generate',         'Admin\MemberController@generate')->name('admin.member.generate');
         Route::group(['prefix' => '{id}'], function(){
