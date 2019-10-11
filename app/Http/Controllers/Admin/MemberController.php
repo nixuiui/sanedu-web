@@ -13,13 +13,8 @@ use App\Models\Provinsi;
 class MemberController extends Controller {
 
     public function index() {
-        $user = User::select(['id', 'nama', 'email', 'no_hp', 'no_hp_ortu', 'id_sekolah', 'id_provinsi', 'saldo'])
-                    ->where('id_role', 1004)
-                    ->orderBy('id_role', 'asc')
-                    ->get()->count();
-        return view('admin.member.index')->with([
-            'jumlah_user' => $user
-        ]);
+        $userByYear = User::selectRaw('YEAR(created_at) year, COUNT(*) jumlah')->where('id_role', 1004)->orderBy('year', 'asc')->groupBy('year')->get();
+        return view('admin.member.index', compact('userByYear'));
     }
 
     public function export() {

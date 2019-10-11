@@ -57,7 +57,7 @@ select.input-sm, .input-sm { height: 36px; }
 .clickable-row { cursor: pointer; }
 .no-border { border: none !important; }
 .block { display: block; }
-.no-radius { border-radius: 0px; }
+.no-radius { border-radius: 0px !important; }
 .hover-underline:hover { text-decoration: underline !important; }
 
 .clear-both { clear: both; }

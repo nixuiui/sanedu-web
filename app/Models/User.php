@@ -26,7 +26,7 @@ class User extends Authenticatable {
             // $data->method()->delete();
         });
         static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('nama', 'asc');
+            // $builder->orderBy('nama', 'asc');
         });
     }
 
