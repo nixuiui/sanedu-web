@@ -14,7 +14,7 @@
         height: 100%;
         font-family: helvetica;
         position: absolute;
-        font-size: 7px;
+        font-size: 9px;
         letter-spacing: 0px;
         top: 0;
         right: 0;
@@ -23,9 +23,9 @@
     .pin {
         position: absolute;
         top: 39px;
-        left: 26px;
+        left: 42px;
         letter-spacing: 0px;
-        color: #FFF;
+        color: #333;
     }
     .online, .offline {
         position: absolute;
@@ -33,8 +33,8 @@
         background: #444;
         padding: 1px;
         border-radius: 1px;
-        right: 42px;
-        top: 33px;
+        right: 15px;
+        top: 25px;
         letter-spacing: 0px;
         color: #FFF;
     }
@@ -53,7 +53,7 @@
             @foreach($tiket as $key => $val)
             {!! $key%5 == 0 ? "<tr>":"" !!}
                 <td class="tiket-wrapper">
-                    <img class="tiket" src="{{ asset('image/tiket_legacy_2019.jpg')}}" width="187px" />
+                    <img class="tiket" src="{{ $simulasi->tiket_url }}" width="187px" />
                     <div class="field">
                         {!! $simulasi->is_offline ? "<span class='offline'>OFFLINE</span>":"" !!}
                         {!! $simulasi->is_online ? "<span class='online'>ONLINE</span>":"" !!}
@@ -63,7 +63,7 @@
                 @if($key+1 == $tiket->count())
                     @for ($i = 0; $i < 5-($tiket->count()%5); $i++)
                     <td class="tiket-wrapper" style="visibility:hidden">
-                        <img class="tiket" src="{{ asset('image/tiket_legacy_2019.jpg')}}" width="187px" />
+                        <img class="tiket" src="{{ $simulasi->tiket_url }}" width="187px" />
                         <div class="field">
                             {!! $simulasi->is_offline ? "<span class='offline'>OFFLINE</span>":"" !!}
                             {!! $simulasi->is_online ? "<span class='online'>ONLINE</span>":"" !!}

@@ -321,6 +321,7 @@ Route::group(['middleware' => 'adminsimulasi', 'prefix' => 'adminsimulasi'], fun
             // tiket
             Route::prefix('tiket')->group(function () {
                 Route::get('/',                         'AdminSimulasi\SimulasiController@tiket')->name('adminsimulasi.simulasi.kelola.tiket');
+                Route::post('/custom',                  'AdminSimulasi\SimulasiController@customTiket')->name('adminsimulasi.simulasi.kelola.tiket.custom');
                 Route::get('/detail/{idCetak?}',        'AdminSimulasi\SimulasiController@tiketDetail')->name('adminsimulasi.simulasi.kelola.tiket.detail');
                 Route::post('/tambah',                  'AdminSimulasi\SimulasiController@generateTiket')->name('adminsimulasi.simulasi.kelola.tiket.tambah');
                 Route::get('/delete/{idCetak}',         'AdminSimulasi\SimulasiController@deleteCetakTiket')->name('adminsimulasi.simulasi.kelola.tiket.delete');
@@ -393,6 +394,11 @@ Route::group(['middleware' => 'member'], function(){
     
     Route::group(['prefix' => 'jungle'], function(){
         Route::get('/',             'Member\JungleController@index')->name('member.jungle');
+    });
+    
+    Route::group(['prefix' => 'rasionalisasi'], function(){
+        Route::get('/',             'Member\RasionalisasiController@index')->name('member.rasionalisasi');
+        Route::get('/create',       'Member\RasionalisasiController@create')->name('member.rasionalisasi.create');
     });
 
     Route::group(['prefix' => 'pendampingan'], function(){

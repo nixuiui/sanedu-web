@@ -1325,6 +1325,22 @@ class SimulasiController extends Controller
         ]);
     }
 
+
+
+    public function customTiket(Request $input, $id) {
+        $this->validate($input, [
+            'featured_image'        => 'required'
+        ]);
+        $simulasi = Simulasi::find($id);
+        if($input->featured_image != null) {
+            $upload = $this->uploadImage($input->featured_image);
+            if($upload->success) $simulasi->gambar_tiket = $upload->filename;
+            else return back()->with('danger', 'Gambar tidak terupload');
+        }
+        $simulasi->save();
+        return redirect()->route('adminsimulasi.simulasi.kelola.tiket', $simulasi->id)->with('success', 'Berhasil menyimpan perubahan');
+    }
+
     public function generateTiket(Request $input, $id){
         $simulasi = Simulasi::findOrFail($id);
         $this->validate($input, [
@@ -1358,7 +1374,7 @@ class SimulasiController extends Controller
     }
 
     public function printTiket($id, $idCetakTiket) {
-        $paperSize = isset($_GET['paperSize']) && $_GET['paperSize'] == 'a3' ? 'a3' : 'a4';
+        $paperSize = isset($_GET['paperSize']) && $_GET['paperSize'] ? $_GET['paperSize'] : 'a4';
         $simulasi = Simulasi::findOrFail($id);
         $cetakTiket = CetakTiket::findOrFail($idCetakTiket);
         $tiket      = Tiket::where('id_cetak_tiket', $cetakTiket->id)->get();

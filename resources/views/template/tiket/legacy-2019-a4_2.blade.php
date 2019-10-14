@@ -14,7 +14,7 @@
         height: 100%;
         font-family: helvetica;
         position: absolute;
-        font-size: 9px;
+        font-size: 18px;
         letter-spacing: 0px;
         top: 0;
         right: 0;
@@ -22,16 +22,16 @@
     }
     .pin {
         position: absolute;
-        top: 39px;
-        left: 42px;
+        top: 70px;
+        left: 69px;
         letter-spacing: 0px;
         color: #333;
     }
     .online, .offline {
         position: absolute;
-        font-size: 6px;
+        font-size: 10px;
         background: #444;
-        padding: 1px;
+        padding: 3px;
         border-radius: 1px;
         right: 15px;
         top: 25px;
@@ -51,9 +51,9 @@
     <div class="wrapper">
         <table width="100%">
             @foreach($tiket as $key => $val)
-            {!! $key%4 == 0 ? "<tr>":"" !!}
+            {!! $key%2 == 0 ? "<tr>":"" !!}
                 <td class="tiket-wrapper">
-                    <img class="tiket" src="{{ $simulasi->tiket_url }}" width="187px" />
+                    <img class="tiket" src="{{ $simulasi->tiket_url }}" width="350px" />
                     <div class="field">
                         {!! $simulasi->is_offline ? "<span class='offline'>OFFLINE</span>":"" !!}
                         {!! $simulasi->is_online ? "<span class='online'>ONLINE</span>":"" !!}
@@ -61,9 +61,9 @@
                     </div>
                 </td>
                 @if($key+1 == $tiket->count())
-                    @for ($i = 0; $i < 4-($tiket->count()%4); $i++)
+                    @for ($i = 0; $i < 2-($tiket->count()%2); $i++)
                     <td class="tiket-wrapper" style="visibility:hidden">
-                        <img class="tiket" src="{{ $simulasi->tiket_url }}" width="187px" />
+                        <img class="tiket" src="{{ $simulasi->tiket_url }}" width="350px" />
                         <div class="field">
                             {!! $simulasi->is_offline ? "<span class='offline'>OFFLINE</span>":"" !!}
                             {!! $simulasi->is_online ? "<span class='online'>ONLINE</span>":"" !!}
@@ -72,7 +72,7 @@
                     </td>
                     @endfor
                 @endif
-            {!! $key%4 == 3 ? "</tr>":"" !!}
+            {!! $key%2 == 1 ? "</tr>":"" !!}
             @endforeach
         </table>
     </div>

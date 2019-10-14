@@ -153,8 +153,10 @@
                             </span> @endif
                         </div>
                         @if($simulasi->featured_image != null)
-                        <img id="imagePreview" class="img-fluid" width="200px" src="{{ $simulasi->image_url }}"> @else
-                        <img id="imagePreview" class="img-fluid" width="200px"> @endif
+                        <img id="imagePreview" class="img-fluid" width="200px" src="{{ $simulasi->image_url }}"> 
+                        @else
+                        <img id="imagePreview" class="img-fluid" width="200px"> 
+                        @endif
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary btn-fill btn-md btn-icon"><i class="mdi mdi-check"></i>Simpan Perubahan</button>
