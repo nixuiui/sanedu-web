@@ -1488,7 +1488,7 @@ class SimulasiController extends Controller
         ]);
     }
     
-    public function scanProcess(Request $input, $id) {
+    public function scanPreview(Request $input, $id) {
         $simulasi = Simulasi::findOrFail($id);
         $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $id)->where("id_mapel", $input->id_mapel)->get();
         $jumlahSoal = $kunciJawaban->count();
@@ -1498,38 +1498,78 @@ class SimulasiController extends Controller
             $path = $input->file('fileUpload')->getRealPath();
             $data = Excel::load($path, function($header) {})->get();
             if(!empty($data) && $data->count()){
-                foreach($data as $val) {
-                    $noPeserta = $val["no_peserta"];
-                    $peserta = SimulasiPeserta::where("id_simulasi", $id)
-                                                ->where("id_mapel", $input->id_mapel)
-                                                ->where("no_peserta", $noPeserta)
-                                                ->first();
-                    if($peserta == null) continue;
-                    for($i=1; $i<=$jumlahSoal; $i++) {
-                        $soal = $kunciJawaban->where("no", $i)->first();
-                        $koreksi = SimulasiKoreksi::where("id_simulasi", $simulasi->id)
-                                                    ->where("id_peserta", $peserta->id)
-                                                    ->where("id_soal", $soal->id)
-                                                    ->first();
-                        if($koreksi == null)
-                            $koreksi = new SimulasiKoreksi;
-
-                        $koreksi->id = Uuid::generate();
-                        $koreksi->id_simulasi = $simulasi->id;
-                        $koreksi->id_peserta = $peserta->id;
-                        $koreksi->id_soal = $soal->id;
-                        $koreksi->no_soal = $soal->no;
-                        $koreksi->jawaban = 'a';
-                        $koreksi->kunci_jawaban = $soal->jawaban;
-                        $koreksi->is_correct = $val["$i"];
-                        $koreksi->save();
-                    }
-                    $peserta->is_corrected = 1;
-                    if($peserta->save())
-                    echo $val["no"] . " - " . $noPeserta . "<br>";
-                }
-                return back()->with('success', "Berhasil mengimport jawaban peserta");
+                return view('adminsimulasi.simulasi.scandata')->with([
+                    "data" => $data,
+                    "simulasi" => $simulasi,
+                    "idMapel" => $input->id_mapel
+                ]);
             }
+            return back()->with('danger', 'Data tidak terbaca');
         }
+        return back()->with('danger', 'File upload tidak ada');
+    }
+
+    public function scanProcess(Request $input, $id) {
+        $simulasi = Simulasi::findOrFail($id);
+
+        $kunciJawaban = SimulasiKunciJawaban::where("id_simulasi", $simulasi->id)->where("id_mapel", $input->id_mapel)->get();
+        $jumlahSoal = $kunciJawaban->count();
+        if($jumlahSoal <= 0) 
+            return $this->success([
+                'status' => 'Soal belum tersedia'
+            ], null);
+
+        $noPeserta = $input->data['no_peserta'];
+        // $noPeserta = "111-24-00912";
+        $peserta = SimulasiPeserta::where("id_simulasi", $simulasi->id)
+                                    ->where("no_peserta", $noPeserta)
+                                    ->first();
+        // return $this->success([
+        //     'status' => 'Peserta tidak ada',
+        //     'peserta' => $noPeserta
+        // ], null);
+
+        if($peserta == null) 
+            return $this->success([
+                'status' => 'Peserta tidak ada'
+            ], null);
+
+        if($peserta->is_corrected == 1) 
+            return $this->success([
+                'status' => 'Complete',
+                'jumlah_benar' => $peserta->jumlah_benar,
+                'jumlah_salah' => $peserta->jumlah_salah
+            ], null);
+
+        for($i=1; $i<=$jumlahSoal; $i++) {
+            $soal = $kunciJawaban->where("no", $i)->first();
+            $koreksi = SimulasiKoreksi::where("id_simulasi", $simulasi->id)
+                                        ->where("id_peserta", $peserta->id)
+                                        ->where("id_soal", $soal->id)
+                                        ->first();
+            if($koreksi == null)
+                $koreksi = new SimulasiKoreksi;
+
+            $koreksi->id = Uuid::generate();
+            $koreksi->id_simulasi = $simulasi->id;
+            $koreksi->id_peserta = $peserta->id;
+            $koreksi->id_soal = $soal->id;
+            $koreksi->no_soal = $soal->no;
+            $koreksi->jawaban = null;
+            $koreksi->kunci_jawaban = $soal->jawaban;
+            $koreksi->is_correct = $input->data["$i"];
+            $koreksi->save();
+        }
+        $peserta->is_corrected = 1;
+        if($peserta->save())
+            return $this->success([
+                'status' => 'Complete',
+                'jumlah_benar' => $peserta->jumlah_benar,
+                'jumlah_salah' => $peserta->jumlah_salah,
+                'peserta' => $peserta
+            ], null);
+        return $this->success([
+            'status' => 'Tidak tersimpan'
+        ], null);
     }
 }
