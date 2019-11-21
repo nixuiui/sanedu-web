@@ -1541,6 +1541,8 @@ class SimulasiController extends Controller
                 'jumlah_salah' => $peserta->jumlah_salah
             ], null);
 
+        $totalBenar = 0;
+        $totalSalah = 0;
         for($i=1; $i<=$jumlahSoal; $i++) {
             $soal = $kunciJawaban->where("no", $i)->first();
             $koreksi = SimulasiKoreksi::where("id_simulasi", $simulasi->id)
@@ -1550,6 +1552,8 @@ class SimulasiController extends Controller
             if($koreksi == null)
                 $koreksi = new SimulasiKoreksi;
 
+            $isCorrect = $input->data["$i"];
+
             $koreksi->id = Uuid::generate();
             $koreksi->id_simulasi = $simulasi->id;
             $koreksi->id_peserta = $peserta->id;
@@ -1557,10 +1561,16 @@ class SimulasiController extends Controller
             $koreksi->no_soal = $soal->no;
             $koreksi->jawaban = null;
             $koreksi->kunci_jawaban = $soal->jawaban;
-            $koreksi->is_correct = $input->data["$i"];
+            $koreksi->is_correct = $isCorrect;
             $koreksi->save();
+
+            if($isCorrect) $totalBenar++;
+            else $totalSalah++;
+
         }
         $peserta->is_corrected = 1;
+        $peserta->jumlah_benar = $totalBenar;
+        $peserta->jumlah_salah = $totalSalah;
         if($peserta->save())
             return $this->success([
                 'status' => 'Complete',
