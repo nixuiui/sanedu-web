@@ -15,9 +15,9 @@ class PassingGradeVoucher extends Model {
 
     //RELATION table
   	public function cetakVoucher() {
-  		return $this->belongsTo('App\Models\PassingGradeCetakVoucher', 'id_cetak_voucher');
+  		return $this->belongsTo('App\Models\PassingGradeCetakVoucher', 'id_cetak_voucher')->withDefault();
     }
   	public function user() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
 }

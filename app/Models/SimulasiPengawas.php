@@ -22,13 +22,13 @@ class SimulasiPengawas extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
   	public function ruang() {
-  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
+  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang')->withDefault();
   	}
   	public function profil() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
 
 }

@@ -23,13 +23,13 @@ class SimulasiUjian extends Model {
 
     //RELATION table
   	public function ujian() {
-  		return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+  		return $this->belongsTo('App\Models\Ujian', 'id_ujian')->withDefault();
   	}
   	public function mapel() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel')->withDefault();
   	}
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
 
 }

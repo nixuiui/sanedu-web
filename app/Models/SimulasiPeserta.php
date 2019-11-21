@@ -26,16 +26,16 @@ class SimulasiPeserta extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
   	public function mapel() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel')->withDefault();
   	}
   	public function ruang() {
-  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang');
+  		return $this->belongsTo('App\Models\SimulasiRuang', 'id_ruang')->withDefault();
   	}
   	public function jadwalOnline() {
-  		return $this->belongsTo('App\Models\SimulasiJadwalOnline', 'id_jadwal_online');
+  		return $this->belongsTo('App\Models\SimulasiJadwalOnline', 'id_jadwal_online')->withDefault();
   	}
   	public function koreksi() {
   		return $this->hasMany('App\Models\SimulasiKoreksi', 'id_peserta');
@@ -44,7 +44,7 @@ class SimulasiPeserta extends Model {
   		return $this->hasMany('App\Models\Attempt', 'id_peserta_simulasi');
   	}
   	public function profil() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
   	public function passingGrade() {
   		return $this->hasOne('App\Models\PilihanPassingGrade', 'id_peserta');

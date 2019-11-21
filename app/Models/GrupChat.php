@@ -22,7 +22,7 @@ class GrupChat extends Model {
 
     //RELATION table
   	public function kategoriGrupChat() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_grup_chat');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_grup_chat')->withDefault();
   	}
   	public function member() {
         return $this->belongsToMany('App\Models\User', 'tbl_grup_chat_member', 'id_grup_chat', 'id_user')

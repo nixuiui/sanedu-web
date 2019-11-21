@@ -11,6 +11,6 @@ class PasswordReset extends Model
 
     //RELATION table
   	public function user() {
-  		return $this->belongsTo('App\Model\User', 'email');
+  		return $this->belongsTo('App\Model\User', 'email')->withDefault();
   	}
 }

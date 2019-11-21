@@ -26,7 +26,7 @@ class SimulasiJadwalOnline extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
   	public function pesertaPivot() {
   		return $this->hasMany('App\Models\SimulasiPeserta', 'id_jadwal_online');

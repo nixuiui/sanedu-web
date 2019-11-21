@@ -67,7 +67,7 @@ class SetPustaka extends Model {
 
     //RELATION table
   	public function kategori() {
-  		return $this->belongsTo('App\Models\SetKategori', 'id_kategori');
+  		return $this->belongsTo('App\Models\SetKategori', 'id_kategori')->withDefault();
   	}
   	public function user() {
   		return $this->hasMany('App\Models\User', 'id_role');

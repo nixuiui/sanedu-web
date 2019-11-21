@@ -23,12 +23,12 @@ class AttemptCorrection extends Model {
 
     //RELATION table
   	public function soal() {
-        return $this->belongsTo('App\Models\Soal', 'id_soal');
+        return $this->belongsTo('App\Models\Soal', 'id_soal')->withDefault();
     }
   	public function attempt() {
-        return $this->belongsTo('App\Models\Attempt', 'id_attempt');
+        return $this->belongsTo('App\Models\Attempt', 'id_attempt')->withDefault();
     }
     public function attemptGroup() {
-        return $this->belongsTo('App\Models\AttemptGroup', 'id_attempt_group');
+        return $this->belongsTo('App\Models\AttemptGroup', 'id_attempt_group')->withDefault();
     }
 }

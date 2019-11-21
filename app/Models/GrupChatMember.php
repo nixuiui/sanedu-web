@@ -22,12 +22,12 @@ class GrupChatMember extends Model {
 
     //RELATION table
   	public function kategoriGrupChat() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_grup_chat');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori_grup_chat')->withDefault();
   	}
   	public function grupChat() {
-  		return $this->belongsTo('App\Models\GrupChat', 'id_grup_chat');
+  		return $this->belongsTo('App\Models\GrupChat', 'id_grup_chat')->withDefault();
   	}
   	public function user() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
 }

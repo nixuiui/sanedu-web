@@ -23,10 +23,10 @@ class Informasi extends Model {
 
     //RELATION table
     public function kategori() {
-        return $this->belongsTo('App\Models\SetPustaka', 'id_kategori');
+        return $this->belongsTo('App\Models\SetPustaka', 'id_kategori')->withDefault();
     }
     public function author() {
-        return $this->belongsTo('App\Models\User', 'id_author');
+        return $this->belongsTo('App\Models\User', 'id_author')->withDefault();
     }
     public function getFotoUrlAttribute() {
         return env('APP_STORAGE_URL') . $this->foto;

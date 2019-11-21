@@ -21,7 +21,7 @@ class SimulasiKunciJawaban extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
     public function getJawabanAttribute($value) {
         return strtoupper($value);

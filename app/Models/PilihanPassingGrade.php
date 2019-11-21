@@ -22,21 +22,21 @@ class PilihanPassingGrade extends Model {
 
     //RELATION table
     public function attempt() {
-        return $this->belongsTo('App\Models\Attempt', 'id_attempt');
+        return $this->belongsTo('App\Models\Attempt', 'id_attempt')->withDefault();
     }
     public function ujian() {
-        return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+        return $this->belongsTo('App\Models\Ujian', 'id_ujian')->withDefault();
     }
     public function pilihan1() {
-        return $this->belongsTo('App\Models\Jurusan', 'pilihan_1');
+        return $this->belongsTo('App\Models\Jurusan', 'pilihan_1')->withDefault();
     }
     public function pilihan2() {
-        return $this->belongsTo('App\Models\Jurusan', 'pilihan_2');
+        return $this->belongsTo('App\Models\Jurusan', 'pilihan_2')->withDefault();
     }
     public function pilihan3() {
-        return $this->belongsTo('App\Models\Jurusan', 'pilihan_3');
+        return $this->belongsTo('App\Models\Jurusan', 'pilihan_3')->withDefault();
     }
     public function jurusan() {
-        return $this->belongsTo('App\Models\SetPustaka', 'id_ujursan');
+        return $this->belongsTo('App\Models\SetPustaka', 'id_ujursan')->withDefault();
     }
 }

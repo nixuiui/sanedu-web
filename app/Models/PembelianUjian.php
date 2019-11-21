@@ -22,9 +22,9 @@ class PembelianUjian extends Model {
 
     //RELATION table
   	public function ujian() {
-  		return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+  		return $this->belongsTo('App\Models\Ujian', 'id_ujian')->withDefault();
   	}
   	public function user() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
 }

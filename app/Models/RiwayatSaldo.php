@@ -20,12 +20,12 @@ class RiwayatSaldo extends Model {
 
     //RELATION table
   	public function kategori() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_kategori')->withDefault();
   	}
   	public function ujian() {
-  		return $this->belongsTo('App\Models\Ujian', 'id_object');
+  		return $this->belongsTo('App\Models\Ujian', 'id_object')->withDefault();
   	}
   	public function user() {
-  		return $this->belongsTo('App\Models\User', 'id_user');
+  		return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
   	}
 }

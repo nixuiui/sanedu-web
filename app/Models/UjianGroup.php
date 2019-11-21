@@ -26,7 +26,7 @@ class UjianGroup extends Model {
 
     //RELATION table
   	public function ujian() {
-  		return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+  		return $this->belongsTo('App\Models\Ujian', 'id_ujian')->withDefault();
   	}
   	public function soal() {
   		return $this->hasMany('App\Models\Soal', 'id_ujian_group');

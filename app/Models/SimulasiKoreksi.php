@@ -21,10 +21,10 @@ class SimulasiKoreksi extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
   	public function soal() {
-  		return $this->belongsTo('App\Models\SimulasiKunciJawaban', 'id_soal');
+  		return $this->belongsTo('App\Models\SimulasiKunciJawaban', 'id_soal')->withDefault();
   	}
     public function getJawabanAttribute($value) {
         return strtoupper($value);

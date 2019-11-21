@@ -19,6 +19,6 @@ class Kelurahan extends Model
 
     //RELATION table
   	public function kecamatan() {
-  		return $this->belongsTo('App\Models\Kecamatan', 'id_kecamatan');
+  		return $this->belongsTo('App\Models\Kecamatan', 'id_kecamatan')->withDefault();
   	}
 }

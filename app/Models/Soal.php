@@ -26,9 +26,9 @@ class Soal extends Model {
 
     //RELATION table
   	public function ujian() {
-        return $this->belongsTo('App\Models\Ujian', 'id_ujian');
+        return $this->belongsTo('App\Models\Ujian', 'id_ujian')->withDefault();
     }
     public function ujianGroup() {
-        return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group');
+        return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group')->withDefault();
     }
 }

@@ -26,12 +26,12 @@ class AttemptGroup extends Model {
 
     //RELATION table
   	public function attempt() {
-        return $this->belongsTo('App\Models\Attempt', 'id_attempt');
+        return $this->belongsTo('App\Models\Attempt', 'id_attempt')->withDefault();
     }
     public function correction() {
         return $this->hasMany('App\Models\AttemptCorrection', 'id_attempt_group');
     }
     public function ujianGroup() {
-      return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group');
+      return $this->belongsTo('App\Models\UjianGroup', 'id_ujian_group')->withDefault();
   }
 }

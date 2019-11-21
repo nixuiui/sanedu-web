@@ -25,7 +25,7 @@ class Kota extends Model
         return $this->hasMany('App\Models\User', 'id_kota');
     }
   	public function provinsi() {
-  		return $this->belongsTo('App\Models\Provinsi', 'id_provinsi');
+  		return $this->belongsTo('App\Models\Provinsi', 'id_provinsi')->withDefault();
   	}
 
     //SCOPE

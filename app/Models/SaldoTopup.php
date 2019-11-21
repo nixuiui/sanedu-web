@@ -21,11 +21,11 @@ class SaldoTopup extends Model {
 
     //RELATION table
     public function metodePembayaran() {
-        return $this->belongsTo('App\Models\MetodePembayaran', 'id_metode_pembayaran');
+        return $this->belongsTo('App\Models\MetodePembayaran', 'id_metode_pembayaran')->withDefault();
     }
 
     public function user() {
-        return $this->belongsTo('App\Models\User', 'id_user');
+        return $this->belongsTo('App\Models\User', 'id_user')->withDefault();
     }
 
 }

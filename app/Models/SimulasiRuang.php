@@ -26,7 +26,7 @@ class SimulasiRuang extends Model {
 
     //RELATION table
   	public function simulasi() {
-  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi');
+  		return $this->belongsTo('App\Models\Simulasi', 'id_simulasi')->withDefault();
   	}
   	public function pengawas() {
   		return $this->hasMany('App\Models\SimulasiPengawas', 'id_ruang');
@@ -35,7 +35,7 @@ class SimulasiRuang extends Model {
   		return $this->hasMany('App\Models\SimulasiPeserta', 'id_ruang');
   	}
   	public function ruangMapel() {
-  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel');
+  		return $this->belongsTo('App\Models\SetPustaka', 'id_mapel')->withDefault();
   	}
   	public function peserta() {
   		return $this->belongsToMany('App\Models\User', 'tbl_simulasi_peserta', 'id_ruang', 'id_user')
